@@ -2,6 +2,42 @@
 
 ## 2025-12-31
 
+### Added: Prismic CMS Integration
+
+**Change:** Added Prismic headless CMS integration for content management.
+
+**Configuration:**
+- Repository: `silosite` (https://silosite.prismic.io/)
+- Client file: `src/prismicio.js`
+
+**Packages installed:**
+- `@prismicio/client`
+- `@prismicio/react`
+
+**Files added:**
+- `src/prismicio.js` - Prismic client configuration
+
+**Details:**
+- Created Prismic client with repository name `silosite`
+- Ready to create content types (Blog Posts, Services, Jobs, Case Studies) in Prismic dashboard
+- Components can now fetch content using `client.getAllByType()` and `client.getByUID()`
+
+---
+
+### Changed: Git Repository
+
+**Change:** Switched Git remote from developer's repository to owner's repository.
+
+**Previous remote:** `https://github.com/AbdulRehman938/SiloUpdated.git`
+**New remote:** `https://github.com/willjcarter97/silo.git`
+
+**Details:**
+- Removed previous developer's Git remote
+- Added new remote pointing to William Carter's GitHub account
+- Pushed all existing code to new repository
+
+---
+
 ### Added: Social Media Links to Footer
 
 **Change:** Added functional social media links to the footer component across all pages.

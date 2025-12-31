@@ -57,3 +57,26 @@ The footer component (`src/components/Common/Footer.jsx`) is shared across all p
 - **LinkedIn**: [The Silo Creative](https://www.linkedin.com/company/the-silo-creative/)
 
 All social links open in new tabs with secure `rel="noopener noreferrer"` attributes.
+
+## Prismic CMS Integration
+
+This project is connected to Prismic for headless content management.
+
+### Configuration
+- **Repository**: `silosite` (https://silosite.prismic.io/)
+- **Client file**: `src/prismicio.js`
+
+### Packages
+- `@prismicio/client` - API client for fetching content
+- `@prismicio/react` - React components and hooks
+
+### Usage
+```javascript
+import { client } from './prismicio';
+
+// Fetch all documents of a type
+const posts = await client.getAllByType('blog_post');
+
+// Fetch a single document by UID
+const page = await client.getByUID('page', 'about');
+```
