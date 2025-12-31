@@ -130,7 +130,7 @@ export default function ContentAndDone() {
           <article className="border border-black border-x-0 border-b-0 p-8 pl-0 flex flex-col gap-4 mb-5">
             <div className="w-full h-[250px] md:h-[300px] bg-gray-100 overflow-hidden">
               <img
-                src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765879825/2_jegbj9.png"
+                src="https://images.prismic.io/silosite/aVUgQXNYClf9otrH_v1765879825_2_jegbj9.png?auto=format,compress"
                 alt="img1"
                 className="w-full h-full object-cover"
               />
@@ -148,7 +148,7 @@ export default function ContentAndDone() {
           <article className="border border-black p-8 pr-0 border-r-0 border-b-0 flex flex-col gap-4">
             <div className="w-full h-[250px] md:h-[300px] bg-gray-100 overflow-hidden">
               <img
-                src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765879826/3_r08wlm.png"
+                src="https://images.prismic.io/silosite/aVUgQ3NYClf9otrJ_v1765879826_3_r08wlm.png?auto=format,compress"
                 alt="img2"
                 className="w-full h-full object-cover"
               />
@@ -166,7 +166,7 @@ export default function ContentAndDone() {
           <article className="border border-black p-8 pl-0 border-x-0 border-b-0 flex flex-col gap-4">
             <div className="w-full h-[250px] md:h-[280px] bg-gray-100 overflow-hidden">
               <img
-                src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765879825/Placeholder_Image_zxnykm.png"
+                src="https://images.prismic.io/silosite/aVUgQnNYClf9otrI_v1765879825_Placeholder_Image_zxnykm.png?auto=format,compress"
                 alt="img3"
                 className="w-full h-full object-cover"
               />
@@ -184,7 +184,7 @@ export default function ContentAndDone() {
           <article className="border border-black p-8 pr-0 border-r-0 border-b-0 flex flex-col gap-4">
             <div className="w-full h-[250px] md:h-[280px] bg-gray-100 overflow-hidden">
               <img
-                src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765879826/Placeholder_Image1_me1r2y.png"
+                src="https://images.prismic.io/silosite/aVUgRHNYClf9otrK_v1765879826_Placeholder_Image1_me1r2y.png?auto=format,compress"
                 alt="img4"
                 className="w-full h-full object-cover"
               />
@@ -218,7 +218,7 @@ export default function ContentAndDone() {
             >
               <div className="w-1/3 aspect-[4/3] flex items-center justify-center overflow-hidden transform transition-transform duration-600 ease-in-out lg:group-hover:-translate-x-0">
                 <img
-                  src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765882727/Untitled_Project_smo9qt.jpg"
+                  src="https://images.prismic.io/silosite/aVUgRnNYClf9otrM_v1765882727_Untitled_Project_smo9qt.jpg?auto=format,compress"
                   alt="smoothie"
                   className="max-w-full max-h-full object-contain"
                   loading="lazy"
@@ -227,7 +227,7 @@ export default function ContentAndDone() {
               {/* Hover image placeholder (absolutely positioned so it doesn't shift layout) */}
               {/* <div className="absolute left-[35%] top-0 -translate-x-full w-1/6 h-full bg-white overflow-hidden p-0 m-0 border-0 box-border opacity-0 scale-90 rotate-6 transition-all duration-600 ease-in-out z-10 pointer-events-none lg:group-hover:opacity-100 lg:group-hover:scale-100 lg:group-hover:-translate-x-32 lg:group-hover:rotate-0 lg:group-hover:pointer-events-auto">
                 <img
-                  src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765883977/Rectangle_34_pbf4gh.png"
+                  src="https://images.prismic.io/silosite/aVUgR3NYClf9otrN_v1765883977_Rectangle_34_pbf4gh.png?auto=format,compress"
                   alt="smoothie"
                   className="absolute inset-0 w-full h-full object-cover p-0 m-0 border-0 block" // absolutely fill parent, no gap
                   loading="lazy"
@@ -325,7 +325,7 @@ export default function ContentAndDone() {
               {/* Image second */}
               <div className="w-[60%] mx-auto md:w-1/2 md:-top-20 aspect-[4/3] top-10 relative flex items-center justify-center overflow-hidden">
                 <img
-                  src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765882727/Untitled_Project_smo9qt.jpg"
+                  src="https://images.prismic.io/silosite/aVUgRnNYClf9otrM_v1765882727_Untitled_Project_smo9qt.jpg?auto=format,compress"
                   alt="smoothie"
                   className="max-w-full max-h-full object-contain"
                   loading="lazy"
@@ -333,7 +333,7 @@ export default function ContentAndDone() {
                 {/* Hover image placeholder */}
                 {/* <div className="hidden md:block absolute -right-80 top-0 w-[70%] h-full bg-white opacity-0 scale-90 rotate-6 transition-all duration-600 ease-in-out z-10 pointer-events-none md:group-hover:opacity-100 md:group-hover:scale-100 md:group-hover:rotate-0 md:group-hover:pointer-events-auto overflow-hidden">
                   <img
-                    src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765883977/Rectangle_34_pbf4gh.png"
+                    src="https://images.prismic.io/silosite/aVUgR3NYClf9otrN_v1765883977_Rectangle_34_pbf4gh.png?auto=format,compress"
                     alt="smoothie"
                     className="w-full h-[calc(100%+32px)] -translate-y-4 object-cover block"
                     loading="lazy"
@@ -351,7 +351,7 @@ export default function ContentAndDone() {
             >
               <div className="w-1/3 aspect-[4/3] flex items-center justify-center overflow-hidden transform transition-transform duration-600 ease-in-out lg:group-hover:-translate-x-0">
                 <img
-                  src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765884632/Tomoko-e10fd11f_2_jto3ax.png"
+                  src="https://images.prismic.io/silosite/aVUgSXNYClf9otrP_v1765884632_Tomoko-e10fd11f_2_jto3ax.png?auto=format,compress"
                   alt="smoothie"
                   className="max-w-full max-h-full object-contain"
                   loading="lazy"
@@ -360,7 +360,7 @@ export default function ContentAndDone() {
               {/* Hover image placeholder (absolutely positioned so it doesn't shift layout) */}
               {/* <div className="absolute left-[35%] top-0 -translate-x-full w-1/6 h-full bg-white overflow-hidden p-0 m-0 border-0 box-border opacity-0 scale-90 rotate-6 transition-all duration-600 ease-in-out z-10 pointer-events-none lg:group-hover:opacity-100 lg:group-hover:scale-100 lg:group-hover:-translate-x-32 lg:group-hover:rotate-0 lg:group-hover:pointer-events-auto">
                 <img
-                  src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765884763/Rectangle_29_il7hhb.png"
+                  src="https://images.prismic.io/silosite/aVUgSnNYClf9otrQ_v1765884763_Rectangle_29_il7hhb.png?auto=format,compress"
                   alt="smoothie"
                   className="absolute inset-0 w-full h-full object-cover p-0 m-0 border-0 block" // absolutely fill parent, no gap
                   loading="lazy"
@@ -474,7 +474,7 @@ export default function ContentAndDone() {
               {/* Image second */}
               <div className="w-full md:w-1/2 aspect-[4/3] top-10 md:-top-20 relative flex items-center justify-center overflow-hidden">
                 <img
-                  src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765884632/Tomoko-e10fd11f_2_jto3ax.png"
+                  src="https://images.prismic.io/silosite/aVUgSXNYClf9otrP_v1765884632_Tomoko-e10fd11f_2_jto3ax.png?auto=format,compress"
                   alt="smoothie"
                   className="max-w-full max-h-full object-contain"
                   loading="lazy"
@@ -482,7 +482,7 @@ export default function ContentAndDone() {
                 {/* Hover image placeholder */}
                 {/* <div className="hidden md:block absolute -right-80 top-0 w-[70%] h-full bg-white opacity-0 scale-90 rotate-6 transition-all duration-600 ease-in-out z-10 pointer-events-none md:group-hover:opacity-100 md:group-hover:scale-100 md:group-hover:rotate-0 md:group-hover:pointer-events-auto overflow-hidden">
                   <img
-                    src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765884763/Rectangle_29_il7hhb.png"
+                    src="https://images.prismic.io/silosite/aVUgSnNYClf9otrQ_v1765884763_Rectangle_29_il7hhb.png?auto=format,compress"
                     alt="smoothie"
                     className="w-full h-[calc(100%+32px)] -translate-y-4 object-cover block"
                     loading="lazy"
@@ -500,7 +500,7 @@ export default function ContentAndDone() {
             >
               <div className="w-1/3 aspect-[4/3] flex items-center justify-center overflow-hidden transform transition-transform duration-600 ease-in-out lg:group-hover:-translate-x-0">
                 <img
-                  src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765884632/image_5_ibtcoo.png"
+                  src="https://images.prismic.io/silosite/aVUgSHNYClf9otrO_v1765884632_image_5_ibtcoo.png?auto=format,compress"
                   alt="smoothie"
                   className="max-w-full max-h-full object-contain"
                   loading="lazy"
@@ -509,7 +509,7 @@ export default function ContentAndDone() {
               {/* Hover image placeholder (absolutely positioned so it doesn't shift layout) */}
               {/* <div className="absolute left-[35%] top-0 -translate-x-full w-1/6 h-full bg-white overflow-hidden p-0 m-0 border-0 box-border opacity-0 scale-90 rotate-6 transition-all duration-600 ease-in-out z-10 pointer-events-none lg:group-hover:opacity-100 lg:group-hover:scale-100 lg:group-hover:-translate-x-32 lg:group-hover:rotate-0 lg:group-hover:pointer-events-auto">
                 <img
-                  src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765885427/Rectangle_33_n4bq46.png"
+                  src="https://images.prismic.io/silosite/aVUgS3NYClf9otrR_v1765885427_Rectangle_33_n4bq46.png?auto=format,compress"
                   alt="smoothie"
                   className="absolute inset-0 w-full h-full object-cover p-0 m-0 border-0 block" // absolutely fill parent, no gap
                   loading="lazy"
@@ -612,7 +612,7 @@ export default function ContentAndDone() {
               {/* Image second */}
               <div className="w-full md:w-1/2 aspect-[4/3] top-10 md:-top-20 relative flex items-center justify-center overflow-hidden">
                 <img
-                  src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765884632/image_5_ibtcoo.png"
+                  src="https://images.prismic.io/silosite/aVUgSHNYClf9otrO_v1765884632_image_5_ibtcoo.png?auto=format,compress"
                   alt="smoothie"
                   className="max-w-full max-h-full object-contain"
                   loading="lazy"
@@ -620,7 +620,7 @@ export default function ContentAndDone() {
                 {/* Hover image placeholder */}
                 {/* <div className="hidden md:block absolute -right-80 top-0 w-[70%] h-full bg-white opacity-0 scale-90 rotate-6 transition-all duration-600 ease-in-out z-10 pointer-events-none md:group-hover:opacity-100 md:group-hover:scale-100 md:group-hover:rotate-0 md:group-hover:pointer-events-auto overflow-hidden">
                   <img
-                    src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765885427/Rectangle_33_n4bq46.png"
+                    src="https://images.prismic.io/silosite/aVUgS3NYClf9otrR_v1765885427_Rectangle_33_n4bq46.png?auto=format,compress"
                     alt="smoothie"
                     className="w-full h-[calc(100%+32px)] -translate-y-4 object-cover block"
                     loading="lazy"
@@ -658,7 +658,7 @@ export default function ContentAndDone() {
           <div className="border border-black border-b-0 border-x-0 p-0 py-5">
             <div className="w-full h-[250px] bg-gray-100 mb-4">
               <img
-                src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765879825/2_jegbj9.png"
+                src="https://images.prismic.io/silosite/aVUgQXNYClf9otrH_v1765879825_2_jegbj9.png?auto=format,compress"
                 alt="img1"
                 className="w-full h-full object-cover"
               />
@@ -676,7 +676,7 @@ export default function ContentAndDone() {
           <div className="border border-black border-x-0 py-5 border-b-0">
             <div className="w-full h-[250px] bg-gray-100 mb-4">
               <img
-                src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765879826/3_r08wlm.png"
+                src="https://images.prismic.io/silosite/aVUgQ3NYClf9otrJ_v1765879826_3_r08wlm.png?auto=format,compress"
                 alt="img2"
                 className="w-full h-full object-cover"
               />
@@ -694,7 +694,7 @@ export default function ContentAndDone() {
           <div className="border border-black border-x-0 py-5 border-b-0">
             <div className="w-full h-[250px] bg-gray-100 mb-4">
               <img
-                src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765879825/Placeholder_Image_zxnykm.png"
+                src="https://images.prismic.io/silosite/aVUgQnNYClf9otrI_v1765879825_Placeholder_Image_zxnykm.png?auto=format,compress"
                 alt="img3"
                 className="w-full h-full object-cover"
               />
@@ -712,7 +712,7 @@ export default function ContentAndDone() {
           <div className="border border-black border-x-0 py-5 border-b-0">
             <div className="w-full h-[250px] bg-gray-100 mb-4">
               <img
-                src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765879826/Placeholder_Image1_me1r2y.png"
+                src="https://images.prismic.io/silosite/aVUgRHNYClf9otrK_v1765879826_Placeholder_Image1_me1r2y.png?auto=format,compress"
                 alt="img4"
                 className="w-full h-full object-cover"
               />
@@ -754,7 +754,7 @@ export default function ContentAndDone() {
             >
               <div className="w-full aspect-[4/3] mb-0 flex items-center justify-center overflow-hidden">
                 <img
-                  src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765882727/Untitled_Project_smo9qt.jpg  "
+                  src="https://images.prismic.io/silosite/aVUgRnNYClf9otrM_v1765882727_Untitled_Project_smo9qt.jpg?auto=format,compress  "
                   alt="basement approved"
                   className="max-w-full max-h-full object-contain"
                   loading="lazy"
@@ -811,7 +811,7 @@ export default function ContentAndDone() {
             >
               <div className="w-full aspect-[4/3] mb-0 flex items-center justify-center overflow-hidden">
                 <img
-                  src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765884632/Tomoko-e10fd11f_2_jto3ax.png"
+                  src="https://images.prismic.io/silosite/aVUgSXNYClf9otrP_v1765884632_Tomoko-e10fd11f_2_jto3ax.png?auto=format,compress"
                   alt="lumin solar"
                   className="max-w-full max-h-full object-contain"
                   loading="lazy"
@@ -878,7 +878,7 @@ export default function ContentAndDone() {
             >
               <div className="w-full aspect-[4/3] flex items-center justify-center overflow-hidden">
                 <img
-                  src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765884632/image_5_ibtcoo.png"
+                  src="https://images.prismic.io/silosite/aVUgSHNYClf9otrO_v1765884632_image_5_ibtcoo.png?auto=format,compress"
                   alt="smart stats"
                   className="max-w-full max-h-full object-contain"
                   loading="lazy"

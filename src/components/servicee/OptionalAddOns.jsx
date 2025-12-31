@@ -11,7 +11,7 @@ const OptionalAddOns = () => {
           <div className="md:pr-8 md:border-r md:border-black py-10 border-b-black border-b">
             <div className="bg-white w-full h-60 mb-6 flex overflow-hidden items-start justify-center text-black">
               <img
-                src="https://res.cloudinary.com/di9tb45rl/image/upload/v1762717268/option-service1_oiwmo4.png"
+                src="https://images.prismic.io/silosite/aVUgCHNYClf9otq4_v1762717268_option-service1_oiwmo4.png?auto=format,compress"
                 alt="first"
                 className="object-cover object-top w-full h-full"
                 loading="lazy"
@@ -50,7 +50,7 @@ const OptionalAddOns = () => {
           <div className="md:px-8 md:border-r md:border-black py-10 border-b-black border-b">
             <div className="bg-white w-full h-60 mb-6 flex items-center justify-center text-black">
               <img
-                src="https://res.cloudinary.com/di9tb45rl/image/upload/v1762770096/option-service2_k1qegk.png"
+                src="https://images.prismic.io/silosite/aVUgNnNYClf9otrC_v1762770096_option-service2_k1qegk.png?auto=format,compress"
                 alt="second"
                 className="object-cover object-xcenter w-full h-full"
                 loading="lazy"
@@ -93,7 +93,7 @@ const OptionalAddOns = () => {
             <div className="w-full md:w-[85%] lg:w-full">
               <div className="bg-white w-full h-60 mb-6 flex items-center justify-center text-black">
                 <img
-                  src="https://res.cloudinary.com/di9tb45rl/image/upload/v1762717273/option-service3_j0um8a.png"
+                  src="https://images.prismic.io/silosite/aVUgC3NYClf9otq6_v1762717273_option-service3_j0um8a.png?auto=format,compress"
                   alt="third"
                   className="object-cover object-xcenter w-full h-full"
                   loading="lazy"

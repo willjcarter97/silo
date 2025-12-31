@@ -57,7 +57,7 @@ export default function MeetTheCreators() {
   const blogPost = {
     id: 1,
     image:
-      "https://res.cloudinary.com/di9tb45rl/image/upload/v1765960191/1_rr3wzk.png",
+      "https://images.prismic.io/silosite/aVUgbXNYClf9otrl_v1765960191_1_rr3wzk.png?auto=format,compress",
     category: "UGC",
     readTime: "5 min read",
     title: "Why 2025 Is the Year of Interactive Brand Design",
@@ -66,7 +66,7 @@ export default function MeetTheCreators() {
     author: "Ruby Turbott",
     publishDate: "12 Sept 2025",
     featuredImage:
-      "https://res.cloudinary.com/di9tb45rl/image/upload/v1765960198/Placeholder_Image_kwdrqm.png",
+      "https://images.prismic.io/silosite/aVUgcHNYClf9otrq_v1765960198_Placeholder_Image_kwdrqm.png?auto=format,compress",
   };
 
   usePageMeta(

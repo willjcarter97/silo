@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Migration artifacts
+*.bak
+migrated-images/
+PRISMIC_MIGRATION_GUIDE.txt

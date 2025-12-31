@@ -14,7 +14,7 @@ const VideoContent = ({ onClick, onClose }) => (
     {/* Video Section */}
     <div className="relative flex items-center justify-center w-[140px] sm:w-[180px] md:w-[150px] h-[200px]">
       <img
-        src="https://res.cloudinary.com/di9tb45rl/image/upload/v1763796208/image_7_hpf0du.png"
+        src="https://images.prismic.io/silosite/aVUgPXNYClf9otrD_v1763796208_image_7_hpf0du.png?auto=format,compress"
         alt="Video thumbnail"
         className="w-full h-full object-cover shadow-lg"
       />
@@ -227,7 +227,7 @@ const Hero = () => {
               {/* Large Image */}
               <div className="w-full">
                 <img
-                  src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765904058/1_re8aok.png"
+                  src="https://images.prismic.io/silosite/aVUgTXNYClf9otrT_v1765904058_1_re8aok.png?auto=format,compress"
                   alt="Silo team member showcasing brand identity"
                   className="w-full h-auto object-cover max-h-[500px] sm:max-h-[350px]"
                   loading="lazy"
@@ -237,7 +237,7 @@ const Hero = () => {
               <div className="flex flex-row items-center justify-center gap-3 w-full">
                 <div className="hidden sm:flex justify-center">
                   <img
-                    src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765904057/Placeholder_Image_ouj13b.png"
+                    src="https://images.prismic.io/silosite/aVUgTHNYClf9otrS_v1765904057_Placeholder_Image_ouj13b.png?auto=format,compress"
                     alt="The Silo brand representation"
                     className="w-32 h-auto object-cover"
                     loading="lazy"
@@ -251,7 +251,7 @@ const Hero = () => {
               {/* Large Image */}
               <div className="flex-1">
                 <img
-                  src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765904058/1_re8aok.png"
+                  src="https://images.prismic.io/silosite/aVUgTXNYClf9otrT_v1765904058_1_re8aok.png?auto=format,compress"
                   alt="Silo team member showcasing brand identity"
                   className="w-full h-auto object-cover max-h-[500px] lg:max-h-[550px]"
                   loading="lazy"
@@ -262,7 +262,7 @@ const Hero = () => {
                 {/* Small Image */}
                 <div>
                   <img
-                    src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765904057/Placeholder_Image_ouj13b.png"
+                    src="https://images.prismic.io/silosite/aVUgTHNYClf9otrS_v1765904057_Placeholder_Image_ouj13b.png?auto=format,compress"
                     alt="The Silo brand representation"
                     className="w-48 lg:w-56 h-auto object-cover max-h-[300px] lg:max-h-[350px]"
                     loading="lazy"
@@ -278,7 +278,7 @@ const Hero = () => {
               {/* Large Image */}
               <div className="flex-1 max-w-[438px]">
                 <img
-                  src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765904058/1_re8aok.png"
+                  src="https://images.prismic.io/silosite/aVUgTXNYClf9otrT_v1765904058_1_re8aok.png?auto=format,compress"
                   alt="Silo team member showcasing brand identity"
                   className="w-full h-auto object-cover max-h-[550px] 2xl:max-h-none"
                   loading="lazy"
@@ -289,7 +289,7 @@ const Hero = () => {
                 {/* Small Image */}
                 <div className="mb-4">
                   <img
-                    src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765904057/Placeholder_Image_ouj13b.png"
+                    src="https://images.prismic.io/silosite/aVUgTHNYClf9otrS_v1765904057_Placeholder_Image_ouj13b.png?auto=format,compress"
                     alt="The Silo brand representation"
                     className="w-64 2xl:w-[328px] h-auto object-cover xl:min-h-[200px] 2xl:max-h-none"
                     loading="lazy"

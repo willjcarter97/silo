@@ -41,7 +41,7 @@ const TomokaFineAndRare = () => {
       },
       column2: {
         image: {
-          src: "https://res.cloudinary.com/di9tb45rl/image/upload/v1765993902/5_t3nbsb.png",
+          src: "https://images.prismic.io/silosite/aVUggnNYClf9otr5_v1765993902_5_t3nbsb.png?auto=format,compress",
           alt: "Social media engagement metrics",
         },
         stat: {
@@ -59,13 +59,13 @@ const TomokaFineAndRare = () => {
             "Total following increased to 4,614, driven by stronger content performance and frequent touchpoints.",
         },
         image: {
-          src: "https://res.cloudinary.com/di9tb45rl/image/upload/v1765993910/6_g2tlvw.png",
+          src: "https://images.prismic.io/silosite/aVUgg3NYClf9otr6_v1765993910_6_g2tlvw.png?auto=format,compress",
           alt: "Brand awareness graph",
         },
       },
     },
     fullScreenImage: {
-      src: "https://res.cloudinary.com/di9tb45rl/image/upload/v1765993472/4_utt15m.png",
+      src: "https://images.prismic.io/silosite/aVUggXNYClf9otr4_v1765993472_4_utt15m.png?auto=format,compress",
       alt: "Brand refresh campaign showcase",
     },
     galleryWithText: {
@@ -77,16 +77,16 @@ const TomokaFineAndRare = () => {
       ],
       images: [
         {
-          src: "https://res.cloudinary.com/di9tb45rl/image/upload/v1765884632/Tomoko-e10fd11f_2_jto3ax.png",
+          src: "https://images.prismic.io/silosite/aVUgSXNYClf9otrP_v1765884632_Tomoko-e10fd11f_2_jto3ax.png?auto=format,compress",
           alt: "Logo variations",
           className: "w-auto h-[30rem] -translate-y-20 object-contain",
         },
         {
-          src: "https://res.cloudinary.com/di9tb45rl/image/upload/v1765993472/2_lsyq8s.png",
+          src: "https://images.prismic.io/silosite/aVUggHNYClf9otr3_v1765993472_2_lsyq8s.png?auto=format,compress",
           alt: "Brand guidelines",
         },
         {
-          src: "https://res.cloudinary.com/di9tb45rl/image/upload/v1765993466/3_tw2zun.png",
+          src: "https://images.prismic.io/silosite/aVUgf3NYClf9otr2_v1765993466_3_tw2zun.png?auto=format,compress",
           alt: "Marketing materials",
         },
       ],
@@ -99,11 +99,11 @@ const TomokaFineAndRare = () => {
       ],
       images: [
         {
-          src: "https://res.cloudinary.com/di9tb45rl/image/upload/v1765993948/7_uzdbwv.png",
+          src: "https://images.prismic.io/silosite/aVUghHNYClf9otr7_v1765993948_7_uzdbwv.png?auto=format,compress",
           alt: "Gallery 2 image 1",
         },
         {
-          src: "https://res.cloudinary.com/di9tb45rl/image/upload/v1765994099/8_hik3c9.png",
+          src: "https://images.prismic.io/silosite/aVUghXNYClf9otr8_v1765994099_8_hik3c9.png?auto=format,compress",
           alt: "Gallery 2 image 2",
         },
       ],
@@ -147,7 +147,7 @@ const TomokaFineAndRare = () => {
         leftWidthClass="md:w-[55%] lg:w-[58%] xl:w-[60%]"
         rightWidthClass="md:w-[42%] lg:w-[38%] xl:w-[36%]"
         mediaType="image"
-        mediaSrc="https://res.cloudinary.com/di9tb45rl/image/upload/v1765993464/1_fy5lxs.png"
+        mediaSrc="https://images.prismic.io/silosite/aVUgfnNYClf9otr1_v1765993464_1_fy5lxs.png?auto=format,compress"
         /*
         mediaType="video"
         mediaSrc="https://player.vimeo.com/video/76979871?autoplay=1&muted=1&background=0&controls=0"

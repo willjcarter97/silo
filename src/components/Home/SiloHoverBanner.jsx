@@ -3,7 +3,7 @@ import { useRef } from 'react';
 import { useSiloHoverPixi } from '../../hooks/useSiloHoverPixi';
 
 export const SiloHoverBanner = ({ 
-  svgSrc = 'https://res.cloudinary.com/di9tb45rl/image/upload/v1762717235/hero_hyl0xu.svg', 
+  svgSrc = 'https://silosite.cdn.prismic.io/silosite/aVUgoXNYClf9otsY_v1762717235_hero_hyl0xu.svg', 
   intensity = 40, 
   className = '' 
 }) => {

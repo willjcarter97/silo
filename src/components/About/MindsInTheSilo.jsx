@@ -23,7 +23,7 @@ const MindsInTheSilo = () => {
       description:
         "Ruby has ten years in marketing and built a finance-focused agency before moving into social. She builds strong client relationships. Outside work she does pilates, boxing, or plans her next trip.",
       imageUrl:
-        "https://res.cloudinary.com/di9tb45rl/image/upload/v1765909402/Placeholder_Image_akzzvs.png",
+        "https://images.prismic.io/silosite/aVUgUnNYClf9otrX_v1765909402_Placeholder_Image_akzzvs.png?auto=format,compress",
     },
     {
       id: "will-carter",
@@ -33,7 +33,7 @@ const MindsInTheSilo = () => {
       description:
         "Will designs clear, human-focused digital experiences that blend creativity with practical thinking. He turns ideas into simple products people enjoy. Outside work he plays padel.",
       imageUrl:
-        "https://res.cloudinary.com/di9tb45rl/image/upload/v1762717231/Carousal4_inzouv.png",
+        "https://images.prismic.io/silosite/aVUgoHNYClf9otsX_v1762717231_Carousal4_inzouv.png?auto=format,compress",
       // allow per-item override of image container heights (mobile / md / lg)
       imageHeightClass: "h-[26rem] md:h-[25rem] lg:h-[30rem]",
     },

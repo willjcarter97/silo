@@ -7,31 +7,31 @@ import "../../styles/scaling-overrides.css";
 
 const DEFAULT_LOGOS = [
   {
-    src: "https://res.cloudinary.com/di9tb45rl/image/upload/v1765878090/Vector_1_g3nkgs.png",
+    src: "https://images.prismic.io/silosite/aVUgP3NYClf9otrF_v1765878090_Vector_1_g3nkgs.png?auto=format,compress",
     alt: "logo1",
       style: { width: "50px", height: "auto" },
   },
   {
-    src: "https://res.cloudinary.com/di9tb45rl/image/upload/v1765878090/image_7_irnf5t.png",
+    src: "https://images.prismic.io/silosite/aVUgPnNYClf9otrE_v1765878090_image_7_irnf5t.png?auto=format,compress",
     alt: "logo2",
     style: { height: "30px"},
   },
   {
-    src: "https://res.cloudinary.com/di9tb45rl/image/upload/v1765878091/Layer_o43ajs.png",
+    src: "https://images.prismic.io/silosite/aVUgQHNYClf9otrG_v1765878091_Layer_o43ajs.png?auto=format,compress",
     alt: "logo3",
   },
   {
-    src: "https://res.cloudinary.com/di9tb45rl/image/upload/v1765882727/Untitled_Project_smo9qt.jpg",
+    src: "https://images.prismic.io/silosite/aVUgRnNYClf9otrM_v1765882727_Untitled_Project_smo9qt.jpg?auto=format,compress",
     alt: "logo4",
     style: { width: "80px", height: "auto" },
   },
   {
-    src: "https://res.cloudinary.com/di9tb45rl/image/upload/v1765884632/Tomoko-e10fd11f_2_jto3ax.png",
+    src: "https://images.prismic.io/silosite/aVUgSXNYClf9otrP_v1765884632_Tomoko-e10fd11f_2_jto3ax.png?auto=format,compress",
     alt: "logo5",
     style: { width: "90px", height: "auto" },
   },
   {
-    src: "https://res.cloudinary.com/di9tb45rl/image/upload/v1765884632/image_5_ibtcoo.png",
+    src: "https://images.prismic.io/silosite/aVUgSHNYClf9otrO_v1765884632_image_5_ibtcoo.png?auto=format,compress",
     alt: "logo6",
     style: { width: "100px", height: "auto" },
   },
@@ -44,7 +44,7 @@ export default function Hero() {
       {/* Full screen hero section - using min-h to prevent overlap on smaller screens */}
       <div className="w-full 2xl:min-h-[calc(100vh-80px)] xl:min-h-[calc(100vh-80px)] lg:h-auto md:min-h-[60vh] min-h-fit h-auto flex flex-col justify-between gap-6 md:gap-8">
         <SiloHoverBanner
-          svgSrc="https://res.cloudinary.com/di9tb45rl/image/upload/v1762717235/hero_hyl0xu.svg"
+          svgSrc="https://silosite.cdn.prismic.io/silosite/aVUgoXNYClf9otsY_v1762717235_hero_hyl0xu.svg"
           intensity={40}
           className="home-hero-text-float flex-shrink-0 mt-8 md:mt-12 lg:mt-16"
         />

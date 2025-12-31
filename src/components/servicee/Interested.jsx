@@ -11,7 +11,7 @@ const Interested = () => {
           <article className="border border-black border-x-0 border-b-0 md:p-8 p-0 py-5 pl-0 flex flex-col gap-4 mb-5">
             <div className="w-full h-[250px] md:h-[300px] bg-gray-100 overflow-hidden">
               <img
-                src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765879825/2_jegbj9.png"
+                src="https://images.prismic.io/silosite/aVUgQXNYClf9otrH_v1765879825_2_jegbj9.png?auto=format,compress"
                 alt="img1"
                 className="w-full h-full object-cover"
               />
@@ -59,7 +59,7 @@ const Interested = () => {
           <article className="border border-black  md:p-8 p-0 py-5 pr-0 border-l-0 md:border-l border-r-0 border-b-0 flex flex-col gap-4">
             <div className="w-full h-[250px] md:h-[300px] bg-gray-100 overflow-hidden">
               <img
-                src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765879826/3_r08wlm.png"
+                src="https://images.prismic.io/silosite/aVUgQ3NYClf9otrJ_v1765879826_3_r08wlm.png?auto=format,compress"
                 alt="img2"
                 className="w-full h-full object-cover"
               />
@@ -107,7 +107,7 @@ const Interested = () => {
           <article className="border border-black md:p-8 p-0 py-5 pl-0 border-x-0 border-b flex flex-col gap-4">
             <div className="w-full h-[250px] md:h-[280px] bg-gray-100 overflow-hidden">
               <img
-                src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765879825/Placeholder_Image_zxnykm.png"
+                src="https://images.prismic.io/silosite/aVUgQnNYClf9otrI_v1765879825_Placeholder_Image_zxnykm.png?auto=format,compress"
                 alt="img3"
                 className="w-full h-full object-cover"
               />
@@ -155,7 +155,7 @@ const Interested = () => {
           <article className="border border-black md:p-8 p-0 py-5 border-l-0 md:border-l pr-0 border-r-0 border-b flex flex-col gap-4">
             <div className="w-full h-[250px] md:h-[280px] bg-gray-100 overflow-hidden">
               <img
-                src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765879826/Placeholder_Image1_me1r2y.png"
+                src="https://images.prismic.io/silosite/aVUgRHNYClf9otrK_v1765879826_Placeholder_Image1_me1r2y.png?auto=format,compress"
                 alt="img4"
                 className="w-full h-full object-cover"
               />

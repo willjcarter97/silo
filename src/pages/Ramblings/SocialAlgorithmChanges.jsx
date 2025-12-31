@@ -58,7 +58,7 @@ export default function SocialAlgorithmChanges() {
   const blogPost = {
     id: 1,
     image:
-      "https://res.cloudinary.com/di9tb45rl/image/upload/v1765960191/1_rr3wzk.png",
+      "https://images.prismic.io/silosite/aVUgbXNYClf9otrl_v1765960191_1_rr3wzk.png?auto=format,compress",
     category: "UGC",
     readTime: "5 min read",
     title:
@@ -68,7 +68,7 @@ export default function SocialAlgorithmChanges() {
     author: "Ruby Turbett",
     publishDate: "12 Sept 2025",
     featuredImage:
-      "https://res.cloudinary.com/di9tb45rl/image/upload/v1765960193/3_prz7yp.png",
+      "https://images.prismic.io/silosite/aVUgbnNYClf9otrn_v1765960193_3_prz7yp.png?auto=format,compress",
   };
 
   usePageMeta(

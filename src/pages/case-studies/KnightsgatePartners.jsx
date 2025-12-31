@@ -47,7 +47,7 @@ const KnightsgatePartners = () => {
       },
       column2: {
         image: {
-          src: "https://res.cloudinary.com/di9tb45rl/image/upload/v1766007854/6_nrfwcx.png",
+          src: "https://images.prismic.io/silosite/aVUgmHNYClf9otsP_v1766007854_6_nrfwcx.png?auto=format,compress",
           alt: "Social media analytics dashboard",
         },
         stat: {
@@ -65,7 +65,7 @@ const KnightsgatePartners = () => {
             "A modern high clarity website improved overall user experience and first impression value.",
         },
         image: {
-          src: "https://res.cloudinary.com/di9tb45rl/image/upload/v1766007858/Placeholder_Image_qbtabg.png",
+          src: "https://images.prismic.io/silosite/aVUgmXNYClf9otsQ_v1766007858_Placeholder_Image_qbtabg.png?auto=format,compress",
           alt: "Revenue attribution chart",
         },
       },
@@ -82,15 +82,15 @@ const KnightsgatePartners = () => {
       ],
       images: [
         {
-          src: "https://res.cloudinary.com/di9tb45rl/image/upload/v1766007845/4_ab9ovu.png",
+          src: "https://images.prismic.io/silosite/aVUglnNYClf9otsN_v1766007845_4_ab9ovu.png?auto=format,compress",
           alt: "Instagram feed design",
         },
         {
-          src: "https://res.cloudinary.com/di9tb45rl/image/upload/v1766007850/5_oa8nyq.png",
+          src: "https://images.prismic.io/silosite/aVUgl3NYClf9otsO_v1766007850_5_oa8nyq.png?auto=format,compress",
           alt: "LinkedIn thought leadership",
         },
         {
-          src: "https://res.cloudinary.com/di9tb45rl/image/upload/v1766007863/Screenshot_2025-12-18_023949_y4iwph.png",
+          src: "https://images.prismic.io/silosite/aVUgmnNYClf9otsR_v1766007863_Screenshot_2025-12-18_023949_y4iwph.png?auto=format,compress",
           alt: "TikTok viral content",
         },
       ],
@@ -105,15 +105,15 @@ const KnightsgatePartners = () => {
     fourGallery: {
       images: [
         {
-          src: "https://res.cloudinary.com/di9tb45rl/image/upload/v1766007845/4_ab9ovu.png",
+          src: "https://images.prismic.io/silosite/aVUglnNYClf9otsN_v1766007845_4_ab9ovu.png?auto=format,compress",
           alt: "Instagram feed design",
         },
         {
-          src: "https://res.cloudinary.com/di9tb45rl/image/upload/v1766007850/5_oa8nyq.png",
+          src: "https://images.prismic.io/silosite/aVUgl3NYClf9otsO_v1766007850_5_oa8nyq.png?auto=format,compress",
           alt: "LinkedIn thought leadership",
         },
         {
-          src: "https://res.cloudinary.com/di9tb45rl/image/upload/v1766007863/Screenshot_2025-12-18_023949_y4iwph.png",
+          src: "https://images.prismic.io/silosite/aVUgmnNYClf9otsR_v1766007863_Screenshot_2025-12-18_023949_y4iwph.png?auto=format,compress",
           alt: "TikTok viral content",
         },
       ],
@@ -134,7 +134,7 @@ const KnightsgatePartners = () => {
           playsInline
         />
         <img
-          src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765966835/Placeholder_Lightbox_2_r3duh2.png"
+          src="https://images.prismic.io/silosite/aVUgeXNYClf9otrw_v1765966835_Placeholder_Lightbox_2_r3duh2.png?auto=format,compress"
           alt="img"
           className="absolute inset-0 w-full h-full object-cover"
           loading="lazy"

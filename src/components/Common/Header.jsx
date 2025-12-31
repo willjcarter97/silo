@@ -30,7 +30,7 @@ export default function Header() {
           {/* Left: Logo */}
           <Link to="/" className="flex items-center" aria-label="Home">
             <img
-              src="https://res.cloudinary.com/di9tb45rl/image/upload/v1762717235/hero_hyl0xu.svg"
+              src="https://silosite.cdn.prismic.io/silosite/aVUgoXNYClf9otsY_v1762717235_hero_hyl0xu.svg"
               alt="Silo"
               className="h-5 header2 w-auto md:h-9"
               loading="lazy"

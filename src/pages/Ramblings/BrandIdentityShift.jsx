@@ -58,7 +58,7 @@ export default function BrandIdentityShift() {
   const blogPost = {
     id: 1,
     image:
-      "https://res.cloudinary.com/di9tb45rl/image/upload/v1765960191/2_gtiyqf.png",
+      "https://images.prismic.io/silosite/aVUgbnNYClf9otrm_v1765960191_2_gtiyqf.png?auto=format,compress",
     category: "UGC",
     readTime: "5 min read",
     title:
@@ -68,7 +68,7 @@ export default function BrandIdentityShift() {
     author: "Ruby Turbott",
     publishDate: "12 Sept 2025",
     featuredImage:
-      "https://res.cloudinary.com/di9tb45rl/image/upload/v1765960191/2_gtiyqf.png",
+      "https://images.prismic.io/silosite/aVUgbnNYClf9otrm_v1765960191_2_gtiyqf.png?auto=format,compress",
   };
 
   usePageMeta(

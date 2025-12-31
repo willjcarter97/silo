@@ -80,3 +80,50 @@ const posts = await client.getAllByType('blog_post');
 // Fetch a single document by UID
 const page = await client.getByUID('page', 'about');
 ```
+
+## Image Migration (Cloudinary → Prismic)
+
+Scripts are available to migrate images from the old developer's Cloudinary account to Prismic's Media Library.
+
+### Migration Scripts
+
+- `scripts/migrate-images-to-prismic.mjs` - Downloads all Cloudinary images and prepares for Prismic upload
+- `scripts/replace-image-urls.mjs` - Replaces old URLs with new Prismic URLs in source files
+- `scripts/restore-from-backup.mjs` - Restores original files from .bak backups (reverses the migration)
+
+### Usage
+
+1. **Download all images:**
+   ```bash
+   node scripts/migrate-images-to-prismic.mjs
+   ```
+   This will:
+   - Scan the codebase for all Cloudinary URLs
+   - Download images to the `migrated-images/` folder
+   - Generate a mapping file at `scripts/image-url-mapping.json`
+
+2. **Upload to Prismic:**
+   - Go to https://silosite.prismic.io/media
+   - Drag and drop all images from `migrated-images/` folder
+   - For each image, copy the new Prismic URL
+
+3. **Update the mapping file:**
+   - Edit `scripts/image-url-mapping.json`
+   - Replace placeholder values with actual Prismic URLs
+
+4. **Replace URLs in codebase:**
+   ```bash
+   # Preview changes (no modifications)
+   node scripts/replace-image-urls.mjs --dry-run
+   
+   # Apply changes
+   node scripts/replace-image-urls.mjs
+   
+   # Apply with backup files
+   node scripts/replace-image-urls.mjs --backup
+   ```
+
+5. **Revert to Cloudinary (if needed):**
+   ```bash
+   node scripts/restore-from-backup.mjs
+   ```

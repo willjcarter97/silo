@@ -19,7 +19,7 @@ const WhyUGC = () => {
           {/* First Column - Zoom & Small Laptop Optimized */}
           <div className="w-full space-y-2 sm:space-y-2  md:space-y-2 px-2 sm:px-0 max-w-md mx-auto lg:max-w-none">
             <img 
-              src="https://res.cloudinary.com/di9tb45rl/image/upload/v1762717258/img1_f6eobz.png" 
+              src="https://images.prismic.io/silosite/aVUf93NYClf9otq2_v1762717258_img1_f6eobz.png?auto=format,compress" 
               alt="People trust people"
               className="w-full h-auto max-h-56 sm:max-h-56 md:max-h-64 lg:max-h-[450px] object-cover"
               loading="lazy"
@@ -53,7 +53,7 @@ const WhyUGC = () => {
           {/* Second Column - Zoom & Small Laptop Optimized */}
           <div className="w-full space-y-2 sm:space-y-2  md:space-y-2 lg:pt-0 xl:pt-8 2xl:pt-16 px-2 sm:px-0 max-w-md mx-auto  lg:max-w-none">
             <img 
-              src="https://res.cloudinary.com/di9tb45rl/image/upload/v1762717257/img2_nbestt.png" 
+              src="https://images.prismic.io/silosite/aVUf13NYClf9otqw_v1762717257_img2_nbestt.png?auto=format,compress" 
               alt="Strategy makes it scale"
               className="w-full h-auto max-h-48 sm:max-h-56 md:max-h-64 lg:max-h-[250px] object-cover"
               loading="lazy"
@@ -88,7 +88,7 @@ const WhyUGC = () => {
           {/* Third Column - Zoom & Small Laptop Optimized */}
           <div className="w-full space-y-2 sm:space-y-2  md:space-y-2 lg:pt-0 xl:pt-16 2xl:pt-32 px-2 sm:px-0 max-w-md mt-auto mx-auto lg:max-w-none md:col-span-2 lg:col-span-1">
             <img 
-              src="https://res.cloudinary.com/di9tb45rl/image/upload/v1762717244/img3_dwttap.png" 
+              src="https://images.prismic.io/silosite/aVUgpHNYClf9otsb_v1762717244_img3_dwttap.png?auto=format,compress" 
               alt="Brands need both"
               className="w-full h-auto max-h-48 sm:max-h-56 md:max-h-64 lg:max-h-[240px] object-cover"
               loading="lazy"

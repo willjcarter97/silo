@@ -4,10 +4,10 @@ export const jobsData = [
     id: '1',
     title: 'Smoothie Smash',
     category: 'Food & Drink',
-    image: 'https://res.cloudinary.com/di9tb45rl/image/upload/v1762717244/job1_f36aj9.png',
+    image: 'https://images.prismic.io/silosite/aVUgpXNYClf9otsc_v1762717244_job1_f36aj9.png?auto=format,compress',
     images: {
-      primary: 'https://res.cloudinary.com/di9tb45rl/image/upload/v1762717262/jobdetail1_tl5zvw.png',
-      secondary: 'https://res.cloudinary.com/di9tb45rl/image/upload/v1762717248/jobdetail2_sdgacx.png'
+      primary: 'https://images.prismic.io/silosite/aVUf-nNYClf9otq3_v1762717262_jobdetail1_tl5zvw.png?auto=format,compress',
+      secondary: 'https://images.prismic.io/silosite/aVUf83NYClf9otqz_v1762717248_jobdetail2_sdgacx.png?auto=format,compress'
     },
     client: {
       name: 'Smoothie Smash',
@@ -17,7 +17,7 @@ export const jobsData = [
       name: 'Ruby Turbett',
       title: 'Position, Silo',
       email: 'rt@thesilcreative.com',
-      avatar: 'https://res.cloudinary.com/di9tb45rl/image/upload/v1762717229/Carousal1_qyrnxy.png'
+      avatar: 'https://images.prismic.io/silosite/aVUgnnNYClf9otsV_v1762717229_Carousal1_qyrnxy.png?auto=format,compress'
     },
     requirements: {
       lookingFor: [
@@ -35,10 +35,10 @@ export const jobsData = [
     id: '2',
     title: 'Lumin Solar',
     category: 'Energy',
-    image: 'https://res.cloudinary.com/di9tb45rl/image/upload/v1762717244/job2_pjxf05.png',
+    image: 'https://images.prismic.io/silosite/aVUgpnNYClf9otsd_v1762717244_job2_pjxf05.png?auto=format,compress',
     images: {
-      primary: 'https://res.cloudinary.com/di9tb45rl/image/upload/v1762717262/jobdetail1_tl5zvw.png',
-      secondary: 'https://res.cloudinary.com/di9tb45rl/image/upload/v1762717248/jobdetail2_sdgacx.png'
+      primary: 'https://images.prismic.io/silosite/aVUf-nNYClf9otq3_v1762717262_jobdetail1_tl5zvw.png?auto=format,compress',
+      secondary: 'https://images.prismic.io/silosite/aVUf83NYClf9otqz_v1762717248_jobdetail2_sdgacx.png?auto=format,compress'
     },
     client: {
       name: 'Lumin Solar',
@@ -48,7 +48,7 @@ export const jobsData = [
       name: 'Ruby Turbett',
       title: 'Position, Silo',
       email: 'rt@thesilcreative.com',
-      avatar: 'https://res.cloudinary.com/di9tb45rl/image/upload/v1762717229/Carousal1_qyrnxy.png'
+      avatar: 'https://images.prismic.io/silosite/aVUgnnNYClf9otsV_v1762717229_Carousal1_qyrnxy.png?auto=format,compress'
     },
     requirements: {
       lookingFor: [
@@ -66,10 +66,10 @@ export const jobsData = [
     id: '3',
     title: 'Smart Stats',
     category: 'B2B',
-    image: 'https://res.cloudinary.com/di9tb45rl/image/upload/v1762717245/job3_akytl7.png',
+    image: 'https://images.prismic.io/silosite/aVUf8HNYClf9otqx_v1762717245_job3_akytl7.png?auto=format,compress',
     images: {
-      primary: 'https://res.cloudinary.com/di9tb45rl/image/upload/v1762717262/jobdetail1_tl5zvw.png',
-      secondary: 'https://res.cloudinary.com/di9tb45rl/image/upload/v1762717248/jobdetail2_sdgacx.png'
+      primary: 'https://images.prismic.io/silosite/aVUf-nNYClf9otq3_v1762717262_jobdetail1_tl5zvw.png?auto=format,compress',
+      secondary: 'https://images.prismic.io/silosite/aVUf83NYClf9otqz_v1762717248_jobdetail2_sdgacx.png?auto=format,compress'
     },
     client: {
       name: 'Smart Stats',
@@ -79,7 +79,7 @@ export const jobsData = [
       name: 'Ruby Turbett',
       title: 'Position, Silo',
       email: 'rt@thesilcreative.com',
-      avatar: 'https://res.cloudinary.com/di9tb45rl/image/upload/v1762717229/Carousal1_qyrnxy.png'
+      avatar: 'https://images.prismic.io/silosite/aVUgnnNYClf9otsV_v1762717229_Carousal1_qyrnxy.png?auto=format,compress'
     },
     requirements: {
       lookingFor: [
@@ -97,10 +97,10 @@ export const jobsData = [
     id: '4',
     title: 'Supofa',
     category: 'Food & Drink',
-    image: 'https://res.cloudinary.com/di9tb45rl/image/upload/v1762769561/job4_y0tfsv.png',
+    image: 'https://images.prismic.io/silosite/aVUgH3NYClf9otrB_v1762769561_job4_y0tfsv.png?auto=format,compress',
     images: {
-      primary: 'https://res.cloudinary.com/di9tb45rl/image/upload/v1762717262/jobdetail1_tl5zvw.png',
-      secondary: 'https://res.cloudinary.com/di9tb45rl/image/upload/v1762717248/jobdetail2_sdgacx.png'
+      primary: 'https://images.prismic.io/silosite/aVUf-nNYClf9otq3_v1762717262_jobdetail1_tl5zvw.png?auto=format,compress',
+      secondary: 'https://images.prismic.io/silosite/aVUf83NYClf9otqz_v1762717248_jobdetail2_sdgacx.png?auto=format,compress'
     },
     client: {
       name: 'Supofa',
@@ -110,7 +110,7 @@ export const jobsData = [
       name: 'Ruby Turbett',
       title: 'Position, Silo',
       email: 'rt@thesilcreative.com',
-      avatar: 'https://res.cloudinary.com/di9tb45rl/image/upload/v1762717229/Carousal1_qyrnxy.png'
+      avatar: 'https://images.prismic.io/silosite/aVUgnnNYClf9otsV_v1762717229_Carousal1_qyrnxy.png?auto=format,compress'
     },
     requirements: {
       lookingFor: [
@@ -128,10 +128,10 @@ export const jobsData = [
     id: '5',
     title: 'Royal Navy',
     category: 'B2B',
-    image: 'https://res.cloudinary.com/di9tb45rl/image/upload/v1762717248/job5_lviam7.png',
+    image: 'https://images.prismic.io/silosite/aVUf8XNYClf9otqy_v1762717248_job5_lviam7.png?auto=format,compress',
     images: {
-      primary: 'https://res.cloudinary.com/di9tb45rl/image/upload/v1762717262/jobdetail1_tl5zvw.png',
-      secondary: 'https://res.cloudinary.com/di9tb45rl/image/upload/v1762717248/jobdetail2_sdgacx.png'
+      primary: 'https://images.prismic.io/silosite/aVUf-nNYClf9otq3_v1762717262_jobdetail1_tl5zvw.png?auto=format,compress',
+      secondary: 'https://images.prismic.io/silosite/aVUf83NYClf9otqz_v1762717248_jobdetail2_sdgacx.png?auto=format,compress'
     },
     client: {
       name: 'Royal Navy',
@@ -141,7 +141,7 @@ export const jobsData = [
       name: 'Ruby Turbett',
       title: 'Position, Silo',
       email: 'rt@thesilcreative.com',
-      avatar: 'https://res.cloudinary.com/di9tb45rl/image/upload/v1762717229/Carousal1_qyrnxy.png'
+      avatar: 'https://images.prismic.io/silosite/aVUgnnNYClf9otsV_v1762717229_Carousal1_qyrnxy.png?auto=format,compress'
     },
     requirements: {
       lookingFor: [

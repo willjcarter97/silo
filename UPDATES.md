@@ -2,6 +2,62 @@
 
 ## 2025-12-31
 
+### Completed: Image Migration (Cloudinary → Prismic)
+
+**Change:** Migrated all site images from the old developer's Cloudinary account to Prismic's Media Library.
+
+**Summary:**
+- 194 Cloudinary URLs replaced with Prismic URLs
+- 34 source files updated
+- All images now hosted on `images.prismic.io/silosite/`
+
+**Files modified:**
+- `src/components/About/` - 6 files (Hero, MindsInTheSilo, Section2, ThingsWeBelieveIn, WhatSiloIs, WhyUGC)
+- `src/components/Common/` - 2 files (Footer, Header)
+- `src/components/Home/` - 5 files (ContentAndDone, Hero, Section, SiloHoverBanner, VideoAndWelcome)
+- `src/components/servicee/` - 2 files (Interested, OptionalAddOns)
+- `src/data/` - 4 files (blogDetailsData, blogPostsData, jobsData, servicesData)
+- `src/pages/case-studies/` - 6 files (all case study pages)
+- `src/pages/` - 3 files (CaseStudies, Contact, Contact2)
+- `src/pages/Ramblings/` - 5 files (all blog pages)
+- `scripts/` - 1 file (import-blog-posts.mjs)
+
+**Reversibility:**
+- Backup files (`.bak`) created for all modified files
+- Run `node scripts/restore-from-backup.mjs` to revert to Cloudinary URLs
+- URL mapping saved in `scripts/image-url-mapping.json`
+
+**Files added:**
+- `scripts/restore-from-backup.mjs` - Restores original files from .bak backups
+
+---
+
+### Added: Image Migration Scripts (Cloudinary → Prismic)
+
+**Change:** Created scripts to migrate all images from the old developer's Cloudinary account to Prismic's Media Library.
+
+**Problem:**
+- All site images (~199 URLs across 37 files) are hosted on Cloudinary under the old developer's account (`res.cloudinary.com/di9tb45rl/`)
+- Need to migrate ownership to Prismic for long-term control
+
+**Files added:**
+- `scripts/migrate-images-to-prismic.mjs` - Downloads all Cloudinary images and prepares for Prismic upload
+- `scripts/replace-image-urls.mjs` - Replaces old URLs with new Prismic URLs in source files
+
+**Usage:**
+1. Run `node scripts/migrate-images-to-prismic.mjs` to download all images
+2. Upload images to Prismic Media Library (https://silosite.prismic.io/media)
+3. Update `scripts/image-url-mapping.json` with new Prismic URLs
+4. Run `node scripts/replace-image-urls.mjs` to update all source files
+
+**Details:**
+- Scripts scan `src/` and `scripts/` directories for Cloudinary URLs
+- Images are downloaded to `migrated-images/` folder with clean filenames
+- Mapping file tracks old URL → new URL relationships
+- Replace script supports `--dry-run` and `--backup` options
+
+---
+
 ### Added: Prismic CMS Integration
 
 **Change:** Added Prismic headless CMS integration for content management.

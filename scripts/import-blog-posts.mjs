@@ -25,7 +25,7 @@ const blogPosts = [
     readTime: '5 min read',
     author: 'Ruby Turbett',
     publishDate: '2025-09-12',
-    featuredImage: 'https://res.cloudinary.com/di9tb45rl/image/upload/v1765960191/1_rr3wzk.png',
+    featuredImage: 'https://images.prismic.io/silosite/aVUgbXNYClf9otrl_v1765960191_1_rr3wzk.png?auto=format,compress',
     metaTitle: 'AI-Powered Content Creation: 2025 Guide for Brands',
     metaDescription: 'Discover how AI tools are transforming content creation in 2025. Learn how brands scale production, boost quality, and streamline social media workflows.',
     content: [
@@ -79,7 +79,7 @@ const blogPosts = [
     readTime: '5 min read',
     author: 'Ruby Turbett',
     publishDate: '2025-09-12',
-    featuredImage: 'https://res.cloudinary.com/di9tb45rl/image/upload/v1765960191/2_gtiyqf.png',
+    featuredImage: 'https://images.prismic.io/silosite/aVUgbnNYClf9otrm_v1765960191_2_gtiyqf.png?auto=format,compress',
     metaTitle: '2025 Brand Identity Trends: Motion Led Design',
     metaDescription: 'Explore 2025\'s biggest branding shift from minimalism to motion led design. Learn how dynamic identities help brands stand out across digital channels.',
     content: [
@@ -118,7 +118,7 @@ const blogPosts = [
     readTime: '5 min read',
     author: 'Ruby Turbett',
     publishDate: '2025-09-12',
-    featuredImage: 'https://res.cloudinary.com/di9tb45rl/image/upload/v1765960193/3_prz7yp.png',
+    featuredImage: 'https://images.prismic.io/silosite/aVUgbnNYClf9otrn_v1765960193_3_prz7yp.png?auto=format,compress',
     metaTitle: '2025 Social Media Algorithm Updates Explained',
     metaDescription: 'Stay ahead of the biggest TikTok, Meta and YouTube algorithm changes in 2025. Understand what\'s new and how to adapt your social strategy.',
     content: [
@@ -153,7 +153,7 @@ const blogPosts = [
     readTime: '5 min read',
     author: 'Ruby Turbett',
     publishDate: '2025-09-12',
-    featuredImage: 'https://res.cloudinary.com/di9tb45rl/image/upload/v1766219441/Placeholder_Image_voracu.png',
+    featuredImage: 'https://images.prismic.io/silosite/aVUgm3NYClf9otsS_v1766219441_Placeholder_Image_voracu.png?auto=format,compress',
     metaTitle: 'Why UGC Beats Traditional Ads in 2025',
     metaDescription: 'UGC is outperforming traditional ads across every platform in 2025. See why consumers trust creators more and how brands scale UGC for results.',
     content: [
@@ -201,7 +201,7 @@ const blogPosts = [
     readTime: '5 min read',
     author: 'Ruby Turbett',
     publishDate: '2025-09-12',
-    featuredImage: 'https://res.cloudinary.com/di9tb45rl/image/upload/v1765960198/Placeholder_Image_kwdrqm.png',
+    featuredImage: 'https://images.prismic.io/silosite/aVUgcHNYClf9otrq_v1765960198_Placeholder_Image_kwdrqm.png?auto=format,compress',
     metaTitle: 'Interactive Web Experiences: 2025 Design Trends',
     metaDescription: 'Web design is evolving fast. Discover 2025\'s shift from static websites to interactive, personalised web experiences that engage and convert users.',
     content: [

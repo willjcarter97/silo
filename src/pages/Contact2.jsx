@@ -269,7 +269,7 @@ const Contact = () => {
             {/* Right Image */}
             <div className="order-2 lg:order-2 mt-8 lg:mt-0">
               <img
-                src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765956955/3_xthd8y.png"
+                src="https://images.prismic.io/silosite/aVUga3NYClf9otrj_v1765956955_3_xthd8y.png?auto=format,compress"
                 alt="Person relaxing on chair"
                 className="w-full h-64 sm:h-80 md:h-[75vh] lg:h-[80vh] object-cover"
                 loading="lazy"
@@ -313,7 +313,7 @@ const Contact = () => {
             {/* Right Image - Full Height */}
             <div className="relative order-1 lg:order-2 h-64 sm:h-80 md:h-96 lg:h-auto">
               <img
-                src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765956956/Placeholder_Image_wotmns.png"
+                src="https://images.prismic.io/silosite/aVUgbHNYClf9otrk_v1765956956_Placeholder_Image_wotmns.png?auto=format,compress"
                 alt="Person in spotlight"
                 className="w-full h-full md:h-[370px] object-cover"
                 loading="lazy"

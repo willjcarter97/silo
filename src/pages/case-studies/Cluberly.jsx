@@ -42,7 +42,7 @@ const Cluberly = () => {
       },
       column2: {
         image: {
-          src: "https://res.cloudinary.com/di9tb45rl/image/upload/v1766007837/2_pvdc8h.png",
+          src: "https://images.prismic.io/silosite/aVUglHNYClf9otsL_v1766007837_2_pvdc8h.png?auto=format,compress",
           alt: "Social media engagement dashboard",
         },
         stat: {
@@ -72,7 +72,7 @@ const Cluberly = () => {
             "Helping the brand build stronger connections with users, partners and investors.",
         },
         image: {
-          src: "https://res.cloudinary.com/di9tb45rl/image/upload/v1766007841/3_ovm3rr.png",
+          src: "https://images.prismic.io/silosite/aVUglXNYClf9otsM_v1766007841_3_ovm3rr.png?auto=format,compress",
           alt: "Sales performance graph",
         },
       },
@@ -106,11 +106,11 @@ const Cluberly = () => {
       ],
       images: [
         {
-          src: "https://res.cloudinary.com/di9tb45rl/image/upload/v1766007831/0_ggi2ae.png",
+          src: "https://images.prismic.io/silosite/aVUgknNYClf9otsJ_v1766007831_0_ggi2ae.png?auto=format,compress",
           alt: "Creator content compilation",
         },
         {
-          src: "https://res.cloudinary.com/di9tb45rl/image/upload/v1766007833/1_n7einu.png",
+          src: "https://images.prismic.io/silosite/aVUgk3NYClf9otsK_v1766007833_1_n7einu.png?auto=format,compress",
           alt: "Behind the scenes",
         },
       ],
@@ -146,7 +146,7 @@ const Cluberly = () => {
           playsInline
         />
         <img
-          src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765966838/Placeholder_Lightbox_r1xyms.png"
+          src="https://images.prismic.io/silosite/aVUgenNYClf9otrx_v1765966838_Placeholder_Lightbox_r1xyms.png?auto=format,compress"
           alt="img"
           className="absolute inset-0 w-full h-full object-cover"
           loading="lazy"
@@ -161,7 +161,7 @@ const Cluberly = () => {
         rightWidthClass="md:w-[42%] lg:w-[38%] xl:w-[36%]"
         mediaType="iframe"
         mediaSrc="https://player.vimeo.com/video/1148605076?badge=0&autopause=0&player_id=0&app_id=58479"
-        mediaCover="https://res.cloudinary.com/di9tb45rl/image/upload/v1766006435/1_eghyei.png"
+        mediaCover="https://images.prismic.io/silosite/aVUgkHNYClf9otsH_v1766006435_1_eghyei.png?auto=format,compress"
       />
 
       <div className="flex flex-col md:flex-row justify-between items-start gap-6 md:gap-16 lg:gap-20 w-full max-w-[1280px] mx-auto px-5 md:px-6 lg:px-0 py-12 md:py-20">

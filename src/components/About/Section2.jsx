@@ -48,7 +48,7 @@ const Section2 = () => {
             {/* Right column - empty space for image */}
             <div className="w-full md:w-1/2 bg-white-50 md:min-h-[280px]">
               <img
-                src="https://res.cloudinary.com/di9tb45rl/image/upload/v1762717286/section_x4xoyy.png"
+                src="https://images.prismic.io/silosite/aVUgDnNYClf9otq9_v1762717286_section_x4xoyy.png?auto=format,compress"
                 alt="section"
                 className="w-full h-full object-cover"
                 loading="lazy"
@@ -66,7 +66,7 @@ const Section2 = () => {
             {/* Top: right image placeholder (appears on top for md view) */}
             <div className="w-full bg-white-50 h-52 md:h-64 lg:h-72 px-10">
               <img
-                src="https://res.cloudinary.com/di9tb45rl/image/upload/v1762717286/section_x4xoyy.png"
+                src="https://images.prismic.io/silosite/aVUgDnNYClf9otq9_v1762717286_section_x4xoyy.png?auto=format,compress"
                 alt="section"
                 className="w-full h-full object-cover"
                 loading="lazy"
@@ -135,7 +135,7 @@ const Section2 = () => {
             {/* Bottom: image placeholder */}
             <div className="w-full bg-white-50 h-44 px-5">
               <img
-                src="https://res.cloudinary.com/di9tb45rl/image/upload/v1762717286/section_x4xoyy.png"
+                src="https://images.prismic.io/silosite/aVUgDnNYClf9otq9_v1762717286_section_x4xoyy.png?auto=format,compress"
                 alt="section"
                 className="w-full h-full object-cover"
                 loading="lazy"

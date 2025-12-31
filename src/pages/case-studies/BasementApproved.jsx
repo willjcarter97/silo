@@ -49,7 +49,7 @@ const BasementApproved = () => {
       },
       column2: {
         image: {
-          src: "https://res.cloudinary.com/di9tb45rl/image/upload/v1765974657/1_ppkdip.png",
+          src: "https://images.prismic.io/silosite/aVUgfHNYClf9otrz_v1765974657_1_ppkdip.png?auto=format,compress",
           alt: "Automated mixes hub",
         },
         stat: {
@@ -79,13 +79,13 @@ const BasementApproved = () => {
             "Dynamic mix pages that update automatically as new content is published.",
         },
         image: {
-          src: "https://res.cloudinary.com/di9tb45rl/image/upload/v1765974659/Placeholder_Image_hkr78c.png",
+          src: "https://images.prismic.io/silosite/aVUgfXNYClf9otr0_v1765974659_Placeholder_Image_hkr78c.png?auto=format,compress",
           alt: "Dynamic mix publishing",
         },
       },
     },
     fullScreenImage: {
-      src: "https://res.cloudinary.com/di9tb45rl/image/upload/v1765974659/Placeholder_Image_hkr78c.png",
+      src: "https://images.prismic.io/silosite/aVUgfXNYClf9otr0_v1765974659_Placeholder_Image_hkr78c.png?auto=format,compress",
       alt: "Performance and UX",
     },
     galleryWithText: {
@@ -121,15 +121,15 @@ const BasementApproved = () => {
       ],
       images: [
         {
-          src: "https://res.cloudinary.com/di9tb45rl/image/upload/v1765966109/Placeholder_Image_mjkpxt.png",
+          src: "https://images.prismic.io/silosite/aVUgd3NYClf9otru_v1765966109_Placeholder_Image_mjkpxt.png?auto=format,compress",
           alt: "Mobile product page",
         },
         {
-          src: "https://res.cloudinary.com/di9tb45rl/image/upload/v1765966100/1_vr8zdp.png",
+          src: "https://images.prismic.io/silosite/aVUgcXNYClf9otrr_v1765966100_1_vr8zdp.png?auto=format,compress",
           alt: "Checkout flow",
         },
         {
-          src: "https://res.cloudinary.com/di9tb45rl/image/upload/v1765966101/2_jvmbtg.png",
+          src: "https://images.prismic.io/silosite/aVUgc3NYClf9otrs_v1765966101_2_jvmbtg.png?auto=format,compress",
           alt: "Product gallery",
         },
       ],
@@ -177,7 +177,7 @@ const BasementApproved = () => {
           playsInline
         />
         <img
-          src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765966107/image_14_jsndeb.png"
+          src="https://images.prismic.io/silosite/aVUgdnNYClf9otrt_v1765966107_image_14_jsndeb.png?auto=format,compress"
           alt="img"
           className="absolute inset-0 w-full h-full object-cover"
           loading="lazy"
@@ -192,7 +192,7 @@ const BasementApproved = () => {
         rightWidthClass="md:w-[42%] lg:w-[38%] xl:w-[36%]"
         mediaType="iframe"
         mediaSrc="https://player.vimeo.com/video/1148605654?badge=0&autopause=0&player_id=0&app_id=58479"
-        mediaCover="https://res.cloudinary.com/di9tb45rl/image/upload/v1766006438/Placeholder_Lightbox_kgs8zx.png"
+        mediaCover="https://images.prismic.io/silosite/aVUgkXNYClf9otsI_v1766006438_Placeholder_Lightbox_kgs8zx.png?auto=format,compress"
       />
 
       <div className="flex flex-col md:flex-row justify-between items-start gap-6 md:gap-16 lg:gap-20 w-full max-w-[1280px] mx-auto px-5 md:px-6 lg:px-0 py-12 md:py-20">

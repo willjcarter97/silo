@@ -96,7 +96,7 @@ const CaseStudies = () => {
               {/* Large Image */}
               <div className="w-full">
                 <img
-                  src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765923582/Placeholder_Image_rr5dup.png"
+                  src="https://images.prismic.io/silosite/aVUgXnNYClf9otrc_v1765923582_Placeholder_Image_rr5dup.png?auto=format,compress"
                   alt="Silo team member showcasing brand identity"
                   className="w-full h-auto object-cover max-h-[350px]"
                   loading="lazy"
@@ -107,7 +107,7 @@ const CaseStudies = () => {
                 {/* Small Image */}
                 <div className="hidden sm:flex justify-center">
                   <img
-                    src="https://res.cloudinary.com/di9tb45rl/image/upload/v1762717296/studies2_a4olwb.png"
+                    src="https://images.prismic.io/silosite/aVUgHHNYClf9otrA_v1762717296_studies2_a4olwb.png?auto=format,compress"
                     alt="The Silo brand representation"
                     className="w-32 h-auto object-cover max-h-[120px]"
                     loading="lazy"
@@ -121,7 +121,7 @@ const CaseStudies = () => {
               {/* Large Image */}
               <div className="flex-1">
                 <img
-                  src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765923582/Placeholder_Image_rr5dup.png"
+                  src="https://images.prismic.io/silosite/aVUgXnNYClf9otrc_v1765923582_Placeholder_Image_rr5dup.png?auto=format,compress"
                   alt="Silo team member showcasing brand identity"
                   className="w-full h-auto object-cover max-h-[500px] lg:max-h-[550px]"
                   loading="lazy"
@@ -132,7 +132,7 @@ const CaseStudies = () => {
                 {/* Small Image */}
                 <div>
                   <img
-                    src="https://res.cloudinary.com/di9tb45rl/image/upload/v1762717296/studies2_a4olwb.png"
+                    src="https://images.prismic.io/silosite/aVUgHHNYClf9otrA_v1762717296_studies2_a4olwb.png?auto=format,compress"
                     alt="The Silo brand representation"
                     className="w-48 lg:w-56 h-auto object-cover max-h-[300px] lg:max-h-[350px]"
                     loading="lazy"
@@ -157,7 +157,7 @@ const CaseStudies = () => {
               {/* Large Image */}
               <div className="flex-1 max-w-[460px]">
                 <img
-                  src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765923582/Placeholder_Image_rr5dup.png"
+                  src="https://images.prismic.io/silosite/aVUgXnNYClf9otrc_v1765923582_Placeholder_Image_rr5dup.png?auto=format,compress"
                   alt="Silo team member showcasing brand identity"
                   className="w-full h-auto object-cover max-h-[550px] 2xl:max-h-none"
                   loading="lazy"
@@ -168,7 +168,7 @@ const CaseStudies = () => {
                 {/* Small Image */}
                 <div className="mb-4">
                   <img
-                    src="https://res.cloudinary.com/di9tb45rl/image/upload/v1762717296/studies2_a4olwb.png"
+                    src="https://images.prismic.io/silosite/aVUgHHNYClf9otrA_v1762717296_studies2_a4olwb.png?auto=format,compress"
                     alt="The Silo brand representation"
                     className="w-64 2xl:w-[328px] h-auto object-cover xl:min-h-[200px] 2xl:max-h-none"
                     loading="lazy"
@@ -195,7 +195,7 @@ const CaseStudies = () => {
             >
               <div className="w-2/5 aspect-[4/3] flex items-center justify-center overflow-hidden">
                 <img
-                  src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765882727/Untitled_Project_smo9qt.jpg"
+                  src="https://images.prismic.io/silosite/aVUgRnNYClf9otrM_v1765882727_Untitled_Project_smo9qt.jpg?auto=format,compress"
                   alt="Basement Approved"
                   className="max-w-full max-h-full object-contain"
                   loading="lazy"
@@ -244,7 +244,7 @@ const CaseStudies = () => {
             >
               <div className="w-full aspect-[4/3] flex items-center justify-center overflow-hidden mb-6">
                 <img
-                  src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765882727/Untitled_Project_smo9qt.jpg"
+                  src="https://images.prismic.io/silosite/aVUgRnNYClf9otrM_v1765882727_Untitled_Project_smo9qt.jpg?auto=format,compress"
                   alt="Basement Approved"
                   className="max-w-full max-h-full object-contain"
                   loading="lazy"
@@ -294,7 +294,7 @@ const CaseStudies = () => {
             >
               <div className="w-2/5 aspect-[4/3] flex items-center justify-center overflow-hidden">
                 <img
-                  src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765884632/Tomoko-e10fd11f_2_jto3ax.png"
+                  src="https://images.prismic.io/silosite/aVUgSXNYClf9otrP_v1765884632_Tomoko-e10fd11f_2_jto3ax.png?auto=format,compress"
                   alt="Tomoka Fine & Rare"
                   className="max-w-full max-h-full object-contain"
                   loading="lazy"
@@ -351,7 +351,7 @@ const CaseStudies = () => {
             >
               <div className="w-full aspect-[4/3] flex items-center justify-center overflow-hidden mb-6">
                 <img
-                  src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765884632/Tomoko-e10fd11f_2_jto3ax.png"
+                  src="https://images.prismic.io/silosite/aVUgSXNYClf9otrP_v1765884632_Tomoko-e10fd11f_2_jto3ax.png?auto=format,compress"
                   alt="Tomoka Fine & Rare"
                   className="max-w-full max-h-full object-contain"
                   loading="lazy"
@@ -409,7 +409,7 @@ const CaseStudies = () => {
             >
               <div className="w-2/5 aspect-[4/3] flex items-center justify-center overflow-hidden">
                 <img
-                  src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765884632/image_5_ibtcoo.png"
+                  src="https://images.prismic.io/silosite/aVUgSHNYClf9otrO_v1765884632_image_5_ibtcoo.png?auto=format,compress"
                   alt="Electrolytes with Joly"
                   className="max-w-full max-h-full object-contain"
                   loading="lazy"
@@ -461,7 +461,7 @@ const CaseStudies = () => {
             >
               <div className="w-full aspect-[4/3] flex items-center justify-center overflow-hidden mb-6">
                 <img
-                  src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765884632/image_5_ibtcoo.png"
+                  src="https://images.prismic.io/silosite/aVUgSHNYClf9otrO_v1765884632_image_5_ibtcoo.png?auto=format,compress"
                   alt="Electrolytes with Joly"
                   className="max-w-full max-h-full object-contain"
                   loading="lazy"
@@ -516,7 +516,7 @@ const CaseStudies = () => {
             >
               <div className="w-2/5 aspect-[4/3] flex items-center justify-center overflow-hidden">
                 <img
-                  src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765951283/28cf00a299ba07f7be18bd388b5bf801_1_fxiv5y.png"
+                  src="https://images.prismic.io/silosite/aVUgYHNYClf9otre_v1765951283_28cf00a299ba07f7be18bd388b5bf801_1_fxiv5y.png?auto=format,compress"
                   alt="Acorn Property Group"
                   className="max-w-full max-h-full object-contain"
                   loading="lazy"
@@ -568,7 +568,7 @@ const CaseStudies = () => {
             >
               <div className="w-full aspect-[4/3] flex items-center justify-center overflow-hidden mb-6">
                 <img
-                  src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765951283/28cf00a299ba07f7be18bd388b5bf801_1_fxiv5y.png"
+                  src="https://images.prismic.io/silosite/aVUgYHNYClf9otre_v1765951283_28cf00a299ba07f7be18bd388b5bf801_1_fxiv5y.png?auto=format,compress"
                   alt="Acorn Property Group"
                   className="max-w-full max-h-full object-contain"
                   loading="lazy"
@@ -619,7 +619,7 @@ const CaseStudies = () => {
             >
               <div className="w-2/5 aspect-[4/3] flex items-center justify-center overflow-hidden">
                 <img
-                  src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765951282/1_xifbbg.png"
+                  src="https://images.prismic.io/silosite/aVUgX3NYClf9otrd_v1765951282_1_xifbbg.png?auto=format,compress"
                   alt="Cluberly"
                   className="max-w-full max-h-full object-contain"
                   loading="lazy"
@@ -669,7 +669,7 @@ const CaseStudies = () => {
             >
               <div className="w-full aspect-[4/3] flex items-center justify-center overflow-hidden mb-6">
                 <img
-                  src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765951282/1_xifbbg.png"
+                  src="https://images.prismic.io/silosite/aVUgX3NYClf9otrd_v1765951282_1_xifbbg.png?auto=format,compress"
                   alt="Cluberly"
                   className="max-w-full max-h-full object-contain"
                   loading="lazy"
@@ -722,7 +722,7 @@ const CaseStudies = () => {
             >
               <div className="w-1/3 aspect-[4/3] flex items-center justify-center overflow-hidden transform transition-transform duration-600 ease-in-out">
                 <img
-                  src="https://res.cloudinary.com/di9tb45rl/image/upload/v1766427917/image_15_uceyvk.png"
+                  src="https://images.prismic.io/silosite/aVUgnHNYClf9otsT_v1766427917_image_15_uceyvk.png?auto=format,compress"
                   alt="smoothie"
                   className="max-w-full max-h-full object-contain"
                   loading="lazy"
@@ -731,7 +731,7 @@ const CaseStudies = () => {
               {/* Hover image placeholder (absolutely positioned so it doesn't shift layout) */}
               {/* <div className="absolute left-[35%] top-0 -translate-x-full w-1/6 h-full bg-white overflow-hidden p-0 m-0 border-0 box-border opacity-0 scale-90 rotate-6 transition-all duration-600 ease-in-out z-10 pointer-events-none lg:group-hover:opacity-100 lg:group-hover:scale-100 lg:group-hover:-translate-x-32 lg:group-hover:rotate-0 lg:group-hover:pointer-events-auto">
                 <img
-                  src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765951490/Rectangle_30_fmlti2.png"
+                  src="https://images.prismic.io/silosite/aVUgYXNYClf9otrf_v1765951490_Rectangle_30_fmlti2.png?auto=format,compress"
                   alt="smoothie"
                   className="absolute inset-0 w-full h-full object-cover p-0 m-0 border-0 block" // absolutely fill parent, no gap
                   loading="lazy"
@@ -786,7 +786,7 @@ const CaseStudies = () => {
             >
               <div className="w-full md:w-1/2 aspect-[4/3] relative md:-top-20 flex items-center justify-center overflow-hidden">
                 <img
-                  src="https://res.cloudinary.com/di9tb45rl/image/upload/v1766427917/image_15_uceyvk.png"
+                  src="https://images.prismic.io/silosite/aVUgnHNYClf9otsT_v1766427917_image_15_uceyvk.png?auto=format,compress"
                   alt="knightsgate"
                   className="max-w-full max-h-full object-contain"
                   loading="lazy"

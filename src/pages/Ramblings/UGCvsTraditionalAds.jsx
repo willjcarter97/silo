@@ -58,7 +58,7 @@ export default function UGCvsTraditionalAds() {
   const blogPost = {
     id: 1,
     image:
-      "https://res.cloudinary.com/di9tb45rl/image/upload/v1765960191/1_rr3wzk.png",
+      "https://images.prismic.io/silosite/aVUgbXNYClf9otrl_v1765960191_1_rr3wzk.png?auto=format,compress",
     category: "UGC",
     readTime: "5 min read",
     title:
@@ -68,7 +68,7 @@ export default function UGCvsTraditionalAds() {
     author: "Ruby Turbott",
     publishDate: "12 Sept 2025",
     featuredImage:
-      "https://res.cloudinary.com/di9tb45rl/image/upload/v1766219441/Placeholder_Image_voracu.png",
+      "https://images.prismic.io/silosite/aVUgm3NYClf9otsS_v1766219441_Placeholder_Image_voracu.png?auto=format,compress",
   };
 
   usePageMeta(

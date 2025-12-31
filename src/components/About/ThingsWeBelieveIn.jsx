@@ -35,7 +35,7 @@ const ThingsWeBelieveIn = () => {
             {/* Red Card with Icon */}
             <div className="w-full aspect-[4/3] bg-brand flex items-center justify-center">
               <img 
-                src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765908400/1_pui4ev.png" 
+                src="https://images.prismic.io/silosite/aVUgTnNYClf9otrU_v1765908400_1_pui4ev.png?auto=format,compress" 
                 alt="Content should mean something icon"
                 className="w-full h-full object-cover"
                 loading="lazy"
@@ -60,7 +60,7 @@ const ThingsWeBelieveIn = () => {
             {/* Red Card with Icon */}
             <div className="w-full aspect-[4/3] bg-brand flex items-center justify-center">
               <img 
-                src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765908401/2_vle5af.png" 
+                src="https://images.prismic.io/silosite/aVUgT3NYClf9otrV_v1765908401_2_vle5af.png?auto=format,compress" 
                 alt="We create work that sticks icon"
                 className="w-full h-full object-cover"
                 loading="lazy"
@@ -85,7 +85,7 @@ const ThingsWeBelieveIn = () => {
             {/* Red Card with Icon */}
             <div className="w-full aspect-[4/3] bg-brand flex items-center justify-center">
               <img 
-                src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765908448/3_cmny76.png" 
+                src="https://images.prismic.io/silosite/aVUgUHNYClf9otrW_v1765908448_3_cmny76.png?auto=format,compress" 
                 alt="Bold ideas need solid foundation icon"
                 className="w-full h-full object-cover"
                 loading="lazy"

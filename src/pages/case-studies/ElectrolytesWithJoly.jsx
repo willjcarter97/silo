@@ -74,15 +74,15 @@ const ElectrolytesWithJoly = () => {
 
       images: [
         {
-          src: "https://res.cloudinary.com/di9tb45rl/image/upload/v1765998153/1_vmu3xv.png",
+          src: "https://images.prismic.io/silosite/aVUghnNYClf9otr9_v1765998153_1_vmu3xv.png?auto=format,compress",
           alt: "Workout tracking screen",
         },
         {
-          src: "https://res.cloudinary.com/di9tb45rl/image/upload/v1765998155/2_xwc2m7.png",
+          src: "https://images.prismic.io/silosite/aVUgh3NYClf9otr-_v1765998155_2_xwc2m7.png?auto=format,compress",
           alt: "Social challenges",
         },
         {
-          src: "https://res.cloudinary.com/duy3n78hz/image/upload/v1767181103/Electrolytes_with_jolly_-_tracklist_dcb4lz.png",
+          src: "https://images.prismic.io/silosite/aVUgnXNYClf9otsU_v1767181103_Electrolytes_with_jolly_-_tracklist_dcb4lz.png?auto=format,compress",
           alt: "Achievement system",
         },
       ],
@@ -118,7 +118,7 @@ const ElectrolytesWithJoly = () => {
           playsInline
         />
         <img
-          src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765966122/Placeholder_Lightbox_ldgfrj.png"
+          src="https://images.prismic.io/silosite/aVUgeHNYClf9otrv_v1765966122_Placeholder_Lightbox_ldgfrj.png?auto=format,compress"
           alt="img"
           className="absolute inset-0 w-full h-full object-cover"
           loading="lazy"

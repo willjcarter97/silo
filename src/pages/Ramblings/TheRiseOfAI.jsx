@@ -58,7 +58,7 @@ export default function TheRiseOfAI() {
   const blogPost = {
     id: 1,
     image:
-      "https://res.cloudinary.com/di9tb45rl/image/upload/v1765960191/1_rr3wzk.png",
+      "https://images.prismic.io/silosite/aVUgbXNYClf9otrl_v1765960191_1_rr3wzk.png?auto=format,compress",
     category: "UGC",
     readTime: "5 min read",
     title: "The Rise of AI-Powered Content Creation",
@@ -67,7 +67,7 @@ export default function TheRiseOfAI() {
     author: "Ruby Turbott",
     publishDate: "12 Sept 2025",
     featuredImage:
-      "https://res.cloudinary.com/di9tb45rl/image/upload/v1765960191/1_rr3wzk.png",
+      "https://images.prismic.io/silosite/aVUgbXNYClf9otrl_v1765960191_1_rr3wzk.png?auto=format,compress",
   };
 
   usePageMeta(

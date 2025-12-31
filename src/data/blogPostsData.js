@@ -2,7 +2,7 @@
 export const blogPostsData = [
   {
     id: 1,
-    image: "https://res.cloudinary.com/di9tb45rl/image/upload/v1765960191/1_rr3wzk.png",
+    image: "https://images.prismic.io/silosite/aVUgbXNYClf9otrl_v1765960191_1_rr3wzk.png?auto=format,compress",
     category: "Insights",
     readTime: "5 min read",
     title: "The Rise of AI-Powered Content Creation",
@@ -12,7 +12,7 @@ export const blogPostsData = [
   },
   {
     id: 2,
-    image: "https://res.cloudinary.com/di9tb45rl/image/upload/v1765960191/2_gtiyqf.png",
+    image: "https://images.prismic.io/silosite/aVUgbnNYClf9otrm_v1765960191_2_gtiyqf.png?auto=format,compress",
     category: "Insights",
     readTime: "5 min read",
     title: "The 2025 Brand Identity Shift: Minimalism Out, Motion Led Design In",
@@ -22,7 +22,7 @@ export const blogPostsData = [
   },
   {
     id: 3,
-    image: "https://res.cloudinary.com/di9tb45rl/image/upload/v1765960193/3_prz7yp.png",
+    image: "https://images.prismic.io/silosite/aVUgbnNYClf9otrn_v1765960193_3_prz7yp.png?auto=format,compress",
     category: "Insights",
     readTime: "5 min read",
     title: "Meta, TikTok and YouTube: The Biggest Social Algorithm Changes of 2025",
@@ -32,7 +32,7 @@ export const blogPostsData = [
   },
   {
     id: 4,
-    image: "https://res.cloudinary.com/di9tb45rl/image/upload/v1765960193/4_mobwpq.png",
+    image: "https://images.prismic.io/silosite/aVUgb3NYClf9otro_v1765960193_4_mobwpq.png?auto=format,compress",
     category: "Insights",
     readTime: "5 min read",
     title: "Why UGC Is Outperforming Traditional Ads in 2025 and How Brands Are Adapting",
@@ -42,7 +42,7 @@ export const blogPostsData = [
   },
   {
     id: 5,
-    image: "https://res.cloudinary.com/di9tb45rl/image/upload/v1765960198/Placeholder_Image_kwdrqm.png",
+    image: "https://images.prismic.io/silosite/aVUgcHNYClf9otrq_v1765960198_Placeholder_Image_kwdrqm.png?auto=format,compress",
     category: "Insights",
     readTime: "5 min read",
     title: "Why 2025 Is the Year of Interactive Brand Design",

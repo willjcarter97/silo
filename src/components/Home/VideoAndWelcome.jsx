@@ -10,7 +10,7 @@ export default function VideoAndWelcome() {
     showVideo: false,
     videoUrl: "https://player.vimeo.com/video/76979871",
     imageUrl:
-      "https://res.cloudinary.com/di9tb45rl/image/upload/v1762717240/image_re2b0o.png",
+      "https://images.prismic.io/silosite/aVUgonNYClf9otsZ_v1762717240_image_re2b0o.png?auto=format,compress",
   });
 
   const [open, setOpen] = useState(false);

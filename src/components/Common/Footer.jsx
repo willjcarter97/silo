@@ -29,7 +29,7 @@ const Footer = () => {
               <div className="md:col-span-5">
                 <Link to="/" className="flex items-center gap-2 mb-6">
                   <img
-                    src="https://res.cloudinary.com/di9tb45rl/image/upload/v1762717230/footerlogo_tllimb.png"
+                    src="https://images.prismic.io/silosite/aVUgn3NYClf9otsW_v1762717230_footerlogo_tllimb.png?auto=format,compress"
                     alt="Silo logo"
                     className="h-8"
                     loading="lazy"
@@ -279,7 +279,7 @@ const Footer = () => {
                       }}
                     >
                       <img
-                        src="https://res.cloudinary.com/di9tb45rl/image/upload/v1762717241/Instagram_ec8sza.png"
+                        src="https://images.prismic.io/silosite/aVUgo3NYClf9otsa_v1762717241_Instagram_ec8sza.png?auto=format,compress"
                         alt="Instagram"
                         className="w-4 h-4"
                         loading="lazy"
@@ -316,7 +316,7 @@ const Footer = () => {
                       }}
                     >
                       <img
-                        src="https://res.cloudinary.com/di9tb45rl/image/upload/v1762717248/Linkedin_joc2nv.png"
+                        src="https://images.prismic.io/silosite/aVUf83NYClf9otq0_v1762717248_Linkedin_joc2nv.png?auto=format,compress"
                         alt="LinkedIn"
                         className="w-4 h-4"
                         loading="lazy"
@@ -363,7 +363,7 @@ const Footer = () => {
           <div className="mb-4">
             <Link to="/" className="font-extrabold text-xl mb-3 inline-block">
               <img
-                src="https://res.cloudinary.com/di9tb45rl/image/upload/v1762717230/footerlogo_tllimb.png"
+                src="https://images.prismic.io/silosite/aVUgn3NYClf9otsW_v1762717230_footerlogo_tllimb.png?auto=format,compress"
                 alt="Silo logo"
                 className="h-8"
                 loading="lazy"
@@ -380,7 +380,7 @@ const Footer = () => {
               <a href="https://www.instagram.com/thesilocreative/" target="_blank" rel="noopener noreferrer" className="bg-transparent p-2">
                 <span className="sr-only">Instagram</span>
                 <img
-                  src="https://res.cloudinary.com/di9tb45rl/image/upload/v1762717241/Instagram_ec8sza.png"
+                  src="https://images.prismic.io/silosite/aVUgo3NYClf9otsa_v1762717241_Instagram_ec8sza.png?auto=format,compress"
                   alt="Instagram"
                   className="w-4 h-4"
                   loading="lazy"
@@ -393,7 +393,7 @@ const Footer = () => {
               <a href="https://www.linkedin.com/company/the-silo-creative/" target="_blank" rel="noopener noreferrer" className="bg-transparent p-2">
                 <span className="sr-only">LinkedIn</span>
                 <img
-                  src="https://res.cloudinary.com/di9tb45rl/image/upload/v1762717248/Linkedin_joc2nv.png"
+                  src="https://images.prismic.io/silosite/aVUf83NYClf9otq0_v1762717248_Linkedin_joc2nv.png?auto=format,compress"
                   alt="LinkedIn"
                   className="w-4 h-4"
                   loading="lazy"

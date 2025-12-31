@@ -42,7 +42,7 @@ const AcornPropertyGroup = () => {
       },
       column2: {
         image: {
-          src: "https://res.cloudinary.com/di9tb45rl/image/upload/v1765999915/3_ql2bkh.png",
+          src: "https://images.prismic.io/silosite/aVUgi3NYClf9otsC_v1765999915_3_ql2bkh.png?auto=format,compress",
           alt: "Traffic growth analytics",
         },
         stat: {
@@ -62,7 +62,7 @@ const AcornPropertyGroup = () => {
           heightClass: "min-h-[20rem] md:min-h-[36rem] lg:min-h-[22rem]",
         },
         image: {
-          src: "https://res.cloudinary.com/di9tb45rl/image/upload/v1766000003/4_frrh5j.png",
+          src: "https://images.prismic.io/silosite/aVUgjHNYClf9otsD_v1766000003_4_frrh5j.png?auto=format,compress",
           alt: "Lead generation metrics",
           // per-page image height for column3
           heightClass: "h-[20rem] md:h-[36rem] lg:h-[19rem]",
@@ -109,11 +109,11 @@ const AcornPropertyGroup = () => {
       ],
       images: [
         {
-          src: "https://res.cloudinary.com/di9tb45rl/image/upload/v1765999906/1_jdzdnt.png",
+          src: "https://images.prismic.io/silosite/aVUgiXNYClf9otsA_v1765999906_1_jdzdnt.png?auto=format,compress",
           alt: "Blog article layout",
         },
         {
-          src: "https://res.cloudinary.com/di9tb45rl/image/upload/v1765999914/2_gft8ro.png",
+          src: "https://images.prismic.io/silosite/aVUginNYClf9otsB_v1765999914_2_gft8ro.png?auto=format,compress",
           alt: "Lead magnet design",
         },
       ],
@@ -175,15 +175,15 @@ const AcornPropertyGroup = () => {
       ],
       images: [
         {
-          src: "https://res.cloudinary.com/di9tb45rl/image/upload/v1766000014/5_dgtzhu.png",
+          src: "https://images.prismic.io/silosite/aVUgjXNYClf9otsE_v1766000014_5_dgtzhu.png?auto=format,compress",
           alt: "Blog article layout",
         },
         {
-          src: "https://res.cloudinary.com/di9tb45rl/image/upload/v1766000121/6_g5xb2h.png",
+          src: "https://images.prismic.io/silosite/aVUgjnNYClf9otsF_v1766000121_6_g5xb2h.png?auto=format,compress",
           alt: "Lead magnet design",
         },
         {
-          src: "https://res.cloudinary.com/di9tb45rl/image/upload/v1766000770/7_ns0enq.png",
+          src: "https://images.prismic.io/silosite/aVUgj3NYClf9otsG_v1766000770_7_ns0enq.png?auto=format,compress",
           alt: "Lead magnet design",
         },
       ],
@@ -219,7 +219,7 @@ const AcornPropertyGroup = () => {
           playsInline
         />
         <img
-          src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765966918/Placeholder_Lightbox_uxp28m.png"
+          src="https://images.prismic.io/silosite/aVUge3NYClf9otry_v1765966918_Placeholder_Lightbox_uxp28m.png?auto=format,compress"
           alt="img"
           className="absolute inset-0 w-full h-full object-cover"
           loading="lazy"
@@ -233,7 +233,7 @@ const AcornPropertyGroup = () => {
         leftWidthClass="md:w-[55%] lg:w-[58%] xl:w-[60%]"
         rightWidthClass="md:w-[42%] lg:w-[38%] xl:w-[36%]"
         mediaType="image"
-        mediaSrc="https://res.cloudinary.com/di9tb45rl/image/upload/v1765999896/0_lzwkcq.png"
+        mediaSrc="https://images.prismic.io/silosite/aVUgiHNYClf9otr__v1765999896_0_lzwkcq.png?auto=format,compress"
       />
 
       <div className="flex flex-col md:flex-row justify-between items-start gap-6 md:gap-16 lg:gap-20 w-full max-w-[1280px] mx-auto px-5 md:px-6 lg:px-0 py-12 md:py-20">
