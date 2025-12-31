@@ -3,6 +3,14 @@ import { useParams, Link } from "react-router-dom";
 import { client } from "../prismicio";
 import { PrismicRichText } from "@prismicio/react";
 import { usePageMeta } from "../hooks/usePageMeta";
+
+// Import the actual existing components
+import TitleWithDescription from "../components/poststudy/TitleWithDescription";
+import StatsSection from "../components/poststudy/StatsSection";
+import FullScreenImage from "../components/poststudy/FullScreenImage";
+import GalleryWithText from "../components/poststudy/GalleryWithText";
+import SimpleHeadingText from "../components/poststudy/SimpleHeadingText";
+import FourGallery from "../components/poststudy/FourGallery";
 import Section from "../components/Home/Section";
 
 // Helper to extract plain text from Prismic Rich Text
@@ -12,218 +20,177 @@ const asText = (richTextField) => {
   return richTextField.map((block) => block.text || "").join(" ");
 };
 
-// Rich text components for styling
+// Rich text components for two-column sections
 const richTextComponents = {
   paragraph: ({ children }) => (
-    <p className="text-base md:text-lg text-black leading-relaxed mb-4">{children}</p>
-  ),
-  heading2: ({ children }) => (
-    <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-black mb-6">{children}</h2>
-  ),
-  heading3: ({ children }) => (
-    <h3 className="text-xl md:text-2xl font-bold text-black mb-4">{children}</h3>
+    <p className="text-base md:text-lg text-black leading-relaxed mb-4 last:mb-0">{children}</p>
   ),
   list: ({ children }) => (
-    <ul className="list-disc ml-6 mb-4 space-y-2">{children}</ul>
+    <ul className="list-disc ml-6 mb-4 space-y-3">{children}</ul>
   ),
   oList: ({ children }) => (
-    <ol className="list-decimal ml-6 mb-4 space-y-2">{children}</ol>
+    <ol className="list-decimal ml-6 mb-4 space-y-3">{children}</ol>
   ),
   listItem: ({ children }) => (
     <li className="text-base md:text-lg text-black leading-relaxed">{children}</li>
   ),
-  strong: ({ children }) => <strong className="font-bold">{children}</strong>,
+  strong: ({ children }) => <span className="font-bold">{children}</span>,
   em: ({ children }) => <em className="italic">{children}</em>,
 };
 
-// Title with Description Slice Component
-const TitleWithDescriptionSlice = ({ slice }) => {
-  const [showVideo, setShowVideo] = useState(false);
-  const mediaType = slice.primary?.media_type || "none";
-  const mediaImage = slice.primary?.media_image?.url;
-  const mediaVideoUrl = slice.primary?.media_video_url;
-  const mediaCover = slice.primary?.media_cover_image?.url;
-
-  return (
-    <div className="flex flex-col md:flex-row justify-between items-start gap-6 md:gap-16 lg:gap-20 w-full max-w-[1280px] mx-auto px-5 md:px-6 lg:px-0 py-12 md:py-20">
-      <div className="w-full md:w-[55%] lg:w-[58%] xl:w-[60%]">
-        <h2 className="text-black text-2xl md:text-3xl lg:text-4xl font-bold text-left font-epilogue mb-6">
-          {slice.primary?.section_title}
-        </h2>
-        <div className="text-left font-epilogue text-base md:text-lg">
-          <PrismicRichText 
-            field={slice.primary?.section_description} 
-            components={richTextComponents} 
-          />
-        </div>
-      </div>
+// Slice renderer - uses the ACTUAL existing components
+const renderSlice = (slice, index) => {
+  switch (slice.slice_type) {
+    case "title_with_description": {
+      // Transform Prismic data to match TitleWithDescription props
+      const title = slice.primary?.section_title || "";
+      const description = slice.primary?.section_description 
+        ? slice.primary.section_description.map(block => block.text).filter(Boolean)
+        : [];
+      const mediaType = slice.primary?.media_type || "none";
+      const mediaSrc = mediaType === "image" 
+        ? slice.primary?.media_image?.url 
+        : slice.primary?.media_video_url || "";
+      const mediaCover = slice.primary?.media_cover_image?.url || null;
       
-      {mediaType !== "none" && (
-        <div className="w-full md:w-[42%] lg:w-[38%] xl:w-[36%]">
-          {mediaType === "image" && mediaImage && (
-            <img 
-              src={mediaImage} 
-              alt="" 
-              className="w-full h-auto object-cover"
-              loading="lazy"
-            />
-          )}
-          {mediaType === "iframe" && mediaVideoUrl && (
-            <div className="relative aspect-video cursor-pointer" onClick={() => setShowVideo(true)}>
-              {!showVideo && mediaCover && (
-                <img 
-                  src={mediaCover} 
-                  alt="Video cover" 
-                  className="w-full h-full object-cover"
-                />
-              )}
-              {showVideo && (
-                <iframe
-                  src={mediaVideoUrl}
-                  className="w-full h-full absolute inset-0"
-                  allow="autoplay; fullscreen; picture-in-picture"
-                  allowFullScreen
-                />
-              )}
-            </div>
-          )}
-        </div>
-      )}
-    </div>
-  );
-};
-
-// Two Column Text Slice Component
-const TwoColumnTextSlice = ({ slice }) => {
-  return (
-    <div className="flex flex-col md:flex-row justify-between items-start gap-6 md:gap-16 lg:gap-20 w-full max-w-[1280px] mx-auto px-5 md:px-6 lg:px-0 py-12 md:py-20">
-      <h2 className="text-black text-2xl md:text-3xl lg:text-4xl font-bold text-left font-epilogue w-full md:w-1/2">
-        {slice.primary?.heading}
-      </h2>
-      <div className="flex flex-col w-full md:w-1/2 gap-6 justify-between items-start text-left font-epilogue text-base md:text-lg">
-        <PrismicRichText 
-          field={slice.primary?.content} 
-          components={richTextComponents} 
+      return (
+        <TitleWithDescription
+          key={index}
+          title={title}
+          description={description}
+          mediaType={mediaType}
+          mediaSrc={mediaSrc}
+          mediaCover={mediaCover}
+          minHeightClass="min-h-[300px] md:min-h-[250px]"
+          leftWidthClass="md:w-[55%] lg:w-[58%] xl:w-[60%]"
+          rightWidthClass="md:w-[42%] lg:w-[38%] xl:w-[36%]"
         />
-      </div>
-    </div>
-  );
-};
+      );
+    }
 
-// Gallery with Text Slice Component
-const GalleryWithTextSlice = ({ slice }) => {
-  const images = slice.items || [];
-  
-  return (
-    <div className="w-full max-w-[1280px] mx-auto px-5 md:px-6 lg:px-0 py-12 md:py-20">
-      <div className="flex flex-col lg:flex-row gap-8 lg:gap-16">
-        <div className="w-full lg:w-1/2">
-          <h2 className="text-black text-2xl md:text-3xl lg:text-4xl font-bold text-left font-epilogue mb-6">
+    case "two_column_text": {
+      // Inline two-column text section (heading left, content right)
+      return (
+        <div key={index} className="flex flex-col md:flex-row justify-between items-start gap-6 md:gap-16 lg:gap-20 w-full max-w-[1280px] mx-auto px-5 md:px-6 lg:px-0 py-12 md:py-20">
+          <h2 className="text-black text-2xl md:text-3xl lg:text-4xl font-bold text-left font-epilogue w-full md:w-1/2">
             {slice.primary?.heading}
           </h2>
-          <div className="text-left font-epilogue text-base md:text-lg">
+          <div className="flex flex-col w-full md:w-1/2 gap-6 justify-between items-start text-left font-epilogue text-base md:text-lg">
             <PrismicRichText 
-              field={slice.primary?.text_content} 
+              field={slice.primary?.content} 
               components={richTextComponents} 
             />
           </div>
         </div>
-        <div className="w-full lg:w-1/2 flex flex-col gap-6">
-          {images.map((item, index) => (
-            item.gallery_image?.url && (
-              <img
-                key={index}
-                src={item.gallery_image.url}
-                alt={item.gallery_image.alt || "Gallery image"}
-                className="w-full h-auto object-cover"
-                loading="lazy"
-              />
-            )
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-};
+      );
+    }
 
-// Stats Section Slice Component
-const StatsSectionSlice = ({ slice }) => {
-  return (
-    <div className="w-full max-w-[1280px] mx-auto px-5 md:px-6 lg:px-0 py-12 md:py-20">
-      <h3 className="text-xl font-bold text-black mb-8">
-        {slice.primary?.stats_title}
-      </h3>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {/* Stat 1 */}
-        <div className="flex flex-col gap-4">
-          <p className="text-sm text-black font-semibold">{slice.primary?.stat1_heading}</p>
-          <p className="text-6xl md:text-7xl font-bold text-black">{slice.primary?.stat1_value}</p>
-          <p className="text-base text-black">{slice.primary?.stat1_description}</p>
-        </div>
-        
-        {/* Stat 2 */}
-        <div className="flex flex-col gap-4">
-          {slice.primary?.stat2_image?.url && (
-            <img 
-              src={slice.primary.stat2_image.url} 
-              alt="" 
-              className="w-full h-48 object-cover mb-4"
-              loading="lazy"
-            />
-          )}
-          <p className="text-sm text-black font-semibold">{slice.primary?.stat2_heading}</p>
-          <p className="text-6xl md:text-7xl font-bold text-black">{slice.primary?.stat2_value}</p>
-          <p className="text-base text-black">{slice.primary?.stat2_description}</p>
-        </div>
-        
-        {/* Stat 3 */}
-        <div className="flex flex-col gap-4">
-          <p className="text-sm text-black font-semibold">{slice.primary?.stat3_heading}</p>
-          <p className="text-6xl md:text-7xl font-bold text-black">{slice.primary?.stat3_value}</p>
-          <p className="text-base text-black">{slice.primary?.stat3_description}</p>
-          {slice.primary?.stat3_image?.url && (
-            <img 
-              src={slice.primary.stat3_image.url} 
-              alt="" 
-              className="w-full h-48 object-cover mt-4"
-              loading="lazy"
-            />
-          )}
-        </div>
-      </div>
-    </div>
-  );
-};
+    case "gallery_with_text": {
+      // Transform Prismic data to match GalleryWithText props
+      const heading = slice.primary?.heading || "";
+      const textContent = slice.primary?.text_content 
+        ? slice.primary.text_content.map(block => block.text).filter(Boolean)
+        : [];
+      const images = (slice.items || [])
+        .filter(item => item.gallery_image?.url)
+        .map(item => ({
+          src: item.gallery_image.url,
+          alt: item.gallery_image.alt || "Gallery image",
+        }));
+      
+      return (
+        <GalleryWithText
+          key={index}
+          heading={heading}
+          text={textContent}
+          images={images}
+        />
+      );
+    }
 
-// Full Screen Image Slice Component
-const FullScreenImageSlice = ({ slice }) => {
-  if (!slice.primary?.image?.url) return null;
-  
-  return (
-    <div className="w-full">
-      <img
-        src={slice.primary.image.url}
-        alt={slice.primary.alt_text || "Full screen image"}
-        className="w-full h-auto object-cover"
-        loading="lazy"
-      />
-    </div>
-  );
-};
+    case "stats_section": {
+      // Transform Prismic data to match StatsSection props
+      const statsData = {
+        title: slice.primary?.stats_title || "",
+        column1: {
+          heading: slice.primary?.stat1_heading || "",
+          value: slice.primary?.stat1_value || "",
+          description: slice.primary?.stat1_description || "",
+        },
+        column2: {
+          image: {
+            src: slice.primary?.stat2_image?.url || null,
+            alt: slice.primary?.stat2_image?.alt || "Stats image",
+          },
+          stat: {
+            heading: slice.primary?.stat2_heading || "",
+            value: slice.primary?.stat2_value || "",
+            description: slice.primary?.stat2_description || "",
+          },
+        },
+        column3: {
+          stat: {
+            heading: slice.primary?.stat3_heading || "",
+            value: slice.primary?.stat3_value || "",
+            description: slice.primary?.stat3_description || "",
+          },
+          image: {
+            src: slice.primary?.stat3_image?.url || null,
+            alt: slice.primary?.stat3_image?.alt || "Stats image",
+          },
+        },
+      };
+      
+      return (
+        <StatsSection
+          key={index}
+          title={statsData.title}
+          column1={statsData.column1}
+          column2={statsData.column2}
+          column3={statsData.column3}
+        />
+      );
+    }
 
-// Slice renderer
-const renderSlice = (slice, index) => {
-  switch (slice.slice_type) {
-    case "title_with_description":
-      return <TitleWithDescriptionSlice key={index} slice={slice} />;
-    case "two_column_text":
-      return <TwoColumnTextSlice key={index} slice={slice} />;
-    case "gallery_with_text":
-      return <GalleryWithTextSlice key={index} slice={slice} />;
-    case "stats_section":
-      return <StatsSectionSlice key={index} slice={slice} />;
-    case "full_screen_image":
-      return <FullScreenImageSlice key={index} slice={slice} />;
+    case "full_screen_image": {
+      if (!slice.primary?.image?.url) return null;
+      return (
+        <FullScreenImage
+          key={index}
+          src={slice.primary.image.url}
+          alt={slice.primary.alt_text || "Full screen image"}
+        />
+      );
+    }
+
+    case "simple_heading_text": {
+      const heading = slice.primary?.heading || "";
+      const textContent = slice.primary?.text_content 
+        ? slice.primary.text_content.map(block => block.text).filter(Boolean)
+        : [];
+      return (
+        <SimpleHeadingText
+          key={index}
+          heading={heading}
+          text={textContent}
+        />
+      );
+    }
+
+    case "four_gallery": {
+      const images = (slice.items || [])
+        .map(item => ({
+          src: item.image?.url || null,
+          alt: item.image?.alt || "Gallery image",
+        }));
+      return (
+        <FourGallery
+          key={index}
+          images={images}
+        />
+      );
+    }
+
     default:
       console.log("Unknown slice type:", slice.slice_type);
       return null;
@@ -313,7 +280,7 @@ const PostCaseStudy = () => {
 
   return (
     <div className="w-full h-auto bg-white mb-5 md:mb-20">
-      {/* Hero Section */}
+      {/* Hero Section - matches original case study hero structure */}
       <div className="relative w-full h-[50vh] md:h-auto md:aspect-video overflow-hidden">
         {heroType === "video" && (heroVideo || heroVideoUrl) ? (
           <video
@@ -339,10 +306,10 @@ const PostCaseStudy = () => {
         )}
       </div>
 
-      {/* Render all slices */}
+      {/* Render all slices using the ACTUAL existing components */}
       {slices.map((slice, index) => renderSlice(slice, index))}
 
-      {/* CTA Section */}
+      {/* CTA Section - same as original */}
       <Section />
       <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black mt-10" />
     </div>

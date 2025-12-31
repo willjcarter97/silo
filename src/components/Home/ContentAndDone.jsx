@@ -23,7 +23,7 @@ const HomepageCaseStudyDesktop = ({ caseStudy, isLast }) => {
         <img
           src={caseStudy.featuredImage}
           alt={caseStudy.title}
-          className="max-w-full max-h-full object-contain"
+          className="max-w-full max-h-[280px] object-contain"
           loading="lazy"
         />
       </div>
@@ -105,7 +105,7 @@ const HomepageCaseStudyTablet = ({ caseStudy, isLast }) => {
         <img
           src={caseStudy.featuredImage}
           alt={caseStudy.title}
-          className="max-w-full max-h-full object-contain"
+          className="max-w-full max-h-[220px] md:max-h-[280px] object-contain"
           loading="lazy"
         />
       </div>
@@ -135,7 +135,7 @@ const HomepageCaseStudyMobile = ({ caseStudy }) => {
         <img
           src={caseStudy.featuredImage}
           alt={caseStudy.title}
-          className="max-w-full max-h-full object-contain"
+          className="max-w-full max-h-[220px] object-contain"
           loading="lazy"
         />
       </div>

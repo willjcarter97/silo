@@ -2,6 +2,27 @@
 
 ## 2025-12-31
 
+### Fixed: Case Study Card Images Max Height for Square Logos
+
+**Issue:** Case study card images on the Case Studies page were displaying too large when the logo/image was square, causing inconsistent card sizing.
+
+**Solution:** Added explicit `max-h` constraints to case study card images on `CaseStudies.jsx` to match the homepage behavior:
+
+**Desktop cards:**
+- Container: Added `max-h-[280px]`
+- Image: Changed from `max-h-full` to `max-h-[280px]`
+
+**Mobile/Tablet cards:**
+- Container: Added `max-h-[220px] md:max-h-[250px]`
+- Image: Changed from `max-h-full` to `max-h-[220px] md:max-h-[250px]`
+
+**File modified:**
+- `src/pages/CaseStudies.jsx`
+
+**Result:** Case study card images now have a consistent max height constraint, preventing square logos from appearing too large.
+
+---
+
 ### Added: Case Studies Connected to Prismic CMS
 
 **Change:** Case Studies listing and detail pages now fetch content from Prismic CMS instead of hardcoded data.
