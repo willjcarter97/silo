@@ -2,6 +2,48 @@
 
 ## 2025-12-31
 
+### Fixed: Case Study Detail Pages Missing GSAP Animations and Styled Components
+
+**Issue:** After switching to Prismic slices for case study detail pages, all the GSAP animations and proper styling were lost. The pages became static with simplified inline components instead of using the original styled components.
+
+**Solution:** Rewrote `src/pages/PostCaseStudy.jsx` to use the actual styled components from `src/components/poststudy/`:
+- `TitleWithDescription` - With Vimeo player integration, play/pause controls, cover image overlays
+- `GalleryWithText` - With GSAP ScrollTrigger animations for sticky scrolling text
+- `StatsSection` - With proper 3-column grid layout, card borders, and responsive styling
+- `FullScreenImage` - With proper aspect ratio container
+- `SimpleHeadingText` - For heading + paragraph sections
+- `FourGallery` - For 2x2 image grid with hover effects
+
+**File modified:**
+- `src/pages/PostCaseStudy.jsx`
+
+**Details:**
+- Removed simplified inline slice components
+- Imported actual styled components from `src/components/poststudy/`
+- Added helper functions to transform Prismic Rich Text to expected prop formats:
+  - `richTextToArray()` - Converts Prismic Rich Text to string array
+  - `richTextToContentArray()` - Converts to content objects with subheadings for GalleryWithText
+- Slice renderer now properly maps Prismic data to each component's expected props
+- Added support for `simple_heading_text` and `four_gallery` slice types
+
+**Result:** Case study detail pages now have all original animations, video player functionality, and styling restored while still fetching content from Prismic.
+
+---
+
+### Fixed: Empty Prismic Client Configuration Causing White Screen
+
+**Issue:** The website was showing a completely white screen because `src/prismicio.js` was empty, causing the Prismic client import to be `undefined`. When components tried to fetch data using `client.getAllByType()`, they crashed with an error.
+
+**Solution:** Restored the Prismic client configuration in `src/prismicio.js`:
+- Added `@prismicio/client` import
+- Configured client with repository name `silosite`
+- Exported the `client` instance for use throughout the app
+
+**File modified:**
+- `src/prismicio.js`
+
+---
+
 ### Added: Case Studies Connected to Prismic CMS
 
 **Change:** Case Studies listing and detail pages now fetch content from Prismic CMS instead of hardcoded data.
