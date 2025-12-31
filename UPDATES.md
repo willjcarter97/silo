@@ -2,6 +2,28 @@
 
 ## 2025-12-31
 
+### Fixed: StatsSection Layout Breaking with Longer Text
+
+**Issue:** The StatsSection component was designed for short stat values (like "30%" or "100K") with very large font sizes. When longer text came from Prismic, it broke the layout because:
+1. The font size was too large for longer text
+2. There was no automatic line-breaking or size reduction
+
+**Solution:** Updated `src/components/poststudy/StatsSection.jsx`:
+- Added `renderStatValue()` helper function that:
+  - Detects if the value is a string longer than 10 characters or has multiple lines
+  - Automatically reduces font size for longer values (`text-3xl md:text-4xl lg:text-5xl` instead of `text-5xl md:text-5xl lg:text-8xl`)
+  - Interprets `\n` characters as `<br />` tags for line breaks
+  - Passes through JSX elements unchanged (for hardcoded case studies)
+- Fixed mobile card min-heights to be more flexible (`min-h-[300px]` and `min-h-[280px]`)
+- Added `text-left` to description text for consistent alignment
+- Removed empty image placeholder cards on mobile when no image is provided
+- Added `leading-tight` for multi-line stat values
+
+**File modified:**
+- `src/components/poststudy/StatsSection.jsx`
+
+---
+
 ### Fixed: Case Study Detail Pages Missing GSAP Animations and Styled Components
 
 **Issue:** After switching to Prismic slices for case study detail pages, all the GSAP animations and proper styling were lost. The pages became static with simplified inline components instead of using the original styled components.
