@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FaLink, FaLinkedinIn, FaFacebookF } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
@@ -64,9 +65,9 @@ export default function Hero({ blogPost, className = "" }) {
       <div className="order-1 h-auto lg:order-1">
         <nav className="mb-8" aria-label="Breadcrumb">
           <div className="flex items-center space-x-2 text-base text-black">
-            <span>Blog</span>
+            <Link to="/blog" className="hover:text-brand transition-colors">Blog</Link>
             <span className="text-black">›</span>
-            <span>Category</span>
+            <span>{blogPost.category || "Category"}</span>
           </div>
         </nav>
         {/* Blog Title */}
