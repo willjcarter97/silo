@@ -100,7 +100,7 @@ const GalleryWithText = ({ heading, text, content, images, itemSpacing }) => {
                 <img
                   src={image.src}
                   alt={image.alt || `Gallery image ${index + 1}`}
-                  className={image.className || "w-full h-full object-cover"}
+                  className={image.className || "w-full h-full object-contain"}
                   loading="lazy"
                 />
               ) : (

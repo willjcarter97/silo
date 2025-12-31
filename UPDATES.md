@@ -2,6 +2,40 @@
 
 ## 2025-12-31
 
+### Fixed: GalleryWithText Images Now Fit Within Frame
+
+**Issue:** Images in the GalleryWithText component on case study pages were being cropped when they weren't perfectly square, cutting off important content.
+
+**Solution:** Changed the default image styling from `object-cover` to `object-contain` in `src/components/poststudy/GalleryWithText.jsx`.
+
+**Details:**
+- `object-cover` crops images to fill the container (can cut off edges)
+- `object-contain` scales images to fit entirely within the container (no cropping)
+- Custom `image.className` can still override this behavior per-image if needed
+
+**File modified:**
+- `src/components/poststudy/GalleryWithText.jsx`
+
+**Result:** Non-square images now display fully within their frames without being cropped.
+
+---
+
+### Fixed: Case Study Cards "View All" Button Overlapping with Last Card
+
+**Issue:** On the home page, the "View all" button for case studies was overlapping into the last case study card due to incorrect height/margin settings.
+
+**Solution:** Modified `src/components/Home/ContentAndDone.jsx`:
+- **Mobile view**: Changed button margin from `mt-[-5rem]` (negative margin causing overlap) to `mt-12` (proper positive spacing)
+- **Mobile view**: Added `pb-8` to the case study cards container for proper bottom padding
+- **Tablet view**: Removed conflicting `top-10 md:-top-20 relative` positioning from image containers that was causing layout issues
+
+**File modified:**
+- `src/components/Home/ContentAndDone.jsx`
+
+**Result:** The "View all" button now displays with proper spacing below the last case study card on all screen sizes.
+
+---
+
 ### Added: Comprehensive Lazy Loading System
 
 **Change:** Added lazy loading for images and text across the entire site for improved performance and user experience.

@@ -105,7 +105,7 @@ const HomepageCaseStudyTablet = ({ caseStudy, isLast }) => {
           </span>
         </a>
       </div>
-      <div className="w-full md:w-1/2 aspect-[4/3] top-10 md:-top-20 relative flex items-center justify-center overflow-hidden">
+      <div className="w-full md:w-1/2 aspect-[4/3] flex items-center justify-center overflow-hidden">
         <LazyImage
           src={caseStudy.featuredImage}
           alt={caseStudy.title}
@@ -550,7 +550,7 @@ export default function ContentAndDone() {
             Just some of the brands we've worked with
           </p>
 
-          <div className="space-y-12 border-t-[1px] border-t-black">
+          <div className="space-y-12 border-t-[1px] border-t-black pb-8">
             {isLoading ? (
               <div className="flex justify-center items-center py-20">
                 <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand"></div>
@@ -562,7 +562,7 @@ export default function ContentAndDone() {
             )}
           </div>
 
-          <div className="flex justify-center mt-[-5rem]">
+          <div className="flex justify-center mt-12">
             <a
               href="/case-studies"
               className="inline-flex items-center justify-center gap-2 bg-transparent border-[1px] border-brand h-[55px] px-6 py-3 text-base font-extrabold tracking-wide text-brand"
