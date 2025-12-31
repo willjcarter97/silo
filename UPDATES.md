@@ -24,6 +24,28 @@
 
 ---
 
+### Updated: Blog Pages Connected to Prismic
+
+**Change:** Ramblings (blog listing) and BlogDetail pages now fetch content from Prismic CMS.
+
+**Files modified:**
+- `src/pages/Ramblings.jsx` - Now fetches blog posts from Prismic
+- `src/pages/BlogDetail.jsx` - Now fetches individual posts by UID from Prismic
+- `src/routes/route.jsx` - Updated routing to use dynamic `/blog/:uid` pattern
+
+**Details:**
+- Blog listing page fetches all `blog_post` documents, ordered by publish date
+- Individual blog pages fetch by UID (slug)
+- Supports Prismic Slices for flexible content (text blocks, images with captions, quotes)
+- Loading states and error handling implemented
+- Removed hardcoded individual blog page routes (TheRiseOfAI, BrandIdentityShift, etc.)
+
+**Blog Post URL Format:**
+- Old: `/ai-powered-content-creation-2025` (hardcoded routes)
+- New: `/blog/ai-powered-content-creation-2025` (dynamic from Prismic UID)
+
+---
+
 ### Changed: Git Repository
 
 **Change:** Switched Git remote from developer's repository to owner's repository.
