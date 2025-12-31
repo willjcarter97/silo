@@ -22,11 +22,11 @@ const CaseStudyCardDesktop = ({ caseStudy, isLast }) => {
       className={`hidden lg:flex items-center justify-between gap-12 xl:gap-20 py-8 ${!isLast ? 'border-b border-black' : ''} group cursor-pointer`}
       onClick={() => (window.location.href = link)}
     >
-      <div className="w-2/5 aspect-[4/3] flex items-center justify-center overflow-hidden max-h-[280px]">
+      <div className="w-2/5 aspect-[4/3] flex items-center justify-center overflow-hidden">
         <img
           src={caseStudy.featuredImage}
           alt={caseStudy.title}
-          className="max-w-full max-h-[280px] object-contain"
+          className="max-w-full max-h-full object-contain"
           loading="lazy"
         />
       </div>
@@ -68,11 +68,11 @@ const CaseStudyCardMobile = ({ caseStudy, isLast }) => {
       className={`flex flex-col lg:hidden py-6 ${!isLast ? 'border-b border-black' : ''} cursor-pointer`}
       onClick={() => (window.location.href = link)}
     >
-      <div className="w-full aspect-[4/3] flex items-center justify-center overflow-hidden mb-6 max-h-[220px] md:max-h-[250px]">
+      <div className="w-full aspect-[4/3] flex items-center justify-center overflow-hidden mb-6">
         <img
           src={caseStudy.featuredImage}
           alt={caseStudy.title}
-          className="max-w-full max-h-[220px] md:max-h-[250px] object-contain"
+          className="max-w-full max-h-full object-contain"
           loading="lazy"
         />
       </div>
