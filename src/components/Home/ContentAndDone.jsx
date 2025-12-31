@@ -216,11 +216,11 @@ export default function ContentAndDone() {
                 (window.location.href = "/case-studies/basement-approved")
               }
             >
-              <div className="w-1/3 h-72 transform transition-transform duration-600 ease-in-out lg:group-hover:-translate-x-0">
+              <div className="w-1/3 aspect-[4/3] flex items-center justify-center overflow-hidden transform transition-transform duration-600 ease-in-out lg:group-hover:-translate-x-0">
                 <img
                   src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765882727/Untitled_Project_smo9qt.jpg"
                   alt="smoothie"
-                  className="w-full h-[calc(100%-32px)] object-cover my-4" // 16px gap top and bottom
+                  className="max-w-full max-h-full object-contain"
                   loading="lazy"
                 />
               </div>
@@ -323,11 +323,11 @@ export default function ContentAndDone() {
                 </a>
               </div>
               {/* Image second */}
-              <div className="w-[60%] mx-auto md:w-1/2 md:-top-20 h-60 top-10 relative">
+              <div className="w-[60%] mx-auto md:w-1/2 md:-top-20 aspect-[4/3] top-10 relative flex items-center justify-center overflow-hidden">
                 <img
                   src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765882727/Untitled_Project_smo9qt.jpg"
                   alt="smoothie"
-                  className="w-full h-full object-cover"
+                  className="max-w-full max-h-full object-contain"
                   loading="lazy"
                 />
                 {/* Hover image placeholder */}
@@ -349,11 +349,11 @@ export default function ContentAndDone() {
                 (window.location.href = "/case-studies/tomoka-fine-and-rare")
               }
             >
-              <div className="w-1/3 h-72 transform transition-transform duration-600 ease-in-out lg:group-hover:-translate-x-0">
+              <div className="w-1/3 aspect-[4/3] flex items-center justify-center overflow-hidden transform transition-transform duration-600 ease-in-out lg:group-hover:-translate-x-0">
                 <img
                   src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765884632/Tomoko-e10fd11f_2_jto3ax.png"
                   alt="smoothie"
-                  className="w-full h-[calc(100%-32px)] object-cover my-4" // 16px gap top and bottom
+                  className="max-w-full max-h-full object-contain"
                   loading="lazy"
                 />
               </div>
@@ -472,11 +472,11 @@ export default function ContentAndDone() {
                 </a>
               </div>
               {/* Image second */}
-              <div className="w-full md:w-1/2 h-60 top-10 md:-top-20 relative">
+              <div className="w-full md:w-1/2 aspect-[4/3] top-10 md:-top-20 relative flex items-center justify-center overflow-hidden">
                 <img
                   src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765884632/Tomoko-e10fd11f_2_jto3ax.png"
                   alt="smoothie"
-                  className="w-full h-full md:h-44 object-cover"
+                  className="max-w-full max-h-full object-contain"
                   loading="lazy"
                 />
                 {/* Hover image placeholder */}
@@ -498,11 +498,11 @@ export default function ContentAndDone() {
                 (window.location.href = "/case-studies/electrolytes-with-joly")
               }
             >
-              <div className="w-1/3 h-72 transform transition-transform duration-600 ease-in-out lg:group-hover:-translate-x-0">
+              <div className="w-1/3 aspect-[4/3] flex items-center justify-center overflow-hidden transform transition-transform duration-600 ease-in-out lg:group-hover:-translate-x-0">
                 <img
                   src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765884632/image_5_ibtcoo.png"
                   alt="smoothie"
-                  className="w-full h-[calc(100%-32px)] object-cover my-4" // 16px gap top and bottom
+                  className="max-w-full max-h-full object-contain"
                   loading="lazy"
                 />
               </div>
@@ -610,11 +610,11 @@ export default function ContentAndDone() {
                 </a>
               </div>
               {/* Image second */}
-              <div className="w-full md:w-1/2 h-60 top-10 md:-top-20 relative">
+              <div className="w-full md:w-1/2 aspect-[4/3] top-10 md:-top-20 relative flex items-center justify-center overflow-hidden">
                 <img
                   src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765884632/image_5_ibtcoo.png"
                   alt="smoothie"
-                  className="w-full h-full md:h-32 object-cover"
+                  className="max-w-full max-h-full object-contain"
                   loading="lazy"
                 />
                 {/* Hover image placeholder */}
@@ -752,11 +752,11 @@ export default function ContentAndDone() {
                 window.location.href = "/case-studies/basement-approved";
               }}
             >
-              <div className="w-full h-80 mb-0">
+              <div className="w-full aspect-[4/3] mb-0 flex items-center justify-center overflow-hidden">
                 <img
                   src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765882727/Untitled_Project_smo9qt.jpg  "
                   alt="basement approved"
-                  className="w-full h-full object-cover"
+                  className="max-w-full max-h-full object-contain"
                   loading="lazy"
                 />
               </div>
@@ -809,11 +809,11 @@ export default function ContentAndDone() {
                 window.location.href = "/case-studies/tomoka-fine-and-rare";
               }}
             >
-              <div className="w-full h-80 mb-0">
+              <div className="w-full aspect-[4/3] mb-0 flex items-center justify-center overflow-hidden">
                 <img
                   src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765884632/Tomoko-e10fd11f_2_jto3ax.png"
                   alt="lumin solar"
-                  className="w-full h-full object-cover"
+                  className="max-w-full max-h-full object-contain"
                   loading="lazy"
                 />
               </div>
@@ -876,11 +876,11 @@ export default function ContentAndDone() {
                 window.location.href = "/case-studies/electrolytes-with-joly";
               }}
             >
-              <div className="w-full h-60">
+              <div className="w-full aspect-[4/3] flex items-center justify-center overflow-hidden">
                 <img
                   src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765884632/image_5_ibtcoo.png"
                   alt="smart stats"
-                  className="w-full h-full object-cover"
+                  className="max-w-full max-h-full object-contain"
                   loading="lazy"
                 />
               </div>

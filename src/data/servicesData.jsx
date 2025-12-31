@@ -7,9 +7,9 @@ export const servicesData = [
     desc: "We don't just post, we'll plan, manage, and grow your brand's presence.",
   },
   {
-    icon: <img src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765914438/image_3_cixn1z.png" alt="Content Production" className="w-20 h-20 object-contain" />,
+    icon: <img src="https://res.cloudinary.com/di9tb45rl/image/upload/v1765914438/image_3_cixn1z.png" alt="Web Design & Development" className="w-20 h-20 object-contain" />,
     number: "02",
-    title: "Content Production",
+    title: "Web Design & Development",
     desc: "Thoughtful design and smart web development made to move your brand forward.",
   },
   {

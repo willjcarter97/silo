@@ -144,8 +144,8 @@ const TomokaFineAndRare = () => {
         title={caseStudy.titleSection.title}
         description={caseStudy.titleSection.description}
         minHeightClass="min-h-[300px] md:min-h-[200px]"
-        leftWidthClass="md:w-[45%]"
-        rightWidthClass="md:w-[50%]"
+        leftWidthClass="md:w-[55%] lg:w-[58%] xl:w-[60%]"
+        rightWidthClass="md:w-[42%] lg:w-[38%] xl:w-[36%]"
         mediaType="image"
         mediaSrc="https://res.cloudinary.com/di9tb45rl/image/upload/v1765993464/1_fy5lxs.png"
         /*
@@ -159,12 +159,12 @@ const TomokaFineAndRare = () => {
         text={caseStudy.galleryWithText.text}
         images={caseStudy.galleryWithText.images}
       />
-      <div className="flex flex-col md:flex-row justify-between items-start gap-8 md:gap-16 lg:gap-20 w-full max-w-[1280px] mx-auto px-3 md:px-0 py-5 md:py-20">
-        <h2 className="text-black text-2xl md:text-4xl lg:text-5xl font-bold text-left font-epilogue w-full md:w-1/3 lg:w-1/2">
+      <div className="flex flex-col md:flex-row justify-between items-start gap-6 md:gap-16 lg:gap-20 w-full max-w-[1280px] mx-auto px-5 md:px-6 lg:px-0 py-12 md:py-20">
+        <h2 className="text-black text-2xl md:text-3xl lg:text-4xl font-bold text-left font-epilogue w-full md:w-1/2">
           Full-service digital and creative transformation
         </h2>
-        <div className="flex flex-col w-full md:w-2/3 gap-6 justify-between items-start text-left font-epilogue text-base md:text-lg">
-          <ul className="list-disc space-y-5">
+        <div className="flex flex-col w-full md:w-1/2 gap-6 justify-between items-start text-left font-epilogue text-base md:text-lg">
+          <ul className="list-disc space-y-3">
             <li>
               <span className="font-bold">Website Design & Build:</span> A
               premium, modern site with e-commerce functionality, showcasing
@@ -223,11 +223,11 @@ const TomokaFineAndRare = () => {
         images={caseStudy.galleryWithText2.images}
       />
 
-      <div className="flex md:my-20 flex-col md:flex-row h-[40vh] md:h-[30vh] justify-between items-start gap-8 md:gap-16 lg:gap-20 w-full max-w-[1280px] mx-auto px-6 md:px-0 py-10 md:py-0 ">
-        <h2 className="text-black text-2xl md:text-4xl lg:text-5xl mb-auto font-bold text-left font-epilogue w-full md:w-1/2 lg:w-[60%]">
+      <div className="flex flex-col md:flex-row justify-between items-start gap-6 md:gap-16 lg:gap-20 w-full max-w-[1280px] mx-auto px-5 md:px-6 lg:px-0 py-12 md:py-20">
+        <h2 className="text-black text-2xl md:text-3xl lg:text-4xl font-bold text-left font-epilogue w-full md:w-1/2">
           If your heritage brand needs a modern digital presence
         </h2>
-        <div className="flex flex-col w-full md:w-2/3 gap-6 justify-between items-start text-left font-epilogue text-base md:text-lg mt-auto">
+        <div className="flex flex-col w-full md:w-1/2 gap-6 justify-between items-start text-left font-epilogue text-base md:text-lg">
           <p>
             Silo helps legacy brands elevate every touchpoint without
             sacrificing identity. Reach out to begin your digital

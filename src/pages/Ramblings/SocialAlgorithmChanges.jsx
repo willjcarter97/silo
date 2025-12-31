@@ -65,7 +65,7 @@ export default function SocialAlgorithmChanges() {
       "Meta, TikTok and YouTube: The Biggest Social Algorithm Changes of 2025",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros.",
-    author: "Ruby Turbott",
+    author: "Ruby Turbett",
     publishDate: "12 Sept 2025",
     featuredImage:
       "https://res.cloudinary.com/di9tb45rl/image/upload/v1765960193/3_prz7yp.png",

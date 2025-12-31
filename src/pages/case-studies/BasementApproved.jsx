@@ -188,18 +188,18 @@ const BasementApproved = () => {
         title={caseStudy.titleSection.title}
         description={caseStudy.titleSection.description}
         minHeightClass="min-h-[300px] md:min-h-[280px]"
-        leftWidthClass="md:w-[50%]"
-        rightWidthClass="md:w-[50%]"
+        leftWidthClass="md:w-[55%] lg:w-[58%] xl:w-[60%]"
+        rightWidthClass="md:w-[42%] lg:w-[38%] xl:w-[36%]"
         mediaType="iframe"
         mediaSrc="https://player.vimeo.com/video/1148605654?badge=0&autopause=0&player_id=0&app_id=58479"
         mediaCover="https://res.cloudinary.com/di9tb45rl/image/upload/v1766006438/Placeholder_Lightbox_kgs8zx.png"
       />
 
-      <div className="flex flex-col md:flex-row justify-between items-start gap-8 md:gap-16 lg:gap-40 w-full max-w-[1280px] mx-auto px-6 md:px-0 py-10 md:py-20">
-        <h2 className="text-black text-2xl md:text-4xl lg:text-5xl font-bold text-left font-epilogue w-full md:w-1/3">
+      <div className="flex flex-col md:flex-row justify-between items-start gap-6 md:gap-16 lg:gap-20 w-full max-w-[1280px] mx-auto px-5 md:px-6 lg:px-0 py-12 md:py-20">
+        <h2 className="text-black text-2xl md:text-3xl lg:text-4xl font-bold text-left font-epilogue w-full md:w-1/2">
           Understanding the challenge
         </h2>
-        <div className="flex flex-col w-full md:w-2/3 gap-6 justify-between items-start text-left font-epilogue text-base md:text-lg">
+        <div className="flex flex-col w-full md:w-1/2 gap-6 justify-between items-start text-left font-epilogue text-base md:text-lg">
           <p>
             Although the brand had strong recognition and a large social
             audience, the website lagged behind the needs of the community. It
@@ -224,11 +224,11 @@ const BasementApproved = () => {
         itemSpacing="mb-12 md:mb-8"
       />
 
-      <div className="flex flex-col md:flex-row justify-between items-start gap-8 md:gap-16 lg:gap-20 w-full max-w-[1280px] mx-auto px-3 md:px-0 py-5 md:py-20">
-        <h2 className="text-black text-2xl md:text-4xl lg:text-5xl font-bold text-left font-epilogue w-full md:w-1/3 lg:w-1/2">
-          Clear and confident visual direction for the show’s future
+      <div className="flex flex-col md:flex-row justify-between items-start gap-6 md:gap-16 lg:gap-20 w-full max-w-[1280px] mx-auto px-5 md:px-6 lg:px-0 py-12 md:py-20">
+        <h2 className="text-black text-2xl md:text-3xl lg:text-4xl font-bold text-left font-epilogue w-full md:w-1/2">
+          Clear and confident visual direction for the show's future
         </h2>
-        <div className="flex flex-col w-full md:w-2/3 gap-6 justify-between items-start text-left font-epilogue text-base md:text-lg">
+        <div className="flex flex-col w-full md:w-1/2 gap-6 justify-between items-start text-left font-epilogue text-base md:text-lg">
           <p>
             The new identity gives Electrolytes With Joly a visual direction
             that feels intentional and fully aligned with the tone of the show.
@@ -247,11 +247,11 @@ const BasementApproved = () => {
         column2={caseStudy.stats.column2}
         column3={caseStudy.stats.column3}
       />
-      <div className="flex flex-col md:flex-row justify-between items-start gap-8 md:gap-16 lg:gap-20 w-full max-w-[1280px] mx-auto px-3 md:px-0 py-5 mt-10 mb-5 md:mt-0 md:py-20 lg:mb-10">
-        <h2 className="text-black text-2xl md:text-4xl lg:text-5xl font-bold text-left font-epilogue w-full md:w-1/3 lg:w-1/2">
+      <div className="flex flex-col md:flex-row justify-between items-start gap-6 md:gap-16 lg:gap-20 w-full max-w-[1280px] mx-auto px-5 md:px-6 lg:px-0 py-12 md:py-20">
+        <h2 className="text-black text-2xl md:text-3xl lg:text-4xl font-bold text-left font-epilogue w-full md:w-1/2">
           Strengthening the platform for a growing community
         </h2>
-        <div className="flex flex-col w-full md:w-2/3 gap-6 justify-between items-start text-left font-epilogue text-base md:text-lg">
+        <div className="flex flex-col w-full md:w-1/2 gap-6 justify-between items-start text-left font-epilogue text-base md:text-lg">
           <p>
             A significantly improved user experience with better structure and
             navigation.Stronger alignment between the website and

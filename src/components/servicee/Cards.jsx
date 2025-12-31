@@ -196,22 +196,22 @@ const Cards = () => {
                   zIndex: z,
                 }}
                 transition={{ type: "spring", stiffness: 220, damping: 22 }}
-                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 2xl:w-[720px] lg:w-[580px] md:w-[420px] md:h-[200px] lg:h-[250px] 2xl:h-[340px] bg-white border-[1px] border-[#FF322E] flex flex-col items-start justify-center px-12 py-10 shadow-lg"
+                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] sm:w-[360px] md:w-[420px] lg:w-[580px] 2xl:w-[720px] min-h-[180px] sm:min-h-[190px] md:min-h-[200px] lg:min-h-[250px] 2xl:min-h-[340px] bg-white border-[1px] border-[#FF322E] flex flex-col items-start justify-start px-6 sm:px-8 md:px-12 py-6 sm:py-8 md:py-10 pb-8 sm:pb-10 md:pb-12 shadow-lg"
               >
-                <div className="mb-4 flex w-full justify-between items-center 2xl:text-xl lg:text-base font-bold">
+                <div className="mb-2 sm:mb-3 md:mb-4 flex w-full justify-between items-center text-sm sm:text-base lg:text-base 2xl:text-xl font-bold">
                   {card.icon}
                 </div>
-                <h2 className="2xl:text-5xl lg:text-2xl font-bold mb-2">
+                <h2 className="text-xl sm:text-2xl lg:text-2xl 2xl:text-5xl font-bold mb-1 sm:mb-2">
                   {card.title}
                 </h2>
-                <p className="2xl:text-3xl lg:text-xl text-black">
+                <p className="text-base sm:text-lg lg:text-xl 2xl:text-3xl text-black">
                   {card.desc}
                 </p>
               </motion.div>
             );
           })}
         </div>
-        <h1 className="text-brand xl:text-[15vw] md:text-[22vw] md:leading-tight font-bold text-center 2xl:leading-[20rem] z-10 pointer-events-none lg:text-[20vw]">
+        <h1 className="text-brand text-[28vw] sm:text-[24vw] md:text-[22vw] lg:text-[20vw] xl:text-[15vw] leading-tight md:leading-tight 2xl:leading-[20rem] font-bold text-center z-10 pointer-events-none">
           CORE <br /> SERVICES
         </h1>
       </div>
@@ -279,14 +279,14 @@ const Cards = () => {
                   zIndex: z,
                 }}
                 transition={{ type: "spring", stiffness: 220, damping: 22 }}
-                className="absolute -translate-x-1/2 -translate-y-1/2 w-[310px] h-[250px] bg-white shadow-[0_0_0_2px_#FF322E] outline-1 outline-transparent outline flex flex-col items-start justify-between px-4 py-8 will-change-transform"
+                className="absolute -translate-x-1/2 -translate-y-1/2 w-[310px] bg-white shadow-[0_0_0_2px_#FF322E] outline-1 outline-transparent outline flex flex-col items-start justify-start gap-3 px-4 py-5 will-change-transform"
               >
-                <div className="flex w-full justify-between items-start">
-                  <div className="scale-[0.55] origin-top-left">
+                <div className="flex w-full justify-between items-start mb-1">
+                  <div className="scale-[0.4] origin-top-left h-8">
                     {card.icon}
                   </div>
                 </div>
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-1">
                   <h2 className="text-xl font-extrabold uppercase leading-tight tracking-tight text-black font-epilogue">
                     {card.title}
                   </h2>

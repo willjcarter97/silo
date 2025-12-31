@@ -63,7 +63,7 @@ const WhoWeLoveWorkingWith = () => {
 
           {/* Below Text - Zoom & Small Laptop Optimized */}
           <p
-            className="text-black text-leftlg:block xl:block lg:text-left xl:text-left text-xs sm:text-sm md:text-base lg:text-lg xl:text-base leading-relaxed md:mt-10"
+            className="text-black lg:block xl:block text-left lg:text-left xl:text-left text-xs sm:text-sm md:text-base lg:text-lg xl:text-base leading-relaxed md:mt-10 max-w-xl lg:max-w-2xl"
             style={{
               fontFamily: "DM Sans, sans-serif",
               fontWeight: 700,
@@ -71,7 +71,7 @@ const WhoWeLoveWorkingWith = () => {
               letterSpacing: "0%",
             }}
           >
-         We partner with brands and businesses that value strong strategy, great design and a clear <br /> digital presence. If you care about building a brand that looks good, works well and <br /> communicates with purpose, we are your people.
+            We partner with brands and businesses that value strong strategy, great design and a clear digital presence. If you care about building a brand that looks good, works well and communicates with purpose, we are your people.
           </p>
         </div>
       </div>

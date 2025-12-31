@@ -8,11 +8,6 @@ const MindsInTheSilo = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
-  const [touchStart, setTouchStart] = useState(null);
-  const [touchEnd, setTouchEnd] = useState(null);
-  const [mouseStart, setMouseStart] = useState(null);
-  const [mouseEnd, setMouseEnd] = useState(null);
-  const [isMouseDown, setIsMouseDown] = useState(false);
 
   // Viewport animation state
   const [cardsInViewport, setCardsInViewport] = useState(new Set());
@@ -26,7 +21,7 @@ const MindsInTheSilo = () => {
       name: "Ruby Turbett",
       title: "Founder",
       description:
-        "Ruby has a decade of marketing experience, having built a finance-focused agency before leaning into her passion for social. She leads with sharp thinking and builds strong client relationships. Outside work, she’s at pilates, boxing or planning her next city break.",
+        "Ruby has ten years in marketing and built a finance-focused agency before moving into social. She builds strong client relationships. Outside work she does pilates, boxing, or plans her next trip.",
       imageUrl:
         "https://res.cloudinary.com/di9tb45rl/image/upload/v1765909402/Placeholder_Image_akzzvs.png",
     },
@@ -36,7 +31,7 @@ const MindsInTheSilo = () => {
       name: "Will Carter",
       title: "Creative Digital Designer",
       description:
-        "Will designs clean, human-focused digital experiences with a balance of creativity and practical thinking. He helps brands show up with clarity and purpose, turning ideas into simple products people enjoy using. When he’s not working, he’s likely on a padel court perfecting his backhand.",
+        "Will designs clear, human-focused digital experiences that blend creativity with practical thinking. He turns ideas into simple products people enjoy. Outside work he plays padel.",
       imageUrl:
         "https://res.cloudinary.com/di9tb45rl/image/upload/v1762717231/Carousal4_inzouv.png",
       // allow per-item override of image container heights (mobile / md / lg)
@@ -187,103 +182,27 @@ const MindsInTheSilo = () => {
     return () => clearTimeout(timer);
   }, [currentSlide, cardsPerView, carouselData.length]);
 
+  // Calculate the maximum slide index (clamped)
+  const maxSlide = Math.max(0, totalSlides - 1);
+
   // Navigation functions with faster transitions
-  const goToNextSlide = () => {
-    if (!isTransitioning && currentSlide < totalSlides - 1) {
+  const goToSlide = useCallback((slideIndex) => {
+    // Clamp to valid range
+    const clampedSlide = Math.max(0, Math.min(slideIndex, maxSlide));
+    if (!isTransitioning && clampedSlide !== currentSlide) {
       setIsTransitioning(true);
-      setCurrentSlide((prev) => prev + 1);
+      setCurrentSlide(clampedSlide);
       setTimeout(() => setIsTransitioning(false), 300);
     }
-  };
+  }, [isTransitioning, currentSlide, maxSlide]);
 
-  const goToPrevSlide = () => {
-    if (!isTransitioning && currentSlide > 0) {
-      setIsTransitioning(true);
-      setCurrentSlide((prev) => prev - 1);
-      setTimeout(() => setIsTransitioning(false), 300);
-    }
-  };
+  const goToNextSlide = useCallback(() => {
+    goToSlide(currentSlide + 1);
+  }, [currentSlide, goToSlide]);
 
-  // Enhanced touch gesture handlers with scroll conflict prevention
-  const handleTouchStart = (e) => {
-    setTouchEnd(null);
-    setTouchStart(e.targetTouches[0].clientX);
-  };
-
-  const handleTouchMove = (e) => {
-    setTouchEnd(e.targetTouches[0].clientX);
-
-    // Prevent horizontal scroll interference on all screen sizes
-    if (touchStart) {
-      const currentX = e.targetTouches[0].clientX;
-      const diffX = Math.abs(currentX - touchStart);
-
-      // If horizontal movement is significant, prevent default to avoid scroll conflicts
-      if (diffX > 10) {
-        e.preventDefault();
-      }
-    }
-  };
-
-  const handleTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
-
-    const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > 50;
-    const isRightSwipe = distance < -50;
-
-    // Trigger swipe for all screen sizes with boundary checks
-    if (isLeftSwipe && currentSlide < totalSlides - 1) {
-      goToNextSlide();
-    } else if (isRightSwipe && currentSlide > 0) {
-      goToPrevSlide();
-    }
-
-    // Reset touch states
-    setTouchStart(null);
-    setTouchEnd(null);
-  };
-
-  // Mouse drag handlers for desktop
-  const handleMouseDown = (e) => {
-    setIsMouseDown(true);
-    setMouseEnd(null);
-    setMouseStart(e.clientX);
-    e.preventDefault();
-  };
-
-  const handleMouseMove = (e) => {
-    if (!isMouseDown) return;
-    setMouseEnd(e.clientX);
-    e.preventDefault();
-  };
-
-  const handleMouseUp = () => {
-    if (!isMouseDown || !mouseStart || !mouseEnd) {
-      setIsMouseDown(false);
-      return;
-    }
-
-    const distance = mouseStart - mouseEnd;
-    const isLeftSwipe = distance > 50;
-    const isRightSwipe = distance < -50;
-
-    if (isLeftSwipe && currentSlide < totalSlides - 1) {
-      goToNextSlide();
-    } else if (isRightSwipe && currentSlide > 0) {
-      goToPrevSlide();
-    }
-
-    setIsMouseDown(false);
-    setMouseStart(null);
-    setMouseEnd(null);
-  };
-
-  const handleMouseLeave = () => {
-    setIsMouseDown(false);
-    setMouseStart(null);
-    setMouseEnd(null);
-  };
+  const goToPrevSlide = useCallback(() => {
+    goToSlide(currentSlide - 1);
+  }, [currentSlide, goToSlide]);
 
   // Keyboard navigation
   useEffect(() => {
@@ -301,7 +220,7 @@ const MindsInTheSilo = () => {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, []);
+  }, [goToPrevSlide, goToNextSlide]);
 
   // Cleanup any active timers on unmount
   useEffect(() => {
@@ -312,8 +231,8 @@ const MindsInTheSilo = () => {
   }, []);
 
   return (
-    <section className="md:min-h-screen min-h-[80vh] flex items-start justify-center py-6 sm:py-8 md:py-12 lg:py-16 px-3 sm:px-4 md:px-6 lg:px-8 bg-white overflow-x-hidden">
-      <div className="max-w-full mx-auto w-full">
+    <section className="md:min-h-screen min-h-[80vh] flex items-start justify-center py-6 sm:py-8 md:py-12 lg:py-16 px-4 md:px-10 lg:px-10 bg-white overflow-x-hidden">
+      <div className="max-w-[1280px] mx-auto w-full">
         {/* Header Section - Zoom & Small Laptop Optimized */}
         <div className="text-left xl:text-left mb-6 sm:mb-8 md:mb-12 lg:mb-16 px-2 sm:px-0">
           <h2
@@ -352,27 +271,20 @@ const MindsInTheSilo = () => {
           {/* Cards Container - Mobile Enhanced with Framer Motion */}
           <div
             className="overflow-hidden w-full px-2 sm:px-4 lg:px-0 lg:max-w-full lg:mx-auto"
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
-            onMouseDown={handleMouseDown}
-            onMouseMove={handleMouseMove}
-            onMouseUp={handleMouseUp}
-            onMouseLeave={handleMouseLeave}
             role="group"
             aria-label={`Slide ${currentSlide + 1} of ${totalSlides}`}
             style={{ touchAction: "pan-y pinch-zoom" }}
           >
             <motion.div
-              className={`flex gap-3 sm:gap-4 md:gap-6 select-none ${
+              className={`flex items-stretch gap-3 sm:gap-4 md:gap-6 select-none ${
                 totalSlides > 1 ? 'cursor-grab active:cursor-grabbing' : ''
               }`}
               drag={totalSlides > 1 ? "x" : false}
               dragConstraints={{
-                left:
-                  -(cardWidth + gap) *
-                  Math.max(0, carouselData.length - cardsPerView),
+                // Right constraint: cannot scroll past first card (x cannot be positive)
                 right: 0,
+                // Left constraint: cannot scroll past last viewable position
+                left: -(cardWidth + gap) * maxSlide,
               }}
               dragElastic={0.2}
               dragMomentum={false}
@@ -383,16 +295,33 @@ const MindsInTheSilo = () => {
               onDragEnd={(event, info) => {
                 setIsDragging(false);
                 document.body.style.userSelect = "";
+                
                 const offset = info.offset.x;
                 const velocity = info.velocity.x;
-
-                if (Math.abs(offset) > 50 || Math.abs(velocity) > 300) {
-                  if (offset > 0 && currentSlide > 0) {
-                    goToPrevSlide();
-                  } else if (offset < 0 && currentSlide < totalSlides - 1) {
-                    goToNextSlide();
+                const slideWidth = cardWidth + gap;
+                
+                // Calculate which slide to snap to based on drag direction and velocity
+                let targetSlide = currentSlide;
+                
+                // Significant drag or fast swipe
+                if (Math.abs(offset) > slideWidth * 0.25 || Math.abs(velocity) > 300) {
+                  if (offset > 0) {
+                    // Dragged right -> go to previous slide
+                    targetSlide = currentSlide - 1;
+                  } else if (offset < 0) {
+                    // Dragged left -> go to next slide
+                    targetSlide = currentSlide + 1;
                   }
                 }
+                
+                // Clamp to valid range (this is the key fix!)
+                targetSlide = Math.max(0, Math.min(targetSlide, maxSlide));
+                
+                // Update slide (this will trigger the animate prop)
+                if (targetSlide !== currentSlide) {
+                  setCurrentSlide(targetSlide);
+                }
+                // If same slide, Framer Motion will snap back automatically due to animate prop
               }}
               animate={{
                 x: -currentSlide * (cardWidth + gap),
@@ -441,7 +370,7 @@ const MindsInTheSilo = () => {
                     {item.type === "team-member" ? (
                       // Team Member Card - No fading animations
                       <motion.div
-                        className="bg-white flex flex-col border-[1px] p-1 transition-all duration-200 min-h-[28rem]"
+                        className="bg-white flex flex-col border-[1px] p-1 transition-all duration-200 min-h-[38rem] md:min-h-[38rem] lg:min-h-[44rem]"
                         style={{
                           pointerEvents: "auto",
                           borderColor:
@@ -488,7 +417,7 @@ const MindsInTheSilo = () => {
                     ) : (
                       // Special Card - Viewport-based animations
                       <motion.div
-                        className="p-3 sm:p-4 lg:p-6 xl:p-8 flex flex-col justify-center items-center text-left border-[1px] group min-h-[28rem] md:min-h-[40rem]"
+                        className="p-3 sm:p-4 lg:p-6 xl:p-8 flex flex-col justify-center items-center text-left border-[1px] group min-h-[38rem] md:min-h-[38rem] lg:min-h-[44rem]"
                         style={{
                           backgroundColor: "#FFE5E5",
                           borderColor: "#FF322E",
@@ -657,3 +586,4 @@ const MindsInTheSilo = () => {
 };
 
 export default MindsInTheSilo;
+

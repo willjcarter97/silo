@@ -80,7 +80,7 @@ const AcornPropertyGroup = () => {
           Silo partnered with Acorn to elevate their social presence and
           streamline digital communication.{" "}
           <span className="font-bold">Our work includes:</span>
-          <ul className="list-disc ml-10 py-5 space-y-5 font-semibold">
+          <ul className="list-disc ml-6 py-4 space-y-3 font-semibold">
             <li>
               Quarterly social strategy setting clear performance goals and
               priorities
@@ -138,7 +138,7 @@ const AcornPropertyGroup = () => {
             </span>
             <br />
             <span className="font-bold">Key highlights include:</span>
-            <ul className="list-disc ml-10 py-5 space-y-5 font-semibold">
+            <ul className="list-disc ml-6 py-4 space-y-3 font-semibold">
               <li>
                 A notable increase in reach on Instagram, with individual months
                 seeing uplift of <span className="font-bold">60%+</span>{" "}
@@ -230,18 +230,18 @@ const AcornPropertyGroup = () => {
         title={caseStudy.titleSection.title}
         description={caseStudy.titleSection.description}
         minHeightClass="min-h-[300px] md:min-h-[250px]"
-        leftWidthClass="md:w-[45%]"
-        rightWidthClass="md:w-[50%]"
+        leftWidthClass="md:w-[55%] lg:w-[58%] xl:w-[60%]"
+        rightWidthClass="md:w-[42%] lg:w-[38%] xl:w-[36%]"
         mediaType="image"
         mediaSrc="https://res.cloudinary.com/di9tb45rl/image/upload/v1765999896/0_lzwkcq.png"
       />
 
-      <div className="flex flex-col md:flex-row justify-between items-start gap-8 md:gap-16 lg:gap-20 w-full max-w-[1280px] mx-auto px-3 md:px-0 py-5 md:py-20">
-        <h2 className="text-black text-2xl md:text-4xl lg:text-5xl font-bold text-left font-epilogue w-full md:w-1/3 lg:w-1/2">
+      <div className="flex flex-col md:flex-row justify-between items-start gap-6 md:gap-16 lg:gap-20 w-full max-w-[1280px] mx-auto px-5 md:px-6 lg:px-0 py-12 md:py-20">
+        <h2 className="text-black text-2xl md:text-3xl lg:text-4xl font-bold text-left font-epilogue w-full md:w-1/2">
           The challenge: translating a respected offline reputation into a
           coherent digital identity
         </h2>
-        <div className="flex flex-col w-full md:w-2/3 gap-6 justify-between items-start text-left font-epilogue text-base md:text-lg">
+        <div className="flex flex-col w-full md:w-1/2 gap-6 justify-between items-start text-left font-epilogue text-base md:text-lg">
           <p>
             Despite a strong offline reputation, Acorn’s digital channels were
             not reflecting the strength of the brand. Their content was
@@ -275,11 +275,11 @@ const AcornPropertyGroup = () => {
         images={caseStudy.galleryWithText2.images}
       />
 
-      <div className="flex flex-col md:flex-row justify-between items-start gap-8 md:gap-16 lg:gap-20 w-full max-w-[1280px] mx-auto px-3 md:px-0 py-5 md:py-20">
-        <h2 className="text-black text-2xl md:text-4xl lg:text-5xl font-bold text-left font-epilogue w-full md:w-1/3 lg:w-1/2">
+      <div className="flex flex-col md:flex-row justify-between items-start gap-6 md:gap-16 lg:gap-20 w-full max-w-[1280px] mx-auto px-5 md:px-6 lg:px-0 py-12 md:py-20">
+        <h2 className="text-black text-2xl md:text-3xl lg:text-4xl font-bold text-left font-epilogue w-full md:w-1/2">
           The outcome: a confident and growing multi platform presence
         </h2>
-        <div className="flex flex-col w-full md:w-2/3 gap-6 justify-between items-start text-left font-epilogue text-base md:text-lg">
+        <div className="flex flex-col w-full md:w-1/2 gap-6 justify-between items-start text-left font-epilogue text-base md:text-lg">
           <p>
             Acorn’s digital identity now mirrors the craftsmanship and care that
             define their developments. Their presence is clearer, stronger and

@@ -97,11 +97,11 @@ const TitleWithDescription = ({
 
   return (
     <>
-      <div className="w-full max-w-[1280px] mx-auto pt-16 md:pt-24  px-3 md:px-0">
-        <div className={`relative min-h-[200px] md:min-h-[400px]`}>
+      <div className="w-full max-w-[1280px] mx-auto pt-16 md:pt-24 px-3 md:px-0">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 md:gap-10 lg:gap-16">
           <div
-            className={`relative w-full md:absolute md:top-0 md:left-0 ${
-              leftWidthClass || "md:w-[55%]"
+            className={`${
+              leftWidthClass || "md:w-[55%] lg:w-[58%] xl:w-[60%]"
             }`}
           >
             <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-epilogue font-bold text-black">
@@ -110,9 +110,9 @@ const TitleWithDescription = ({
           </div>
 
           <div
-            className={`relative mt-6 w-full md:absolute md:-bottom-0 md:right-0 ${
-              rightWidthClass || "md:w-[50%]"
-            } flex flex-col gap-4 md:mt-0`}
+            className={`${
+              rightWidthClass || "md:w-[42%] lg:w-[38%] xl:w-[36%]"
+            } flex flex-col gap-4`}
           >
             {Array.isArray(description) ? (
               description.map((para, index) => (
