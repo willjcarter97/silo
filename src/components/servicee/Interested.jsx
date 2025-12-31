@@ -217,7 +217,7 @@ const Interested = () => {
       {/* Optional Add-ons - aligned with grid above */}
       <div
         id="optional"
-        className="max-w-[1280px] h-auto mx-auto px-4 md:px-0 pt-0 pb-8 md:pb-16"
+        className="max-w-[1280px] h-auto mx-auto px-4 md:px-0 pt-6 md:pt-0 pb-8 md:pb-16"
       >
         <div className="md:pl-8">
           <h3 className="font-epilogue font-bold text-[32px] md:text-[28px] lg:text-[32px] leading-[130%] tracking-normal text-black mb-4">
