@@ -24,6 +24,75 @@ const formatDate = (dateString) => {
   });
 };
 
+// Custom components for PrismicRichText to match original styling
+const richTextComponents = {
+  heading1: ({ children }) => (
+    <h1 className="text-4xl md:text-5xl font-bold text-black mb-6">{children}</h1>
+  ),
+  heading2: ({ children }) => (
+    <h2 className="text-3xl md:text-4xl font-bold text-black mb-6 mt-12 first:mt-0">{children}</h2>
+  ),
+  heading3: ({ children }) => (
+    <h3 className="text-2xl md:text-3xl font-bold text-black mb-4 mt-8">{children}</h3>
+  ),
+  heading4: ({ children }) => (
+    <h4 className="text-xl md:text-2xl font-bold text-black mb-4 mt-6">{children}</h4>
+  ),
+  heading5: ({ children }) => (
+    <h5 className="text-lg md:text-xl font-bold text-black mb-3 mt-4">{children}</h5>
+  ),
+  heading6: ({ children }) => (
+    <h6 className="text-base md:text-lg font-bold text-black mb-3 mt-4">{children}</h6>
+  ),
+  paragraph: ({ children }) => (
+    <p className="text-black leading-relaxed mb-4">{children}</p>
+  ),
+  preformatted: ({ children }) => (
+    <pre className="bg-gray-100 p-4 rounded overflow-x-auto text-sm mb-4">{children}</pre>
+  ),
+  strong: ({ children }) => (
+    <strong className="font-bold">{children}</strong>
+  ),
+  em: ({ children }) => (
+    <em className="italic">{children}</em>
+  ),
+  listItem: ({ children }) => (
+    <li className="text-black leading-relaxed ml-6 mb-2 list-disc">{children}</li>
+  ),
+  oListItem: ({ children }) => (
+    <li className="text-black leading-relaxed ml-6 mb-2 list-decimal">{children}</li>
+  ),
+  list: ({ children }) => (
+    <ul className="mb-4 space-y-1">{children}</ul>
+  ),
+  oList: ({ children }) => (
+    <ol className="mb-4 space-y-1">{children}</ol>
+  ),
+  hyperlink: ({ children, node }) => (
+    <a 
+      href={node.data.url} 
+      target={node.data.target || "_blank"} 
+      rel="noopener noreferrer"
+      className="text-[#FF322E] hover:underline"
+    >
+      {children}
+    </a>
+  ),
+  image: ({ node }) => (
+    <div className="my-6">
+      <img 
+        src={node.url} 
+        alt={node.alt || ""} 
+        className="w-full h-auto"
+        loading="lazy"
+      />
+      {node.alt && (
+        <p className="text-sm text-gray-600 mt-2">{node.alt}</p>
+      )}
+    </div>
+  ),
+};
+
 export default function BlogDetail() {
   const { uid } = useParams();
   const contentContainerRef = useRef(null);
@@ -164,10 +233,10 @@ export default function BlogDetail() {
     switch (slice.slice_type) {
       case 'text_block':
         return (
-          <div key={index} className="mt-12 lg:max-w-[66.666%]">
+          <div key={index} className="mt-8 first:mt-0">
             {slice.items?.map((item, itemIndex) => (
-              <div key={itemIndex} className="space-y-4 text-black leading-relaxed prose prose-lg max-w-none">
-                <PrismicRichText field={item.content} />
+              <div key={itemIndex} className="text-black leading-relaxed">
+                <PrismicRichText field={item.content} components={richTextComponents} />
               </div>
             ))}
           </div>
@@ -175,7 +244,7 @@ export default function BlogDetail() {
       
       case 'image_with_caption_':
         return (
-          <div key={index} className="mt-12 lg:max-w-[66.666%]">
+          <div key={index} className="mt-12">
             {slice.items?.map((item, itemIndex) => (
               <div key={itemIndex} className="mb-8">
                 {item.image?.url && (
@@ -205,10 +274,12 @@ export default function BlogDetail() {
       
       case 'quote':
         return (
-          <div key={index} className="mt-12 border border-black p-8 lg:max-w-[66.666%]">
+          <div key={index} className="mt-12 border border-black p-8">
             {slice.primary?.quote_text && (
               <blockquote className="text-lg md:text-xl text-black leading-relaxed mb-4">
-                "{asText(slice.primary.quote_text)}"
+                "<PrismicRichText field={slice.primary.quote_text} components={{
+                  paragraph: ({ children }) => <span>{children}</span>,
+                }} />"
               </blockquote>
             )}
             {slice.primary?.quote_author && (
@@ -243,7 +314,9 @@ export default function BlogDetail() {
             <div className="lg:col-span-2">
               {/* Render all slices */}
               {blogPost.slices.length > 0 ? (
-                blogPost.slices.map((slice, index) => renderSlice(slice, index))
+                <div className="space-y-0">
+                  {blogPost.slices.map((slice, index) => renderSlice(slice, index))}
+                </div>
               ) : (
                 <div className="text-black leading-relaxed">
                   <p>No content available for this post.</p>
