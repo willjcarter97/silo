@@ -2,6 +2,23 @@
 
 ## 2025-12-31
 
+### Fixed: Case Study Components Losing Horizontal Margins on Resize
+
+**Issue:** Multiple poststudy components were losing their horizontal padding when resizing between tablet (768px) and desktop (1280px). The padding pattern was `px-3 md:px-0`, which removed all padding at the `md` breakpoint before the `max-w-[1280px]` could constrain the content.
+
+**Solution:** Updated padding to use consistent responsive pattern `px-5 md:px-6 lg:px-0`:
+- Mobile: 20px (px-5)
+- Tablet: 24px (px-6)
+- Desktop (lg+): 0px (max-width takes over)
+
+**Files modified:**
+- `src/components/poststudy/TitleWithDescription.jsx`
+- `src/components/poststudy/FullScreenImage.jsx`
+- `src/components/poststudy/SimpleHeadingText.jsx`
+- `src/components/poststudy/FourGallery.jsx`
+
+---
+
 ### Fixed: StatsSection Layout Breaking with Longer Text
 
 **Issue:** The StatsSection component was designed for short stat values (like "30%" or "100K") with very large font sizes. When longer text came from Prismic, it broke the layout because:

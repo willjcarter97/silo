@@ -1,6 +1,6 @@
 const SimpleHeadingText = ({ heading, text }) => {
   return (
-    <div className="w-full max-w-[1280px] mx-auto py-16 md:py-24 px-3 md:px-0">
+    <div className="w-full max-w-[1280px] mx-auto py-16 md:py-24 px-5 md:px-6 lg:px-0">
       <div className="max-w-4xl">
         <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold text-black mb-8">
           {heading || "Medium length section heading goes here"}

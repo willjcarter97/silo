@@ -97,7 +97,7 @@ const TitleWithDescription = ({
 
   return (
     <>
-      <div className="w-full max-w-[1280px] mx-auto pt-16 md:pt-24 px-3 md:px-0">
+      <div className="w-full max-w-[1280px] mx-auto pt-16 md:pt-24 px-5 md:px-6 lg:px-0">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 md:gap-10 lg:gap-16">
           <div
             className={`${
