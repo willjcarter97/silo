@@ -844,3 +844,17 @@
 
 **Result:** Cards now animate smoothly with spring physics, responding reliably to scroll input without jitter or missed interactions.
 
+---
+
+### Fixed: Ramblings Blog Posts Image/Text Mobile Order
+
+**Issue:** On the Ramblings (blog listing) page, images were appearing below the text content on mobile devices. The expected behavior is for images to appear above text on all screen sizes.
+
+**Solution:** Modified `src/pages/Ramblings.jsx`:
+- Featured post: Changed text container order from `order-1 md:order-2` to `order-2`
+- Featured post: Changed image container order from `order-2 md:order-1` to `order-1`
+- Grid posts: Changed text container order from `order-1 md:order-2` to `order-2`
+- Grid posts: Changed image container order from `order-2 md:order-1` to `order-1`
+
+**Result:** Blog post images now appear above text content on mobile, matching the desktop layout.
+

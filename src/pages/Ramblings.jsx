@@ -275,7 +275,7 @@ export default function Ramblings() {
                         className="bg-white overflow-hidden cursor-pointer flex flex-col"
                         onClick={() => navigate(filteredPosts[0].link)}
                       >
-                        <div className="md:p-8 md:px-0 py-8 px-0 order-1 md:order-2">
+                        <div className="md:p-8 md:px-0 py-8 px-0 order-2">
                           <div className="flex items-center gap-3 mb-4">
                             <span className="text-sm bg-[#FFDBDB] text-black font-semibold px-3 py-1">
                               {filteredPosts[0].category}
@@ -305,7 +305,7 @@ export default function Ramblings() {
                           </Link>
                         </div>
 
-                        <div className="w-full h-[60vh] overflow-hidden group order-2 md:order-1">
+                        <div className="w-full h-[60vh] overflow-hidden group order-1">
                           {filteredPosts[0].image ? (
                             <LazyImage
                               src={filteredPosts[0].image}
@@ -334,7 +334,7 @@ export default function Ramblings() {
                             renderWhenHidden={true}
                             onClick={() => navigate(post.link)}
                           >
-                            <div className="md:p-6 md:px-0 py-6 px-0 order-1 md:order-2">
+                            <div className="md:p-6 md:px-0 py-6 px-0 order-2">
                               <div className="flex items-center gap-3 mb-3">
                                 <span className="text-sm bg-[#FFDBDB] text-black font-semibold px-3 py-1">
                                   {post.category}
@@ -367,7 +367,7 @@ export default function Ramblings() {
                               </Link>
                             </div>
 
-                            <div className="aspect-[16/9] overflow-hidden group order-2 md:order-1">
+                            <div className="aspect-[16/9] overflow-hidden group order-1">
                               {post.image ? (
                                 <LazyImage
                                   src={post.image}
