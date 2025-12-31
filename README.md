@@ -70,6 +70,18 @@ This project is connected to Prismic for headless content management.
 - `@prismicio/client` - API client for fetching content
 - `@prismicio/react` - React components and hooks
 
+### Content Types
+
+#### Blog Posts (`blog_post`)
+- Managed in Prismic with slices for flexible content
+- Fetched on `/blog` (listing) and `/blog/:uid` (detail)
+
+#### Case Studies (`case_study`)
+- Managed in Prismic with full slice support
+- Fetched on `/case-studies` (listing) and `/case-studies/:uid` (detail)
+- **Reorderable**: Set `display_order` field (lower = appears first)
+- **Homepage feature**: Toggle `show_on_homepage` to display on homepage
+
 ### Usage
 ```javascript
 import { client } from './prismicio';
@@ -77,8 +89,13 @@ import { client } from './prismicio';
 // Fetch all documents of a type
 const posts = await client.getAllByType('blog_post');
 
+// Fetch case studies ordered by display_order
+const caseStudies = await client.getAllByType('case_study', {
+  orderings: { field: 'my.case_study.display_order', direction: 'asc' }
+});
+
 // Fetch a single document by UID
-const page = await client.getByUID('page', 'about');
+const page = await client.getByUID('case_study', 'basement-approved');
 ```
 
 ## Image Migration (Cloudinary → Prismic)

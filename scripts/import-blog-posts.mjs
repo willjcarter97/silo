@@ -4,7 +4,8 @@
  */
 
 const PRISMIC_REPO = 'silosite';
-const PRISMIC_TOKEN = 'MC5hVlVkVkJBQUFDTUFNelFY.77-977-977-977-9R--_vW_vv73vv73vv714Hu-_ve-_ve-_ve-_ve-_vVvvv706cu-_vWJl77-9LO-_ve-_vRPvv73vv71g';
+// Token removed for security - use environment variable PRISMIC_WRITE_TOKEN instead
+const PRISMIC_TOKEN = process.env.PRISMIC_WRITE_TOKEN || '';
 
 // Helper to create Prismic Rich Text paragraph
 const paragraph = (text) => [{ type: 'paragraph', text, spans: [] }];

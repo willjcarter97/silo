@@ -135,29 +135,29 @@ const BasementApproved = () => {
       ],
     },
     simpleHeadingText: {
-      heading: "A platform built for scale and speed",
+      heading: "Built for performance and automation",
       text: [
-        "Behind the beautiful interface lies a robust technical foundation. We implemented a headless commerce architecture, allowing for blazing-fast page loads and seamless integration with their existing inventory management system.",
-        "The platform now handles 10x the traffic during peak sales periods without breaking a sweat. Real-time inventory updates, personalized product recommendations, and a sophisticated search algorithm all work together to create an experience that keeps customers coming back.",
+        "Behind the refreshed design sits a robust technical foundation. The Mixcloud API integration handles all the heavy lifting, automatically pulling new mixes, artwork and metadata as soon as they're published. No manual uploading required.",
+        "Lazy loading, optimised embeds and responsive layouts ensure the platform performs smoothly whether users are browsing articles or streaming hour-long DJ sets. The architecture is built to scale as the community continues to grow.",
       ],
     },
     fourGallery: {
       images: [
         {
           src: "https://res.cloudinary.com/di9tb45rl/image/upload/v1765966102/3_ycjv6o.png",
-          alt: "Homepage hero",
+          alt: "Homepage design",
         },
         {
           src: "https://res.cloudinary.com/di9tb45rl/image/upload/v1765966103/4_ycjv6o.png",
-          alt: "Category page",
+          alt: "Mixes hub",
         },
         {
           src: "https://res.cloudinary.com/di9tb45rl/image/upload/v1765966104/5_ycjv6o.png",
-          alt: "Product detail",
+          alt: "Mix player page",
         },
         {
           src: "https://res.cloudinary.com/di9tb45rl/image/upload/v1765966105/6_ycjv6o.png",
-          alt: "Shopping cart",
+          alt: "Article layout",
         },
       ],
     },
@@ -226,17 +226,17 @@ const BasementApproved = () => {
 
       <div className="flex flex-col md:flex-row justify-between items-start gap-6 md:gap-16 lg:gap-20 w-full max-w-[1280px] mx-auto px-5 md:px-6 lg:px-0 py-12 md:py-20">
         <h2 className="text-black text-2xl md:text-3xl lg:text-4xl font-bold text-left font-epilogue w-full md:w-1/2">
-          Clear and confident visual direction for the show's future
+          A cohesive digital home for music and culture
         </h2>
         <div className="flex flex-col w-full md:w-1/2 gap-6 justify-between items-start text-left font-epilogue text-base md:text-lg">
           <p>
-            The new identity gives Electrolytes With Joly a visual direction
-            that feels intentional and fully aligned with the tone of the show.
-            It brings consistency to how episodes are presented, strengthens the
-            overall brand presence and provides assets that are simple to use as
-            the show grows. The system supports both one off releases and long
-            term content, giving the brand room to evolve while maintaining a
-            strong sense of character.
+            The rebuilt platform now serves as a true digital home for the
+            BasementApproved community. Editorial content, DJ mixes and cultural
+            coverage all live under one roof, presented with a consistent visual
+            language that reflects the brand's decade-long evolution. The Mixcloud
+            integration means the Mixes hub stays fresh without manual intervention,
+            while the responsive design ensures the experience feels native across
+            all devices.
           </p>
         </div>
       </div>

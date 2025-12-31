@@ -2,6 +2,108 @@
 
 ## 2025-12-31
 
+### Added: Case Studies Connected to Prismic CMS
+
+**Change:** Case Studies listing and detail pages now fetch content from Prismic CMS instead of hardcoded data.
+
+**Files modified:**
+- `src/pages/CaseStudies.jsx` - Now fetches all case studies from Prismic, ordered by `display_order`
+- `src/components/Home/ContentAndDone.jsx` - Now fetches homepage case studies from Prismic (where `show_on_homepage` is true)
+- `src/pages/PostCaseStudy.jsx` - Now renders case study detail pages dynamically from Prismic slices
+
+**Features:**
+- **Reorderable**: Change `display_order` field in Prismic to reorder case studies on the listing page
+- **Homepage Control**: Toggle `show_on_homepage` boolean to feature case studies on the homepage
+- **Dynamic Detail Pages**: Case study content rendered via Prismic slices (Title with Description, Two Column Text, Gallery with Text, Stats Section, Full Screen Image)
+- **Hero Support**: Supports both image and video heroes (uploaded or external URL)
+
+**Case Study Custom Type Fields:**
+- `uid` - URL slug
+- `title` - Case study title
+- `subtitle` - Short tagline
+- `description` - Description for listing page
+- `featured_image` - Main image for cards
+- `display_order` - Number for ordering (lower = first)
+- `show_on_homepage` - Boolean to show on homepage
+- `tags` - Repeatable group of tag names
+- `hero_type` - Select: image or video
+- `hero_image` - Hero image
+- `hero_video` - Uploaded video file
+- `hero_video_url` - External video URL
+- `body` - Slice zone for content
+
+**URL Format:**
+- `/case-studies` - Lists all case studies from Prismic
+- `/case-studies/:uid` - Individual case study page (e.g., `/case-studies/basement-approved`)
+
+---
+
+### Changed: Blog Posts Display Order to Chronological
+
+**Change:** Updated the Ramblings (blog listing) page to display posts in chronological order (oldest first) instead of reverse chronological (newest first).
+
+**File modified:**
+- `src/pages/Ramblings.jsx`
+
+**Details:**
+- Changed Prismic query ordering from `direction: "desc"` to `direction: "asc"`
+- Posts now display oldest to newest based on publish_date
+
+---
+
+### Fixed: BasementApproved Case Study Content Errors
+
+**Issue:** Copy-paste errors left content from other case studies in BasementApproved.jsx:
+- "Electrolytes With Joly" text in the visual direction section
+- E-commerce language ("headless commerce", "inventory management", "peak sales periods")
+- E-commerce alt text labels ("Category page", "Product detail", "Shopping cart")
+
+**Solution:** Rewrote affected sections with appropriate BasementApproved content about:
+- Music/culture platform features
+- Mixcloud API integration
+- Automated mixes hub
+- Editorial and DJ content
+
+**File modified:**
+- `src/pages/case-studies/BasementApproved.jsx`
+
+---
+
+### Security: Removed Exposed API Token
+
+**Change:** Removed hardcoded Prismic API token from codebase for security.
+
+**File modified:**
+- `scripts/import-blog-posts.mjs` - Token replaced with environment variable reference
+
+---
+
+### Updated: Favicon Migration (Cloudinary → Prismic)
+
+**Change:** Migrated site favicon from Cloudinary to Prismic.
+
+**File modified:**
+- `index.html`
+
+**URL changed:**
+- Old: `https://res.cloudinary.com/di9tb45rl/image/upload/v1764232673/favicon-16x16_wmoo6x.png`
+- New: `https://images.prismic.io/silosite/aVUrRnNYClf9otud_favicon-16x16_wmoo6x.png?auto=format,compress`
+
+---
+
+### Updated: Video Migration (Cloudinary → Prismic)
+
+**Change:** Migrated video file from Cloudinary to Prismic.
+
+**File modified:**
+- `src/pages/case-studies/TomokaFineAndRare.jsx`
+
+**URL changed:**
+- Old: `https://res.cloudinary.com/di9tb45rl/video/upload/v1766430730/Website_Video_1_pxleqo.mp4`
+- New: `https://silosite.cdn.prismic.io/silosite/aVUpSXNYClf9otuV_Website_Video_1_pxleqo.mp4`
+
+---
+
 ### Completed: Image Migration (Cloudinary → Prismic)
 
 **Change:** Migrated all site images from the old developer's Cloudinary account to Prismic's Media Library.

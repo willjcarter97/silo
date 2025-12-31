@@ -132,7 +132,7 @@ const TomokaFineAndRare = () => {
         <video
           ref={videoRef}
           className="absolute inset-0 w-full h-full object-cover"
-          src="https://res.cloudinary.com/di9tb45rl/video/upload/v1766430730/Website_Video_1_pxleqo.mp4"
+          src="https://silosite.cdn.prismic.io/silosite/aVUpSXNYClf9otuV_Website_Video_1_pxleqo.mp4"
           loop
           muted
           autoPlay

@@ -40,7 +40,7 @@ export default function Ramblings() {
       try {
         setIsLoading(true);
         const response = await client.getAllByType("blog_post", {
-          orderings: [{ field: "my.blog_post.publish_date", direction: "desc" }],
+          orderings: [{ field: "my.blog_post.publish_date", direction: "asc" }],
         });
         
         // Transform Prismic data to match expected format
