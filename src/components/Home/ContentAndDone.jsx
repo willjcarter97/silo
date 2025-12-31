@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { FaChevronRight } from "react-icons/fa";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { client } from "../../prismicio";
+import LazyImage from "../Common/LazyImage";
+import LazyText from "../Common/LazyText";
+import LazyElement from "../Common/LazyElement";
 
 // Helper to extract plain text from Prismic Rich Text
 const asText = (richTextField) => {
@@ -20,23 +23,24 @@ const HomepageCaseStudyDesktop = ({ caseStudy, isLast }) => {
       onClick={() => (window.location.href = link)}
     >
       <div className="w-1/3 aspect-[4/3] flex items-center justify-center overflow-hidden transform transition-transform duration-600 ease-in-out lg:group-hover:-translate-x-0">
-        <img
+        <LazyImage
           src={caseStudy.featuredImage}
           alt={caseStudy.title}
           className="max-w-full max-h-[280px] object-contain"
-          loading="lazy"
+          containerClassName="w-full h-full flex items-center justify-center"
+          animationDuration={600}
         />
       </div>
       <div className="w-[50%] flex flex-col justify-center items-start gap-4 text-left transform transition-transform duration-600 ease-in-out">
-        <h3 className="text-4xl font-bold text-black">
+        <LazyText as="h3" className="text-4xl font-bold text-black" animation="fadeUp" delay={100}>
           {caseStudy.title}
-        </h3>
-        <p className="text-xl text-black">
+        </LazyText>
+        <LazyText as="p" className="text-xl text-black" animation="fadeUp" delay={150}>
           {caseStudy.subtitle}
-        </p>
-        <p className="text-lg text-black">
+        </LazyText>
+        <LazyText as="p" className="text-lg text-black" animation="fadeUp" delay={200}>
           {caseStudy.description}
-        </p>
+        </LazyText>
         <div className="flex flex-wrap md:flex-nowrap gap-2 mt-2">
           {caseStudy.tags.map((tag, index) => (
             <span key={index} className="text-base font-semibold text-black p-2 bg-brand/20">
@@ -71,15 +75,15 @@ const HomepageCaseStudyTablet = ({ caseStudy, isLast }) => {
       onClick={() => (window.location.href = link)}
     >
       <div className="w-full md:w-[80%] flex flex-col justify-center items-start gap-4 text-left">
-        <h3 className="text-4xl font-bold text-black">
+        <LazyText as="h3" className="text-4xl font-bold text-black" animation="fadeUp" delay={100}>
           {caseStudy.title}
-        </h3>
-        <p className="text-xl text-black">
+        </LazyText>
+        <LazyText as="p" className="text-xl text-black" animation="fadeUp" delay={150}>
           {caseStudy.subtitle}
-        </p>
-        <p className="text-lg text-black">
+        </LazyText>
+        <LazyText as="p" className="text-lg text-black" animation="fadeUp" delay={200}>
           {caseStudy.description}
-        </p>
+        </LazyText>
         <div className="flex flex-wrap gap-2 mt-2">
           {caseStudy.tags.map((tag, index) => (
             <span key={index} className="text-base font-semibold md:whitespace-nowrap text-black p-2 bg-brand/20">
@@ -102,11 +106,12 @@ const HomepageCaseStudyTablet = ({ caseStudy, isLast }) => {
         </a>
       </div>
       <div className="w-full md:w-1/2 aspect-[4/3] top-10 md:-top-20 relative flex items-center justify-center overflow-hidden">
-        <img
+        <LazyImage
           src={caseStudy.featuredImage}
           alt={caseStudy.title}
           className="max-w-full max-h-[220px] md:max-h-[280px] object-contain"
-          loading="lazy"
+          containerClassName="w-full h-full flex items-center justify-center"
+          animationDuration={600}
         />
       </div>
     </div>
@@ -132,23 +137,24 @@ const HomepageCaseStudyMobile = ({ caseStudy }) => {
       }}
     >
       <div className="w-full aspect-[4/3] mb-0 flex items-center justify-center overflow-hidden">
-        <img
+        <LazyImage
           src={caseStudy.featuredImage}
           alt={caseStudy.title}
           className="max-w-full max-h-[220px] object-contain"
-          loading="lazy"
+          containerClassName="w-full h-full flex items-center justify-center"
+          animationDuration={600}
         />
       </div>
       <div className="space-y-4 mt-10">
-        <h3 className="text-2xl font-bold text-black">
+        <LazyText as="h3" className="text-2xl font-bold text-black" animation="fadeUp" delay={100}>
           {caseStudy.title}
-        </h3>
-        <p className="text-lg text-black font-bold">
+        </LazyText>
+        <LazyText as="p" className="text-lg text-black font-bold" animation="fadeUp" delay={150}>
           {caseStudy.subtitle}
-        </p>
-        <p className="text-base font-medium text-black leading-relaxed">
+        </LazyText>
+        <LazyText as="p" className="text-base font-medium text-black leading-relaxed" animation="fadeUp" delay={200}>
           {caseStudy.description}
-        </p>
+        </LazyText>
         <div className="flex flex-wrap md:flex-nowrap gap-2">
           {caseStudy.tags.map((tag, index) => (
             <span key={index} className="text-sm font-semibold text-black p-2 bg-brand/20">
@@ -326,12 +332,13 @@ export default function ContentAndDone() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-0 mx-auto md:my-20">
           {/* Card 1: Social Strategy & Management */}
-          <article className="border border-black border-x-0 border-b-0 p-8 pl-0 flex flex-col gap-4 mb-5">
+          <LazyElement as="article" className="border border-black border-x-0 border-b-0 p-8 pl-0 flex flex-col gap-4 mb-5" animation="fadeUp" delay={0}>
             <div className="w-full h-[250px] md:h-[300px] bg-gray-100 overflow-hidden">
-              <img
+              <LazyImage
                 src="https://images.prismic.io/silosite/aVUgQXNYClf9otrH_v1765879825_2_jegbj9.png?auto=format,compress"
-                alt="img1"
+                alt="Social Strategy & Management"
                 className="w-full h-full object-cover"
+                containerClassName="w-full h-full"
               />
             </div>
             <h3 className="font-epilogue font-bold text-[32px] md:text-[28px] lg:text-[32px] leading-[130%] tracking-normal text-black">
@@ -341,15 +348,16 @@ export default function ContentAndDone() {
               We don't just post, we plan, manage, and grow your brand's
               presence.
             </p>
-          </article>
+          </LazyElement>
 
           {/* Card 2: Web Design & Development */}
-          <article className="border border-black p-8 pr-0 border-r-0 border-b-0 flex flex-col gap-4">
+          <LazyElement as="article" className="border border-black p-8 pr-0 border-r-0 border-b-0 flex flex-col gap-4" animation="fadeUp" delay={100}>
             <div className="w-full h-[250px] md:h-[300px] bg-gray-100 overflow-hidden">
-              <img
+              <LazyImage
                 src="https://images.prismic.io/silosite/aVUgQ3NYClf9otrJ_v1765879826_3_r08wlm.png?auto=format,compress"
-                alt="img2"
+                alt="Web Design & Development"
                 className="w-full h-full object-cover"
+                containerClassName="w-full h-full"
               />
             </div>
             <h3 className="font-epilogue font-bold text-[32px] md:text-[28px] lg:text-[32px] leading-[130%] tracking-normal text-black">
@@ -359,15 +367,16 @@ export default function ContentAndDone() {
               We shape digital spaces. Real craft, real performance that's
               designed to grow.
             </p>
-          </article>
+          </LazyElement>
 
           {/* Card 3: Brand Design */}
-          <article className="border border-black p-8 pl-0 border-x-0 border-b-0 flex flex-col gap-4">
+          <LazyElement as="article" className="border border-black p-8 pl-0 border-x-0 border-b-0 flex flex-col gap-4" animation="fadeUp" delay={200}>
             <div className="w-full h-[250px] md:h-[280px] bg-gray-100 overflow-hidden">
-              <img
+              <LazyImage
                 src="https://images.prismic.io/silosite/aVUgQnNYClf9otrI_v1765879825_Placeholder_Image_zxnykm.png?auto=format,compress"
-                alt="img3"
+                alt="Brand Design"
                 className="w-full h-full object-cover"
+                containerClassName="w-full h-full"
               />
             </div>
             <h3 className="font-epilogue font-bold text-[32px] md:text-[28px] lg:text-[32px] leading-[130%] tracking-normal text-black">
@@ -377,15 +386,16 @@ export default function ContentAndDone() {
               We design bold branding and expressive motion to shape your visual
               presence.
             </p>
-          </article>
+          </LazyElement>
 
           {/* Card 4: Content Strategy */}
-          <article className="border border-black p-8 pr-0 border-r-0 border-b-0 flex flex-col gap-4">
+          <LazyElement as="article" className="border border-black p-8 pr-0 border-r-0 border-b-0 flex flex-col gap-4" animation="fadeUp" delay={300}>
             <div className="w-full h-[250px] md:h-[280px] bg-gray-100 overflow-hidden">
-              <img
+              <LazyImage
                 src="https://images.prismic.io/silosite/aVUgRHNYClf9otrK_v1765879826_Placeholder_Image1_me1r2y.png?auto=format,compress"
-                alt="img4"
+                alt="Content Strategy"
                 className="w-full h-full object-cover"
+                containerClassName="w-full h-full"
               />
             </div>
             <h3 className="font-epilogue font-bold text-[32px] md:text-[28px] lg:text-[32px] leading-[130%] tracking-normal text-black">
@@ -395,7 +405,7 @@ export default function ContentAndDone() {
               We build thoughtful strategies that give content focus, intent and
               results.
             </p>
-          </article>
+          </LazyElement>
         </div>
         <div className="w-[100vw] absolute h-[1px] right-0 bg-black my-20 "></div>
 
@@ -453,12 +463,13 @@ export default function ContentAndDone() {
         {/* Stacked mobile cards */}
         <div className="flex flex-col gap-0">
           {/* Card 1: Social Strategy & Management */}
-          <div className="border border-black border-b-0 border-x-0 p-0 py-5">
+          <LazyElement className="border border-black border-b-0 border-x-0 p-0 py-5" animation="fadeUp" delay={0}>
             <div className="w-full h-[250px] bg-gray-100 mb-4">
-              <img
+              <LazyImage
                 src="https://images.prismic.io/silosite/aVUgQXNYClf9otrH_v1765879825_2_jegbj9.png?auto=format,compress"
-                alt="img1"
+                alt="Social Strategy & Management"
                 className="w-full h-full object-cover"
+                containerClassName="w-full h-full"
               />
             </div>
             <h3 className="font-epilogue font-bold text-2xl mb-3">
@@ -468,15 +479,16 @@ export default function ContentAndDone() {
               We don't just post, we plan, manage, and grow your brand's
               presence.
             </p>
-          </div>
+          </LazyElement>
 
           {/* Card 2: Web Design & Development */}
-          <div className="border border-black border-x-0 py-5 border-b-0">
+          <LazyElement className="border border-black border-x-0 py-5 border-b-0" animation="fadeUp" delay={100}>
             <div className="w-full h-[250px] bg-gray-100 mb-4">
-              <img
+              <LazyImage
                 src="https://images.prismic.io/silosite/aVUgQ3NYClf9otrJ_v1765879826_3_r08wlm.png?auto=format,compress"
-                alt="img2"
+                alt="Web Design & Development"
                 className="w-full h-full object-cover"
+                containerClassName="w-full h-full"
               />
             </div>
             <h3 className="font-epilogue font-bold text-2xl mb-3">
@@ -486,15 +498,16 @@ export default function ContentAndDone() {
               We shape digital spaces. Real craft, real performance that's
               designed to grow.
             </p>
-          </div>
+          </LazyElement>
 
           {/* Card 3: Brand Design */}
-          <div className="border border-black border-x-0 py-5 border-b-0">
+          <LazyElement className="border border-black border-x-0 py-5 border-b-0" animation="fadeUp" delay={200}>
             <div className="w-full h-[250px] bg-gray-100 mb-4">
-              <img
+              <LazyImage
                 src="https://images.prismic.io/silosite/aVUgQnNYClf9otrI_v1765879825_Placeholder_Image_zxnykm.png?auto=format,compress"
-                alt="img3"
+                alt="Brand Design"
                 className="w-full h-full object-cover"
+                containerClassName="w-full h-full"
               />
             </div>
             <h3 className="font-epilogue font-bold text-2xl mb-3">
@@ -504,15 +517,16 @@ export default function ContentAndDone() {
               We design bold branding and expressive motion to shape your visual
               presence.
             </p>
-          </div>
+          </LazyElement>
 
           {/* Card 4: Content Strategy */}
-          <div className="border border-black border-x-0 py-5 border-b-0">
+          <LazyElement className="border border-black border-x-0 py-5 border-b-0" animation="fadeUp" delay={300}>
             <div className="w-full h-[250px] bg-gray-100 mb-4">
-              <img
+              <LazyImage
                 src="https://images.prismic.io/silosite/aVUgRHNYClf9otrK_v1765879826_Placeholder_Image1_me1r2y.png?auto=format,compress"
-                alt="img4"
+                alt="Content Strategy"
                 className="w-full h-full object-cover"
+                containerClassName="w-full h-full"
               />
             </div>
             <h3 className="font-epilogue font-bold text-2xl mb-3">
@@ -522,7 +536,7 @@ export default function ContentAndDone() {
               We build thoughtful strategies that give content focus, intent and
               results.
             </p>
-          </div>
+          </LazyElement>
         </div>
 
         <div className="w-[100vw] mx-auto relative -left-7 h-[1px] bg-black my-12"></div>

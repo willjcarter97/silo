@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { HiArrowLeft, HiArrowRight } from "react-icons/hi";
 import { FaChevronRight } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { client } from "../../prismicio";
 
 const MindsInTheSilo = () => {
   // Carousel state management
@@ -13,39 +14,68 @@ const MindsInTheSilo = () => {
   const [cardsInViewport, setCardsInViewport] = useState(new Set());
   const cardRefs = useRef([]);
 
-  // Carousel data - team members + special card
-  const carouselData = [
-    {
-      id: "ruby-turbett",
-      type: "team-member",
-      name: "Ruby Turbett",
-      title: "Founder",
-      description:
-        "Ruby has ten years in marketing and built a finance-focused agency before moving into social. She builds strong client relationships. Outside work she does pilates, boxing, or plans her next trip.",
-      imageUrl:
-        "https://images.prismic.io/silosite/aVUgUnNYClf9otrX_v1765909402_Placeholder_Image_akzzvs.png?auto=format,compress",
-    },
-    {
-      id: "will-carter",
-      type: "team-member",
-      name: "Will Carter",
-      title: "Creative Digital Designer",
-      description:
-        "Will designs clear, human-focused digital experiences that blend creativity with practical thinking. He turns ideas into simple products people enjoy. Outside work he plays padel.",
-      imageUrl:
-        "https://images.prismic.io/silosite/aVUgoHNYClf9otsX_v1762717231_Carousal4_inzouv.png?auto=format,compress",
-      // allow per-item override of image container heights (mobile / md / lg)
-      imageHeightClass: "h-[26rem] md:h-[25rem] lg:h-[30rem]",
-    },
-    {
-      id: "join-us",
-      type: "special-card",
-      title: "It’s not the size that matters.",
-      buttonText: "View Openings",
-      description:
-        "But a few more teammates wouldn’t hurt.",
-    },
-  ];
+  // Team members state - fetched from Prismic
+  const [teamMembers, setTeamMembers] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Fetch team members from Prismic
+  useEffect(() => {
+    const fetchTeamMembers = async () => {
+      try {
+        const response = await client.getAllByType("team_member", {
+          orderings: { field: "my.team_member.display_order", direction: "asc" },
+        });
+
+        const members = response
+          .filter((doc) => doc.data.is_active !== false)
+          .map((doc) => ({
+            id: doc.uid,
+            type: "team-member",
+            name: doc.data.name || "",
+            title: doc.data.title || "",
+            description: doc.data.description || "",
+            imageUrl: doc.data.photo?.url || "",
+          }));
+
+        setTeamMembers(members);
+      } catch (error) {
+        console.error("Error fetching team members:", error);
+        // Fallback to empty array on error
+        setTeamMembers([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchTeamMembers();
+  }, []);
+
+  // Special card content based on team size
+  const getSpecialCardContent = () => {
+    if (teamMembers.length <= 2) {
+      return {
+        id: "join-us",
+        type: "special-card",
+        title: "It's not the size that matters.",
+        description: "But a few more teammates wouldn't hurt.",
+        buttonText: "View Openings",
+        showSecondaryAction: false,
+      };
+    } else {
+      return {
+        id: "join-us",
+        type: "special-card",
+        title: "Think you're the right fit for our team?",
+        description: "Can't see an opening that fits you?",
+        secondaryDescription: "Get in touch anyway - we're always on the lookout for our next team-mates!",
+        buttonText: "Current Vacancies",
+        showSecondaryAction: true,
+      };
+    }
+  };
+
+  // Combine team members with special card
+  const carouselData = [...teamMembers, getSpecialCardContent()];
 
   // Enhanced responsive breakpoint detection
   const [viewportWidth, setViewportWidth] = useState(
@@ -230,6 +260,23 @@ const MindsInTheSilo = () => {
     };
   }, []);
 
+  // Don't render until data is loaded
+  if (isLoading) {
+    return (
+      <section className="md:min-h-screen min-h-[80vh] flex items-center justify-center py-6 sm:py-8 md:py-12 lg:py-16 px-4 md:px-10 lg:px-10 bg-white">
+        <div className="animate-pulse flex flex-col items-center gap-4">
+          <div className="w-16 h-16 bg-gray-200 rounded-full"></div>
+          <div className="h-4 w-32 bg-gray-200 rounded"></div>
+        </div>
+      </section>
+    );
+  }
+
+  // Don't render if no team members
+  if (teamMembers.length === 0) {
+    return null;
+  }
+
   return (
     <section className="md:min-h-screen min-h-[80vh] flex items-start justify-center py-6 sm:py-8 md:py-12 lg:py-16 px-4 md:px-10 lg:px-10 bg-white overflow-x-hidden">
       <div className="max-w-[1280px] mx-auto w-full">
@@ -350,8 +397,12 @@ const MindsInTheSilo = () => {
                       cardRefs.current[index] = el;
                       if (el) el.dataset.cardIndex = index;
                     }}
-                    className="flex-shrink-0"
-                    style={{ width: `${cardWidth}px` }}
+                    className="flex-shrink-0 flex"
+                    style={{ 
+                      width: `${cardWidth}px`,
+                      // Consistent height: square image + text content area
+                      minHeight: `${cardWidth + 180}px`,
+                    }}
                     initial={{ opacity: 0, scale: 0.8, y: 50, rotateY: -15 }}
                     animate={{
                       opacity: (isInViewport || isDisplayed) ? 1 : 0,
@@ -370,7 +421,7 @@ const MindsInTheSilo = () => {
                     {item.type === "team-member" ? (
                       // Team Member Card - No fading animations
                       <motion.div
-                        className="bg-white flex flex-col border-[1px] p-1 transition-all duration-200 min-h-[38rem] md:min-h-[38rem] lg:min-h-[44rem]"
+                        className="bg-white flex flex-col border-[1px] p-1 transition-all duration-200 h-full w-full"
                         style={{
                           pointerEvents: "auto",
                           borderColor:
@@ -391,7 +442,8 @@ const MindsInTheSilo = () => {
                         whileHover={!isDragging ? {} : {}}
                         transition={{ duration: 0.3 }}
                       >
-                        <div className={`w-full ${item.imageHeightClass || 'h-[26rem] md:h-[25rem] lg:h-[30rem]'} overflow-hidden`}>
+                        {/* Square Image Container */}
+                        <div className="w-full aspect-square overflow-hidden">
                           <img
                             src={item.imageUrl}
                             alt={`${item.name} - Team Member`}
@@ -402,7 +454,7 @@ const MindsInTheSilo = () => {
                         </div>
 
                         {/* Text Content - No animations */}
-                        <div className="mt-0 pt-3 sm:pt-3 lg:pt-4">
+                        <div className="mt-0 pt-3 sm:pt-3 lg:pt-4 flex-1 flex flex-col">
                           <h3 className="font-semibold text-black text-xl sm:text-base lg:text-2xl text-left">
                             {item.name}
                           </h3>
@@ -415,13 +467,15 @@ const MindsInTheSilo = () => {
                         </div>
                       </motion.div>
                     ) : (
-                      // Special Card - Viewport-based animations
+                      // Special Card - Viewport-based animations (matches team card height)
                       <motion.div
-                        className="p-3 sm:p-4 lg:p-6 xl:p-8 flex flex-col justify-center items-center text-left border-[1px] group min-h-[38rem] md:min-h-[38rem] lg:min-h-[44rem]"
+                        className="p-3 sm:p-4 lg:p-6 xl:p-8 flex flex-col justify-center items-center text-center border-[1px] group h-full w-full"
                         style={{
                           backgroundColor: "#FFE5E5",
                           borderColor: "#FF322E",
                           pointerEvents: isDragging ? "none" : "auto",
+                          // Match the aspect-square image + text content height
+                          minHeight: `${cardWidth + 180}px`,
                         }}
                         whileHover={
                           !isDragging
@@ -434,7 +488,7 @@ const MindsInTheSilo = () => {
                         transition={{ duration: 0.3 }}
                       >
                         <motion.div
-                          className="space-y-6 sm:space-y-4 lg:space-y-6 xl:space-y-8 max-w-xs"
+                          className="space-y-4 sm:space-y-4 lg:space-y-5 xl:space-y-6 max-w-xs"
                           initial={{ opacity: 0, scale: 0.8 }}
                           animate={{
                             opacity: (isInViewport || isDisplayed) ? 1 : 0,
@@ -446,7 +500,7 @@ const MindsInTheSilo = () => {
                           }}
                         >
                           <motion.h3
-                            className="font-bold text-black text-3xl text-center w-[90%] md:text-4xl md:w-[100%] mx-auto sm:text-xl lg:text-2xl xl:text-3xl leading-tight"
+                            className="font-bold text-black text-2xl text-center w-[90%] md:text-3xl md:w-[100%] mx-auto sm:text-xl lg:text-2xl xl:text-3xl leading-tight"
                             style={{
                               fontFamily: "Epilogue, sans-serif",
                               fontWeight: 700,
@@ -467,7 +521,7 @@ const MindsInTheSilo = () => {
                             {item.title}
                           </motion.h3>
 
-                           <motion.p
+                          <motion.p
                             className="text-black text-sm text-center w-[90%] mx-auto md:w-[100%] sm:text-sm lg:text-base leading-relaxed"
                             style={{
                               fontFamily: "DM Sans, sans-serif",
@@ -490,7 +544,7 @@ const MindsInTheSilo = () => {
 
                           <motion.a
                             href="/careers"
-                            className="inline-flex items-center justify-center gap-2 bg-brand h-12 px-8 py-3 text-sm font-bold tracking-wide text-white border-transparent relative overflow-hidden group w-[80%] mx-auto ml-9"
+                            className="inline-flex items-center justify-center gap-2 bg-brand h-12 px-6 py-3 text-sm font-bold tracking-wide text-white border-transparent relative overflow-hidden group mx-auto"
                             style={{
                               fontFamily: "DM Sans, sans-serif",
                               fontWeight: 700,
@@ -514,7 +568,30 @@ const MindsInTheSilo = () => {
                             </span>
                           </motion.a>
 
-                         
+                          {/* Secondary content for larger teams */}
+                          {item.showSecondaryAction && (
+                            <>
+                              <motion.p
+                                className="text-black text-xs text-center w-[90%] mx-auto md:w-[100%] sm:text-xs lg:text-sm leading-relaxed pt-2"
+                                style={{
+                                  fontFamily: "DM Sans, sans-serif",
+                                  fontWeight: 400,
+                                  lineHeight: "150%",
+                                }}
+                                initial={{ opacity: 0, y: 15 }}
+                                animate={{
+                                  opacity: (isInViewport || isDisplayed) ? 1 : 0,
+                                  y: (isInViewport || isDisplayed) ? 0 : 15,
+                                }}
+                                transition={{
+                                  duration: 0.6,
+                                  delay: isInViewport ? 0.6 : 0,
+                                }}
+                              >
+                                {item.secondaryDescription}
+                              </motion.p>
+                            </>
+                          )}
                         </motion.div>
                       </motion.div>
                     )}

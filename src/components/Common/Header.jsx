@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { Link, NavLink } from "react-router-dom";
 import { FaChevronRight } from "react-icons/fa";
@@ -6,6 +6,10 @@ import "../../styles/scaling-overrides.css";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const lastScrollY = useRef(0);
+  const ticking = useRef(false);
+
   const toggle = () => setOpen((v) => !v);
   const close = () => setOpen(false);
   const handleHeaderClick = (e) => {
@@ -20,10 +24,41 @@ export default function Header() {
     }
   };
 
+  // Scroll hide/show logic
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!ticking.current) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
+          
+          // Always show header when near top of page
+          if (currentScrollY < 100) {
+            setIsVisible(true);
+          } else if (currentScrollY > lastScrollY.current + 10) {
+            // Scrolling down - hide (with threshold to prevent jitter)
+            setIsVisible(false);
+          } else if (currentScrollY < lastScrollY.current - 10) {
+            // Scrolling up - show
+            setIsVisible(true);
+          }
+          
+          lastScrollY.current = currentScrollY;
+          ticking.current = false;
+        });
+        ticking.current = true;
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <header
       onClick={handleHeaderClick}
-      className="fixed top-0 left-0 w-full right-0 z-50 bg-transparent mt-3 md:mt-5"
+      className={`fixed top-0 left-0 w-full right-0 z-50 bg-transparent mt-3 md:mt-5 transition-transform duration-300 ease-out ${
+        isVisible ? "translate-y-0" : "-translate-y-[calc(100%+1.5rem)]"
+      }`}
     >
       <div className="mx-3 lg:mx-auto">
         <div className="max-w-[1376px] border-[1px] border-black bg-white mx-auto py-3 px-3 md:px-6 lg:px-10 flex justify-between items-center decoration-black">
@@ -40,7 +75,7 @@ export default function Header() {
           {/* Right: CTA */}
           <div className="flex items-center justify-center gap-6">
             {/* Center: Nav */}
-            <nav className="hidden lg:flex items-center justify-center gap-3 xl:gap-4 2xl:gap-6 text-xl font-bold text-black relative">
+            <nav className="hidden lg:flex items-center justify-center gap-3 xl:gap-4 2xl:gap-6 text-base xl:text-lg font-bold text-black relative">
               <NavLink
                 to="/about"
                 className={({ isActive }) =>

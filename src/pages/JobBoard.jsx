@@ -1,20 +1,16 @@
+import { useState, useEffect } from "react";
 import Section from "../components/Home/Section.jsx";
 import { FaChevronRight } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import { jobsData } from "../data/jobsData.js";
 import { usePageMeta } from "../hooks/usePageMeta";
+import { client } from "../prismicio";
 
 // JobCard Component - Clickable with hover effects
 function JobCard({ job }) {
-  usePageMeta(
-    "UGC Agency Job Board for Brand Briefs",
-    "Discover UGC creator jobs, brand briefs and paid UGC content opportunities. A dedicated job board for UGC creators producing short form content for modern brands."
-  );
-
   const navigate = useNavigate();
 
   const handleCardClick = () => {
-    navigate(`/jobs/${job.id}`);
+    navigate(`/jobs/${job.uid}`);
   };
 
   return (
@@ -71,8 +67,46 @@ function JobCard({ job }) {
 }
 
 export default function JobBoard() {
-  // Toggle this to true when client wants to show job listings via CMS
-  const showJobs = false;
+  usePageMeta(
+    "UGC Agency Job Board for Brand Briefs",
+    "Discover UGC creator jobs, brand briefs and paid UGC content opportunities. A dedicated job board for UGC creators producing short form content for modern brands."
+  );
+
+  // State for jobs fetched from Prismic
+  const [jobs, setJobs] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Fetch jobs from Prismic
+  useEffect(() => {
+    const fetchJobs = async () => {
+      try {
+        const response = await client.getAllByType("job_listing", {
+          orderings: { field: "my.job_listing.publish_date", direction: "desc" },
+        });
+
+        const jobsList = response
+          .filter((doc) => doc.data.is_active !== false)
+          .map((doc) => ({
+            uid: doc.uid,
+            title: doc.data.title || "",
+            category: doc.data.category || "",
+            image: doc.data.card_image?.url || "",
+          }));
+
+        setJobs(jobsList);
+      } catch (error) {
+        console.error("Error fetching jobs:", error);
+        setJobs([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchJobs();
+  }, []);
+
+  // Show jobs if we have any from Prismic
+  const showJobs = jobs.length > 0;
 
   return (
     <div className="w-full bg-white md:mt-20 mb-20 max-w-[1280px] mx-auto mt-20">
@@ -177,8 +211,20 @@ export default function JobBoard() {
           </div>
         </div>
 
-        {/* Empty State - Show when showJobs is false */}
-        {!showJobs && (
+        {/* Loading State */}
+        {isLoading && (
+          <div className="w-full mb-4 md:mb-16">
+            <div className="text-center py-12">
+              <div className="animate-pulse flex flex-col items-center gap-4">
+                <div className="w-16 h-16 bg-gray-200 rounded-full"></div>
+                <div className="h-4 w-48 bg-gray-200 rounded"></div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Empty State - Show when no jobs and not loading */}
+        {!isLoading && !showJobs && (
           <div className="w-full mb-4 md:mb-16">
             {/* Empty State Message */}
             <div className="text-center mb-6 py-6 md:mb-12 md:py-12">
@@ -237,37 +283,28 @@ export default function JobBoard() {
           </div>
         )}
 
-        {/* Job Grid - Hidden by default, ready for CMS */}
+        {/* Job Grid - Shows when jobs exist in Prismic */}
         {showJobs && (
           <div className="w-full px-[1vw] md:px-0">
             {/* Mobile: Single column (< 640px) */}
             <div className="grid grid-cols-1 gap-6 sm:hidden justify-items-center">
-              {jobsData.map((job) => (
-                <JobCard key={job.id} job={job} />
+              {jobs.map((job) => (
+                <JobCard key={job.uid} job={job} />
               ))}
             </div>
 
             {/* Tablet: 2 columns (640px - 1024px) */}
             <div className="hidden sm:grid lg:hidden grid-cols-2 gap-2 justify-items-center">
-              {jobsData.map((job) => (
-                <JobCard key={job.id} job={job} />
+              {jobs.map((job) => (
+                <JobCard key={job.uid} job={job} />
               ))}
             </div>
 
-            {/* Desktop: Adjusted layout for 95vw (1024px+) */}
-            <div className="hidden lg:block">
-              {/* First Row - 3 cards with fixed width and gap */}
-              <div className="flex gap-20 mb-8">
-                <JobCard job={jobsData[0]} />
-                <JobCard job={jobsData[1]} />
-                <JobCard job={jobsData[2]} />
-              </div>
-
-              {/* Second Row - 2 cards with fixed width and gap matching top row */}
-              <div className="flex gap-20 mb-8">
-                <JobCard job={jobsData[3]} />
-                <JobCard job={jobsData[4]} />
-              </div>
+            {/* Desktop: Flexible grid (1024px+) */}
+            <div className="hidden lg:grid lg:grid-cols-3 gap-8 xl:gap-12">
+              {jobs.map((job) => (
+                <JobCard key={job.uid} job={job} />
+              ))}
             </div>
           </div>
         )}

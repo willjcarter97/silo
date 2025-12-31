@@ -1,5 +1,7 @@
 import React from "react";
 import { FaChevronRight } from "react-icons/fa";
+import LazyImage from "../Common/LazyImage";
+import LazyElement from "../Common/LazyElement";
 
 const Interested = () => {
   return (
@@ -8,12 +10,15 @@ const Interested = () => {
         {/* Three column layout on md+, stacked on mobile */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-0 mx-auto md:my-20">
           {/* Card 1: Social Strategy & Management */}
-          <article className="border border-black border-x-0 border-b-0 md:p-8 p-0 py-5 pl-0 flex flex-col gap-4 mb-5">
+          <LazyElement as="article" className="border border-black border-x-0 border-b-0 md:p-8 p-0 py-5 pl-0 flex flex-col gap-4 mb-5" animation="fadeUp" delay={0}>
             <div className="w-full h-[250px] md:h-[300px] bg-gray-100 overflow-hidden">
-              <img
+              <LazyImage
                 src="https://images.prismic.io/silosite/aVUgQXNYClf9otrH_v1765879825_2_jegbj9.png?auto=format,compress"
-                alt="img1"
+                alt="Social Strategy & Management"
                 className="w-full h-full object-cover"
+                containerClassName="w-full h-full"
+                showSkeleton={true}
+                placeholderColor="#f3f4f6"
               />
             </div>
             <h3 className="font-epilogue font-bold text-[32px] md:text-[28px] lg:text-[32px] leading-[130%] tracking-normal text-black">
@@ -53,15 +58,18 @@ const Interested = () => {
                 Community engagement and reporting
               </li>
             </ul>
-          </article>
+          </LazyElement>
 
           {/* Card 2: Web Design & Development */}
-          <article className="border border-black  md:p-8 p-0 py-5 pr-0 border-l-0 md:border-l border-r-0 border-b-0 flex flex-col gap-4">
+          <LazyElement as="article" className="border border-black  md:p-8 p-0 py-5 pr-0 border-l-0 md:border-l border-r-0 border-b-0 flex flex-col gap-4" animation="fadeUp" delay={100}>
             <div className="w-full h-[250px] md:h-[300px] bg-gray-100 overflow-hidden">
-              <img
+              <LazyImage
                 src="https://images.prismic.io/silosite/aVUgQ3NYClf9otrJ_v1765879826_3_r08wlm.png?auto=format,compress"
-                alt="img2"
+                alt="Web Design & Development"
                 className="w-full h-full object-cover"
+                containerClassName="w-full h-full"
+                showSkeleton={true}
+                placeholderColor="#f3f4f6"
               />
             </div>
             <h3 className="font-epilogue font-bold text-[32px] md:text-[28px] lg:text-[32px] leading-[130%] tracking-normal text-black">
@@ -101,15 +109,18 @@ const Interested = () => {
                 Launch support and ongoing improvements
               </li>
             </ul>
-          </article>
+          </LazyElement>
 
           {/* Card 3: Brand Design */}
-          <article className="border border-black md:p-8 p-0 py-5 pl-0 border-x-0 border-b flex flex-col gap-4">
+          <LazyElement as="article" className="border border-black md:p-8 p-0 py-5 pl-0 border-x-0 border-b flex flex-col gap-4" animation="fadeUp" delay={200}>
             <div className="w-full h-[250px] md:h-[280px] bg-gray-100 overflow-hidden">
-              <img
+              <LazyImage
                 src="https://images.prismic.io/silosite/aVUgQnNYClf9otrI_v1765879825_Placeholder_Image_zxnykm.png?auto=format,compress"
-                alt="img3"
+                alt="Brand Design"
                 className="w-full h-full object-cover"
+                containerClassName="w-full h-full"
+                showSkeleton={true}
+                placeholderColor="#f3f4f6"
               />
             </div>
             <h3 className="font-epilogue font-bold text-[32px] md:text-[28px] lg:text-[32px] leading-[130%] tracking-normal text-black">
@@ -149,15 +160,18 @@ const Interested = () => {
                 Branded templates and presentation materials
               </li>
             </ul>
-          </article>
+          </LazyElement>
 
           {/* Card 4: Content Strategy */}
-          <article className="border border-black md:p-8 p-0 py-5 border-l-0 md:border-l pr-0 border-r-0 border-b flex flex-col gap-4">
+          <LazyElement as="article" className="border border-black md:p-8 p-0 py-5 border-l-0 md:border-l pr-0 border-r-0 border-b flex flex-col gap-4" animation="fadeUp" delay={300}>
             <div className="w-full h-[250px] md:h-[280px] bg-gray-100 overflow-hidden">
-              <img
+              <LazyImage
                 src="https://images.prismic.io/silosite/aVUgRHNYClf9otrK_v1765879826_Placeholder_Image1_me1r2y.png?auto=format,compress"
-                alt="img4"
+                alt="Content Strategy"
                 className="w-full h-full object-cover"
+                containerClassName="w-full h-full"
+                showSkeleton={true}
+                placeholderColor="#f3f4f6"
               />
             </div>
             <h3 className="font-epilogue font-bold text-[32px] md:text-[28px] lg:text-[32px] leading-[130%] tracking-normal text-black">
@@ -197,65 +211,56 @@ const Interested = () => {
                 Planning, optimisation and performance guidance
               </li>
             </ul>
-          </article>
+          </LazyElement>
         </div>
       </div>
+      {/* Optional Add-ons - aligned with grid above */}
       <div
         id="optional"
-        className="max-w-[1280px] h-auto mx-auto px-4 md:px-0 md:py-16 md:pt-0 py-10"
+        className="max-w-[1280px] h-auto mx-auto px-4 md:px-0 pt-0 pb-8 md:pb-16"
       >
-        <div className="mx-3">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+        <div className="md:pl-8">
+          <h3 className="font-epilogue font-bold text-[32px] md:text-[28px] lg:text-[32px] leading-[130%] tracking-normal text-black mb-4">
             Optional add-ons
-          </h2>
-          <p className="text-base md:text-lg text-black font-normal mb-8">
+          </h3>
+          <p className="text-[16px] leading-[150%] tracking-normal text-black mb-6">
             These services support your core campaign and can be added when
             needed.
           </p>
 
-          <div className="space-y-4">
-            <div className="flex items-start">
+          <ul className="space-y-3 text-sm text-black">
+            <li className="flex items-start">
               <span
-                className="inline-block w-3 h-3 mt-1.5 mr-4 bg-[#FF322E] rotate-[270deg] flex-shrink-0"
+                className="inline-block w-3 h-3 mt-1 mr-3 bg-[#FF322E] rotate-[270deg] flex-shrink-0"
                 style={{ clipPath: "polygon(0 0, 100% 0, 0 100%)" }}
               ></span>
-              <p className="text-base md:text-lg">Email Marketing</p>
-            </div>
-
-            <div className="flex items-start">
+              Email Marketing
+            </li>
+            <li className="flex items-start">
               <span
-                className="inline-block w-3 h-3 mt-1.5 mr-4 bg-[#FF322E] rotate-[270deg] flex-shrink-0"
+                className="inline-block w-3 h-3 mt-1 mr-3 bg-[#FF322E] rotate-[270deg] flex-shrink-0"
                 style={{ clipPath: "polygon(0 0, 100% 0, 0 100%)" }}
               ></span>
-              <p className="text-base md:text-lg">
-                Paid Advertising (Meta, Google, TikTok, Bing)
-              </p>
-            </div>
-
-            <div className="flex items-start">
+              Paid Advertising (Meta, Google, TikTok, Bing)
+            </li>
+            <li className="flex items-start">
               <span
-                className="inline-block w-3 h-3 mt-1.5 mr-4 bg-[#FF322E] rotate-[270deg] flex-shrink-0"
+                className="inline-block w-3 h-3 mt-1 mr-3 bg-[#FF322E] rotate-[270deg] flex-shrink-0"
                 style={{ clipPath: "polygon(0 0, 100% 0, 0 100%)" }}
               ></span>
-              <p className="text-base md:text-lg">
-                Influencer Campaign Management (talent sourcing, rate
-                negotiation, deliverables)
-              </p>
-            </div>
-
-            <div className="flex items-start">
+              Influencer Campaign Management (talent sourcing, rate negotiation, deliverables)
+            </li>
+            <li className="flex items-start">
               <span
-                className="inline-block w-3 h-3 mt-1.5 mr-4 bg-[#FF322E] rotate-[270deg] flex-shrink-0"
+                className="inline-block w-3 h-3 mt-1 mr-3 bg-[#FF322E] rotate-[270deg] flex-shrink-0"
                 style={{ clipPath: "polygon(0 0, 100% 0, 0 100%)" }}
               ></span>
-              <p className="text-base md:text-lg">
-               UGC & Influencer Marketing
-              </p>
-            </div>
-          </div>
+              UGC & Influencer Marketing
+            </li>
+          </ul>
         </div>
         {/* CTA */}
-        <div className="mt-12 ml-5 md:ml-0">
+        <div className="mt-12 md:ml-8">
           <a
             href="/contact"
             className="inline-flex items-center justify-center gap-2 rounded-sm bg-transparent border-[1px] border-brand h-[55px] px-8 py-3 text-xs font-semibold  tracking-wide text-brand relative overflow-hidden group"

@@ -3,6 +3,9 @@ import { FaChevronRight } from "react-icons/fa";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import Section from "../components/Home/Section";
 import LazySection from "../components/Common/LazySection";
+import LazyImage from "../components/Common/LazyImage";
+import LazyText from "../components/Common/LazyText";
+import LazyElement from "../components/Common/LazyElement";
 import { usePageMeta } from "../hooks/usePageMeta";
 import { client } from "../prismicio";
 
@@ -18,28 +21,30 @@ const CaseStudyCardDesktop = ({ caseStudy, isLast }) => {
   const link = `/case-studies/${caseStudy.uid}`;
   
   return (
-    <div
+    <LazyElement
       className={`hidden lg:flex items-center justify-between gap-12 xl:gap-20 py-8 ${!isLast ? 'border-b border-black' : ''} group cursor-pointer`}
+      animation="fadeUp"
+      renderWhenHidden={true}
       onClick={() => (window.location.href = link)}
     >
       <div className="w-2/5 aspect-[4/3] flex items-center justify-center overflow-hidden">
-        <img
+        <LazyImage
           src={caseStudy.featuredImage}
           alt={caseStudy.title}
           className="max-w-full max-h-full object-contain"
-          loading="lazy"
+          containerClassName="w-full h-full flex items-center justify-center"
         />
       </div>
       <div className="w-3/5 flex flex-col justify-center items-start gap-3 text-left">
-        <h2 className="text-3xl xl:text-4xl font-bold text-black" style={{ fontFamily: 'Epilogue, sans-serif' }}>
+        <LazyText as="h2" className="text-3xl xl:text-4xl font-bold text-black" style={{ fontFamily: 'Epilogue, sans-serif' }} animation="fadeUp" delay={100}>
           {caseStudy.title}
-        </h2>
-        <p className="text-lg xl:text-xl text-black">
+        </LazyText>
+        <LazyText as="p" className="text-lg xl:text-xl text-black" animation="fadeUp" delay={150}>
           {caseStudy.subtitle}
-        </p>
-        <p className="text-base xl:text-lg text-black leading-relaxed">
+        </LazyText>
+        <LazyText as="p" className="text-base xl:text-lg text-black leading-relaxed" animation="fadeUp" delay={200}>
           {caseStudy.description}
-        </p>
+        </LazyText>
         <div className="flex flex-wrap gap-2 mt-2">
           {caseStudy.tags.map((tag, index) => (
             <span key={index} className="text-sm font-semibold text-black px-3 py-1.5 bg-brand/20">
@@ -55,7 +60,7 @@ const CaseStudyCardDesktop = ({ caseStudy, isLast }) => {
           <MdOutlineKeyboardArrowRight className="text-xl transition-transform duration-300 group-hover/link:translate-x-1" />
         </a>
       </div>
-    </div>
+    </LazyElement>
   );
 };
 
@@ -64,28 +69,30 @@ const CaseStudyCardMobile = ({ caseStudy, isLast }) => {
   const link = `/case-studies/${caseStudy.uid}`;
   
   return (
-    <div
+    <LazyElement
       className={`flex flex-col lg:hidden py-6 ${!isLast ? 'border-b border-black' : ''} cursor-pointer`}
+      animation="fadeUp"
+      renderWhenHidden={true}
       onClick={() => (window.location.href = link)}
     >
       <div className="w-full aspect-[4/3] flex items-center justify-center overflow-hidden mb-6">
-        <img
+        <LazyImage
           src={caseStudy.featuredImage}
           alt={caseStudy.title}
           className="max-w-full max-h-full object-contain"
-          loading="lazy"
+          containerClassName="w-full h-full flex items-center justify-center"
         />
       </div>
       <div className="flex flex-col gap-3 text-left">
-        <h2 className="text-2xl md:text-3xl font-bold text-black" style={{ fontFamily: 'Epilogue, sans-serif' }}>
+        <LazyText as="h2" className="text-2xl md:text-3xl font-bold text-black" style={{ fontFamily: 'Epilogue, sans-serif' }} animation="fadeUp" delay={100}>
           {caseStudy.title}
-        </h2>
-        <p className="text-base md:text-lg text-black">
+        </LazyText>
+        <LazyText as="p" className="text-base md:text-lg text-black" animation="fadeUp" delay={150}>
           {caseStudy.subtitle}
-        </p>
-        <p className="text-sm md:text-base text-black leading-relaxed">
+        </LazyText>
+        <LazyText as="p" className="text-sm md:text-base text-black leading-relaxed" animation="fadeUp" delay={200}>
           {caseStudy.description}
-        </p>
+        </LazyText>
         <div className="flex flex-wrap gap-2 mt-2">
           {caseStudy.tags.map((tag, index) => (
             <span key={index} className="text-xs md:text-sm font-semibold text-black px-2.5 py-1 bg-brand/20">
@@ -102,7 +109,7 @@ const CaseStudyCardMobile = ({ caseStudy, isLast }) => {
           <MdOutlineKeyboardArrowRight className="text-xl" />
         </a>
       </div>
-    </div>
+    </LazyElement>
   );
 };
 
@@ -220,23 +227,23 @@ const CaseStudies = () => {
           </div>
 
           {/* Visual Content Area */}
-          <div className="order-1 xl:order-2 w-full mb-6 md:mb-0 md:mt-0">
+          <LazyElement className="order-1 xl:order-2 w-full mb-6 md:mb-0 md:mt-0" animation="fadeLeft" delay={100} renderWhenHidden={true}>
             <div className="flex flex-col md:hidden gap-4">
               <div className="w-full">
-                <img
+                <LazyImage
                   src="https://images.prismic.io/silosite/aVUgXnNYClf9otrc_v1765923582_Placeholder_Image_rr5dup.png?auto=format,compress"
                   alt="Silo team member showcasing brand identity"
                   className="w-full h-auto object-cover max-h-[350px]"
-                  loading="lazy"
+                  containerClassName="w-full"
                 />
               </div>
               <div className="flex flex-row items-center justify-center gap-3 w-full">
                 <div className="hidden sm:flex justify-center">
-                  <img
+                  <LazyImage
                     src="https://images.prismic.io/silosite/aVUgHHNYClf9otrA_v1762717296_studies2_a4olwb.png?auto=format,compress"
                     alt="The Silo brand representation"
                     className="w-32 h-auto object-cover max-h-[120px]"
-                    loading="lazy"
+                    containerClassName="w-32"
                   />
                 </div>
               </div>
@@ -244,20 +251,20 @@ const CaseStudies = () => {
 
             <div className="hidden md:flex xl:hidden gap-6">
               <div className="flex-1">
-                <img
+                <LazyImage
                   src="https://images.prismic.io/silosite/aVUgXnNYClf9otrc_v1765923582_Placeholder_Image_rr5dup.png?auto=format,compress"
                   alt="Silo team member showcasing brand identity"
                   className="w-full h-auto object-cover max-h-[500px] lg:max-h-[550px]"
-                  loading="lazy"
+                  containerClassName="w-full"
                 />
               </div>
               <div className="flex flex-col gap-4 justify-between items-end">
                 <div>
-                  <img
+                  <LazyImage
                     src="https://images.prismic.io/silosite/aVUgHHNYClf9otrA_v1762717296_studies2_a4olwb.png?auto=format,compress"
                     alt="The Silo brand representation"
                     className="w-48 lg:w-56 h-auto object-cover max-h-[300px] lg:max-h-[350px]"
-                    loading="lazy"
+                    containerClassName="w-48 lg:w-56"
                   />
                 </div>
               </div>
@@ -265,25 +272,25 @@ const CaseStudies = () => {
 
             <div className="hidden xl:flex gap-6">
               <div className="flex-1 max-w-[460px]">
-                <img
+                <LazyImage
                   src="https://images.prismic.io/silosite/aVUgXnNYClf9otrc_v1765923582_Placeholder_Image_rr5dup.png?auto=format,compress"
                   alt="Silo team member showcasing brand identity"
                   className="w-full h-auto object-cover max-h-[550px] 2xl:max-h-none"
-                  loading="lazy"
+                  containerClassName="w-full"
                 />
               </div>
               <div className="flex flex-col justify-between items-end">
                 <div className="mb-4">
-                  <img
+                  <LazyImage
                     src="https://images.prismic.io/silosite/aVUgHHNYClf9otrA_v1762717296_studies2_a4olwb.png?auto=format,compress"
                     alt="The Silo brand representation"
                     className="w-64 2xl:w-[328px] h-auto object-cover xl:min-h-[200px] 2xl:max-h-none"
-                    loading="lazy"
+                    containerClassName="w-64 2xl:w-[328px]"
                   />
                 </div>
               </div>
             </div>
-          </div>
+          </LazyElement>
         </div>
       </section>
 

@@ -4,6 +4,9 @@ import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { usePageMeta } from "../hooks/usePageMeta";
 import { client } from "../prismicio";
 import * as prismic from "@prismicio/client";
+import LazyImage from "../components/Common/LazyImage";
+import LazyText from "../components/Common/LazyText";
+import LazyElement from "../components/Common/LazyElement";
 
 // GSAP
 import gsap from "gsap";
@@ -304,11 +307,11 @@ export default function Ramblings() {
 
                         <div className="w-full h-[60vh] overflow-hidden group order-2 md:order-1">
                           {filteredPosts[0].image ? (
-                            <img
+                            <LazyImage
                               src={filteredPosts[0].image}
                               alt={filteredPosts[0].title}
                               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                              loading="lazy"
+                              containerClassName="w-full h-full"
                             />
                           ) : (
                             <div className="w-full h-full bg-gray-200 flex items-center justify-center">
@@ -322,10 +325,13 @@ export default function Ramblings() {
                     {/* Grid Posts */}
                     {filteredPosts.length > 1 && (
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        {filteredPosts.slice(1).map((post) => (
-                          <div
+                        {filteredPosts.slice(1).map((post, index) => (
+                          <LazyElement
                             key={post.id}
                             className="bg-white overflow-hidden cursor-pointer flex flex-col"
+                            animation="fadeUp"
+                            delay={index * 100}
+                            renderWhenHidden={true}
                             onClick={() => navigate(post.link)}
                           >
                             <div className="md:p-6 md:px-0 py-6 px-0 order-1 md:order-2">
@@ -363,11 +369,11 @@ export default function Ramblings() {
 
                             <div className="aspect-[16/9] overflow-hidden group order-2 md:order-1">
                               {post.image ? (
-                                <img
+                                <LazyImage
                                   src={post.image}
                                   alt={post.title}
                                   className="w-full h-full object-cover md:object-cover transition-transform duration-300 group-hover:scale-110"
-                                  loading="lazy"
+                                  containerClassName="w-full h-full"
                                 />
                               ) : (
                                 <div className="w-full h-full bg-gray-200 flex items-center justify-center">
@@ -375,7 +381,7 @@ export default function Ramblings() {
                                 </div>
                               )}
                             </div>
-                          </div>
+                          </LazyElement>
                         ))}
                       </div>
                     )}

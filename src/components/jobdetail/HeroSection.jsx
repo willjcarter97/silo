@@ -86,15 +86,24 @@ const HeroSection = ({ jobData }) => {
 
             {/* Right Image */}
             <div className="order-2 lg:order-2">
-              <div className="w-full h-[400px] sm:h-[450px] lg:h-[400px] flex items-center justify-center bg-[#DBDBDB]">
-                <svg
-                  className="w-20 h-20 text-[#BABABA]"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
-                </svg>
-              </div>
+              {jobData.heroImage1 ? (
+                <img
+                  src={jobData.heroImage1}
+                  alt={`${jobData.title} - Hero`}
+                  className="w-full h-[400px] sm:h-[450px] lg:h-[400px] object-cover"
+                  loading="lazy"
+                />
+              ) : (
+                <div className="w-full h-[400px] sm:h-[450px] lg:h-[400px] flex items-center justify-center bg-[#DBDBDB]">
+                  <svg
+                    className="w-20 h-20 text-[#BABABA]"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+                  </svg>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -106,15 +115,24 @@ const HeroSection = ({ jobData }) => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
             {/* Left Image */}
             <div className="order-2 lg:order-1">
-              <div className="w-full h-[400px] sm:h-[450px] lg:h-[400px] flex items-center justify-center bg-[#DBDBDB]">
-                <svg
-                  className="w-20 h-20 text-[#BABABA]"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
-                </svg>
-              </div>
+              {jobData.heroImage2 ? (
+                <img
+                  src={jobData.heroImage2}
+                  alt={`${jobData.title} - Secondary`}
+                  className="w-full h-[400px] sm:h-[450px] lg:h-[400px] object-cover"
+                  loading="lazy"
+                />
+              ) : (
+                <div className="w-full h-[400px] sm:h-[450px] lg:h-[400px] flex items-center justify-center bg-[#DBDBDB]">
+                  <svg
+                    className="w-20 h-20 text-[#BABABA]"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+                  </svg>
+                </div>
+              )}
             </div>
 
             {/* Right Content */}
@@ -129,7 +147,7 @@ const HeroSection = ({ jobData }) => {
                 }} 
                 className="text-black"
               >
-                We're The Silo, and we don't do content for the sake of content.
+                {jobData.introHeading || "We're The Silo, and we don't do content for the sake of content."}
               </h2>
 
               <p 
@@ -142,12 +160,7 @@ const HeroSection = ({ jobData }) => {
                 }} 
                 className="text-black"
               >
-                We work with brands who want to cut through the noise, and creators who know 
-                how to make that happen. Now we're looking for a Creator Partnerships Manager 
-                to join the team. This role is about building relationships, shaping briefs, and 
-                making sure the work that goes live feels authentic, strategic, and bold. You'll sit 
-                between clients and our network of creators, turning brand goals into content 
-                that gets remembered.
+                {jobData.introDescription || "We work with brands who want to cut through the noise, and creators who know how to make that happen."}
               </p>
             </div>
           </div>

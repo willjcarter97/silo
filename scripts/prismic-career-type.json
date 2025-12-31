@@ -1,0 +1,171 @@
+{
+  "id": "career",
+  "label": "Career Opening",
+  "repeatable": true,
+  "status": true,
+  "json": {
+    "Main": {
+      "uid": {
+        "type": "UID",
+        "config": {
+          "label": "URL Slug",
+          "placeholder": "e.g. creator-partnerships-manager"
+        }
+      },
+      "title": {
+        "type": "Text",
+        "config": {
+          "label": "Job Title",
+          "placeholder": "e.g. Creator Partnerships Manager"
+        }
+      },
+      "department": {
+        "type": "Text",
+        "config": {
+          "label": "Department",
+          "placeholder": "e.g. Marketing, Design, Operations"
+        }
+      },
+      "location": {
+        "type": "Text",
+        "config": {
+          "label": "Location",
+          "placeholder": "e.g. Remote, London, Hybrid"
+        }
+      },
+      "contract_type": {
+        "type": "Text",
+        "config": {
+          "label": "Contract Type",
+          "placeholder": "e.g. Permanent, Full-time, Contract"
+        }
+      },
+      "short_description": {
+        "type": "Text",
+        "config": {
+          "label": "Short Description (for listing)",
+          "placeholder": "Brief description shown on the careers listing page"
+        }
+      },
+      "publish_date": {
+        "type": "Date",
+        "config": {
+          "label": "Publish Date",
+          "placeholder": "When this job was posted"
+        }
+      },
+      "is_active": {
+        "type": "Boolean",
+        "config": {
+          "label": "Active",
+          "placeholder_false": "Hidden",
+          "placeholder_true": "Visible",
+          "default_value": true
+        }
+      }
+    },
+    "Hero Section": {
+      "hero_image_1": {
+        "type": "Image",
+        "config": {
+          "label": "Hero Image 1 (Right side)",
+          "constraint": {
+            "width": 1200,
+            "height": 800
+          },
+          "thumbnails": []
+        }
+      },
+      "hero_image_2": {
+        "type": "Image",
+        "config": {
+          "label": "Hero Image 2 (Left side, below)",
+          "constraint": {
+            "width": 1200,
+            "height": 800
+          },
+          "thumbnails": []
+        }
+      },
+      "intro_heading": {
+        "type": "Text",
+        "config": {
+          "label": "Intro Heading",
+          "placeholder": "e.g. We're The Silo, and we don't do content for the sake of content."
+        }
+      },
+      "intro_description": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Intro Description",
+          "placeholder": "Describe the role and what you're looking for...",
+          "multi": "paragraph",
+          "allowTargetBlank": true
+        }
+      }
+    },
+    "Job Details": {
+      "what_youll_do": {
+        "type": "Group",
+        "config": {
+          "label": "What You'll Do",
+          "fields": {
+            "item": {
+              "type": "Text",
+              "config": {
+                "label": "Responsibility",
+                "placeholder": "e.g. Build and maintain strong relationships with creators"
+              }
+            }
+          }
+        }
+      },
+      "benefits": {
+        "type": "Group",
+        "config": {
+          "label": "Benefits",
+          "fields": {
+            "item": {
+              "type": "Text",
+              "config": {
+                "label": "Benefit",
+                "placeholder": "e.g. Competitive salary with performance-based bonuses"
+              }
+            }
+          }
+        }
+      },
+      "who_you_are": {
+        "type": "Group",
+        "config": {
+          "label": "Who You Are",
+          "fields": {
+            "item": {
+              "type": "Text",
+              "config": {
+                "label": "Requirement",
+                "placeholder": "e.g. A strong communicator who can manage expectations"
+              }
+            }
+          }
+        }
+      },
+      "who_youll_be": {
+        "type": "Group",
+        "config": {
+          "label": "Who You'll Be",
+          "fields": {
+            "item": {
+              "type": "Text",
+              "config": {
+                "label": "Description",
+                "placeholder": "e.g. The go-to person for making partnerships run smoothly"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+

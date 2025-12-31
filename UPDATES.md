@@ -2,6 +2,204 @@
 
 ## 2025-12-31
 
+### Added: Comprehensive Lazy Loading System
+
+**Change:** Added lazy loading for images and text across the entire site for improved performance and user experience.
+
+**New Components Created:**
+- `src/components/Common/LazyImage.jsx` - Enhanced image lazy loading with:
+  - Intersection Observer-based loading
+  - Smooth fade-in animations
+  - Skeleton loading state with shimmer effect
+  - Error state handling with fallback
+  - Configurable threshold and root margin
+  
+- `src/components/Common/LazyText.jsx` - Text animation on scroll with:
+  - Multiple animation types: fadeUp, fadeDown, fadeLeft, fadeRight, fade, scale, blur
+  - Configurable delay and duration
+  - Support for any HTML element via `as` prop
+  - Optional staggered children animation
+  
+- `src/components/Common/LazyElement.jsx` - Universal lazy loading wrapper with:
+  - Multiple animation presets
+  - Optional placeholder while loading
+  - Can delay rendering or animate hidden content
+  - Configurable intersection observer options
+
+**Enhanced Components:**
+- `src/components/Common/LazySection.jsx` - Updated with optional fade animation and improved API
+
+**CSS Additions:**
+- Added shimmer animation for skeleton loading states
+- Added utility classes for lazy fade-in effects (`.lazy-fade-in`, `.lazy-delay-*`)
+
+**Pages/Components Updated:**
+- `src/components/Home/Hero.jsx` - Wrapped sections in LazySection and LazyElement
+- `src/components/Home/ContentAndDone.jsx` - Added LazyImage, LazyText, LazyElement to all cards and case studies
+- `src/components/Home/Section.jsx` - Updated images to use LazyImage
+- `src/components/About/Hero.jsx` - Added LazyImage and LazyText to hero content
+- `src/components/servicee/Hero.jsx` - Added LazyText and LazySection to hero content
+- `src/components/servicee/Interested.jsx` - Added LazyImage and LazyElement to service cards
+- `src/components/servicee/OptionalAddOns.jsx` - Added LazyImage and LazyElement to add-on cards
+- `src/pages/CaseStudies.jsx` - Added lazy loading to case study cards and hero images
+- `src/pages/Ramblings.jsx` - Added lazy loading to blog post cards and featured image
+
+**LazyImage Improvements:**
+- Changed default placeholder to transparent (supports PNG transparency)
+- Added `showSkeleton` prop - only shows grey skeleton when explicitly enabled
+- Images with transparency no longer show grey background
+
+**Benefits:**
+- Faster initial page load (images only load when needed)
+- Reduced bandwidth usage (especially on mobile)
+- Smooth scroll-triggered animations improve perceived performance
+- Better Core Web Vitals scores (LCP, CLS)
+
+---
+
+### Updated: Header Navigation Styling & Scroll Behavior
+
+**Changes:**
+1. **Smaller Nav Links**: Reduced navigation link text size from `text-xl` to `text-base xl:text-lg` for a more refined appearance
+2. **Scroll-Hide Navbar**: Added scroll-direction-based hiding behavior:
+   - Navbar hides when scrolling down (after 100px from top)
+   - Navbar reappears when scrolling up
+   - Navbar always visible near top of page
+   - Smooth 300ms transition animation
+   - Uses `requestAnimationFrame` for performance
+
+**File modified:**
+- `src/components/Common/Header.jsx`
+
+**Technical Details:**
+- Uses `useRef` for scroll position tracking without re-renders
+- Threshold of 10px prevents jitter on small scroll movements
+- Passive scroll event listener for performance
+- Transform-based animation (`translate-y-full`) for smooth GPU-accelerated hiding
+
+---
+
+### Connected: Careers Page to Prismic
+
+**Changes:**
+1. **Careers Listing Page** (`/careers`):
+   - Now fetches career openings from Prismic `career` content type
+   - Automatically shows jobs when they exist, shows empty state when none
+   - Orders by `publish_date` field (newest first - chronological)
+   - Filters out inactive jobs (`is_active === false`)
+   - Loading state shown while fetching
+
+2. **Career Detail Page** (`/job/:uid`):
+   - Now fetches individual career by UID from Prismic
+   - Displays all job details: title, department, location, contract type
+   - Hero images support (with placeholder fallback)
+   - Dynamic lists: What you'll do, Benefits, Who you are, Who you'll be
+   - Loading state and 404 handling
+
+**Files modified:**
+- `src/pages/CareerIndex.jsx`
+- `src/pages/JobDetail.jsx`
+- `src/components/jobdetail/HeroSection.jsx`
+- `src/components/jobdetail/JobDetailsSection.jsx`
+
+**Prismic Custom Type:**
+- Added `scripts/prismic-career-type.json` - Custom type definition for career openings
+
+**Career Opening Fields in Prismic:**
+- `uid` - URL slug (e.g., creator-partnerships-manager)
+- `title` - Job title
+- `department` - Department label
+- `location` - Location (Remote, London, etc.)
+- `contract_type` - Contract type (Permanent, Full-time, etc.)
+- `short_description` - Brief description for listing
+- `publish_date` - Date for chronological ordering (newest first)
+- `is_active` - Show/hide toggle
+- `hero_image_1`, `hero_image_2` - Hero section images
+- `intro_heading`, `intro_description` - Intro section content
+- `what_youll_do` - Repeatable group of responsibilities
+- `benefits` - Repeatable group of benefits
+- `who_you_are` - Repeatable group of requirements
+- `who_youll_be` - Repeatable group of role outcomes
+
+---
+
+### Connected: Job Board to Prismic
+
+**Changes:**
+1. **Job Board Listing Page** (`/job-board`):
+   - Now fetches job listings from Prismic `job_listing` content type
+   - Automatically shows jobs when they exist, shows empty state when none
+   - Orders by `publish_date` field (newest first - chronological)
+   - Filters out inactive jobs (`is_active === false`)
+   - Loading state shown while fetching
+   - Responsive grid: 1 col mobile, 2 cols tablet, 3 cols desktop
+
+2. **Job Detail Page** (`/jobs/:uid`):
+   - Now fetches individual job by UID from Prismic
+   - Displays all job details: client info, images, contact, requirements
+   - Loading state and 404 handling
+
+**Files modified:**
+- `src/pages/JobBoard.jsx`
+- `src/pages/JobBoardDetail.jsx`
+
+**Prismic Custom Type:**
+- Added `scripts/prismic-job-listing-type.json` - Custom type definition for job listings
+
+**Job Listing Fields in Prismic:**
+- `uid` - URL slug (e.g., smoothie-smash-ugc)
+- `title` - Brand/job title
+- `category` - Category label
+- `card_image` - Image for listing cards
+- `primary_image` - Hero image on detail page
+- `secondary_image` - Secondary image
+- `client_description` - Rich text about the client
+- `contact_name`, `contact_title`, `contact_email`, `contact_avatar` - Contact info
+- `looking_for` - Repeatable group of requirements
+- `not_looking_for` - Repeatable group of anti-requirements
+- `publish_date` - Date for chronological ordering (newest first)
+- `is_active` - Show/hide toggle
+
+---
+
+### Connected: MindsInTheSilo Team Carousel to Prismic
+
+**Changes:**
+1. **Square Images**: Changed team member photos from fixed heights to `aspect-square` for consistent square sizing
+2. **Dynamic Card Heights**: All cards now use consistent height based on card width + 180px for text content
+3. **Conditional "Join Us" Card Content**: The special card at the end now changes based on team size:
+   - **2 or fewer team members**:
+     - Title: "It's not the size that matters."
+     - Description: "But a few more teammates wouldn't hurt."
+     - Button: "View Openings"
+   - **3+ team members**:
+     - Title: "Think you're the right fit for our team?"
+     - Button: "Current Vacancies"
+     - Secondary: "Can't see an opening that fits you? Get in touch anyway - we're always on the lookout for our next team-mates!"
+4. **Prismic Integration**: Team members are now fetched from Prismic CMS
+   - Fetches from `team_member` content type
+   - Orders by `display_order` field (ascending)
+   - Filters out inactive members (`is_active === false`)
+   - Loading state shown while fetching
+   - Section hidden if no team members exist
+
+**File modified:**
+- `src/components/About/MindsInTheSilo.jsx`
+
+**Prismic Custom Type:**
+- Added `scripts/prismic-team-member-type.json` - Custom type definition for Prismic
+
+**Team Member Fields in Prismic:**
+- `uid` - URL slug (e.g., ruby-turbett)
+- `name` - Full name
+- `title` - Job title
+- `description` - Bio description
+- `photo` - Square photo (800x800 recommended)
+- `display_order` - Number for ordering (lower = first)
+- `is_active` - Boolean to show/hide
+
+---
+
 ### Fixed: Case Study Components Losing Horizontal Margins on Resize
 
 **Issue:** Multiple poststudy components were losing their horizontal padding when resizing between tablet (768px) and desktop (1280px). The padding pattern was `px-3 md:px-0`, which removed all padding at the `md` breakpoint before the `max-w-[1280px]` could constrain the content.
@@ -578,4 +776,37 @@
 - Description (right): `md:w-[50%]` → `md:w-[42%] lg:w-[38%] xl:w-[36%]`
 
 **Result:** The title now takes more horizontal space on larger screens, pushing the description to be narrower and wrap more naturally. This creates better visual separation between the two text blocks.
+
+---
+
+### Fixed: Optional Add-ons Section Alignment with Services Grid
+
+**Issue:** The "Optional add-ons" section on the Services page was horizontally misaligned with the service cards grid above it and felt disconnected vertically.
+
+**Solution:** Modified `src/components/servicee/Interested.jsx`:
+- Changed outer container padding from `md:py-16 md:pt-0` to `md:py-0 md:pb-16` for smoother vertical flow
+- Changed mobile padding from `py-10` to `py-8` for tighter vertical spacing
+- Changed inner container from `mx-3` to `md:pl-8` to align with the grid's left padding
+- Changed CTA button container from `ml-5 md:ml-0` to `md:ml-8` to match the new alignment
+
+**Result:** Optional add-ons section now sits flush with the services grid above, with consistent horizontal margins and improved vertical connection.
+
+---
+
+### Fixed: Services Cards Animation Smoothness
+
+**Issue:** The service cards on the Services page were not flicking/animating as smoothly as expected during scroll interaction.
+
+**Solution:** Modified `src/components/servicee/Cards.jsx`:
+- Added `animate` function from Framer Motion for spring-based smooth transitions
+- Created `animateToProgress` callback with optimized spring physics (`stiffness: 300, damping: 30, mass: 0.8`)
+- Changed from direct `cardProgress.set()` to animated transitions for smoother card movement
+- Added delta accumulation for smoother continuous scrolling
+- Normalized scroll delta to cap maximum speed (`Math.min(Math.abs(delta), 150)`)
+- Increased step multiplier from `0.002` to `0.004` for more responsive feel
+- Changed state management from `useState` to `useRef` for lock state to prevent unnecessary re-renders
+- Added animation cancellation on new scroll input to prevent animation conflicts
+- Added performance tracking with `performance.now()` for delta timing
+
+**Result:** Cards now animate smoothly with spring physics, responding reliably to scroll input without jitter or missed interactions.
 

@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { FaChevronRight } from "react-icons/fa";
 import { createPortal } from "react-dom";
+import LazyImage from "../Common/LazyImage";
+import LazyText from "../Common/LazyText";
 
 const VideoContent = ({ onClick, onClose }) => (
   <div className="flex items-center justify-end pointer-events-auto">
@@ -159,10 +161,12 @@ const Hero = () => {
             role="main"
           >
             {/* Main Heading - Zoom & Small Laptop Optimized */}
-            <h1
+            <LazyText
+              as="h1"
               className="font-bold text-black text-4xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-5xl 2xl:text-[56px] leading-6 text-left px-2 sm:px-0 md:px-0 mt-4 sm:mt-0"
+              animation="fadeUp"
+              delay={0}
               style={{
-                opacity: 1,
                 fontFamily: "Epilogue, sans-serif",
                 fontWeight: 700,
                 lineHeight: "110%",
@@ -171,16 +175,15 @@ const Hero = () => {
             >
               This is <br /> <span className="text-[#FF322E]">Silo, </span>we're
               <br /> glad you're <br /> here.
-            </h1>
+            </LazyText>
 
             {/* Text and Buttons Container */}
             <div className="flex flex-col gap-2 sm:gap-3 items-start w-full px-2 sm:px-0">
               {/* Brand Statement - Zoom & Small Laptop Optimized */}
-              <div>
+              <LazyText animation="fadeUp" delay={100}>
                 <p
                   className="text-black text-sm sm:text-base md:text-base lg:text-lg xl:text-[16px] leading-relaxed text-left max-w-full xl:max-w-lg px-2 md:px-0 font-epilogue"
                   style={{
-                    opacity: 1,
                     fontWeight: 400,
                     fontFamily: "Epilogue, sans-serif",
                     lineHeight: "150%",
@@ -189,7 +192,7 @@ const Hero = () => {
                 >
                   Silo was built on the belief that great brand presence is more than output - it is intentional, strategic and shaped by design, content and digital experiences that serve a clear purpose.
                 </p>
-              </div>
+              </LazyText>
 
               {/* Buttons - Zoom & Small Laptop Optimized */}
               <div className="flex flex-row gap-3 sm:gap-4 items-start w-full sm:w-auto xl:mx-0">
@@ -226,21 +229,21 @@ const Hero = () => {
             <div className="flex flex-col md:hidden gap-0">
               {/* Large Image */}
               <div className="w-full">
-                <img
+                <LazyImage
                   src="https://images.prismic.io/silosite/aVUgTXNYClf9otrT_v1765904058_1_re8aok.png?auto=format,compress"
                   alt="Silo team member showcasing brand identity"
                   className="w-full h-auto object-cover max-h-[500px] sm:max-h-[350px]"
-                  loading="lazy"
+                  containerClassName="w-full"
                 />
               </div>
               {/* Small Image */}
               <div className="flex flex-row items-center justify-center gap-3 w-full">
                 <div className="hidden sm:flex justify-center">
-                  <img
+                  <LazyImage
                     src="https://images.prismic.io/silosite/aVUgTHNYClf9otrS_v1765904057_Placeholder_Image_ouj13b.png?auto=format,compress"
                     alt="The Silo brand representation"
                     className="w-32 h-auto object-cover"
-                    loading="lazy"
+                    containerClassName="w-32"
                   />
                 </div>
               </div>
@@ -250,22 +253,22 @@ const Hero = () => {
             <div className="hidden md:flex xl:hidden gap-6">
               {/* Large Image */}
               <div className="flex-1">
-                <img
+                <LazyImage
                   src="https://images.prismic.io/silosite/aVUgTXNYClf9otrT_v1765904058_1_re8aok.png?auto=format,compress"
                   alt="Silo team member showcasing brand identity"
                   className="w-full h-auto object-cover max-h-[500px] lg:max-h-[550px]"
-                  loading="lazy"
+                  containerClassName="w-full"
                 />
               </div>
               {/* Right Column: Small image + video section */}
               <div className="flex flex-col gap-4 justify-between items-end">
                 {/* Small Image */}
                 <div>
-                  <img
+                  <LazyImage
                     src="https://images.prismic.io/silosite/aVUgTHNYClf9otrS_v1765904057_Placeholder_Image_ouj13b.png?auto=format,compress"
                     alt="The Silo brand representation"
                     className="w-48 lg:w-56 h-auto object-cover max-h-[300px] lg:max-h-[350px]"
-                    loading="lazy"
+                    containerClassName="w-48 lg:w-56"
                   />
                 </div>
                 {/* Video Section Placeholder */}
@@ -277,22 +280,22 @@ const Hero = () => {
             <div className="hidden xl:flex gap-6">
               {/* Large Image */}
               <div className="flex-1 max-w-[438px]">
-                <img
+                <LazyImage
                   src="https://images.prismic.io/silosite/aVUgTXNYClf9otrT_v1765904058_1_re8aok.png?auto=format,compress"
                   alt="Silo team member showcasing brand identity"
                   className="w-full h-auto object-cover max-h-[550px] 2xl:max-h-none"
-                  loading="lazy"
+                  containerClassName="w-full"
                 />
               </div>
               {/* Right Column: Small image + video section */}
               <div className="flex flex-col justify-between items-end">
                 {/* Small Image */}
                 <div className="mb-4">
-                  <img
+                  <LazyImage
                     src="https://images.prismic.io/silosite/aVUgTHNYClf9otrS_v1765904057_Placeholder_Image_ouj13b.png?auto=format,compress"
                     alt="The Silo brand representation"
                     className="w-64 2xl:w-[328px] h-auto object-cover xl:min-h-[200px] 2xl:max-h-none"
-                    loading="lazy"
+                    containerClassName="w-64 2xl:w-[328px]"
                   />
                 </div>
                 {/* Video Section Placeholder */}

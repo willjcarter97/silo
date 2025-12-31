@@ -7,6 +7,8 @@ import Interested from "./Interested";
 // import OptionalAddOns from "./OptionalAddOns";
 import "../../styles/scaling-overrides.css";
 import Section from "../Home/Section.jsx";
+import LazySection from "../Common/LazySection";
+import LazyText from "../Common/LazyText";
 
 const Hero = () => {
   const [cmsData] = useState({
@@ -269,15 +271,15 @@ const Hero = () => {
 
           {/* Heading */}
           <div className="flex flex-col items-center w-full mb-6">
-            <h1 className="font-bold text-[clamp(95px,17vw,200px)] leading-[0.9] mb-6 text-center">
+            <LazyText as="h1" className="font-bold text-[clamp(95px,17vw,200px)] leading-[0.9] mb-6 text-center" animation="fadeUp" delay={0}>
               What we do
-            </h1>
+            </LazyText>
 
             {/* Description */}
-            <p className="text-black text-base font-normal text-center max-w-2xl px-4 mb-8">
+            <LazyText as="p" className="text-black text-base font-normal text-center max-w-2xl px-4 mb-8" animation="fadeUp" delay={100}>
               Stronger socials. Smarter content. Confident branding. High
               performing websites.
-            </p>
+            </LazyText>
 
             {/* Buttons */}
             <div className="flex gap-4 justify-center -mb-10">
@@ -360,9 +362,13 @@ const Hero = () => {
 
       <div className="hidden sm:block">
         <Cards />
-        <Interested />
+        <LazySection rootMargin="200px">
+          <Interested />
+        </LazySection>
         {/* <OptionalAddOns /> */}
-        <Section />
+        <LazySection rootMargin="200px">
+          <Section />
+        </LazySection>
         <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black" />
       </div>
       {/* Mobile-only view - visible only on small screens */}
@@ -381,11 +387,13 @@ const Hero = () => {
 
           {/* Headline & description (smaller for mobile) */}
           <div className="flex flex-col gap-2 text-center text-black mb-3">
-            <h1 className="text-6xl font-black leading-tight">What we do</h1>
-            <p className="text-sm leading-relaxed mt-5">
+            <LazyText as="h1" className="text-6xl font-black leading-tight" animation="fadeUp" delay={0}>
+              What we do
+            </LazyText>
+            <LazyText as="p" className="text-sm leading-relaxed mt-5" animation="fadeUp" delay={100}>
               We make content that cuts through the noise. Strategy, UGC,
               design, and motion, built to get noticed and remembered.
-            </p>
+            </LazyText>
           </div>
 
           {/* Buttons stacked for mobile */}
@@ -413,9 +421,13 @@ const Hero = () => {
         <div className="mt-6">
           <Cards />
         </div>
-        <Interested />
+        <LazySection rootMargin="200px">
+          <Interested />
+        </LazySection>
         {/* <OptionalAddOns /> */}
-        <Section />
+        <LazySection rootMargin="200px">
+          <Section />
+        </LazySection>
         <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black " />
       </div>
 

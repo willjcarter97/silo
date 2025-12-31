@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import { motion, useMotionValue, useTransform } from "framer-motion";
+import React, { useEffect, useRef, useState, useCallback } from "react";
+import { motion, useMotionValue, useTransform, animate } from "framer-motion";
 import { servicesData } from "../../data/servicesData.jsx";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -10,23 +10,45 @@ const Cards = () => {
   const desktopRef = useRef(null);
   const mobileRef = useRef(null);
   const cardProgress = useMotionValue(0);
-  const [isLocked, setIsLocked] = useState(false);
-  const isAnimating = useRef(false);
+  const isLockedRef = useRef(false);
+  const isAnimatingRef = useRef(false);
   const unlockTimeoutRef = useRef(null);
+  const lastWheelTime = useRef(0);
+  const accumulatedDelta = useRef(0);
+  const animationRef = useRef(null);
+  const [, forceUpdate] = useState(0);
+
+  // Smooth animation to target progress
+  const animateToProgress = useCallback((targetProgress) => {
+    if (animationRef.current) {
+      animationRef.current.stop();
+    }
+    
+    animationRef.current = animate(cardProgress, targetProgress, {
+      type: "spring",
+      stiffness: 300,
+      damping: 30,
+      mass: 0.8,
+    });
+  }, [cardProgress]);
 
   useEffect(() => {
     const unsubscribe = cardProgress.on("change", (latest) => {
-      if (isAnimating.current && (latest >= CARD_DATA.length || latest <= 0)) {
-        if (unlockTimeoutRef.current) {
-          clearTimeout(unlockTimeoutRef.current);
+      // Check if we've reached boundaries while animating
+      if (isAnimatingRef.current) {
+        if (latest >= CARD_DATA.length || latest <= 0) {
+          if (unlockTimeoutRef.current) {
+            clearTimeout(unlockTimeoutRef.current);
+          }
+
+          const delay = latest >= CARD_DATA.length ? 600 : 300;
+
+          unlockTimeoutRef.current = setTimeout(() => {
+            isLockedRef.current = false;
+            isAnimatingRef.current = false;
+            forceUpdate(n => n + 1);
+          }, delay);
         }
-
-        const delay = latest >= CARD_DATA.length ? 800 : 300;
-
-        unlockTimeoutRef.current = setTimeout(() => {
-          setIsLocked(false);
-          isAnimating.current = false;
-        }, delay);
       }
     });
 
@@ -43,8 +65,11 @@ const Cards = () => {
       if (unlockTimeoutRef.current) {
         clearTimeout(unlockTimeoutRef.current);
       }
+      if (animationRef.current) {
+        animationRef.current.stop();
+      }
     };
-  }, []);
+  }, [cardProgress]);
 
   // Desktop wheel handler with scroll lock
   useEffect(() => {
@@ -71,19 +96,21 @@ const Cards = () => {
 
       const currentProgress = cardProgress.get();
 
-      // Don't lock if we're at boundaries and not animating
+      // Don't lock if we're at boundaries
       const atBoundary =
         (currentProgress >= CARD_DATA.length && e.deltaY > 0) ||
         (currentProgress <= 0 && e.deltaY < 0);
-      const shouldLock = (isCentered || isAnimating.current) && !atBoundary;
+      
+      const shouldLock = (isCentered || isAnimatingRef.current) && !atBoundary;
 
       if (shouldLock) {
         e.preventDefault();
         e.stopPropagation();
 
-        if (!isLocked && !isAnimating.current && isCentered) {
-          setIsLocked(true);
-          isAnimating.current = true;
+        // Engage lock if not already locked
+        if (!isLockedRef.current && !isAnimatingRef.current && isCentered) {
+          isLockedRef.current = true;
+          isAnimatingRef.current = true;
 
           // Auto-scroll section to perfect center when lock engages
           const scrollOffset = containerCenter - viewportCenter;
@@ -95,22 +122,36 @@ const Cards = () => {
           });
         }
 
+        // Accumulate delta for smoother movement
+        const now = performance.now();
+        const timeDelta = now - lastWheelTime.current;
+        
+        if (timeDelta > 100) {
+          accumulatedDelta.current = 0;
+        }
+        
+        accumulatedDelta.current += e.deltaY;
+        lastWheelTime.current = now;
+
+        // Calculate step with smoothing
         const delta = e.deltaY;
-        // Direct proportional movement - faster scroll = faster card movement
-        const step = Math.abs(delta) * 0.002;
+        const normalizedDelta = Math.sign(delta) * Math.min(Math.abs(delta), 150);
+        const step = Math.abs(normalizedDelta) * 0.004;
         const direction = delta > 0 ? 1 : -1;
 
         const newProgress = Math.max(
           0,
           Math.min(CARD_DATA.length, currentProgress + direction * step)
         );
-        cardProgress.set(newProgress);
+        
+        // Use spring animation for smooth card movement
+        animateToProgress(newProgress);
       }
     };
 
     window.addEventListener("wheel", handleWheel, { passive: false });
     return () => window.removeEventListener("wheel", handleWheel);
-  }, [isLocked]);
+  }, [cardProgress, animateToProgress]);
 
   // Register ScrollTrigger
   useEffect(() => {
@@ -146,10 +187,10 @@ const Cards = () => {
       {/* Desktop View - Hidden on Mobile */}
       <div
         ref={desktopRef}
-        className="hidden sm:flex w-full max-w-[1280px] mx-auto h-[calc(100vh-80px)] 2xl:mt-20 md:mt-0 flex-col items-center justify-center relative"
-        style={{ overflow: "hidden" }}
+        className="hidden sm:flex w-full max-w-[1280px] mx-auto h-[calc(100vh-80px)] 2xl:mt-20 md:mt-0 flex-col items-center justify-center relative z-30"
+        style={{ overflow: "visible" }}
       >
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 flex items-center justify-center">
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 flex items-center justify-center">
           {CARD_DATA.map((card, i) => {
             const VISIBLE_COUNT = Math.min(5, CARD_DATA.length);
             const computeOffset = (idx) => {
@@ -178,7 +219,7 @@ const Cards = () => {
               [i, i + 1],
               [0, -1000]
             );
-            const finalY = useTransform(transformY, (v) => -offset.y + v - 80);
+            const finalY = useTransform(transformY, (v) => -offset.y + v);
 
             return (
               <motion.div
@@ -262,16 +303,6 @@ const Cards = () => {
               <motion.div
                 key={i}
                 initial={{ opacity: 1, y: 20, x: 10, rotate: offset.r }}
-                animate={
-                  isLocked
-                    ? {
-                        opacity: 1,
-                        x: 10,
-                        rotate: offset.r,
-                        scale: 1,
-                      }
-                    : undefined
-                }
                 style={{
                   y: finalY,
                   x: 10,

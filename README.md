@@ -15,6 +15,74 @@ The React Compiler is not enabled on this template because of its impact on dev 
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
 
+## Lazy Loading Components
+
+The site uses a comprehensive lazy loading system for optimal performance. Components are located in `src/components/Common/`.
+
+### LazyImage
+Enhanced image component with:
+- Intersection Observer-based lazy loading
+- Smooth fade-in animation
+- Skeleton loading state with shimmer effect
+- Error state handling
+- Configurable threshold and root margin
+
+```jsx
+import LazyImage from '../components/Common/LazyImage';
+
+<LazyImage
+  src="https://example.com/image.jpg"
+  alt="Description"
+  className="w-full h-full object-cover"
+  containerClassName="w-full aspect-[4/3]"
+  animationDuration={600}
+/>
+```
+
+### LazyText
+Animated text component for scroll-triggered reveals:
+- Multiple animation types: fadeUp, fadeDown, fadeLeft, fadeRight, fade, scale, blur
+- Configurable delay and duration
+- Support for any HTML element via `as` prop
+
+```jsx
+import LazyText from '../components/Common/LazyText';
+
+<LazyText as="h2" animation="fadeUp" delay={100}>
+  Your heading here
+</LazyText>
+```
+
+### LazyElement
+Universal wrapper for lazy loading any content:
+- Multiple animation presets
+- Optional placeholder while loading
+- Can delay rendering or animate hidden content
+
+```jsx
+import LazyElement from '../components/Common/LazyElement';
+
+<LazyElement animation="fadeUp" delay={200}>
+  <YourComponent />
+</LazyElement>
+```
+
+### LazySection
+For deferring render of heavy sections:
+- Content only rendered when section enters viewport
+- Optional fade animation
+- Reduces initial page load
+
+```jsx
+import LazySection from '../components/Common/LazySection';
+
+<LazySection rootMargin="200px">
+  <HeavyComponent />
+</LazySection>
+```
+
+---
+
 ## Home Page Hero Section
 
 The home page hero section consists of the following components (in order):
@@ -46,6 +114,22 @@ All case study sections follow these standards:
 - **H3 subheadings**: `text-lg md:text-xl`
 - **Body text**: `text-base md:text-lg`
 - **Max width**: `max-w-[1280px] mx-auto`
+
+## Header Navigation
+
+The header component (`src/components/Common/Header.jsx`) features:
+
+### Scroll-Hide Behavior
+- **Hides on scroll down**: Navbar slides up out of view when scrolling down the page
+- **Shows on scroll up**: Navbar slides back into view when scrolling up
+- **Always visible at top**: Navbar stays visible when near the top of the page (< 100px)
+- **Smooth transition**: 300ms ease-out animation for professional feel
+
+### Responsive Design
+- Desktop: Horizontal navigation with links and CTA button
+- Mobile/Tablet: Hamburger menu with curtain dropdown animation
+
+---
 
 ## Footer
 
@@ -97,6 +181,83 @@ const caseStudies = await client.getAllByType('case_study', {
 // Fetch a single document by UID
 const page = await client.getByUID('case_study', 'basement-approved');
 ```
+
+## Minds in the Silo (Team Members)
+
+The "Minds in the Silo" section on the About page displays team members in a carousel with a special "Join Us" card.
+
+### Features
+- **Square Images**: Team member photos use `aspect-square` for consistent sizing
+- **Dynamic Card Heights**: All cards (team + special) match height based on card width
+- **Responsive Carousel**: Shows 1 card on mobile, 2 on tablet, 3 on desktop
+- **Conditional "Join Us" Content**: Changes based on team size:
+  - **2 or fewer team members**: "It's not the size that matters." + "View Openings"
+  - **3+ team members**: "Think you're the right fit?" + "Current Vacancies" + secondary CTA
+
+### Prismic Integration
+Team members can be managed via Prismic. See `scripts/prismic-team-member-type.json` for the custom type definition.
+
+---
+
+## Job Board (UGC Creator Briefs)
+
+The Job Board (`/job-board`) displays brand briefs for UGC creators.
+
+### Features
+- **Auto-hide when empty**: Shows "Quiet in here" empty state when no jobs exist
+- **Auto-show when populated**: Automatically displays job grid when jobs are added in Prismic
+- **Responsive grid**: 1 column mobile, 2 columns tablet, 3 columns desktop
+- **Dynamic detail pages**: Each job has its own detail page at `/jobs/:uid`
+
+### Prismic Integration
+Job listings are managed via Prismic. See `scripts/prismic-job-listing-type.json` for the custom type definition.
+
+**Job Listing Fields:**
+- `uid` - URL slug
+- `title` - Brand/job title
+- `category` - Category (Food & Drink, Energy, B2B, etc.)
+- `card_image` - Image for listing cards
+- `primary_image` - Hero image on detail page
+- `secondary_image` - Secondary image on detail page
+- `client_description` - Rich text description of the client
+- `contact_name`, `contact_title`, `contact_email`, `contact_avatar` - Contact info
+- `looking_for` - List of what they want
+- `not_looking_for` - List of what they don't want
+- `publish_date` - Date for chronological ordering (newest first)
+- `is_active` - Show/hide toggle
+
+---
+
+## Careers (Internal Job Openings)
+
+The Careers page (`/careers`) displays internal Silo job openings.
+
+### Features
+- **Auto-hide when empty**: Shows "No roles live right now" empty state when no jobs exist
+- **Auto-show when populated**: Automatically displays job cards when careers are added in Prismic
+- **Dynamic detail pages**: Each job has its own detail page at `/job/:uid`
+- **Chronological order**: Jobs sorted by publish date (newest first)
+
+### Prismic Integration
+Career openings are managed via Prismic. See `scripts/prismic-career-type.json` for the custom type definition.
+
+**Career Opening Fields:**
+- `uid` - URL slug
+- `title` - Job title
+- `department` - Department (Marketing, Design, etc.)
+- `location` - Location (Remote, London, Hybrid)
+- `contract_type` - Contract type (Permanent, Full-time, Contract)
+- `short_description` - Short description for listing page
+- `publish_date` - Date for chronological ordering (newest first)
+- `is_active` - Show/hide toggle
+- `hero_image_1`, `hero_image_2` - Hero images for detail page
+- `intro_heading`, `intro_description` - Intro section content
+- `what_youll_do` - List of responsibilities
+- `benefits` - List of benefits
+- `who_you_are` - List of requirements
+- `who_youll_be` - List of role outcomes
+
+---
 
 ## Image Migration (Cloudinary → Prismic)
 

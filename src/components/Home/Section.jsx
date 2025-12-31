@@ -1,5 +1,7 @@
 import React from "react";
 import { FaChevronRight } from "react-icons/fa";
+import LazyImage from "../Common/LazyImage";
+import LazyText from "../Common/LazyText";
 
 const Section = () => {
   return (
@@ -46,10 +48,12 @@ const Section = () => {
 
             {/* Right column - empty space for image */}
             <div className="w-full md:w-1/2 bg-white-50 md:min-h-[280px]">
-              <img
+              <LazyImage
                 src="https://images.prismic.io/silosite/aVUgRXNYClf9otrL_v1765880016_Placeholder_Image_crecm6.png?auto=format,compress"
-                alt="section"
-                className="w-full h-full object-cover" loading="lazy" />
+                alt="Ready when you are section image"
+                className="w-full h-full object-cover"
+                containerClassName="w-full h-full"
+              />
             </div>
           </div>
         </div>
@@ -62,10 +66,12 @@ const Section = () => {
           <div className="flex flex-col items-stretch">
             {/* Top: right image placeholder (appears on top for md view) */}
             <div className="w-full bg-white-50 h-52 md:h-full lg:h-full">
-              <img
+              <LazyImage
                 src="https://images.prismic.io/silosite/aVUgRXNYClf9otrL_v1765880016_Placeholder_Image_crecm6.png?auto=format,compress"
-                alt="section"
-                className="w-full h-full object-cover" loading="lazy" />
+                alt="Ready when you are section image"
+                className="w-full h-full object-cover"
+                containerClassName="w-full h-full"
+              />
             </div>
 
             {/* Bottom: content */}
@@ -128,10 +134,12 @@ const Section = () => {
 
             {/* Bottom: image placeholder */}
             <div className="w-full bg-white-50 h-60">
-              <img
+              <LazyImage
                 src="https://images.prismic.io/silosite/aVUgRXNYClf9otrL_v1765880016_Placeholder_Image_crecm6.png?auto=format,compress"
-                alt="section"
-                className="w-full h-full object-cover" loading="lazy" />
+                alt="Ready when you are section image"
+                className="w-full h-full object-cover"
+                containerClassName="w-full h-full"
+              />
             </div>
           </div>
         </div>

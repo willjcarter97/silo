@@ -1,26 +1,86 @@
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { jobsData } from '../data/jobsData.js';
 import { TiTick } from 'react-icons/ti';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { usePageMeta } from '../hooks/usePageMeta';
+import { client } from '../prismicio';
+import * as prismic from '@prismicio/client';
 
 const JobBoardDetail = () => {
   const { jobId } = useParams();
   const navigate = useNavigate();
   
-  // Find the job data based on the jobId from URL
-  const job = jobsData.find(j => j.id === jobId);
+  const [job, setJob] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Fetch job from Prismic
+  useEffect(() => {
+    const fetchJob = async () => {
+      try {
+        const doc = await client.getByUID('job_listing', jobId);
+        
+        // Transform Prismic data to match component expectations
+        const jobData = {
+          uid: doc.uid,
+          title: doc.data.title || '',
+          category: doc.data.category || '',
+          images: {
+            primary: doc.data.primary_image?.url || '',
+            secondary: doc.data.secondary_image?.url || '',
+          },
+          client: {
+            name: doc.data.title || '',
+            description: prismic.asText(doc.data.client_description) || '',
+          },
+          contact: {
+            name: doc.data.contact_name || '',
+            title: doc.data.contact_title || '',
+            email: doc.data.contact_email || '',
+            avatar: doc.data.contact_avatar?.url || '',
+          },
+          requirements: {
+            lookingFor: (doc.data.looking_for || []).map(item => item.requirement),
+            notLookingFor: (doc.data.not_looking_for || []).map(item => item.requirement),
+          },
+        };
+        
+        setJob(jobData);
+      } catch (err) {
+        console.error('Error fetching job:', err);
+        setError('Job not found');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    if (jobId) {
+      fetchJob();
+    }
+  }, [jobId]);
 
   usePageMeta(
     job ? `${job.title} - ${job.category} | Silo Creative Jobs` : 'Job Details | Silo Creative',
     job ? `Apply for ${job.title} position at Silo Creative. ${job.category} role with exciting opportunities in UGC and content creation.` : 'View job details and apply to join the Silo Creative team.'
   );
   
+  // Loading state
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="animate-pulse flex flex-col items-center gap-4">
+          <div className="w-16 h-16 bg-gray-200 rounded-full"></div>
+          <div className="h-4 w-32 bg-gray-200 rounded"></div>
+        </div>
+      </div>
+    );
+  }
+
   // Handle case where job is not found
-  if (!job) {
+  if (error || !job) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
