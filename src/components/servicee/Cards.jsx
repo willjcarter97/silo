@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState, useCallback } from "react";
-import { motion, useMotionValue, useTransform, animate } from "framer-motion";
+import React, { useEffect, useRef } from "react";
+import { motion, useMotionValue, useTransform } from "framer-motion";
 import { servicesData } from "../../data/servicesData.jsx";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -10,153 +10,34 @@ const Cards = () => {
   const desktopRef = useRef(null);
   const mobileRef = useRef(null);
   const cardProgress = useMotionValue(0);
-  const isLockedRef = useRef(false);
-  const isAnimatingRef = useRef(false);
-  const unlockTimeoutRef = useRef(null);
-  const lastWheelTime = useRef(0);
-  const accumulatedDelta = useRef(0);
-  const animationRef = useRef(null);
-  const [, forceUpdate] = useState(0);
-
-  // Smooth animation to target progress
-  const animateToProgress = useCallback((targetProgress) => {
-    if (animationRef.current) {
-      animationRef.current.stop();
-    }
-    
-    animationRef.current = animate(cardProgress, targetProgress, {
-      type: "spring",
-      stiffness: 300,
-      damping: 30,
-      mass: 0.8,
-    });
-  }, [cardProgress]);
-
-  useEffect(() => {
-    const unsubscribe = cardProgress.on("change", (latest) => {
-      // Check if we've reached boundaries while animating
-      if (isAnimatingRef.current) {
-        if (latest >= CARD_DATA.length || latest <= 0) {
-          if (unlockTimeoutRef.current) {
-            clearTimeout(unlockTimeoutRef.current);
-          }
-
-          const delay = latest >= CARD_DATA.length ? 600 : 300;
-
-          unlockTimeoutRef.current = setTimeout(() => {
-            isLockedRef.current = false;
-            isAnimatingRef.current = false;
-            forceUpdate(n => n + 1);
-          }, delay);
-        }
-      }
-    });
-
-    // Initialize state if below section on load
-    if (desktopRef.current) {
-      const rect = desktopRef.current.getBoundingClientRect();
-      if (rect.bottom < 0) {
-        cardProgress.set(CARD_DATA.length);
-      }
-    }
-
-    return () => {
-      unsubscribe();
-      if (unlockTimeoutRef.current) {
-        clearTimeout(unlockTimeoutRef.current);
-      }
-      if (animationRef.current) {
-        animationRef.current.stop();
-      }
-    };
-  }, [cardProgress]);
-
-  // Desktop wheel handler with scroll lock
-  useEffect(() => {
-    const handleWheel = (e) => {
-      if (!desktopRef.current) return;
-
-      const rect = desktopRef.current.getBoundingClientRect();
-      const viewportHeight = window.innerHeight;
-      const viewportCenter = viewportHeight / 2;
-      const containerCenter = rect.top + rect.height / 2;
-      const distanceFromCenter = Math.abs(containerCenter - viewportCenter);
-
-      // Check if section is visible
-      const isInViewport = rect.top < viewportHeight && rect.bottom > 0;
-      const visibleTop = Math.max(rect.top, 0);
-      const visibleBottom = Math.min(rect.bottom, viewportHeight);
-      const visibleHeight = visibleBottom - visibleTop;
-      const visibilityRatio = visibleHeight / rect.height;
-      const isSignificantlyVisible = visibilityRatio >= 0.3;
-
-      // Only lock when section is visible and near center
-      const isCentered =
-        distanceFromCenter <= 300 && isInViewport && isSignificantlyVisible;
-
-      const currentProgress = cardProgress.get();
-
-      // Don't lock if we're at boundaries
-      const atBoundary =
-        (currentProgress >= CARD_DATA.length && e.deltaY > 0) ||
-        (currentProgress <= 0 && e.deltaY < 0);
-      
-      const shouldLock = (isCentered || isAnimatingRef.current) && !atBoundary;
-
-      if (shouldLock) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        // Engage lock if not already locked
-        if (!isLockedRef.current && !isAnimatingRef.current && isCentered) {
-          isLockedRef.current = true;
-          isAnimatingRef.current = true;
-
-          // Auto-scroll section to perfect center when lock engages
-          const scrollOffset = containerCenter - viewportCenter;
-          const targetScrollY = window.scrollY + scrollOffset;
-
-          window.scrollTo({
-            top: targetScrollY,
-            behavior: "smooth",
-          });
-        }
-
-        // Accumulate delta for smoother movement
-        const now = performance.now();
-        const timeDelta = now - lastWheelTime.current;
-        
-        if (timeDelta > 100) {
-          accumulatedDelta.current = 0;
-        }
-        
-        accumulatedDelta.current += e.deltaY;
-        lastWheelTime.current = now;
-
-        // Calculate step with smoothing
-        const delta = e.deltaY;
-        const normalizedDelta = Math.sign(delta) * Math.min(Math.abs(delta), 150);
-        const step = Math.abs(normalizedDelta) * 0.004;
-        const direction = delta > 0 ? 1 : -1;
-
-        const newProgress = Math.max(
-          0,
-          Math.min(CARD_DATA.length, currentProgress + direction * step)
-        );
-        
-        // Use spring animation for smooth card movement
-        animateToProgress(newProgress);
-      }
-    };
-
-    window.addEventListener("wheel", handleWheel, { passive: false });
-    return () => window.removeEventListener("wheel", handleWheel);
-  }, [cardProgress, animateToProgress]);
 
   // Register ScrollTrigger
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
   }, []);
+
+  // Desktop ScrollTrigger - uses native scroll with pinning for smooth trackpad support
+  useEffect(() => {
+    const mm = gsap.matchMedia();
+
+    mm.add("(min-width: 640px)", () => {
+      if (!desktopRef.current) return;
+
+      ScrollTrigger.create({
+        trigger: desktopRef.current,
+        start: "center center",
+        end: "+=1000", // Scroll distance to complete all cards
+        pin: true,
+        scrub: 0.8, // Smooth scrubbing - slightly higher for desktop feel
+        onUpdate: (self) => {
+          const progress = self.progress * CARD_DATA.length;
+          cardProgress.set(progress);
+        },
+      });
+    });
+
+    return () => mm.revert();
+  }, [cardProgress]);
 
   // Mobile ScrollTrigger
   useEffect(() => {
@@ -167,20 +48,19 @@ const Cards = () => {
 
       ScrollTrigger.create({
         trigger: mobileRef.current,
-        start: "60% center", // Lock when the cards (at 80% height) hit the center of viewport
-        end: "+=1200", // Scroll distance to complete the animation
-        pin: true, // Pin the section
-        scrub: 0.5, // Smooth scrubbing
+        start: "60% center",
+        end: "+=1200",
+        pin: true,
+        scrub: 0.5,
         onUpdate: (self) => {
-          // Map progress 0-1 to card index 0-CARD_DATA.length
           const progress = self.progress * CARD_DATA.length;
           cardProgress.set(progress);
         },
       });
     });
 
-    return () => mm.revert(); // Cleanup
-  }, []);
+    return () => mm.revert();
+  }, [cardProgress]);
 
   return (
     <>

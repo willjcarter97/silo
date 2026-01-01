@@ -9,6 +9,12 @@ export default {
       colors: {
         brand: '#FF322E',
       },
+      // Spacing tokens for consistent section spacing across the site
+      // Usage: my-section (mobile), md:my-section-lg (desktop)
+      spacing: {
+        'section': '4rem',      // 64px - mobile section divider spacing
+        'section-lg': '6rem',   // 96px - desktop section divider spacing  
+      },
       keyframes: {
         marquee: {
           '0%': { transform: 'translateX(0)' },

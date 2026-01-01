@@ -5,7 +5,7 @@ import FullScreenImage from "../../components/poststudy/FullScreenImage";
 import GalleryWithText from "../../components/poststudy/GalleryWithText";
 import SimpleHeadingText from "../../components/poststudy/SimpleHeadingText";
 import FourGallery from "../../components/poststudy/FourGallery";
-import Section from "../../components/Home/Section";
+import WantResultsLikeThis from "../../components/Common/WantResultsLikeThis";
 import { usePageMeta } from "../../hooks/usePageMeta";
 
 const AcornPropertyGroup = () => {
@@ -294,8 +294,9 @@ const AcornPropertyGroup = () => {
         text={caseStudy.simpleHeadingText.text}
       />
       <FourGallery images={caseStudy.fourGallery.images} /> */}
-      <Section />
-      <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black mt-10" />
+      <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black my-16" />
+      <WantResultsLikeThis />
+      <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black mt-16" />
     </div>
   );
 };

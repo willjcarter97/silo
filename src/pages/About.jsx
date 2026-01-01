@@ -5,7 +5,7 @@ import WhyUGC from "../components/About/WhyUGC";
 import WhoWeLoveWorkingWith from "../components/About/WhoWeLoveWorkingWith";
 import ThingsWeBelieveIn from "../components/About/ThingsWeBelieveIn";
 import MindsInTheSilo from "../components/About/MindsInTheSilo";
-import Section from "../components/Home/Section";
+import ReadyWhenYouAre from "../components/Common/ReadyWhenYouAre";
 import LazySection from "../components/Common/LazySection";
 import { usePageMeta } from "../hooks/usePageMeta";
 
@@ -64,9 +64,9 @@ const About = () => {
         </LazySection>
         <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black mt-10 mb-20" />
         <LazySection>
-          <Section />
+          <ReadyWhenYouAre />
         </LazySection>
-        <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black" />
+        <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black mt-16" />
       </div>
     </div>
   );

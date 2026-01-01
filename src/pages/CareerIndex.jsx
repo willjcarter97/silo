@@ -6,7 +6,7 @@ import {
   MdOutlineLocationOn,
 } from "react-icons/md";
 import { usePageMeta } from "../hooks/usePageMeta";
-import Section from "../components/Home/Section";
+import ReadyWhenYouAre from "../components/Common/ReadyWhenYouAre";
 import { client } from "../prismicio";
 
 const CareerIndex = () => {
@@ -75,10 +75,7 @@ const CareerIndex = () => {
                 Work at Silo
               </h1>
               <p className="text-sm sm:text-base md:text-lg font-normal text-black leading-relaxed">
-                Want to make ideas happen? Join Silo - a team of creators
-                <br className="hidden sm:block" />
-                strategists, and storytellers shaping brands that stand <br /> out
-                online
+                Want to make ideas happen? Join Silo - a team of creators strategists, and storytellers shaping brands that stand out online.
               </p>
             </div>
 
@@ -195,8 +192,9 @@ const CareerIndex = () => {
           </div>
         </div>
       </div>
-      <Section />
-      <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black mt-20" />
+      <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black my-16" />
+      <ReadyWhenYouAre />
+      <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black mt-16" />
     </div>
   );
 };

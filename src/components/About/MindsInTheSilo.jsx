@@ -292,7 +292,7 @@ const MindsInTheSilo = () => {
               letterSpacing: "0%",
             }}
           >
-            Minds in the Silo
+            Minds of the Silo
           </h2>
 
           <p

@@ -11,7 +11,7 @@ import GalleryWithText from "../components/poststudy/GalleryWithText";
 import FullScreenImage from "../components/poststudy/FullScreenImage";
 import SimpleHeadingText from "../components/poststudy/SimpleHeadingText";
 import FourGallery from "../components/poststudy/FourGallery";
-import Section from "../components/Home/Section";
+import WantResultsLikeThis from "../components/Common/WantResultsLikeThis";
 
 // Helper to extract plain text from Prismic Rich Text
 const asText = (richTextField) => {
@@ -90,7 +90,7 @@ const richTextComponents = {
 // Two Column Text Slice Component (keeping this inline as it's just a layout)
 const TwoColumnTextSlice = ({ slice }) => {
   return (
-    <div className="flex flex-col md:flex-row justify-between items-start gap-6 md:gap-16 lg:gap-20 w-full max-w-[1280px] mx-auto px-5 md:px-6 lg:px-0 py-12 md:py-20">
+    <div className="flex flex-col md:flex-row justify-between items-start gap-6 md:gap-16 lg:gap-20 w-full max-w-[1280px] mx-auto px-5 md:px-6 lg:px-0 py-8 md:py-20">
       <h2 className="text-black text-2xl md:text-3xl lg:text-4xl font-bold text-left font-epilogue w-full md:w-1/2">
         {slice.primary?.heading}
       </h2>
@@ -113,6 +113,7 @@ const renderSlice = (slice, index) => {
         <TitleWithDescription
           key={index}
           title={slice.primary?.section_title}
+          richDescription={slice.primary?.section_description}
           description={richTextToArray(slice.primary?.section_description)}
           mediaType={slice.primary?.media_type || "none"}
           mediaSrc={
@@ -133,6 +134,7 @@ const renderSlice = (slice, index) => {
         <GalleryWithText
           key={index}
           heading={slice.primary?.heading}
+          richText={slice.primary?.text_content}
           content={richTextToContentArray(slice.primary?.text_content)}
           images={
             slice.items?.map((item) => ({
@@ -194,6 +196,7 @@ const renderSlice = (slice, index) => {
         <SimpleHeadingText
           key={index}
           heading={slice.primary?.heading}
+          richText={slice.primary?.text_content}
           text={richTextToArray(slice.primary?.text_content)}
         />
       );
@@ -329,9 +332,10 @@ const PostCaseStudy = () => {
       {/* Render all slices using the proper styled components */}
       {slices.map((slice, index) => renderSlice(slice, index))}
 
-      {/* CTA Section */}
-      <Section />
-      <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black mt-10" />
+      {/* Want Results Like This CTA Section */}
+      <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black my-16" />
+      <WantResultsLikeThis />
+      <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black mt-16" />
     </div>
   );
 };

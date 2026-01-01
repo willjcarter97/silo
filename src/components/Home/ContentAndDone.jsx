@@ -322,7 +322,7 @@ export default function ContentAndDone() {
   }, []);
 
   return (
-    <div className="pt-0 mx-auto px-0 max-w-[1280px] md:pb-28 ">
+    <div className="mx-auto px-0 max-w-[1280px]">
       {/* Desktop view (hidden on mobile) */}
       <div className="hidden md:block overflow-visible max-w-[1280px]">
         <div className="flex justify-center relative items-start w-full mx-auto">
@@ -407,9 +407,10 @@ export default function ContentAndDone() {
             </p>
           </LazyElement>
         </div>
-        <div className="w-[100vw] absolute h-[1px] right-0 bg-black my-20 "></div>
+        {/* Internal Section Divider - consistent spacing */}
+        <div className="w-[100vw] h-[1px] bg-black my-16 md:my-24 relative left-1/2 -translate-x-1/2"></div>
 
-        <div id="done" className="w-full min-h-screen pb-10 relative top-40">
+        <div id="done" className="w-full min-h-screen pb-10">
           <h2 className="text-7xl font-bold tracking-tight text-black mb-4">
             Stuff we've done
           </h2>
@@ -539,11 +540,12 @@ export default function ContentAndDone() {
           </LazyElement>
         </div>
 
-        <div className="w-[100vw] mx-auto relative -left-7 h-[1px] bg-black my-12"></div>
+        {/* Internal Section Divider - mobile */}
+        <div className="w-[100vw] h-[1px] bg-black my-16 relative left-1/2 -translate-x-1/2"></div>
 
         {/* Mobile Done Section */}
         <div id="done-mobile" className="w-full">
-          <h2 className="text-4xl font-bold tracking-tight text-black mb-4 mt-20">
+          <h2 className="text-4xl font-bold tracking-tight text-black mb-4">
             Stuff we've done
           </h2>
           <p className="text-base text-black mb-16 font-bold">

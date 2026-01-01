@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import Section from "../components/Home/Section.jsx";
+import ReadyWhenYouAre from "../components/Common/ReadyWhenYouAre";
 import { FaChevronRight } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { usePageMeta } from "../hooks/usePageMeta";
 import { client } from "../prismicio";
 
@@ -236,50 +236,6 @@ export default function JobBoard() {
                 in line when they drop.
               </p>
             </div>
-
-            {/* Newsletter Signup Section */}
-            <div className="w-full flex flex-col md:flex-row md:justify-between md:items-start gap-4 md:gap-8">
-              {/* Left side - Text content */}
-              <div className="max-w-xl">
-                <h3 className="text-2xl md:text-3xl font-bold text-black mb-4">
-                  Get these straight to your inbox
-                </h3>
-                <p className="text-base text-black mb-6 md:mb-0">
-                  We add UGC jobs weekly, but our creator roster gets first
-                  dibs. Sign up to get briefs before they hit the board.
-                </p>
-              </div>
-
-              {/* Right side - Form */}
-              <div className="flex flex-col items-start flex-shrink-0">
-                <form className="flex flex-row gap-3 items-center">
-                  <input
-                    type="email"
-                    placeholder="Enter your email"
-                    className="flex-1 sm:flex-none sm:w-[350px] border border-black px-4 py-3 text-sm font-normal placeholder-black/60 focus:outline-none focus:ring-2 focus:ring-black"
-                    required
-                  />
-                  <Link
-                    to="/ugc-contact"
-                    className="inline-flex items-center justify-center gap-2 bg-[#FF322E] h-[48px] px-8 py-4 text-xs font-medium tracking-wide text-white border-transparent relative overflow-hidden group"
-                  >
-                    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 svg-wrapper group-hover:animate-bounce-custom">
-                      <FaChevronRight className="text-white w-5 h-5 opacity-0 transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:translate-x-0 group-hover:scale-[140%]" />
-                    </div>
-                    <span className="block transition-all whitespace-nowrap duration-300 ease-in-out text-base group-hover:translate-x-40">
-                      Send me Work
-                    </span>
-                  </Link>
-                </form>
-
-                <p className="text-xs text-black mt-3">
-                  By clicking Sign Up you're confirming that you agree with our{" "}
-                  <Link to="/terms" className="underline hover:text-brand">
-                    Terms and Conditions
-                  </Link>
-                </p>
-              </div>
-            </div>
           </div>
         )}
 
@@ -310,9 +266,10 @@ export default function JobBoard() {
         )}
       </div>
 
-      {/* Section Component */}
-      <Section />
-      <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black mt-10" />
+      {/* Ready When You Are Section */}
+      <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black mb-16" />
+      <ReadyWhenYouAre />
+      <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black mt-16" />
     </div>
   );
 }

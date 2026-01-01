@@ -19,6 +19,7 @@ import JobBoardDetail from "../pages/JobBoardDetail.jsx";
 import BlogDetail from "../pages/BlogDetail.jsx";
 import CaseStudies from "../pages/CaseStudies.jsx";
 import PostCaseStudy from "../pages/PostCaseStudy.jsx";
+import ThankYou from "../pages/ThankYou.jsx";
 
 function RoutesTree() {
   return (
@@ -41,6 +42,7 @@ function RoutesTree() {
         <Route path="careers" element={<CareerIndex />} />
         <Route path="job/:id" element={<JobDetail />} />
         <Route path="jobs/:jobId" element={<JobBoardDetail />} />
+        <Route path="thank-you" element={<ThankYou />} />
         <Route path="404" element={<NotFound />} />
         <Route path="*" element={<Navigate to="/404" replace />} />
       </Route>

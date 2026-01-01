@@ -2,10 +2,39 @@ import { useState, useRef, useEffect } from "react";
 import Player from "./vimeo-player";
 import { FaCirclePlay } from "react-icons/fa6";
 import { FaCirclePause } from "react-icons/fa6";
+import { PrismicRichText } from "@prismicio/react";
+
+// Rich text components for proper formatting
+const richTextComponents = {
+  paragraph: ({ children }) => (
+    <p className="text-base md:text-base text-black leading-relaxed">{children}</p>
+  ),
+  heading2: ({ children }) => (
+    <h3 className="text-xl md:text-2xl font-bold text-black mb-3">{children}</h3>
+  ),
+  heading3: ({ children }) => (
+    <h3 className="text-lg md:text-xl font-bold text-black mb-2">{children}</h3>
+  ),
+  list: ({ children }) => (
+    <ul className="list-disc ml-6 mb-4 space-y-2">{children}</ul>
+  ),
+  oList: ({ children }) => (
+    <ol className="list-decimal ml-6 mb-4 space-y-2">{children}</ol>
+  ),
+  listItem: ({ children }) => (
+    <li className="text-base md:text-base text-black leading-relaxed">{children}</li>
+  ),
+  strong: ({ children }) => <strong className="font-bold">{children}</strong>,
+  em: ({ children }) => <em className="italic">{children}</em>,
+  hyperlink: ({ children, node }) => (
+    <a href={node.data.url} className="text-brand underline hover:no-underline" target="_blank" rel="noopener noreferrer">{children}</a>
+  ),
+};
 
 const TitleWithDescription = ({
   title,
   description,
+  richDescription, // Prismic rich text field for formatted description
   mediaType = "video", // "video" or "image" or "iframe"
   mediaSrc = "https://player.vimeo.com/video/76979871?autoplay=1&muted=1&background=0&controls=0",
   mediaCover = null,
@@ -97,7 +126,7 @@ const TitleWithDescription = ({
 
   return (
     <>
-      <div className="w-full max-w-[1280px] mx-auto pt-16 md:pt-24 px-5 md:px-6 lg:px-0">
+      <div className="w-full max-w-[1280px] mx-auto pt-11 md:pt-24 px-5 md:px-6 lg:px-0">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 md:gap-10 lg:gap-16">
           <div
             className={`${
@@ -114,7 +143,10 @@ const TitleWithDescription = ({
               rightWidthClass || "md:w-[42%] lg:w-[38%] xl:w-[36%]"
             } flex flex-col gap-4`}
           >
-            {Array.isArray(description) ? (
+            {/* Priority 1: Use PrismicRichText for proper formatting */}
+            {richDescription && Array.isArray(richDescription) && richDescription.length > 0 ? (
+              <PrismicRichText field={richDescription} components={richTextComponents} />
+            ) : Array.isArray(description) ? (
               description.map((para, index) => (
                 <p
                   key={index}

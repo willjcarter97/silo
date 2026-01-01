@@ -2,7 +2,7 @@ import { SiloHoverBanner } from "./SiloHoverBanner";
 import LogoLoop from "../Common/LogoLoop";
 import VideoAndWelcome from "./VideoAndWelcome";
 import ContentAndDone from "./ContentAndDone";
-import Section from "./Section";
+import ReadyWhenYouAre from "../Common/ReadyWhenYouAre";
 import LazySection from "../Common/LazySection";
 import LazyElement from "../Common/LazyElement";
 import "../../styles/scaling-overrides.css";
@@ -74,19 +74,22 @@ export default function Hero() {
         <VideoAndWelcome />
       </LazyElement>
       </div>
-      <div className="w-[100vw] h-[1px] bg-black md:my-28 my-20 relative left-1/2 -translate-x-1/2" />
+      {/* Section Divider - consistent spacing: my-16 (64px mobile), md:my-24 (96px desktop) */}
+      <div className="w-[100vw] h-[1px] bg-black my-16 md:my-24 relative left-1/2 -translate-x-1/2" />
       <div className="w-full max-w-[1280px] mx-auto">
         <LazySection rootMargin="200px">
           <ContentAndDone />
         </LazySection>
       </div>
-      <div className="w-[100vw] h-[1px] bg-black md:my-28 my-20 relative left-1/2 -translate-x-1/2" />
+      {/* Section Divider */}
+      <div className="w-[100vw] h-[1px] bg-black my-16 md:my-24 relative left-1/2 -translate-x-1/2" />
       <div className="w-full max-w-[1280px] mx-auto">
         <LazySection rootMargin="200px">
-          <Section />
+          <ReadyWhenYouAre />
         </LazySection>
       </div>
-      <div className="w-[100vw] h-[1px] bg-black mt-10 relative left-1/2 -translate-x-1/2" />
+      {/* Section Divider */}
+      <div className="w-[100vw] h-[1px] bg-black my-16 md:my-24 relative left-1/2 -translate-x-1/2" />
     </>
   );
 }

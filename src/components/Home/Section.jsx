@@ -5,7 +5,7 @@ import LazyText from "../Common/LazyText";
 
 const Section = () => {
   return (
-    <section className="mx-auto w-full max-w-[1280px] pb-12 md:pb-24">
+    <section className="mx-auto w-full max-w-[1280px]">
       {/* Default view: hidden on mobile, visible on lg+ (md has its own layout) */}
       <div className="hidden md:hidden lg:block">
         <div className="border-[1px] border-gray-600  overflow-hidden w-full mx-auto">
@@ -104,7 +104,7 @@ const Section = () => {
       </div>
 
       {/* Mobile-only view: show only on mobile (<md). Content on top, image on bottom. */}
-      <div className="block md:hidden mt-20 px-[4vw]">
+      <div className="block md:hidden px-[4vw]">
         <div className="border border-black pt-3  overflow-hidden">
           <div className="flex flex-col items-stretch">
             {/* Top: content */}

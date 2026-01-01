@@ -1,5 +1,5 @@
 import React from 'react'
-import Section from '../components/Home/Section.jsx'
+import ReadyWhenYouAre from '../components/Common/ReadyWhenYouAre'
 import { usePageMeta } from '../hooks/usePageMeta'
 
 const Cookies = () => {
@@ -125,9 +125,10 @@ const Cookies = () => {
         </div>
       </div>
       
-      {/* Section Component */}
-      <Section />
-      <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black mt-10" />
+      {/* Ready When You Are Section */}
+      <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black my-16" />
+      <ReadyWhenYouAre />
+      <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black mt-16" />
     </div>
   )
 }

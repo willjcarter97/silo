@@ -3,9 +3,10 @@ import { Application, Assets, Sprite, Texture, Filter, GlProgram } from 'pixi.js
 import vertex from '../shaders/siloHover.vertex';
 import fragment from '../shaders/SiloDisplacement.fragment';
 
-export const useSiloHoverPixi = ({ hostRef, svgSrc, height, intensity, isMobile }) => {
+export const useSiloHoverPixi = ({ hostRef, svgSrc, height, intensity, isMobile, isReady = true }) => {
   useEffect(() => {
-    if (isMobile) return;
+    // Don't initialize until we've confirmed client state and mobile detection
+    if (!isReady || isMobile) return;
 
     const el = hostRef.current;
     if (!el) return;
@@ -51,6 +52,10 @@ export const useSiloHoverPixi = ({ hostRef, svgSrc, height, intensity, isMobile 
       }
 
       el.innerHTML = '';
+      // Prevent canvas from being dragged
+      app.canvas.style.userSelect = 'none';
+      app.canvas.style.webkitUserSelect = 'none';
+      app.canvas.draggable = false;
       el.appendChild(app.canvas);
 
       try {
@@ -71,7 +76,7 @@ export const useSiloHoverPixi = ({ hostRef, svgSrc, height, intensity, isMobile 
         logoTex = Texture.from(base);
       } catch {
         console.warn('[Pixi] Texture fallback to <img>');
-        el.innerHTML = `<img src="${svgSrc}" alt="logo" style="max-width:100%;height:auto;display:block;" loading="lazy" />`;
+        el.innerHTML = `<img src="${svgSrc}" alt="logo" style="max-width:100%;height:auto;display:block;user-select:none;-webkit-user-select:none;pointer-events:none;" draggable="false" />`;
         return;
       }
 
@@ -227,5 +232,5 @@ export const useSiloHoverPixi = ({ hostRef, svgSrc, height, intensity, isMobile 
         }
       }, 0);
     };
-  }, [hostRef, svgSrc, height, intensity, isMobile]);
+  }, [hostRef, svgSrc, height, intensity, isMobile, isReady]);
 };

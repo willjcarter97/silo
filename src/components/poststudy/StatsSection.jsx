@@ -38,7 +38,7 @@ const renderMobileStatValue = (value) => {
 
 const StatsSection = ({ title, column1, column2, column3 }) => {
   return (
-    <div className="w-full max-w-[1280px] mx-auto py-12 md:py-20 px-5 md:px-6 lg:px-0">
+    <div className="w-full max-w-[1280px] mx-auto py-8 md:py-20 px-5 md:px-6 lg:px-0">
       {/* Section Title */}
       {title && (
         <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-black mb-8">

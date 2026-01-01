@@ -157,13 +157,13 @@ const Hero = () => {
         <div className="flex flex-col justify-between xl:grid xl:grid-cols-[1fr_1.5fr] gap-4 sm:gap-5 md:gap-6 lg:gap-8 xl:gap-10 max-w-full mx-auto w-full items-center">
           {/* Text Content Area */}
           <div
-            className="flex flex-col h-full justify-start xl:justify-between space-y-3 sm:space-y-4 md:space-y-5 order-1 xl:order-1 xl:pr-6 w-full items-start"
+            className="flex flex-col h-full justify-start xl:justify-between space-y-3 sm:space-y-4 md:space-y-5 order-1 xl:order-1 xl:pr-6 w-full items-start px-3 sm:px-0"
             role="main"
           >
             {/* Main Heading - Zoom & Small Laptop Optimized */}
             <LazyText
               as="h1"
-              className="font-bold text-black text-4xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-5xl 2xl:text-[56px] leading-6 text-left px-2 sm:px-0 md:px-0 mt-4 sm:mt-0"
+              className="font-bold text-black text-4xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-5xl 2xl:text-[56px] leading-6 text-left mt-4 sm:mt-0"
               animation="fadeUp"
               delay={0}
               style={{
@@ -178,11 +178,11 @@ const Hero = () => {
             </LazyText>
 
             {/* Text and Buttons Container */}
-            <div className="flex flex-col gap-2 sm:gap-3 items-start w-full px-2 sm:px-0">
+            <div className="flex flex-col gap-2 sm:gap-3 items-start w-full">
               {/* Brand Statement - Zoom & Small Laptop Optimized */}
               <LazyText animation="fadeUp" delay={100}>
                 <p
-                  className="text-black text-sm sm:text-base md:text-base lg:text-lg xl:text-[16px] leading-relaxed text-left max-w-full xl:max-w-lg px-2 md:px-0 font-epilogue"
+                  className="text-black text-base md:text-base lg:text-lg xl:text-[16px] leading-relaxed text-left w-full xl:max-w-lg font-epilogue"
                   style={{
                     fontWeight: 400,
                     fontFamily: "Epilogue, sans-serif",

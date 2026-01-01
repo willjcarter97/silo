@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { FaChevronRight } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
@@ -8,9 +8,11 @@ import "../styles/scaling-overrides.css";
 import { usePageMeta } from "../hooks/usePageMeta";
 
 const Contact = () => {
+  const navigate = useNavigate();
+  
   usePageMeta(
     "Contact Us | Social, Branding & Web Agency",
-    "Get in touch to discuss social media strategy, content strategy, brand design or website design and development. Let’s build your digital presence."
+    "Get in touch to discuss social media strategy, content strategy, brand design or website design and development. Let's build your digital presence."
   );
 
   // Scroll to top when component mounts
@@ -74,15 +76,11 @@ const Contact = () => {
 
       // Simulate API call
       setTimeout(() => {
-        toast.success("Form submitted successfully!");
         resetForm();
         setSubmitting(false);
-
-        // Reload page after successful submit
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
-      }, 1000);
+        // Redirect to thank you page
+        navigate("/thank-you");
+      }, 500);
     },
   });
   return (

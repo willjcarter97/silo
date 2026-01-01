@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FaChevronRight } from "react-icons/fa";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
-import Section from "../components/Home/Section";
+import ReadyWhenYouAre from "../components/Common/ReadyWhenYouAre";
 import LazySection from "../components/Common/LazySection";
 import LazyImage from "../components/Common/LazyImage";
 import LazyText from "../components/Common/LazyText";
@@ -167,11 +167,11 @@ const CaseStudies = () => {
         <div className="flex flex-col justify-between xl:grid xl:grid-cols-[1fr_1.5fr] gap-6 sm:gap-8 md:gap-10 lg:gap-12 xl:gap-16 max-w-full mx-auto w-full items-start md:items-center mt-0 xl:mt-16 lg:mt-0 md:mt-0">
           {/* Text Content Area */}
           <div
-            className="flex flex-col h-full justify-start xl:justify-between space-y-4 sm:space-y-6 md:space-y-8 order-2 xl:order-1 xl:pr-6 items-start w-[90%] md:-ml-16 xl:ml-0"
+            className="flex flex-col h-full justify-start xl:justify-between space-y-4 sm:space-y-6 md:space-y-8 order-2 xl:order-1 xl:pr-6 items-start w-full md:w-[90%] md:-ml-16 xl:ml-0 px-3 md:px-0"
             role="main"
           >
             <h1
-              className="font-bold text-black text-4xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl 2xl:text-[56px] leading-3 text-left px-2 sm:px-0 mt-6 sm:mt-0"
+              className="font-bold text-black text-4xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl 2xl:text-[56px] leading-3 text-left mt-6 sm:mt-0"
               style={{
                 opacity: 1,
                 fontFamily: "Epilogue, sans-serif",
@@ -182,9 +182,9 @@ const CaseStudies = () => {
             >
               You're going to want to see these.
             </h1>
-            <div className="flex flex-col gap-5 sm:gap-6 items-start w-full px-2 sm:px-0">
+            <div className="flex flex-col gap-5 sm:gap-6 items-start w-full">
               <p
-                className="text-black text-sm sm:text-base md:text-lg lg:text-xl xl:text-[18px] leading-relaxed text-left max-w-full xl:max-w-lg px-2 sm:px-0 font-epilogue"
+                className="text-black text-sm sm:text-base md:text-lg lg:text-xl xl:text-[18px] leading-relaxed text-left max-w-full xl:max-w-lg font-epilogue"
                 style={{
                   opacity: 1,
                   fontWeight: 400,
@@ -329,13 +329,13 @@ const CaseStudies = () => {
         </div>
       </LazySection>
 
-      <div className="w-screen mx-auto h-[1px] bg-black md:my-28 my-20 mb-10 relative left-1/2 -translate-x-1/2" />
+      <div className="w-screen mx-auto h-[1px] bg-black my-16 relative left-1/2 -translate-x-1/2" />
       
       <LazySection>
-        <Section />
+        <ReadyWhenYouAre />
       </LazySection>
       
-      <div className="relative left-1/2 -translate-x-1/2 w-screen mx-auto h-[1px] bg-black" />
+      <div className="relative left-1/2 -translate-x-1/2 w-screen mx-auto h-[1px] bg-black mt-16" />
     </div>
   );
 };
