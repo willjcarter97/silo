@@ -3,7 +3,7 @@ import { FaChevronRight } from "react-icons/fa";
 
 const Interested = () => {
   return (
-    <section className="w-full bg-white text-black pt-16 md:pt-20 pb-16">
+    <section className="w-full bg-white text-black pt-16 md:pt-20">
       <div className="max-w-[1280px] mx-auto px-4 md:px-0">
         {/* Two column grid layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-0 mx-auto">
@@ -200,7 +200,7 @@ const Interested = () => {
           </article>
 
           {/* Card 5: Optional Add-ons - Full width */}
-          <article id="optional" className="md:col-span-2 border-t border-black md:p-8 p-0 py-6 flex flex-col gap-4">
+          <article id="optional" className="md:col-span-2 border-t border-black md:pt-8 md:px-8 p-0 pt-6 flex flex-col gap-4">
             <h3 className="font-epilogue font-bold text-[28px] md:text-[32px] leading-[130%] tracking-normal text-black">
               Optional add-ons
             </h3>

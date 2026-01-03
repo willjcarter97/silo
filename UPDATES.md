@@ -1,5 +1,38 @@
 # Updates Log
 
+## January 2, 2026
+
+### Changed: Home Hero Subtitle Styling
+
+Updated the subtitle styling on the Home page Hero section to match the Services page subtitle styling.
+
+**Changes:**
+- Changed from `font-bold text-2xl xl:text-xl` to `text-base font-medium`
+- Added `max-w-2xl mx-auto px-4` for consistent width constraint, centering, and padding
+- Maintained center alignment
+
+**File Updated:**
+- `src/components/Home/Hero.jsx`
+
+---
+
+### Fixed: Interested Section Bottom Padding
+
+Removed redundant bottom padding from the Interested section on the Services page to standardize spacing with the site's divider system.
+
+**Issue:**
+- Section had `pb-16` (64px) bottom padding
+- Divider below had `my-16` (64px) margin
+- Combined = 128px gap, which was too large
+
+**Fix:**
+- Removed `pb-16` from section - divider's margin now controls the spacing
+
+**File Updated:**
+- `src/components/servicee/Interested.jsx`
+
+---
+
 ## January 1, 2026
 
 ### Git Push: Major Update Deployed

@@ -53,7 +53,7 @@ export default function Hero() {
 
         <div className="relative left-1/2 -translate-x-1/2 w-screen bg-transparent flex-shrink-0 mt-auto">
           <div className="w-full home-hero-text-h">
-            <div className="py-3 md:py-4 text-center font-bold text-2xl xl:text-xl text-black">
+            <div className="text-black text-base font-medium text-center max-w-2xl mx-auto px-4 py-3 md:py-4">
               Used by companies who know what works.
             </div>
           </div>
