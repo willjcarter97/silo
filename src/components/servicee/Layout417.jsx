@@ -22,18 +22,37 @@ const Layout417 = ({ heading = "CORE SERVICES", featureSections = featureSection
   useEffect(() => {
     if (!containerRef.current) return;
 
-    const trigger = ScrollTrigger.create({
-      trigger: containerRef.current,
-      start: "top top",
-      end: "+=1000",
-      pin: true,
-      scrub: 0.3,
-      onUpdate: (self) => {
-        scrollProgress.set(self.progress);
-      },
+    const mm = gsap.matchMedia();
+
+    // Desktop - full scroll experience
+    mm.add("(min-width: 640px)", () => {
+      ScrollTrigger.create({
+        trigger: containerRef.current,
+        start: "top top",
+        end: "+=1000",
+        pin: true,
+        scrub: 0.3,
+        onUpdate: (self) => {
+          scrollProgress.set(self.progress);
+        },
+      });
     });
 
-    return () => trigger.kill();
+    // Mobile - shorter, faster scroll
+    mm.add("(max-width: 639px)", () => {
+      ScrollTrigger.create({
+        trigger: containerRef.current,
+        start: "center center",
+        end: "+=350",
+        pin: true,
+        scrub: 0.2,
+        onUpdate: (self) => {
+          scrollProgress.set(self.progress);
+        },
+      });
+    });
+
+    return () => mm.revert();
   }, [scrollProgress]);
 
   // Split heading into two lines
@@ -44,7 +63,7 @@ const Layout417 = ({ heading = "CORE SERVICES", featureSections = featureSection
   return (
     <section 
       ref={containerRef} 
-      className="relative h-screen flex items-center justify-center bg-white overflow-hidden"
+      className="relative h-[50vh] sm:h-screen flex items-center justify-center bg-white overflow-visible"
     >
       <div className="relative h-full w-full flex items-center justify-center">
         {/* Large heading behind cards - with liquid fill effect */}

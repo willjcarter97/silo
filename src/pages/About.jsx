@@ -34,12 +34,12 @@ const About = () => {
 
   return (
     <div className="bg-white overflow-x-hidden flex flex-col mx-auto">
-      <div id="hero" className="min-h-screen mx-auto max-w-[1280px]">
+      <div id="hero" className="mx-auto max-w-[1280px]">
         <Hero />
       </div>
 
-      <div className="h-[1px] bg-black w-[100vw]"></div>
-      <div className=" min-h-screen mx-auto w-full max-w-[1280px]">
+      <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black" />
+      <div className="mx-auto w-full max-w-[1280px]">
         <LazySection>
           <WhatSiloIs />
         </LazySection>
@@ -52,21 +52,17 @@ const About = () => {
           <WhoWeLoveWorkingWith />
         </LazySection>
         <LazySection>
-          <div id="things-we-believe-in">
-            <ThingsWeBelieveIn />
-          </div>
+          <ThingsWeBelieveIn />
         </LazySection>
-        <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black my-10" />
+        <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black my-12 md:my-16 lg:my-20" />
         <LazySection>
           <div id="minds-in-the-silo">
             <MindsInTheSilo />
           </div>
         </LazySection>
-        <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black mt-10 mb-20" />
-        <LazySection>
-          <ReadyWhenYouAre />
-        </LazySection>
-        <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black mt-16" />
+        <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black my-12 md:my-16 lg:my-20" />
+        <ReadyWhenYouAre />
+        <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black mt-12 md:mt-16 lg:mt-20" />
       </div>
     </div>
   );

@@ -28,6 +28,39 @@ export default function Ramblings() {
   );
 
   const navigate = useNavigate();
+  const [newsletterEmail, setNewsletterEmail] = useState("");
+
+  // Newsletter form submission handler
+  const handleNewsletterSubmit = (e) => {
+    e.preventDefault();
+    
+    if (!newsletterEmail || !newsletterEmail.includes("@")) {
+      return;
+    }
+
+    // Get existing data from localStorage
+    const existingData = JSON.parse(
+      localStorage.getItem("newsletterSubscriptions") || "[]"
+    );
+
+    // Add new subscription with timestamp
+    const newSubscription = {
+      email: newsletterEmail,
+      submittedAt: new Date().toISOString(),
+    };
+
+    // Add to array and store in localStorage
+    const updatedData = [...existingData, newSubscription];
+    localStorage.setItem("newsletterSubscriptions", JSON.stringify(updatedData));
+
+    // Log all stored data
+    console.log("Newsletter subscription:", newsletterEmail);
+
+    // Save current path for return redirect
+    sessionStorage.setItem("thankYouReturnPath", window.location.pathname);
+    // Redirect to thank you page
+    navigate("/thank-you");
+  };
   const [selectedCategory, setSelectedCategory] = useState("View all");
   const [blogPosts, setBlogPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -148,7 +181,7 @@ export default function Ramblings() {
             Our Ramblings
           </h1>
           <p className="text-black text-lg font-normal">
-            From UGC tips to the latest in social and design trends, The Silo
+            From UGC tips to the latest in social and design trends, Silo's
             Blog dives into what's shaping the digital marketing and
             content-first world right now.
           </p>
@@ -416,14 +449,17 @@ export default function Ramblings() {
             </div>
 
             <div className="lg:flex-shrink-0 max-w-xl w-full">
-              <div className="md:flex md:gap-3 flex flex-col md:flex-row gap-4">
+              <form id="ramblings-newsletter-form" name="Ramblings Page Newsletter Subscription" onSubmit={handleNewsletterSubmit} className="md:flex md:gap-3 flex flex-col md:flex-row gap-4">
                 <input
                   type="email"
                   placeholder="Enter your email"
+                  value={newsletterEmail}
+                  onChange={(e) => setNewsletterEmail(e.target.value)}
+                  required
                   className="px-4 py-3 border border-black focus:outline-none focus:ring-2 focus:ring-[#FF322E] focus:border-transparent text-base w-full"
                 />
-                <Link
-                  to="#"
+                <button
+                  type="submit"
                   className="inline-flex items-center justify-center gap-2 bg-[#FF322E] h-[48px] px-8 py-4 text-xs font-medium tracking-wide text-white border-transparent relative overflow-hidden group"
                 >
                   <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 svg-wrapper group-hover:animate-bounce-custom">
@@ -432,8 +468,8 @@ export default function Ramblings() {
                   <span className="block transition-all whitespace-nowrap duration-300 ease-in-out text-base group-hover:translate-x-40">
                     Sign me up!
                   </span>
-                </Link>
-              </div>
+                </button>
+              </form>
 
               <p className="text-black text-sm mt-3 leading-relaxed">
                 By clicking Sign Up you're agreeing to our{" "}

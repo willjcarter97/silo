@@ -151,7 +151,7 @@ const Hero = () => {
     <>
       {/* First Section - Hero */}
       <section
-        className="my-20 mt-24 flex items-center w-full justify-start px-3 sm:px-2 md:px-6 lg:px-0 overflow-hidden md:h-[calc(100vh-50px)]"
+        className="my-12 mt-20 md:my-16 md:mt-24 lg:my-20 flex items-center w-full justify-start px-3 sm:px-2 md:px-6 lg:px-0 overflow-hidden md:h-[calc(100vh-50px)]"
         aria-label="About Silo - Company introduction"
       >
         <div className="flex flex-col justify-between xl:grid xl:grid-cols-[1fr_1.5fr] gap-4 sm:gap-5 md:gap-6 lg:gap-8 xl:gap-10 max-w-full mx-auto w-full items-center">

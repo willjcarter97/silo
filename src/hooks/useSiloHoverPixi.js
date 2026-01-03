@@ -3,10 +3,10 @@ import { Application, Assets, Sprite, Texture, Filter, GlProgram } from 'pixi.js
 import vertex from '../shaders/siloHover.vertex';
 import fragment from '../shaders/SiloDisplacement.fragment';
 
-export const useSiloHoverPixi = ({ hostRef, svgSrc, height, intensity, isMobile, isReady = true }) => {
+export const useSiloHoverPixi = ({ hostRef, svgSrc, height, intensity, isMobile }) => {
   useEffect(() => {
-    // Don't initialize until we've confirmed client state and mobile detection
-    if (!isReady || isMobile) return;
+    // Don't initialize on mobile - we show static image instead
+    if (isMobile) return;
 
     const el = hostRef.current;
     if (!el) return;
@@ -232,5 +232,5 @@ export const useSiloHoverPixi = ({ hostRef, svgSrc, height, intensity, isMobile,
         }
       }, 0);
     };
-  }, [hostRef, svgSrc, height, intensity, isMobile, isReady]);
+  }, [hostRef, svgSrc, height, intensity, isMobile]);
 };

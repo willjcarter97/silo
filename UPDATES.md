@@ -1,5 +1,200 @@
 # Updates Log
 
+## January 3, 2026
+
+### Fixed: Services Card Section Mobile Height (Layout417)
+
+Reduced the mobile "Core Services" scroll animation section to take up less space while keeping the card animation.
+
+**Root Cause:**
+The Services page uses `Layout417.jsx` (not `Cards.jsx`), which had `h-screen` (100vh) for all screen sizes.
+
+**Changes to Layout417.jsx:**
+| Property | Previous | New (Mobile) |
+|----------|----------|--------------|
+| Container height | `h-screen` | `h-[50vh] sm:h-screen` |
+| Scroll distance | `+=1000` | `+=350` (mobile only) |
+| Pin start | `top top` | `center center` (mobile only) |
+| Scrub speed | `0.3` | `0.2` (mobile only) |
+
+**Implementation:**
+- Added GSAP `matchMedia()` to apply different ScrollTrigger settings for mobile vs desktop
+- Mobile (max-width: 639px): 50vh height, 350px scroll, faster scrub
+- Desktop (min-width: 640px): Full screen height, 1000px scroll (unchanged)
+
+**File Updated:**
+- `src/components/servicee/Layout417.jsx`
+
+---
+
+### Updated: WhoWeLoveWorkingWith Marquee Row Content
+
+Updated the three marquee rows in the "Who we love working with" section on the About page with new industry categories.
+
+**New Row Content:**
+
+| Row | Industries |
+|-----|------------|
+| Row 1 | Lifestyle, Culture, Fashion, Beauty, Wellness, Events, Experiences, Entertainment, Travel, Health and fitness, Food and drink, Music, Art and design, Home and interiors, Sports, Personal development |
+| Row 2 | Consumer goods, DTC brands, Media, Hospitality, Property, Real estate, Retail, E-commerce brands, Luxury goods, Homeware, Furniture, Travel and leisure brands |
+| Row 3 | Finance, Investment, Professional services, Technology, SaaS, Startups, Creative industries, Fintech, Consulting, Legal services, B2B services, Software companies, Venture capital, Business education and training |
+
+**File Updated:**
+- `src/components/About/WhoWeLoveWorkingWith.jsx`
+
+---
+
+### Fixed: HubSpot Form Names Showing CSS Classes
+
+Fixed an issue where forms submitted to HubSpot were showing up with CSS class names (like ".space-y-4, .sm:space-y-6") instead of descriptive form names.
+
+**Root Cause:**
+- HubSpot's tracking script auto-captures non-HubSpot forms
+- Without explicit `id` and `name` attributes, HubSpot falls back to using CSS class names as identifiers
+
+**Fix Applied:**
+Added proper `id` and `name` attributes to all forms for clear identification in HubSpot:
+
+| Form | ID | Name |
+|------|----|----- |
+| UGC Creator Contact | `ugc-creator-contact-form` | UGC Creator Contact Form |
+| Brand Contact | `brand-contact-form` | Brand Contact Form |
+| Footer Newsletter (Desktop) | `footer-newsletter-form` | Footer Newsletter Subscription |
+| Footer Newsletter (Mobile) | `footer-newsletter-form-mobile` | Footer Newsletter Subscription Mobile |
+| Ramblings Newsletter | `ramblings-newsletter-form` | Ramblings Page Newsletter Subscription |
+| Blog Newsletter | `blog-newsletter-form` | Blog Newsletter Subscription |
+| Job Application | `job-application-form` | Job Application Form |
+
+**Files Updated:**
+- `src/pages/Contact.jsx` - Added id/name to UGC creator form
+- `src/pages/Contact2.jsx` - Added id/name to brand contact form
+- `src/components/Common/Footer.jsx` - Added id/name to both newsletter forms
+- `src/pages/Ramblings.jsx` - Added id/name to newsletter form
+- `src/components/BlogDetail/NewsletterSubscription.jsx` - Added id/name to newsletter form
+- `src/components/jobdetail/ApplicationFormSection.jsx` - Added id/name to job application form
+
+---
+
+### Fixed: Contact Pages Mobile Layout - Image Above Form
+
+Restructured the Contact pages so that on mobile devices, the image appears above the form (between the title/description and form), rather than after the form.
+
+**Layout Change:**
+- **Mobile**: Title → Description → Image → Form
+- **Desktop**: Left column (Title + Description + Form) | Right column (Image)
+
+**Implementation:**
+- Added a mobile-only image (`lg:hidden`) inside the left content area, positioned between the description and form
+- Changed the desktop image container to `hidden lg:block` to only show on larger screens
+- Mobile image uses 19:9 landscape aspect ratio (`aspect-[19/9]`) with `object-cover`
+- Avoids duplicate DOM images by showing/hiding based on breakpoint
+
+**Files Updated:**
+- `src/pages/Contact.jsx` - Added mobile image, hid desktop image on mobile
+- `src/pages/Contact2.jsx` - Added mobile image, hid desktop image on mobile
+
+---
+
+### Updated: Footer "Mission and Values" Link Target
+
+Changed the "Mission and Values" link in the footer to navigate to the "Things we believe in" section on the About page instead of the hero section.
+
+**Changes:**
+- Added `id="things-we-believe-in"` to the ThingsWeBelieveIn component section
+- Updated footer anchor links from `/about#hero` to `/about#things-we-believe-in`
+- Updated both desktop and mobile footer link handlers
+
+**Files Updated:**
+- `src/components/About/ThingsWeBelieveIn.jsx` - Added section ID
+- `src/components/Common/Footer.jsx` - Updated link href and click handler (2 instances)
+
+---
+
+### Standardized: About Page Section Spacing
+
+Implemented consistent spacing system across the entire About page, fixing mobile spacing inconsistencies.
+
+**Spacing System Applied:**
+
+| Breakpoint | Section Padding | Divider Margins |
+|------------|-----------------|-----------------|
+| Mobile | `py-12` (48px) | `my-12` (48px) |
+| Tablet (md) | `md:py-16` (64px) | `md:my-16` (64px) |
+| Desktop (lg+) | `lg:py-20` (80px) | `lg:my-20` (80px) |
+
+**Issues Fixed:**
+- Hero had excessive mobile margin (`my-20 mt-24` = 176px top)
+- WhatSiloIs had confusing `py-6 sm:py-0` padding logic
+- ThingsWeBelieveIn had unnecessary `min-h-screen` forcing huge gaps
+- MindsInTheSilo had smallest padding (`py-6` = 24px mobile)
+- Divider margins were inconsistent (`my-10`, `mt-10 mb-20`, `mt-16`)
+- Removed duplicate wrapper div with id on ThingsWeBelieveIn
+
+**Component Changes:**
+- `About.jsx` - Standardized all dividers to `my-12 md:my-16 lg:my-20`, removed `min-h-screen` wrappers
+- `Hero.jsx` - Changed from `my-20 mt-24` to `my-12 mt-20 md:my-16 md:mt-24 lg:my-20`
+- `WhatSiloIs.jsx` - Simplified from complex padding to `py-12 md:py-16 lg:py-20`
+- `ThingsWeBelieveIn.jsx` - Removed `min-h-screen`, standardized to `py-12 md:py-16 lg:py-20`
+- `MindsInTheSilo.jsx` - Removed `min-h-screen`, increased mobile padding to `py-12 md:py-16 lg:py-20`
+- `WhoWeLoveWorkingWith.jsx` - Added `overflow-x-hidden` for consistency
+
+**Files Updated:**
+- `src/pages/About.jsx`
+- `src/components/About/Hero.jsx`
+- `src/components/About/WhatSiloIs.jsx`
+- `src/components/About/ThingsWeBelieveIn.jsx`
+- `src/components/About/MindsInTheSilo.jsx`
+- `src/components/About/WhoWeLoveWorkingWith.jsx`
+
+---
+
+### Fixed: Job Board Container Excessive Mobile Padding/Margin
+
+Reduced excessive padding and margin on the Job Board page containers for mobile devices.
+
+**Issue:**
+- Outer container: `mt-20 mb-20` (80px each) on mobile
+- Inner container: `py-10` (40px) + `my-20` (80px) on mobile
+- Combined 240px+ of vertical spacing created too much empty space
+
+**Fix Applied:**
+- Outer container: `mt-20` → `mt-10`, `mb-20` → `mb-10 md:mb-20`
+- Inner container: `py-10` → `py-2 md:py-10`, `my-20` → `my-0 md:my-20`
+
+**File Updated:**
+- `src/pages/JobBoard.jsx`
+
+---
+
+### Fixed: SiloHoverBanner Hero Section Intermittent Loading Issue
+
+Fixed an issue where the hero hover effect (Pixi.js liquid animation) would sometimes fail to initialize on soft navigation, but worked on hard refresh.
+
+**Root Cause:**
+The previous implementation used `useState` with an async `useEffect` for mobile detection, combined with CSS show/hide (both DOM elements always mounted). This introduced a race condition:
+1. `isMobile` initialized as `null`, `isReady` as `false`
+2. Pixi hook returned early because `!isReady`
+3. After `useEffect` ran, `isReady` became `true` triggering a re-run
+4. But timing issues with DOM dimensions caused intermittent failures
+
+**Fix Applied:**
+Reverted to the original working pattern that uses **synchronous mobile detection** and **conditional rendering**:
+- Mobile detection now happens synchronously at render time: `typeof window !== 'undefined' && window.innerWidth < 768`
+- Uses conditional rendering (`{!isMobile ? <canvas> : <img>}`) instead of CSS hiding
+- Removed `isReady` state - no longer needed
+- Only one DOM element exists at a time, ensuring proper dimensions for Pixi
+
+**Technical Details:**
+- Conditional rendering ensures `hostRef` only exists when the canvas is needed
+- Pixi initializes immediately with correct values (no state dependency delays)
+- Eliminates race condition between state updates and Pixi initialization
+
+**Files Updated:**
+- `src/components/Home/SiloHoverBanner.jsx` - Reverted to synchronous detection + conditional rendering
+- `src/hooks/useSiloHoverPixi.js` - Removed `isReady` parameter from hook signature and dependency array
+
+---
+
 ## January 2, 2026
 
 ### Changed: Home Hero Subtitle Styling
@@ -118,14 +313,15 @@ Created a new thank you page that contact forms redirect to after successful sub
 - `/thank-you` - Animated confirmation page
 
 **Features:**
-- **Staggered letter animations**: "THANK YOU" letters animate in one by one with rotation and translate effects
-- **SVG checkmark animation**: Circle draws in first, then checkmark completes with CSS stroke-dashoffset animation
-- **Floating geometric shapes**: Decorative background squares and borders animate in with rotation
-- **Animated horizontal line**: Gradient line sweeps across the page
-- **Countdown timer**: 8-second countdown with pop animation on each number change
-- **Progress bar**: Visual progress indicator that fills as countdown proceeds
-- **Auto-redirect**: Navigates to homepage after countdown completes
-- **Skip option**: "Go to homepage now" text button for immediate redirect
+- **Staggered letter animations**: "Thank you" letters animate in one by one with rotation and translate effects
+- **Clean minimal design**: Large typography with Epilogue font, no background clutter
+- **Auto-redirect to previous page**: Returns user to the page they submitted the form from (stored in sessionStorage)
+- **Wild exit transition**: When redirecting, includes:
+  - Letters fly upward and scatter with staggered timing
+  - Page zooms in and rotates slightly
+  - Radial burst effect with brand color
+  - Brand-colored curtain sweeps up
+  - Content blurs before transition
 
 **Contact Form Changes:**
 - **Contact.jsx** (`/ugc-contact`): Now redirects to `/thank-you` instead of reloading page
@@ -140,6 +336,8 @@ Created a new thank you page that contact forms redirect to after successful sub
 - `src/routes/route.jsx` - Added `/thank-you` route
 - `src/pages/Contact.jsx` - Changed form submission to navigate to thank you page
 - `src/pages/Contact2.jsx` - Changed form submission to navigate to thank you page
+- `src/components/BlogDetail/NewsletterSubscription.jsx` - Changed form submission to navigate to thank you page
+- `src/pages/Ramblings.jsx` - Connected newsletter form at bottom of blog index to redirect to thank you page
 
 ---
 

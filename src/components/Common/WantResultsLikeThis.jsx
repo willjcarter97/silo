@@ -18,7 +18,7 @@ import LazyImage from "./LazyImage";
 const WantResultsLikeThis = ({
   heading = "Want results like this?",
   description = "Reach out and we'll walk you through how we can help on your next project.",
-  imageSrc = "https://images.prismic.io/silosite/aVafs3NYClf9ouX6_PlaceholderImage.png?auto=format,compress",
+  imageSrc = "https://images.prismic.io/silosite/aVUgRXNYClf9otrL_v1765880016_Placeholder_Image_crecm6.png?auto=format,compress",
   imageAlt = "Case study results",
   primaryButtonText = "Let's talk",
   primaryButtonLink = "/contact",

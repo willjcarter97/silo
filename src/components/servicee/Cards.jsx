@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useTransform } from "framer-motion";
 import { servicesData } from "../../data/servicesData.jsx";
 import gsap from "gsap";
@@ -10,34 +10,112 @@ const Cards = () => {
   const desktopRef = useRef(null);
   const mobileRef = useRef(null);
   const cardProgress = useMotionValue(0);
+  const [isLocked, setIsLocked] = useState(false);
+  const isAnimating = useRef(false);
+  const unlockTimeoutRef = useRef(null);
+
+  useEffect(() => {
+    const unsubscribe = cardProgress.on("change", (latest) => {
+      if (isAnimating.current && (latest >= CARD_DATA.length || latest <= 0)) {
+        if (unlockTimeoutRef.current) {
+          clearTimeout(unlockTimeoutRef.current);
+        }
+
+        const delay = latest >= CARD_DATA.length ? 800 : 300;
+
+        unlockTimeoutRef.current = setTimeout(() => {
+          setIsLocked(false);
+          isAnimating.current = false;
+        }, delay);
+      }
+    });
+
+    // Initialize state if below section on load
+    if (desktopRef.current) {
+      const rect = desktopRef.current.getBoundingClientRect();
+      if (rect.bottom < 0) {
+        cardProgress.set(CARD_DATA.length);
+      }
+    }
+
+    return () => {
+      unsubscribe();
+      if (unlockTimeoutRef.current) {
+        clearTimeout(unlockTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  // Desktop wheel handler with scroll lock
+  useEffect(() => {
+    const handleWheel = (e) => {
+      if (!desktopRef.current) return;
+
+      const rect = desktopRef.current.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      const viewportCenter = viewportHeight / 2;
+      const containerCenter = rect.top + rect.height / 2;
+      const distanceFromCenter = Math.abs(containerCenter - viewportCenter);
+
+      // Check if section is visible
+      const isInViewport = rect.top < viewportHeight && rect.bottom > 0;
+      const visibleTop = Math.max(rect.top, 0);
+      const visibleBottom = Math.min(rect.bottom, viewportHeight);
+      const visibleHeight = visibleBottom - visibleTop;
+      const visibilityRatio = visibleHeight / rect.height;
+      const isSignificantlyVisible = visibilityRatio >= 0.3;
+
+      // Only lock when section is visible and near center
+      const isCentered =
+        distanceFromCenter <= 300 && isInViewport && isSignificantlyVisible;
+
+      const currentProgress = cardProgress.get();
+
+      // Don't lock if we're at boundaries and not animating
+      const atBoundary =
+        (currentProgress >= CARD_DATA.length && e.deltaY > 0) ||
+        (currentProgress <= 0 && e.deltaY < 0);
+      const shouldLock = (isCentered || isAnimating.current) && !atBoundary;
+
+      if (shouldLock) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (!isLocked && !isAnimating.current && isCentered) {
+          setIsLocked(true);
+          isAnimating.current = true;
+
+          // Auto-scroll section to perfect center when lock engages
+          const scrollOffset = containerCenter - viewportCenter;
+          const targetScrollY = window.scrollY + scrollOffset;
+
+          window.scrollTo({
+            top: targetScrollY,
+            behavior: "smooth",
+          });
+        }
+
+        const delta = e.deltaY;
+        // Direct proportional movement - faster scroll = faster card movement
+        const step = Math.abs(delta) * 0.002;
+        const direction = delta > 0 ? 1 : -1;
+
+        const newProgress = Math.max(
+          0,
+          Math.min(CARD_DATA.length, currentProgress + direction * step)
+        );
+        cardProgress.set(newProgress);
+      }
+    };
+
+    window.addEventListener("wheel", handleWheel, { passive: false });
+    return () => window.removeEventListener("wheel", handleWheel);
+  }, [isLocked]);
 
   // Register ScrollTrigger
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
   }, []);
-
-  // Desktop ScrollTrigger - uses native scroll with pinning for smooth trackpad support
-  useEffect(() => {
-    const mm = gsap.matchMedia();
-
-    mm.add("(min-width: 640px)", () => {
-      if (!desktopRef.current) return;
-
-      ScrollTrigger.create({
-        trigger: desktopRef.current,
-        start: "center center",
-        end: "+=1000", // Scroll distance to complete all cards
-        pin: true,
-        scrub: 0.8, // Smooth scrubbing - slightly higher for desktop feel
-        onUpdate: (self) => {
-          const progress = self.progress * CARD_DATA.length;
-          cardProgress.set(progress);
-        },
-      });
-    });
-
-    return () => mm.revert();
-  }, [cardProgress]);
 
   // Mobile ScrollTrigger
   useEffect(() => {
@@ -46,31 +124,32 @@ const Cards = () => {
     mm.add("(max-width: 639px)", () => {
       if (!mobileRef.current) return;
 
-      ScrollTrigger.create({
-        trigger: mobileRef.current,
-        start: "60% center",
-        end: "+=1200",
-        pin: true,
-        scrub: 0.5,
+        ScrollTrigger.create({
+          trigger: mobileRef.current,
+          start: "center center",
+          end: "+=350", // Short scroll distance
+          pin: true,
+          scrub: 0.2,
         onUpdate: (self) => {
+          // Map progress 0-1 to card index 0-CARD_DATA.length
           const progress = self.progress * CARD_DATA.length;
           cardProgress.set(progress);
         },
       });
     });
 
-    return () => mm.revert();
-  }, [cardProgress]);
+    return () => mm.revert(); // Cleanup
+  }, []);
 
   return (
     <>
       {/* Desktop View - Hidden on Mobile */}
       <div
         ref={desktopRef}
-        className="hidden sm:flex w-full max-w-[1280px] mx-auto h-[calc(100vh-80px)] 2xl:mt-20 md:mt-0 flex-col items-center justify-center relative z-30"
-        style={{ overflow: "visible" }}
+        className="hidden sm:flex w-full max-w-[1280px] mx-auto h-[calc(100vh-80px)] 2xl:mt-20 md:mt-0 flex-col items-center justify-center relative"
+        style={{ overflow: "hidden" }}
       >
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 flex items-center justify-center">
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 flex items-center justify-center">
           {CARD_DATA.map((card, i) => {
             const VISIBLE_COUNT = Math.min(5, CARD_DATA.length);
             const computeOffset = (idx) => {
@@ -99,7 +178,7 @@ const Cards = () => {
               [i, i + 1],
               [0, -1000]
             );
-            const finalY = useTransform(transformY, (v) => -offset.y + v);
+            const finalY = useTransform(transformY, (v) => -offset.y + v - 80);
 
             return (
               <motion.div
@@ -117,22 +196,22 @@ const Cards = () => {
                   zIndex: z,
                 }}
                 transition={{ type: "spring", stiffness: 220, damping: 22 }}
-                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] sm:w-[360px] md:w-[420px] lg:w-[580px] 2xl:w-[720px] min-h-[180px] sm:min-h-[190px] md:min-h-[200px] lg:min-h-[250px] 2xl:min-h-[340px] bg-white border-[1px] border-[#FF322E] flex flex-col items-start justify-start px-6 sm:px-8 md:px-12 py-6 sm:py-8 md:py-10 pb-8 sm:pb-10 md:pb-12 shadow-lg"
+                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 2xl:w-[720px] lg:w-[580px] md:w-[420px] md:h-[200px] lg:h-[250px] 2xl:h-[340px] bg-white border-[1px] border-[#FF322E] flex flex-col items-start justify-center px-12 py-10 shadow-lg"
               >
-                <div className="mb-2 sm:mb-3 md:mb-4 flex w-full justify-between items-center text-sm sm:text-base lg:text-base 2xl:text-xl font-bold">
+                <div className="mb-4 flex w-full justify-between items-center 2xl:text-xl lg:text-base font-bold">
                   {card.icon}
                 </div>
-                <h2 className="text-xl sm:text-2xl lg:text-2xl 2xl:text-5xl font-bold mb-1 sm:mb-2">
+                <h2 className="2xl:text-5xl lg:text-2xl font-bold mb-2">
                   {card.title}
                 </h2>
-                <p className="text-base sm:text-lg lg:text-xl 2xl:text-3xl text-black">
+                <p className="2xl:text-3xl lg:text-xl text-black">
                   {card.desc}
                 </p>
               </motion.div>
             );
           })}
         </div>
-        <h1 className="text-brand text-[28vw] sm:text-[24vw] md:text-[22vw] lg:text-[20vw] xl:text-[15vw] leading-tight md:leading-tight 2xl:leading-[20rem] font-bold text-center z-10 pointer-events-none">
+        <h1 className="text-brand xl:text-[15vw] md:text-[22vw] md:leading-tight font-bold text-center 2xl:leading-[20rem] z-10 pointer-events-none lg:text-[20vw]">
           CORE <br /> SERVICES
         </h1>
       </div>
@@ -140,16 +219,16 @@ const Cards = () => {
       {/* Mobile View - Only Visible on Mobile */}
       <div
         ref={mobileRef}
-        className="sm:hidden w-full h-[90vh] pb-20 flex flex-col items-center justify-center relative"
+        className="sm:hidden w-full h-[50vh] flex flex-col items-center justify-center relative"
         style={{ overflow: "visible" }}
       >
-        <h1 className="absolute left-1/2 top-[30%] -translate-x-1/2 -translate-y-1/2 text-brand text-[20vw] leading-[5rem] font-bold text-center z-10 pointer-events-none">
+        <h1 className="absolute left-1/2 top-[20%] -translate-x-1/2 -translate-y-1/2 text-brand text-[16vw] leading-[4rem] font-bold text-center z-10 pointer-events-none">
           CORE <br /> SERVICES
         </h1>
 
         <div
-          className="absolute left-1/2 top-[85%] -translate-x-1/2 -translate-y-1/2 z-[20] flex items-center justify-center"
-          style={{ height: 200, width: 300 }}
+          className="absolute left-1/2 top-[65%] -translate-x-1/2 -translate-y-1/2 z-[20] flex items-center justify-center"
+          style={{ height: 180, width: 290 }}
         >
           {CARD_DATA.map((card, i) => {
             const VISIBLE_COUNT = Math.min(5, CARD_DATA.length);
@@ -183,6 +262,16 @@ const Cards = () => {
               <motion.div
                 key={i}
                 initial={{ opacity: 1, y: 20, x: 10, rotate: offset.r }}
+                animate={
+                  isLocked
+                    ? {
+                        opacity: 1,
+                        x: 10,
+                        rotate: offset.r,
+                        scale: 1,
+                      }
+                    : undefined
+                }
                 style={{
                   y: finalY,
                   x: 10,
@@ -190,14 +279,14 @@ const Cards = () => {
                   zIndex: z,
                 }}
                 transition={{ type: "spring", stiffness: 220, damping: 22 }}
-                className="absolute -translate-x-1/2 -translate-y-1/2 w-[310px] bg-white shadow-[0_0_0_2px_#FF322E] outline-1 outline-transparent outline flex flex-col items-start justify-start gap-3 px-4 py-5 will-change-transform"
+                className="absolute -translate-x-1/2 -translate-y-1/2 w-[290px] h-[200px] bg-white shadow-[0_0_0_2px_#FF322E] outline-1 outline-transparent outline flex flex-col items-start justify-between px-4 py-5 will-change-transform"
               >
-                <div className="flex w-full justify-between items-start mb-1">
-                  <div className="scale-[0.4] origin-top-left h-8">
+                <div className="flex w-full justify-between items-start">
+                  <div className="scale-[0.55] origin-top-left">
                     {card.icon}
                   </div>
                 </div>
-                <div className="flex flex-col gap-1">
+                <div className="flex flex-col gap-2">
                   <h2 className="text-xl font-extrabold uppercase leading-tight tracking-tight text-black font-epilogue">
                     {card.title}
                   </h2>

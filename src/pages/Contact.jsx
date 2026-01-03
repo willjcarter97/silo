@@ -78,6 +78,8 @@ const Contact = () => {
       setTimeout(() => {
         resetForm();
         setSubmitting(false);
+        // Contact forms redirect to home after thank you
+        sessionStorage.setItem("thankYouReturnPath", "/");
         // Redirect to thank you page
         navigate("/thank-you");
       }, 500);
@@ -100,8 +102,20 @@ const Contact = () => {
                 </p>
               </div>
 
+              {/* Mobile Image - Shows between description and form on mobile */}
+              <div className="lg:hidden">
+                <img
+                  src="https://images.prismic.io/silosite/aVUgZnNYClf9otrg_v1765956951_1_kp6h6i.png?auto=format,compress"
+                  alt="Person relaxing on chair"
+                  className="w-full aspect-[19/9] object-cover"
+                  loading="lazy"
+                />
+              </div>
+
               {/* Contact Form */}
               <form
+                id="ugc-creator-contact-form"
+                name="UGC Creator Contact Form"
                 onSubmit={formik.handleSubmit}
                 className="space-y-4 sm:space-y-6"
               >
@@ -264,8 +278,8 @@ const Contact = () => {
               </form>
             </div>
 
-            {/* Right Image */}
-            <div className="order-2 lg:order-2 mt-8 lg:mt-0">
+            {/* Right Image - Desktop only */}
+            <div className="hidden lg:block order-2 lg:order-2 mt-8 lg:mt-0">
               <img
                 src="https://images.prismic.io/silosite/aVUgZnNYClf9otrg_v1765956951_1_kp6h6i.png?auto=format,compress"
                 alt="Person relaxing on chair"

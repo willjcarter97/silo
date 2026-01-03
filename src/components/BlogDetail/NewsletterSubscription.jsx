@@ -4,8 +4,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function NewsletterSubscription({
   onSubmit,
@@ -14,6 +13,7 @@ export default function NewsletterSubscription({
   messageType,
   containerRef,
 }) {
+  const navigate = useNavigate();
   const newsletterRef = useRef(null);
   const wrapperRef = useRef(null);
 
@@ -55,17 +55,14 @@ export default function NewsletterSubscription({
       // Log all stored data
       console.log("All newsletter subscriptions:", updatedData);
 
-      // Show success toast
-      toast.success("Successfully subscribed to newsletter!");
-
       // Reset form
       resetForm();
       setSubmitting(false);
 
-      // Reload page after successful submit
-      setTimeout(() => {
-        window.location.reload();
-      }, 2000);
+      // Save current path for return redirect
+      sessionStorage.setItem("thankYouReturnPath", window.location.pathname);
+      // Redirect to thank you page
+      navigate("/thank-you");
     },
   });
 
@@ -119,7 +116,7 @@ export default function NewsletterSubscription({
         <p className="text-base font-normal text-black mb-5 leading-relaxed">
           Subscribe to receive the latest blog posts to your inbox every week.
         </p>
-        <form onSubmit={formik.handleSubmit} className="space-y-4">
+        <form id="blog-newsletter-form" name="Blog Newsletter Subscription" onSubmit={formik.handleSubmit} className="space-y-4">
           <div>
             <input
               type="email"

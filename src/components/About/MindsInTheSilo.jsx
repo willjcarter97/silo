@@ -263,7 +263,7 @@ const MindsInTheSilo = () => {
   // Don't render until data is loaded
   if (isLoading) {
     return (
-      <section className="md:min-h-screen min-h-[80vh] flex items-center justify-center py-6 sm:py-8 md:py-12 lg:py-16 px-4 md:px-10 lg:px-10 bg-white">
+      <section className="flex items-center justify-center py-12 md:py-16 lg:py-20 px-4 md:px-6 lg:px-0 bg-white">
         <div className="animate-pulse flex flex-col items-center gap-4">
           <div className="w-16 h-16 bg-gray-200 rounded-full"></div>
           <div className="h-4 w-32 bg-gray-200 rounded"></div>
@@ -278,7 +278,7 @@ const MindsInTheSilo = () => {
   }
 
   return (
-    <section className="md:min-h-screen min-h-[80vh] flex items-start justify-center py-6 sm:py-8 md:py-12 lg:py-16 px-4 md:px-10 lg:px-10 bg-white overflow-x-hidden">
+    <section className="flex items-start justify-center py-12 md:py-16 lg:py-20 px-4 md:px-6 lg:px-0 bg-white overflow-x-hidden">
       <div className="max-w-[1280px] mx-auto w-full">
         {/* Header Section - Zoom & Small Laptop Optimized */}
         <div className="text-left xl:text-left mb-6 sm:mb-8 md:mb-12 lg:mb-16 px-2 sm:px-0">
@@ -292,7 +292,7 @@ const MindsInTheSilo = () => {
               letterSpacing: "0%",
             }}
           >
-            Minds of the Silo
+            Minds at Silo
           </h2>
 
           <p

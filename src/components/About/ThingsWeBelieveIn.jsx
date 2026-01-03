@@ -1,6 +1,6 @@
 const ThingsWeBelieveIn = () => {
   return (
-    <section className="min-h-screen flex items-center justify-center py-12 sm:py-14 md:py-16 lg:py-20 px-4 md:px-10 lg:px-10 bg-white overflow-x-hidden">
+    <section id="things-we-believe-in" className="flex items-center justify-center py-12 md:py-16 lg:py-20 px-4 md:px-6 lg:px-0 bg-white overflow-x-hidden">
       <div className="max-w-[1280px] mx-auto w-full">
         {/* Text Section */}
         <div className="text-left mb-8 sm:mb-10 md:mb-14 lg:mb-16">

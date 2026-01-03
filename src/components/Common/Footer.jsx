@@ -39,6 +39,8 @@ const Footer = () => {
                   Join our newsletter to stay up to date.
                 </p>
                 <form
+                  id="footer-newsletter-form"
+                  name="Footer Newsletter Subscription"
                   className="flex w-full max-w-md items-stretch gap-3"
                   onSubmit={(e) => e.preventDefault()}
                 >
@@ -104,8 +106,8 @@ const Footer = () => {
                   </li>
                   <li>
                     <a
-                      href="/about#hero"
-                      onClick={(e) => handleAnchorClick(e, "/about", "hero")}
+                      href="/about#things-we-believe-in"
+                      onClick={(e) => handleAnchorClick(e, "/about", "things-we-believe-in")}
                       className="text-sm ease-in-out duration-200 cursor-pointer hover:text-brand"
                       style={{
                         fontFamily: "DM Sans",
@@ -418,8 +420,8 @@ const Footer = () => {
                 </li>
                 <li>
                   <a
-                    href="/about#hero"
-                    onClick={(e) => handleAnchorClick(e, "/about", "hero")}
+                    href="/about#things-we-believe-in"
+                    onClick={(e) => handleAnchorClick(e, "/about", "things-we-believe-in")}
                     className="text-sm"
                   >
                     Mission and Values
@@ -543,7 +545,7 @@ const Footer = () => {
               Join our newsletter to stay up to date.
             </div>
 
-            <form className="w-full" onSubmit={(e) => e.preventDefault()}>
+            <form id="footer-newsletter-form-mobile" name="Footer Newsletter Subscription Mobile" className="w-full" onSubmit={(e) => e.preventDefault()}>
               <div className="border border-black overflow-hidden">
                 <input
                   type="email"

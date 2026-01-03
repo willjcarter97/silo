@@ -5,7 +5,7 @@ import "../../styles/scaling-overrides.css";
 // Marquee row data objects — edit these to add/remove/modify each row
 const row1 = {
   id: "row1",
-  text: "E-commerce & DTC , Beauty & Skincare , Wellness & Supplements , Food & Beverage , Lifestyle & Home , Travel & Hospitality , ",
+  text: "Lifestyle , Culture , Fashion , Beauty , Wellness , Events , Experiences , Entertainment , Travel , Health and fitness , Food and drink , Music , Art and design , Home and interiors , Sports , Personal development , ",
   speed: 40,
   direction: "left",
   className: "text-lg md:text-lg xl:text-2xl font-bold text-black",
@@ -19,7 +19,7 @@ const row1 = {
 
 const row2 = {
   id: "row2",
-  text: "Hotels & Resorts , Airbnbs , Adventure & Experiences , Home Décor , Furniture , Kitchenware , Premium & Emerging Brands , ",
+  text: "Consumer goods , DTC brands , Media , Hospitality , Property , Real estate , Retail , E-commerce brands , Luxury goods , Homeware , Furniture , Travel and leisure brands , ",
   speed: 40,
   direction: "right",
   className: "text-lg md:text-lg xl:text-2xl font-bold text-black",
@@ -30,7 +30,7 @@ const row2 = {
 
 const row3 = {
   id: "row3",
-  text: "Social-led Rebrands , Creator-led Campaigns , Retention & Community , Direct-to-Consumer Growth , Premium Collaborations , ",
+  text: "Finance , Investment , Professional services , Technology , SaaS , Startups , Creative industries , Fintech , Consulting , Legal services , B2B services , Software companies , Venture capital , Business education and training , ",
   speed: 40,
   direction: "left",
   className: "text-lg md:text-lg xl:text-2xl font-bold text-black",
@@ -44,7 +44,7 @@ const row3 = {
 
 const WhoWeLoveWorkingWith = () => {
   return (
-    <section className="w-screen relative left-1/2 -translate-x-1/2 py-12 md:py-16 lg:py-20 bg-white">
+    <section className="w-screen relative left-1/2 -translate-x-1/2 py-12 md:py-16 lg:py-20 bg-white overflow-x-hidden">
       <div className="max-w-[1280px] mx-auto w-full px-4 md:px-6 lg:px-8">
         {/* Text Section */}
         <div className="text-left mb-8 md:mb-12 lg:mb-16">

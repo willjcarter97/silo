@@ -1,6 +1,6 @@
 const WhatSiloIs = () => {
   return (
-    <section className="min-h-screen flex items-center justify-center py-6 md:py-12 lg:py-20 lg:pb-10 px-3 sm:px-4 md:px-0 bg-white overflow-x-hidden w-full sm:py-0 sm:h-fit">
+    <section className="flex items-center justify-center py-12 md:py-16 lg:py-20 px-3 sm:px-4 md:px-6 lg:px-0 bg-white overflow-x-hidden w-full">
       <div className="max-w-full mx-auto w-full flex flex-col gap-0">
         <div className="flex flex-col md:grid md:grid-cols-2 mb-10 items-start gap-6 sm:gap-8 md:gap-10 lg:gap-12 xl:gap-16 sm:mb-8  mx-auto">
           {/* Left Side - Heading - Zoom & Small Laptop Optimized */}
