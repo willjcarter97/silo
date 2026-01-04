@@ -1,13 +1,49 @@
 import React, { useState, useEffect } from "react";
 import { FaChevronRight } from "react-icons/fa";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
-import ReadyWhenYouAre from "../components/Common/ReadyWhenYouAre";
+import ReadyWhenYouArePrismic from "../components/Common/ReadyWhenYouArePrismic";
 import LazySection from "../components/Common/LazySection";
 import LazyImage from "../components/Common/LazyImage";
 import LazyText from "../components/Common/LazyText";
 import LazyElement from "../components/Common/LazyElement";
 import { usePageMeta } from "../hooks/usePageMeta";
 import { client } from "../prismicio";
+
+// Default values for hero section
+const defaults = {
+  heading: "You're going to want to see these.",
+  description: "Every project tells a story of strategy shaped, content crafted, identities defined and digital experiences built. These case studies capture the thinking and creativity that turn ideas into work that truly moves brands forward.",
+  primaryButtonText: "Let's chat",
+  primaryButtonLink: "/contact",
+  secondaryButtonText: "Our services",
+  secondaryButtonLink: "/services",
+  mainImage: "https://images.prismic.io/silosite/aVUgXnNYClf9otrc_v1765923582_Placeholder_Image_rr5dup.png?auto=format,compress",
+  secondaryImage: "https://images.prismic.io/silosite/aVUgHHNYClf9otrA_v1762717296_studies2_a4olwb.png?auto=format,compress",
+};
+
+/**
+ * Helper to resolve Prismic Link fields to URLs
+ */
+const resolveLinkUrl = (linkField) => {
+  if (!linkField) return null;
+  
+  if (linkField.link_type === "Web" || linkField.url) {
+    return linkField.url;
+  }
+  
+  if (linkField.link_type === "Document" && linkField.uid) {
+    const typeRoutes = {
+      home_page: "/",
+      case_study: `/case-studies/${linkField.uid}`,
+      blog_post: `/blog/${linkField.uid}`,
+      services_page: "/services",
+      contact_page: "/contact",
+    };
+    return typeRoutes[linkField.type] || `/${linkField.uid}`;
+  }
+  
+  return null;
+};
 
 // Helper to extract plain text from Prismic Rich Text
 const asText = (richTextField) => {
@@ -114,13 +150,44 @@ const CaseStudyCardMobile = ({ caseStudy, isLast }) => {
 };
 
 const CaseStudies = () => {
-  usePageMeta(
-    "Creative Agency Case Studies & Client Work",
-    "See how Silo Creative has helped brands achieve incredible results with UGC and content creation. Explore our portfolio of successful campaigns."
-  );
-
+  const [pageData, setPageData] = useState(null);
   const [caseStudies, setCaseStudies] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  usePageMeta(
+    pageData?.pageTitle || "Creative Agency Case Studies & Client Work",
+    pageData?.metaDescription || "See how Silo Creative has helped brands achieve incredible results with UGC and content creation. Explore our portfolio of successful campaigns."
+  );
+
+  // Fetch page data from Prismic
+  useEffect(() => {
+    async function fetchPageData() {
+      try {
+        const response = await client.getSingle("portfolio_page");
+        
+        if (response?.data) {
+          const data = response.data;
+          
+          setPageData({
+            pageTitle: data.page_title || null,
+            metaDescription: data.meta_description || null,
+            heading: data.hero_heading || null,
+            description: data.hero_description || null,
+            primaryButtonText: data.hero_primary_button_text || null,
+            primaryButtonLink: resolveLinkUrl(data.hero_primary_button_link) || null,
+            secondaryButtonText: data.hero_secondary_button_text || null,
+            secondaryButtonLink: resolveLinkUrl(data.hero_secondary_button_link) || null,
+            mainImage: data.hero_main_image?.url || null,
+            secondaryImage: data.hero_secondary_image?.url || null,
+          });
+        }
+      } catch (error) {
+        console.warn("Could not fetch portfolio page from Prismic:", error.message);
+      }
+    }
+
+    fetchPageData();
+  }, []);
 
   // Fetch case studies from Prismic
   useEffect(() => {
@@ -157,11 +224,21 @@ const CaseStudies = () => {
     fetchCaseStudies();
   }, []);
 
+  // Use props with fallback to defaults
+  const displayHeading = pageData?.heading || defaults.heading;
+  const displayDescription = pageData?.description || defaults.description;
+  const displayPrimaryButtonText = pageData?.primaryButtonText || defaults.primaryButtonText;
+  const displayPrimaryButtonLink = pageData?.primaryButtonLink || defaults.primaryButtonLink;
+  const displaySecondaryButtonText = pageData?.secondaryButtonText || defaults.secondaryButtonText;
+  const displaySecondaryButtonLink = pageData?.secondaryButtonLink || defaults.secondaryButtonLink;
+  const displayMainImage = pageData?.mainImage || defaults.mainImage;
+  const displaySecondaryImage = pageData?.secondaryImage || defaults.secondaryImage;
+
   return (
     <div className="max-w-[1280px] mx-auto h-auto flex flex-col justify-start items-center mt-16 xl:mt-12 lg:mt-40 md:mt-40">
       {/* Hero Section */}
       <section
-        className="mt-10 mb-4 md:mb-10 flex items-start w-full justify-start px-1 md:px-0 pb-4 md:pb-12 lg:pb-16 overflow-hidden"
+        className="mt-10 mb-4 md:mb-10 flex items-start w-full justify-start pb-4 md:pb-12 lg:pb-16 overflow-hidden"
         aria-label="About Silo - Company introduction"
       >
         <div className="flex flex-col justify-between xl:grid xl:grid-cols-[1fr_1.5fr] gap-6 sm:gap-8 md:gap-10 lg:gap-12 xl:gap-16 max-w-full mx-auto w-full items-start md:items-center mt-0 xl:mt-16 lg:mt-0 md:mt-0">
@@ -180,7 +257,7 @@ const CaseStudies = () => {
                 letterSpacing: "0%",
               }}
             >
-              You're going to want to see these.
+              {displayHeading}
             </h1>
             <div className="flex flex-col gap-5 sm:gap-6 items-start w-full">
               <p
@@ -193,33 +270,30 @@ const CaseStudies = () => {
                   letterSpacing: "0%",
                 }}
               >
-                Every project tells a story of strategy shaped, content crafted,
-                identities defined and digital experiences built. These case
-                studies capture the thinking and creativity that turn ideas into
-                work that truly moves brands forward.
+                {displayDescription}
               </p>
               <div className="flex flex-row gap-3 sm:gap-4 items-start w-full sm:w-auto xl:mx-0">
                 <a
-                  href="/contact"
+                  href={displayPrimaryButtonLink}
                   className="inline-flex items-center justify-center gap-2 bg-[#FF322E] h-[55px] px-6 py-3 text-xs font-bold tracking-wide text-white border-transparent relative overflow-hidden group"
                 >
                   <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 svg-wrapper group-hover:animate-bounce-custom">
                     <FaChevronRight className="text-white w-5 h-5 opacity-0 transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:translate-x-3 group-hover:scale-[140%]" />
                   </div>
                   <span className="block transition-all whitespace-nowrap duration-300 ease-in-out text-base group-hover:translate-x-40">
-                    Let's chat
+                    {displayPrimaryButtonText}
                   </span>
                 </a>
 
                 <a
-                  href="/services"
+                  href={displaySecondaryButtonLink}
                   className="inline-flex items-center justify-center gap-2 bg-transparent border-[1px] border-brand h-[55px] px-6 py-3 text-xs font-bold tracking-wide text-brand relative overflow-hidden group"
                 >
                   <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 svg-wrapper group-hover:animate-bounce-custom">
                     <FaChevronRight className="text-brand w-5 h-5 opacity-0 transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:translate-x-3 group-hover:scale-[140%]" />
                   </div>
                   <span className="block transition-all whitespace-nowrap duration-300 ease-in-out text-base group-hover:translate-x-40">
-                    Our services
+                    {displaySecondaryButtonText}
                   </span>
                 </a>
               </div>
@@ -231,7 +305,7 @@ const CaseStudies = () => {
             <div className="flex flex-col md:hidden gap-4">
               <div className="w-full">
                 <LazyImage
-                  src="https://images.prismic.io/silosite/aVUgXnNYClf9otrc_v1765923582_Placeholder_Image_rr5dup.png?auto=format,compress"
+                  src={displayMainImage}
                   alt="Silo team member showcasing brand identity"
                   className="w-full h-auto object-cover max-h-[350px]"
                   containerClassName="w-full"
@@ -240,7 +314,7 @@ const CaseStudies = () => {
               <div className="flex flex-row items-center justify-center gap-3 w-full">
                 <div className="hidden sm:flex justify-center">
                   <LazyImage
-                    src="https://images.prismic.io/silosite/aVUgHHNYClf9otrA_v1762717296_studies2_a4olwb.png?auto=format,compress"
+                    src={displaySecondaryImage}
                     alt="The Silo brand representation"
                     className="w-32 h-auto object-cover max-h-[120px]"
                     containerClassName="w-32"
@@ -252,7 +326,7 @@ const CaseStudies = () => {
             <div className="hidden md:flex xl:hidden gap-6">
               <div className="flex-1">
                 <LazyImage
-                  src="https://images.prismic.io/silosite/aVUgXnNYClf9otrc_v1765923582_Placeholder_Image_rr5dup.png?auto=format,compress"
+                  src={displayMainImage}
                   alt="Silo team member showcasing brand identity"
                   className="w-full h-auto object-cover max-h-[500px] lg:max-h-[550px]"
                   containerClassName="w-full"
@@ -261,7 +335,7 @@ const CaseStudies = () => {
               <div className="flex flex-col gap-4 justify-between items-end">
                 <div>
                   <LazyImage
-                    src="https://images.prismic.io/silosite/aVUgHHNYClf9otrA_v1762717296_studies2_a4olwb.png?auto=format,compress"
+                    src={displaySecondaryImage}
                     alt="The Silo brand representation"
                     className="w-48 lg:w-56 h-auto object-cover max-h-[300px] lg:max-h-[350px]"
                     containerClassName="w-48 lg:w-56"
@@ -273,7 +347,7 @@ const CaseStudies = () => {
             <div className="hidden xl:flex gap-6">
               <div className="flex-1 max-w-[460px]">
                 <LazyImage
-                  src="https://images.prismic.io/silosite/aVUgXnNYClf9otrc_v1765923582_Placeholder_Image_rr5dup.png?auto=format,compress"
+                  src={displayMainImage}
                   alt="Silo team member showcasing brand identity"
                   className="w-full h-auto object-cover max-h-[550px] 2xl:max-h-none"
                   containerClassName="w-full"
@@ -282,7 +356,7 @@ const CaseStudies = () => {
               <div className="flex flex-col justify-between items-end">
                 <div className="mb-4">
                   <LazyImage
-                    src="https://images.prismic.io/silosite/aVUgHHNYClf9otrA_v1762717296_studies2_a4olwb.png?auto=format,compress"
+                    src={displaySecondaryImage}
                     alt="The Silo brand representation"
                     className="w-64 2xl:w-[328px] h-auto object-cover xl:min-h-[200px] 2xl:max-h-none"
                     containerClassName="w-64 2xl:w-[328px]"
@@ -332,7 +406,7 @@ const CaseStudies = () => {
       <div className="w-screen mx-auto h-[1px] bg-black my-16 relative left-1/2 -translate-x-1/2" />
       
       <LazySection>
-        <ReadyWhenYouAre />
+        <ReadyWhenYouArePrismic />
       </LazySection>
       
       <div className="relative left-1/2 -translate-x-1/2 w-screen mx-auto h-[1px] bg-black mt-16" />

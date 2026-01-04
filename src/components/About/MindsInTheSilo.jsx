@@ -320,12 +320,12 @@ const MindsInTheSilo = () => {
             className="overflow-hidden w-full px-2 sm:px-4 lg:px-0 lg:max-w-full lg:mx-auto"
             role="group"
             aria-label={`Slide ${currentSlide + 1} of ${totalSlides}`}
-            style={{ touchAction: "pan-y pinch-zoom" }}
           >
             <motion.div
               className={`flex items-stretch gap-3 sm:gap-4 md:gap-6 select-none ${
                 totalSlides > 1 ? 'cursor-grab active:cursor-grabbing' : ''
               }`}
+              style={{ touchAction: totalSlides > 1 ? "pan-y" : "auto" }}
               drag={totalSlides > 1 ? "x" : false}
               dragConstraints={{
                 // Right constraint: cannot scroll past first card (x cannot be positive)

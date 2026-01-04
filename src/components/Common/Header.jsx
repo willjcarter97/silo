@@ -1,14 +1,80 @@
 import React, { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { FaChevronRight } from "react-icons/fa";
+import { client } from "../../prismicio";
 import "../../styles/scaling-overrides.css";
+
+// Default navigation data (fallback if Prismic fails)
+const defaultNavData = {
+  logo: "https://silosite.cdn.prismic.io/silosite/aVUgoXNYClf9otsY_v1762717235_hero_hyl0xu.svg",
+  navLinks: [
+    { label: "About Us", link: "/about", isVisible: true },
+    { label: "Portfolio", link: "/case-studies", isVisible: true },
+    { label: "Services", link: "/services", isVisible: true },
+    { label: "Job Board", link: "/job-board", isVisible: true },
+    { label: "Ramblings", link: "/blog", isVisible: true },
+  ],
+  ctaText: "Lets Talk",
+  ctaLink: "/contact",
+  ctaVisible: true,
+};
+
+/**
+ * Helper to resolve Prismic Link fields to URLs
+ */
+const resolveLinkUrl = (linkField) => {
+  if (!linkField) return null;
+  
+  // If it's just a plain string (direct URL), return it
+  if (typeof linkField === "string") {
+    return linkField;
+  }
+  
+  // Web links
+  if (linkField.link_type === "Web" && linkField.url) {
+    return linkField.url;
+  }
+  
+  // Media links (images, files)
+  if (linkField.link_type === "Media" && linkField.url) {
+    return linkField.url;
+  }
+  
+  // Document links (internal)
+  if (linkField.link_type === "Document") {
+    // Map document types to routes
+    const typeRoutes = {
+      home_page: "/",
+      about_page: "/about",
+      case_study: `/case-studies/${linkField.uid}`,
+      blog_post: `/blog/${linkField.uid}`,
+      services_page: "/services",
+      job_board_page: "/job-board",
+      careers_page: "/careers",
+      contact_page: "/contact",
+      ugc_contact_page: "/ugc-contact",
+      ramblings_page: "/blog",
+      portfolio_page: "/case-studies",
+    };
+    return typeRoutes[linkField.type] || (linkField.uid ? `/${linkField.uid}` : null);
+  }
+  
+  // Fallback: try to use url property directly
+  if (linkField.url) {
+    return linkField.url;
+  }
+  
+  return null;
+};
 
 export default function Header() {
   const [open, setOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
+  const [navData, setNavData] = useState(defaultNavData);
   const lastScrollY = useRef(0);
   const ticking = useRef(false);
+  const location = useLocation();
 
   const toggle = () => setOpen((v) => !v);
   const close = () => setOpen(false);
@@ -23,6 +89,48 @@ export default function Header() {
       toggle();
     }
   };
+
+  // Fetch navigation data from Prismic
+  useEffect(() => {
+    async function fetchNavigation() {
+      try {
+        const response = await client.getSingle("navigation");
+        
+        if (response?.data) {
+          const data = response.data;
+          
+          // Transform Prismic data to our format
+          const transformedNavLinks = data.nav_links
+            ?.filter(item => item.is_visible !== false)
+            ?.map(item => {
+              const resolvedLink = resolveLinkUrl(item.link);
+              return {
+                label: item.label || "",
+                link: resolvedLink || "#",
+                isVisible: item.is_visible !== false,
+              };
+            })
+            ?.filter(item => item.link !== "#") || []; // Filter out broken links
+          
+          const transformedData = {
+            logo: data.logo?.url || defaultNavData.logo,
+            // Use Prismic nav links only if we got valid ones, otherwise keep defaults
+            navLinks: transformedNavLinks.length > 0 ? transformedNavLinks : defaultNavData.navLinks,
+            ctaText: data.cta_text || defaultNavData.ctaText,
+            ctaLink: resolveLinkUrl(data.cta_link) || defaultNavData.ctaLink,
+            ctaVisible: data.cta_visible !== false,
+          };
+          
+          setNavData(transformedData);
+        }
+      } catch (error) {
+        console.warn("Could not fetch navigation from Prismic:", error.message);
+        // Keep using default data
+      }
+    }
+
+    fetchNavigation();
+  }, []);
 
   // Scroll hide/show logic
   useEffect(() => {
@@ -53,6 +161,14 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Check if a path is active (handles nested routes)
+  const isPathActive = (linkPath) => {
+    if (linkPath === "/") {
+      return location.pathname === "/";
+    }
+    return location.pathname.startsWith(linkPath);
+  };
+
   return (
     <header
       onClick={handleHeaderClick}
@@ -65,7 +181,7 @@ export default function Header() {
           {/* Left: Logo */}
           <Link to="/" className="flex items-center" aria-label="Home">
             <img
-              src="https://silosite.cdn.prismic.io/silosite/aVUgoXNYClf9otsY_v1762717235_hero_hyl0xu.svg"
+              src={navData.logo}
               alt="Silo"
               className="h-5 header2 w-auto md:h-9"
               loading="lazy"
@@ -75,57 +191,20 @@ export default function Header() {
           {/* Right: CTA */}
           <div className="flex items-center justify-center gap-6">
             {/* Center: Nav */}
-            <nav className="hidden lg:flex items-center justify-center gap-3 xl:gap-4 2xl:gap-6 text-base xl:text-lg font-bold text-black relative">
-              <NavLink
-                to="/about"
-                className={({ isActive }) =>
-                  `px-2 xl:px-2.5 2xl:px-1 py-2 xl:py-2.5 2xl:py-3 font-bold whitespace-nowrap transition-colors ${
-                    isActive ? "text-brand font-bold" : "text-black"
-                  }`
-                }
-              >
-                About Us
-              </NavLink>
-              <NavLink
-                to="/case-studies"
-                className={({ isActive }) =>
-                  `px-2 xl:px-2.5 2xl:px-1 py-2 xl:py-2.5 2xl:py-3 font-bold whitespace-nowrap transition-colors ${
-                    isActive ? "text-brand font-bold" : "text-black"
-                  }`
-                }
-              >
-                Portfolio
-              </NavLink>
-              <NavLink
-                to="/services"
-                className={({ isActive }) =>
-                  `px-2 xl:px-2.5 2xl:px-1 py-2 xl:py-2.5 2xl:py-3 font-bold whitespace-nowrap transition-colors ${
-                    isActive ? "text-brand font-bold" : "text-black"
-                  }`
-                }
-              >
-                Services
-              </NavLink>
-              <NavLink
-                to="/job-board"
-                className={({ isActive }) =>
-                  `px-2 xl:px-2.5 2xl:px-1 py-2 xl:py-2.5 2xl:py-3 font-bold whitespace-nowrap transition-colors ${
-                    isActive ? "text-brand font-bold" : "text-black"
-                  }`
-                }
-              >
-                Job Board
-              </NavLink>
-              <NavLink
-                to="/blog"
-                className={({ isActive }) =>
-                  `px-2 xl:px-2.5 2xl:px-1 py-2 xl:py-2.5 2xl:py-3 font-bold whitespace-nowrap transition-colors ${
-                    isActive ? "text-brand font-bold" : "text-black"
-                  }`
-                }
-              >
-                Ramblings
-              </NavLink>
+            <nav className="hidden lg:flex items-center justify-center gap-3 xl:gap-4 2xl:gap-6 text-base xl:text-lg font-medium text-black relative">
+              {navData.navLinks.map((navItem, index) => (
+                <NavLink
+                  key={index}
+                  to={navItem.link}
+                  className={({ isActive }) =>
+                    `px-2 xl:px-2.5 2xl:px-1 py-2 xl:py-2.5 2xl:py-3 font-medium whitespace-nowrap transition-colors ${
+                      isActive ? "text-brand" : "text-black"
+                    }`
+                  }
+                >
+                  {navItem.label}
+                </NavLink>
+              ))}
             </nav>
 
             {/* Mobile menu button */}
@@ -156,17 +235,19 @@ export default function Header() {
             </button>
 
             {/* CTA visible on large screens only; on tablet/mobile it's inside the hamburger panel below */}
-            <Link
-              to="/contact"
-              className="hidden lg:inline-flex relative text-sm xl:text-base 2xl:text-lg whitespace-nowrap bg-brand text-white py-2 xl:py-2.5 2xl:py-3 px-4 xl:px-5 2xl:px-6 items-center border-none overflow-hidden header-btn transition-all duration-200 cursor-pointer group no-underline"
-            >
-              <div className="absolute svg-wrapper group-hover:animate-bounce-custom">
-                <FaChevronRight className="block opacity-0 transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:translate-x-7" />
-              </div>
-              <span className="block transition-all font-bold duration-300 ease-in-out group-hover:translate-x-28">
-                Lets Talk
-              </span>
-            </Link>
+            {navData.ctaVisible && (
+              <Link
+                to={navData.ctaLink}
+                className="hidden lg:inline-flex relative text-sm xl:text-base 2xl:text-lg whitespace-nowrap bg-brand text-white py-2 xl:py-2.5 2xl:py-3 px-4 xl:px-5 2xl:px-6 items-center border-none overflow-hidden header-btn transition-all duration-200 cursor-pointer group no-underline"
+              >
+                <div className="absolute svg-wrapper group-hover:animate-bounce-custom">
+                  <FaChevronRight className="block opacity-0 transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:translate-x-7" />
+                </div>
+                <span className="block transition-all font-bold duration-300 ease-in-out group-hover:translate-x-28">
+                  {navData.ctaText}
+                </span>
+              </Link>
+            )}
           </div>
         </div>
       </div>
@@ -199,114 +280,47 @@ export default function Header() {
             <div className="mx-3 lg:mx-auto">
               <div className="max-w-[1280px] border-[1px] border-black border-t-0 mx-auto bg-white shadow-lg">
                 <nav className="px-6 py-8 flex-1 flex flex-col gap-6 text-center">
-                  <NavLink
-                    to="/about"
-                    onClick={close}
-                    className={({ isActive }) =>
-                      `text-xl font-bold tracking-tight transition-all duration-150 ${
-                        open
-                          ? "translate-y-0 opacity-100"
-                          : "translate-y-4 opacity-0"
-                      } ${
-                        isActive
-                          ? "text-brand border-b-[1px] border-brand pb-1"
-                          : "text-black"
-                      }`
-                    }
-                    style={{ transitionDelay: open ? "80ms" : "0ms" }}
-                  >
-                    About Us
-                  </NavLink>
-                  <NavLink
-                    to="/case-studies"
-                    onClick={close}
-                    className={({ isActive }) =>
-                      `text-xl font-bold transition-all duration-150 ${
-                        open
-                          ? "translate-y-0 opacity-100"
-                          : "translate-y-4 opacity-0"
-                      } ${
-                        isActive
-                          ? "text-brand border-b-[1px] border-brand pb-1"
-                          : "text-black"
-                      }`
-                    }
-                    style={{ transitionDelay: open ? "160ms" : "0ms" }}
-                  >
-                    Portfolio
-                  </NavLink>
-                  <NavLink
-                    to="/services"
-                    onClick={close}
-                    className={({ isActive }) =>
-                      `text-xl font-bold transition-all duration-150 ${
-                        open
-                          ? "translate-y-0 opacity-100"
-                          : "translate-y-4 opacity-0"
-                      } ${
-                        isActive
-                          ? "text-brand border-b-[1px] border-brand pb-1"
-                          : "text-black"
-                      }`
-                    }
-                    style={{ transitionDelay: open ? "240ms" : "0ms" }}
-                  >
-                    Services
-                  </NavLink>
-                  <NavLink
-                    to="/job-board"
-                    onClick={close}
-                    className={({ isActive }) =>
-                      `text-xl font-bold transition-all duration-150 ${
-                        open
-                          ? "translate-y-0 opacity-100"
-                          : "translate-y-4 opacity-0"
-                      } ${
-                        isActive
-                          ? "text-brand border-b-[1px] border-brand pb-1"
-                          : "text-black"
-                      }`
-                    }
-                    style={{ transitionDelay: open ? "320ms" : "0ms" }}
-                  >
-                    Job Board
-                  </NavLink>
-                  <NavLink
-                    to="/blog"
-                    onClick={close}
-                    className={({ isActive }) =>
-                      `text-xl font-bold transition-all duration-150 ${
-                        open
-                          ? "translate-y-0 opacity-100"
-                          : "translate-y-4 opacity-0"
-                      } ${
-                        isActive
-                          ? "text-brand border-b-[1px] border-brand pb-1"
-                          : "text-black"
-                      }`
-                    }
-                    style={{ transitionDelay: open ? "400ms" : "0ms" }}
-                  >
-                    Ramblings
-                  </NavLink>
+                  {navData.navLinks.map((navItem, index) => (
+                    <NavLink
+                      key={index}
+                      to={navItem.link}
+                      onClick={close}
+                      className={({ isActive }) =>
+                        `text-xl font-medium tracking-tight transition-all duration-150 ${
+                          open
+                            ? "translate-y-0 opacity-100"
+                            : "translate-y-4 opacity-0"
+                        } ${
+                          isActive
+                            ? "text-brand border-b-[1px] border-brand pb-1"
+                            : "text-black"
+                        }`
+                      }
+                      style={{ transitionDelay: open ? `${80 + index * 80}ms` : "0ms" }}
+                    >
+                      {navItem.label}
+                    </NavLink>
+                  ))}
                 </nav>
 
-                <div
-                  className={`px-6 pb-8 transition-all duration-150 ${
-                    open
-                      ? "translate-y-0 opacity-100"
-                      : "translate-y-4 opacity-0"
-                  }`}
-                  style={{ transitionDelay: open ? "480ms" : "0ms" }}
-                >
-                  <Link
-                    to="/contact"
-                    onClick={close}
-                    className="w-full inline-flex items-center justify-center gap-3 bg-brand text-white px-6 py-3 font-bold shadow-lg hover:opacity-95 transition no-underline"
+                {navData.ctaVisible && (
+                  <div
+                    className={`px-6 pb-8 transition-all duration-150 ${
+                      open
+                        ? "translate-y-0 opacity-100"
+                        : "translate-y-4 opacity-0"
+                    }`}
+                    style={{ transitionDelay: open ? `${80 + navData.navLinks.length * 80}ms` : "0ms" }}
                   >
-                    Lets Talk
-                  </Link>
-                </div>
+                    <Link
+                      to={navData.ctaLink}
+                      onClick={close}
+                      className="w-full inline-flex items-center justify-center gap-3 bg-brand text-white px-6 py-3 font-bold shadow-lg hover:opacity-95 transition no-underline"
+                    >
+                      {navData.ctaText}
+                    </Link>
+                  </div>
+                )}
               </div>
             </div>
           </aside>

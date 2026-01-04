@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { TiTick } from 'react-icons/ti';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
-import { toast, ToastContainer } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { usePageMeta } from '../hooks/usePageMeta';
 import { client } from '../prismicio';
 import * as prismic from '@prismicio/client';
+import JobBoardNewsletterPrismic from '../components/Common/JobBoardNewsletterPrismic';
 
 const JobBoardDetail = () => {
   const { jobId } = useParams();
@@ -232,84 +231,8 @@ const JobBoardDetail = () => {
           </div>
         </div>
         
-        {/* Newsletter Signup Section */}
-        <div className="mt-40">
-          <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8 md:gap-12 lg:gap-16">
-            
-            {/* Left Content */}
-            <div className="lg:flex-1 lg:max-w-lg">
-              <h2 className="text-black text-3xl font-bold mb-4 font-['Epilogue'] leading-tight">
-                Get these straight to your inbox
-              </h2>
-              
-              <p className="text-black text-base leading-relaxed">
-                We add UGC jobs weekly, but our creator roster gets first dibs. Sign up to get briefs before they hit the board.
-              </p>
-            </div>
-            
-            {/* Right Form */}
-            <div className="lg:flex-shrink-0 max-w-xl w-full">
-              <Formik
-                initialValues={{ email: '' }}
-                validationSchema={Yup.object({
-                  email: Yup.string().email('Invalid email address').required('Email is required')
-                })}
-                onSubmit={async (values, { setSubmitting, resetForm }) => {
-                  try {
-                    console.log('Form submitted as array:', [values]);
-                    
-                    // Store in localStorage
-                    const existingEmails = JSON.parse(localStorage.getItem('newsletterEmails') || '[]');
-                    existingEmails.push(values);
-                    localStorage.setItem('newsletterEmails', JSON.stringify(existingEmails));
-                    
-                    toast.success('Successfully subscribed to newsletter!');
-                    
-                    setTimeout(() => {
-                      resetForm();
-                      setSubmitting(false);
-                      window.location.reload();
-                    }, 2000);
-                  } catch (error) {
-                    console.error('Error:', error);
-                    setSubmitting(false);
-                  }
-                }}
-              >
-                {({ isSubmitting }) => (
-                  <Form>
-                    <div className="flex gap-3">
-                      <div className="w-full">
-                        <Field
-                          type="email"
-                          name="email"
-                          placeholder="Enter your email"
-                          className="px-4 py-3 border border-black focus:outline-none focus:ring-2 focus:ring-[#FF322E] focus:border-transparent text-base w-full"
-                        />
-                        <ErrorMessage name="email" component="div" className="text-red-500 text-sm mt-1" />
-                      </div>
-                      <button 
-                        type="submit" 
-                        disabled={isSubmitting}
-                        className="bg-[#FF322E] whitespace-nowrap text-white px-6 py-3 font-semibold hover:bg-red-600 transition-colors text-base disabled:opacity-50 self-start"
-                      >
-                        Send me work
-                      </button>
-                    </div>
-                  </Form>
-                )}
-              </Formik>
-              
-              <p className="text-black text-sm mt-3 leading-relaxed">
-                By clicking Sign Up you're confirming that you agree with our{' '}
-                <a href="/terms" className="hover:text-brand hover:text-base text-sm ease-in-out duration-200 cursor-pointer">
-                  Terms and Conditions
-                </a>
-              </p>
-            </div>
-            
-          </div>
-        </div>
+        {/* Newsletter Signup Section - Prismic powered */}
+        <JobBoardNewsletterPrismic />
       </div>
       <ToastContainer
         position="top-right"

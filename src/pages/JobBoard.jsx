@@ -1,9 +1,44 @@
 import { useState, useEffect } from "react";
-import ReadyWhenYouAre from "../components/Common/ReadyWhenYouAre";
+import ReadyWhenYouArePrismic from "../components/Common/ReadyWhenYouArePrismic";
 import { FaChevronRight } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { usePageMeta } from "../hooks/usePageMeta";
 import { client } from "../prismicio";
+
+// Default values
+const defaults = {
+  heading: "Silo job board",
+  descriptionBold: "A board for brands post briefs and UGC creators pick them up. Simple.",
+  description: "It's a live feed of brands looking for UGC: TikToks, Reels, photos, product demos and testimonials - ready for creators to jump on. Real opportunities, real brands, and a roster of vetted creators who know how to make content that connects.",
+  primaryButtonText: "Sign up as a Creator",
+  primaryButtonLink: "/ugc-contact",
+  secondaryButtonText: "Post a requirement Brief",
+  secondaryButtonLink: "/contact",
+  emptyStateHeading: "Quiet in here, huh?",
+  emptyStateDescription: "Our brands are brewing their next big thing. You could be first in line when they drop.",
+};
+
+/**
+ * Helper to resolve Prismic Link fields to URLs
+ */
+const resolveLinkUrl = (linkField) => {
+  if (!linkField) return null;
+  
+  if (linkField.link_type === "Web" || linkField.url) {
+    return linkField.url;
+  }
+  
+  if (linkField.link_type === "Document" && linkField.uid) {
+    const typeRoutes = {
+      home_page: "/",
+      contact_page: "/contact",
+      ugc_contact_page: "/ugc-contact",
+    };
+    return typeRoutes[linkField.type] || `/${linkField.uid}`;
+  }
+  
+  return null;
+};
 
 // JobCard Component - Clickable with hover effects
 function JobCard({ job }) {
@@ -67,14 +102,45 @@ function JobCard({ job }) {
 }
 
 export default function JobBoard() {
-  usePageMeta(
-    "UGC Agency Job Board for Brand Briefs",
-    "Discover UGC creator jobs, brand briefs and paid UGC content opportunities. A dedicated job board for UGC creators producing short form content for modern brands."
-  );
-
-  // State for jobs fetched from Prismic
+  const [pageData, setPageData] = useState(null);
   const [jobs, setJobs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  usePageMeta(
+    pageData?.pageTitle || "UGC Agency Job Board for Brand Briefs",
+    pageData?.metaDescription || "Discover UGC creator jobs, brand briefs and paid UGC content opportunities. A dedicated job board for UGC creators producing short form content for modern brands."
+  );
+
+  // Fetch page data from Prismic
+  useEffect(() => {
+    async function fetchPageData() {
+      try {
+        const response = await client.getSingle("job_board_page");
+        
+        if (response?.data) {
+          const data = response.data;
+          
+          setPageData({
+            pageTitle: data.page_title || null,
+            metaDescription: data.meta_description || null,
+            heading: data.hero_heading || null,
+            descriptionBold: data.hero_description_bold || null,
+            description: data.hero_description || null,
+            primaryButtonText: data.hero_primary_button_text || null,
+            primaryButtonLink: resolveLinkUrl(data.hero_primary_button_link) || null,
+            secondaryButtonText: data.hero_secondary_button_text || null,
+            secondaryButtonLink: resolveLinkUrl(data.hero_secondary_button_link) || null,
+            emptyStateHeading: data.empty_state_heading || null,
+            emptyStateDescription: data.empty_state_description || null,
+          });
+        }
+      } catch (error) {
+        console.warn("Could not fetch job board page from Prismic:", error.message);
+      }
+    }
+
+    fetchPageData();
+  }, []);
 
   // Fetch jobs from Prismic
   useEffect(() => {
@@ -105,7 +171,17 @@ export default function JobBoard() {
     fetchJobs();
   }, []);
 
-  // Show jobs if we have any from Prismic
+  // Use props with fallback to defaults
+  const displayHeading = pageData?.heading || defaults.heading;
+  const displayDescriptionBold = pageData?.descriptionBold || defaults.descriptionBold;
+  const displayDescription = pageData?.description || defaults.description;
+  const displayPrimaryButtonText = pageData?.primaryButtonText || defaults.primaryButtonText;
+  const displayPrimaryButtonLink = pageData?.primaryButtonLink || defaults.primaryButtonLink;
+  const displaySecondaryButtonText = pageData?.secondaryButtonText || defaults.secondaryButtonText;
+  const displaySecondaryButtonLink = pageData?.secondaryButtonLink || defaults.secondaryButtonLink;
+  const displayEmptyStateHeading = pageData?.emptyStateHeading || defaults.emptyStateHeading;
+  const displayEmptyStateDescription = pageData?.emptyStateDescription || defaults.emptyStateDescription;
+
   const showJobs = jobs.length > 0;
 
   return (
@@ -115,7 +191,7 @@ export default function JobBoard() {
         {/* Hero Section - Adjusted for 95vw */}
         <div className="mb-12 lg:mb-16">
           <div className="w-full lg:w-1/2">
-            {/* Main Heading - Exact typography from screenshot */}
+            {/* Main Heading */}
             <h1
               className="mb-5 text-black"
               style={{
@@ -126,10 +202,10 @@ export default function JobBoard() {
                 letterSpacing: "0%",
               }}
             >
-              Silo job board
+              {displayHeading}
             </h1>
 
-            {/* Description Text - Exact match to screenshot */}
+            {/* Description Text */}
             <p
               className="mb-2 text-black"
               style={{
@@ -140,8 +216,7 @@ export default function JobBoard() {
                 letterSpacing: "0%",
               }}
             >
-              A board for brands post briefs and UGC creators pick them up.
-              Simple.
+              {displayDescriptionBold}
             </p>
 
             <p
@@ -154,18 +229,15 @@ export default function JobBoard() {
                 letterSpacing: "0%",
               }}
             >
-              It’s a live feed of brands looking for UGC: TikToks, Reels,
-              photos, product demos and testimonials - ready for creators to
-              jump on. Real opportunities, real brands, and a roster of vetted
-              creators who know how to make content that connects.
+              {displayDescription}
             </p>
           </div>
 
-          {/* Action Buttons - Exact match to screenshot */}
+          {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
-            {/* Primary Button - Exact screenshot styling */}
+            {/* Primary Button */}
             <button
-              onClick={() => (window.location.href = "/ugc-contact")}
+              onClick={() => (window.location.href = displayPrimaryButtonLink)}
               className="inline-flex items-center justify-center gap-2 bg-[#FF322E] text-white border-transparent relative overflow-hidden group"
               style={{
                 fontFamily: "DM Sans, sans-serif",
@@ -182,13 +254,13 @@ export default function JobBoard() {
                 <FaChevronRight className="text-white w-5 h-5 opacity-0 transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:translate-x-0 group-hover:scale-[140%]" />
               </div>
               <span className="block transition-all duration-300 ease-in-out text-sm group-hover:translate-x-60">
-                Sign up as a Creator
+                {displayPrimaryButtonText}
               </span>
             </button>
 
-            {/* Secondary Button - Exact screenshot styling */}
+            {/* Secondary Button */}
             <button
-              onClick={() => (window.location.href = "/contact")}
+              onClick={() => (window.location.href = displaySecondaryButtonLink)}
               className="inline-flex items-center justify-center gap-2 bg-transparent border-[1px] border-[#FF322E] text-[#FF322E] relative overflow-hidden group"
               style={{
                 fontFamily: "DM Sans, sans-serif",
@@ -205,7 +277,7 @@ export default function JobBoard() {
                 <FaChevronRight className="text-[#FF322E] w-5 h-5 opacity-0 transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:translate-x-0 group-hover:scale-[140%]" />
               </div>
               <span className="block transition-all duration-300 ease-in-out text-sm group-hover:translate-x-80">
-                Post a requirement Brief
+                {displaySecondaryButtonText}
               </span>
             </button>
           </div>
@@ -223,40 +295,38 @@ export default function JobBoard() {
           </div>
         )}
 
-        {/* Empty State - Show when no jobs and not loading */}
+        {/* Empty State */}
         {!isLoading && !showJobs && (
           <div className="w-full mb-2 md:mb-16">
-            {/* Empty State Message */}
             <div className="text-center mb-4 py-4 md:mb-12 md:py-12">
               <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
-                Quiet in here, huh?
+                {displayEmptyStateHeading}
               </h2>
               <p className="text-base md:text-lg text-black">
-                Our brands are brewing their next big thing. You could be first
-                in line when they drop.
+                {displayEmptyStateDescription}
               </p>
             </div>
           </div>
         )}
 
-        {/* Job Grid - Shows when jobs exist in Prismic */}
+        {/* Job Grid */}
         {showJobs && (
           <div className="w-full px-[1vw] md:px-0">
-            {/* Mobile: Single column (< 640px) */}
+            {/* Mobile: Single column */}
             <div className="grid grid-cols-1 gap-6 sm:hidden justify-items-center">
               {jobs.map((job) => (
                 <JobCard key={job.uid} job={job} />
               ))}
             </div>
 
-            {/* Tablet: 2 columns (640px - 1024px) */}
+            {/* Tablet: 2 columns */}
             <div className="hidden sm:grid lg:hidden grid-cols-2 gap-2 justify-items-center">
               {jobs.map((job) => (
                 <JobCard key={job.uid} job={job} />
               ))}
             </div>
 
-            {/* Desktop: Flexible grid (1024px+) */}
+            {/* Desktop: Flexible grid */}
             <div className="hidden lg:grid lg:grid-cols-3 gap-8 xl:gap-12">
               {jobs.map((job) => (
                 <JobCard key={job.uid} job={job} />
@@ -268,7 +338,7 @@ export default function JobBoard() {
 
       {/* Ready When You Are Section */}
       <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black mb-16" />
-      <ReadyWhenYouAre />
+      <ReadyWhenYouArePrismic />
       <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black mt-16" />
     </div>
   );

@@ -1,14 +1,13 @@
 import { useEffect, useRef } from 'react';
-import { Application, Assets, Sprite, Texture, Filter, GlProgram } from 'pixi.js';
+import { Application, Sprite, Texture, Filter, GlProgram } from 'pixi.js';
 import vertex from '../shaders/siloHover.vertex';
 import fragment from '../shaders/SiloDisplacement.fragment';
 
 export const useSiloHoverPixi = ({ hostRef, svgSrc, height, intensity, isMobile }) => {
-  // Use refs to persist across StrictMode double-mounting
+  // Use refs only for persistent resources that need cleanup
   const appRef = useRef(null);
   const resizeObserverRef = useRef(null);
   const isInitializingRef = useRef(false);
-  const mountedRef = useRef(false);
 
   useEffect(() => {
     // Don't initialize on mobile - we show static image instead
@@ -17,20 +16,24 @@ export const useSiloHoverPixi = ({ hostRef, svgSrc, height, intensity, isMobile 
     const el = hostRef.current;
     if (!el) return;
 
-    // Prevent double initialization from StrictMode
-    if (isInitializingRef.current) {
-      console.log('[Pixi] Already initializing, skipping...');
-      return;
+    // Use a local cancelled flag for this specific effect instance
+    // This avoids race conditions with StrictMode double-mounting
+    let cancelled = false;
+    
+    // Clean up any existing app before initializing a new one
+    if (appRef.current) {
+      try {
+        appRef.current.destroy(true);
+      } catch (err) {
+        console.warn('[Pixi] Cleanup of existing app:', err);
+      }
+      appRef.current = null;
     }
-
-    // If app already exists and is valid, skip re-initialization
-    if (appRef.current && appRef.current.renderer) {
-      console.log('[Pixi] App already exists, skipping...');
-      return;
+    
+    if (resizeObserverRef.current) {
+      resizeObserverRef.current.disconnect();
+      resizeObserverRef.current = null;
     }
-
-    mountedRef.current = true;
-    isInitializingRef.current = true;
 
     let logoSprite = null;
     let logoTex = null;
@@ -56,6 +59,13 @@ export const useSiloHoverPixi = ({ hostRef, svgSrc, height, intensity, isMobile 
 
     (async () => {
       try {
+        // Check if cancelled before starting
+        if (cancelled) return;
+        
+        // Prevent concurrent initializations
+        if (isInitializingRef.current) return;
+        isInitializingRef.current = true;
+
         const app = new Application();
         await app.init({
           antialias: true,
@@ -66,15 +76,14 @@ export const useSiloHoverPixi = ({ hostRef, svgSrc, height, intensity, isMobile 
           resizeTo: el,
         });
 
-        // Check if we were unmounted during async initialization
-        if (!mountedRef.current) {
+        // Check if cancelled after async init
+        if (cancelled) {
           console.log('[Pixi] Component unmounted during init, destroying...');
           app.destroy(true);
-          isInitializingRef.current = false;
           return;
         }
 
-        // Store app reference
+        // Store app reference for cleanup
         appRef.current = app;
 
         el.innerHTML = '';
@@ -84,42 +93,52 @@ export const useSiloHoverPixi = ({ hostRef, svgSrc, height, intensity, isMobile 
         app.canvas.draggable = false;
         el.appendChild(app.canvas);
 
-        // Clear cached asset to prevent stale texture issues from previous renders
-        if (Assets.cache.has(svgSrc)) {
-          Assets.cache.remove(svgSrc);
-        }
+        // Helper function to load image using standard Image object (decoupled from Pixi lifecycle)
+        // Uses cache-busting to force fresh load on SPA navigation
+        const loadImageDirectly = (url) => {
+          return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.crossOrigin = 'anonymous';
+            img.onload = () => resolve(img);
+            img.onerror = () => reject(new Error(`Failed to load image: ${url}`));
+            // Add cache-busting parameter to force fresh load on SPA navigation
+            const cacheBustUrl = `${url}${url.includes('?') ? '&' : '?'}t=${Date.now()}`;
+            img.src = cacheBustUrl;
+          });
+        };
 
         try {
-          logoTex = await Assets.load(svgSrc);
+          const img = await loadImageDirectly(svgSrc);
+          
+          if (cancelled) return;
+          
+          // Create texture from the loaded image
+          logoTex = Texture.from(img);
           console.log('[Pixi] Texture loaded', svgSrc);
 
-          // Check again if unmounted during texture load
-          if (!mountedRef.current) {
-            console.log('[Pixi] Component unmounted during texture load, destroying...');
-            app.destroy(true);
-            appRef.current = null;
-            isInitializingRef.current = false;
-            return;
-          }
-
           // Add padding to prevent clipping when liquid effect expands
-          const padX = logoTex.width * 0.12;
-          const padY = logoTex.height * 0.12;
+          const padX = img.width * 0.12;
+          const padY = img.height * 0.12;
           const base = document.createElement('canvas');
-          base.width = logoTex.width + (padX * 2);
-          base.height = logoTex.height + (padY * 2);
+          base.width = img.width + (padX * 2);
+          base.height = img.height + (padY * 2);
           const ctx = base.getContext('2d');
           if (ctx) {
             ctx.clearRect(0, 0, base.width, base.height);
-            ctx.drawImage(logoTex.source.resource, padX, padY, logoTex.width, logoTex.height);
+            ctx.drawImage(img, padX, padY, img.width, img.height);
           }
           logoTex = Texture.from(base);
         } catch (texError) {
           console.warn('[Pixi] Texture fallback to <img>', texError);
-          el.innerHTML = `<img src="${svgSrc}" alt="logo" style="max-width:100%;height:auto;display:block;user-select:none;-webkit-user-select:none;pointer-events:none;" draggable="false" />`;
           isInitializingRef.current = false;
+          if (!cancelled) {
+            el.innerHTML = `<img src="${svgSrc}" alt="logo" style="max-width:100%;height:auto;display:block;user-select:none;-webkit-user-select:none;pointer-events:none;" draggable="false" />`;
+          }
           return;
         }
+
+        // Final check before setting up the scene
+        if (cancelled) return;
 
         logoSprite = new Sprite(logoTex);
         logoSprite.anchor.set(0.5);
@@ -146,7 +165,7 @@ export const useSiloHoverPixi = ({ hostRef, svgSrc, height, intensity, isMobile 
         const rippleUniforms = rippleFilter.resources.ripple.uniforms;
 
         const layout = () => {
-          if (!app || !logoSprite || !logoTex || !mountedRef.current) return;
+          if (!app || !logoSprite || !logoTex || cancelled) return;
 
           const w = el.clientWidth;
           if (w === 0) return; // Skip if element has no width yet
@@ -214,7 +233,7 @@ export const useSiloHoverPixi = ({ hostRef, svgSrc, height, intensity, isMobile 
         });
 
         app.ticker.add((ticker) => {
-          if (!logoSprite || !rippleFilter || !mountedRef.current) return;
+          if (!logoSprite || !rippleFilter || cancelled) return;
 
           time += 0.016 * ticker.deltaTime;
           rippleUniforms.uTime = time;
@@ -270,14 +289,17 @@ export const useSiloHoverPixi = ({ hostRef, svgSrc, height, intensity, isMobile 
         isInitializingRef.current = false;
         console.log('[Pixi] Initialization complete');
       } catch (err) {
-        console.error('[Pixi] Initialization error:', err);
         isInitializingRef.current = false;
+        console.error('[Pixi] Initialization error:', err);
       }
     })();
 
     return () => {
       console.log('[Pixi] Cleanup running...');
-      mountedRef.current = false;
+      // Set cancelled flag to stop any in-flight async operations
+      cancelled = true;
+      // Reset initializing flag so next mount can initialize
+      isInitializingRef.current = false;
       
       // Disconnect ResizeObserver immediately
       if (resizeObserverRef.current) {
@@ -285,7 +307,7 @@ export const useSiloHoverPixi = ({ hostRef, svgSrc, height, intensity, isMobile 
         resizeObserverRef.current = null;
       }
       
-      // Destroy Pixi app immediately (no setTimeout)
+      // Destroy Pixi app immediately
       if (appRef.current) {
         try {
           appRef.current.destroy(true);
@@ -295,8 +317,6 @@ export const useSiloHoverPixi = ({ hostRef, svgSrc, height, intensity, isMobile 
         }
         appRef.current = null;
       }
-      
-      isInitializingRef.current = false;
     };
   }, [hostRef, svgSrc, height, intensity, isMobile]);
 };

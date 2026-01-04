@@ -13,6 +13,34 @@ const asText = (richTextField) => {
   return richTextField.map((block) => block.text || "").join(" ");
 };
 
+// Default service cards (used when Prismic data is not available)
+const DEFAULT_SERVICE_CARDS = [
+  {
+    image: "https://images.prismic.io/silosite/aVUgQXNYClf9otrH_v1765879825_2_jegbj9.png?auto=format,compress",
+    imageAlt: "Social Strategy & Management",
+    title: "Social Strategy & Management",
+    description: "We don't just post, we plan, manage, and grow your brand's presence.",
+  },
+  {
+    image: "https://images.prismic.io/silosite/aVUgQ3NYClf9otrJ_v1765879826_3_r08wlm.png?auto=format,compress",
+    imageAlt: "Web Design & Development",
+    title: "Web Design & Development",
+    description: "We shape digital spaces. Real craft, real performance that's designed to grow.",
+  },
+  {
+    image: "https://images.prismic.io/silosite/aVUgQnNYClf9otrI_v1765879825_Placeholder_Image_zxnykm.png?auto=format,compress",
+    imageAlt: "Brand Design",
+    title: "Brand Design",
+    description: "We design bold branding and expressive motion to shape your visual presence.",
+  },
+  {
+    image: "https://images.prismic.io/silosite/aVUgRHNYClf9otrK_v1765879826_Placeholder_Image1_me1r2y.png?auto=format,compress",
+    imageAlt: "Content Strategy",
+    title: "Content Strategy",
+    description: "We build thoughtful strategies that give content focus, intent and results.",
+  },
+];
+
 // Desktop Case Study Card for Homepage
 const HomepageCaseStudyDesktop = ({ caseStudy, isLast }) => {
   const link = `/case-studies/${caseStudy.uid}`;
@@ -176,9 +204,67 @@ const HomepageCaseStudyMobile = ({ caseStudy }) => {
   );
 };
 
-export default function ContentAndDone() {
+// Service Card Component - returns fragment so parent flex layout applies
+const ServiceCard = ({ card, isDesktop = true }) => {
+  const imageClass = `w-full ${isDesktop ? 'h-[250px] md:h-[300px]' : 'h-[250px]'} bg-gray-100 ${isDesktop ? '' : 'mb-4'} overflow-hidden`;
+  const titleClass = `font-epilogue font-bold ${isDesktop ? 'text-[32px] md:text-[28px] lg:text-[32px] leading-[130%] tracking-normal' : 'text-2xl mb-3'} text-black`;
+  const descClass = `${isDesktop ? 'text-[16px] leading-[150%] tracking-normal' : 'text-sm leading-relaxed'} text-black`;
+
+  // If card has a link, wrap the image in a link
+  if (card.link) {
+    return (
+      <>
+        <a href={card.link} className={imageClass}>
+          <LazyImage
+            src={card.image}
+            alt={card.imageAlt || card.title}
+            className="w-full h-full object-cover"
+            containerClassName="w-full h-full"
+          />
+        </a>
+        <h3 className={titleClass}>
+          {card.link ? <a href={card.link}>{card.title}</a> : card.title}
+        </h3>
+        <p className={descClass}>
+          {card.description}
+        </p>
+      </>
+    );
+  }
+
+  return (
+    <>
+      <div className={imageClass}>
+        <LazyImage
+          src={card.image}
+          alt={card.imageAlt || card.title}
+          className="w-full h-full object-cover"
+          containerClassName="w-full h-full"
+        />
+      </div>
+      <h3 className={titleClass}>
+        {card.title}
+      </h3>
+      <p className={descClass}>
+        {card.description}
+      </p>
+    </>
+  );
+};
+
+export default function ContentAndDone({
+  servicesHeading = "This is simply what we do",
+  serviceCards = [],
+  caseStudiesHeading = "Stuff we've done",
+  caseStudiesSubheading = "Just some of the brands we've worked with",
+  viewAllButtonText = "View all",
+  viewAllButtonLink = "/case-studies",
+}) {
   const [caseStudies, setCaseStudies] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  // Use provided service cards or fall back to defaults
+  const displayServiceCards = serviceCards.length > 0 ? serviceCards : DEFAULT_SERVICE_CARDS;
 
   // Fetch case studies from Prismic (only those marked for homepage)
   useEffect(() => {
@@ -321,101 +407,43 @@ export default function ContentAndDone() {
     };
   }, []);
 
+  // Split heading for desktop display
+  const headingParts = servicesHeading.split(" ");
+  const midPoint = Math.ceil(headingParts.length / 2);
+  const headingLine1 = headingParts.slice(0, midPoint).join(" ");
+  const headingLine2 = headingParts.slice(midPoint).join(" ");
+
   return (
     <div className="mx-auto px-0 max-w-[1280px]">
       {/* Desktop view (hidden on mobile) */}
       <div className="hidden md:block overflow-visible max-w-[1280px]">
         <div className="flex justify-center relative items-start w-full mx-auto">
           <h2 className="mr-auto text-2xl md:text-5xl xl:w-[30rem] md:mb-10 lg:mb-0 font-bold tracking-tight text-black w-[28rem] 2xl:w-[28rem] lg:w-[22rem]">
-            This is simply <br /> what we do
+            {headingLine1} <br /> {headingLine2}
           </h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-0 mx-auto md:my-20">
-          {/* Card 1: Social Strategy & Management */}
-          <LazyElement as="article" className="border border-black border-x-0 border-b-0 p-8 pl-0 flex flex-col gap-4 mb-5" animation="fadeUp" delay={0}>
-            <div className="w-full h-[250px] md:h-[300px] bg-gray-100 overflow-hidden">
-              <LazyImage
-                src="https://images.prismic.io/silosite/aVUgQXNYClf9otrH_v1765879825_2_jegbj9.png?auto=format,compress"
-                alt="Social Strategy & Management"
-                className="w-full h-full object-cover"
-                containerClassName="w-full h-full"
-              />
-            </div>
-            <h3 className="font-epilogue font-bold text-[32px] md:text-[28px] lg:text-[32px] leading-[130%] tracking-normal text-black">
-              Social Strategy & Management
-            </h3>
-            <p className="text-[16px] leading-[150%] tracking-normal text-black">
-              We don't just post, we plan, manage, and grow your brand's
-              presence.
-            </p>
-          </LazyElement>
-
-          {/* Card 2: Web Design & Development */}
-          <LazyElement as="article" className="border border-black p-8 pr-0 border-r-0 border-b-0 flex flex-col gap-4" animation="fadeUp" delay={100}>
-            <div className="w-full h-[250px] md:h-[300px] bg-gray-100 overflow-hidden">
-              <LazyImage
-                src="https://images.prismic.io/silosite/aVUgQ3NYClf9otrJ_v1765879826_3_r08wlm.png?auto=format,compress"
-                alt="Web Design & Development"
-                className="w-full h-full object-cover"
-                containerClassName="w-full h-full"
-              />
-            </div>
-            <h3 className="font-epilogue font-bold text-[32px] md:text-[28px] lg:text-[32px] leading-[130%] tracking-normal text-black">
-              Web Design & Development
-            </h3>
-            <p className="text-[16px] leading-[150%] tracking-normal text-black">
-              We shape digital spaces. Real craft, real performance that's
-              designed to grow.
-            </p>
-          </LazyElement>
-
-          {/* Card 3: Brand Design */}
-          <LazyElement as="article" className="border border-black p-8 pl-0 border-x-0 border-b-0 flex flex-col gap-4" animation="fadeUp" delay={200}>
-            <div className="w-full h-[250px] md:h-[280px] bg-gray-100 overflow-hidden">
-              <LazyImage
-                src="https://images.prismic.io/silosite/aVUgQnNYClf9otrI_v1765879825_Placeholder_Image_zxnykm.png?auto=format,compress"
-                alt="Brand Design"
-                className="w-full h-full object-cover"
-                containerClassName="w-full h-full"
-              />
-            </div>
-            <h3 className="font-epilogue font-bold text-[32px] md:text-[28px] lg:text-[32px] leading-[130%] tracking-normal text-black">
-              Brand Design
-            </h3>
-            <p className="text-[16px] leading-[150%] tracking-normal text-black">
-              We design bold branding and expressive motion to shape your visual
-              presence.
-            </p>
-          </LazyElement>
-
-          {/* Card 4: Content Strategy */}
-          <LazyElement as="article" className="border border-black p-8 pr-0 border-r-0 border-b-0 flex flex-col gap-4" animation="fadeUp" delay={300}>
-            <div className="w-full h-[250px] md:h-[280px] bg-gray-100 overflow-hidden">
-              <LazyImage
-                src="https://images.prismic.io/silosite/aVUgRHNYClf9otrK_v1765879826_Placeholder_Image1_me1r2y.png?auto=format,compress"
-                alt="Content Strategy"
-                className="w-full h-full object-cover"
-                containerClassName="w-full h-full"
-              />
-            </div>
-            <h3 className="font-epilogue font-bold text-[32px] md:text-[28px] lg:text-[32px] leading-[130%] tracking-normal text-black">
-              Content Strategy
-            </h3>
-            <p className="text-[16px] leading-[150%] tracking-normal text-black">
-              We build thoughtful strategies that give content focus, intent and
-              results.
-            </p>
-          </LazyElement>
+          {displayServiceCards.slice(0, 4).map((card, index) => (
+            <LazyElement
+              key={index}
+              as="article"
+              className={`border border-black ${index % 2 === 0 ? 'border-x-0 p-8 pl-0' : 'p-8 pr-0 border-r-0'} border-b-0 flex flex-col gap-4 ${index === 0 ? 'mb-5' : ''}`}
+              animation="fadeUp"
+              delay={index * 100}
+            >
+              <ServiceCard card={card} isDesktop={true} />
+            </LazyElement>
+          ))}
         </div>
         {/* Internal Section Divider - consistent spacing */}
         <div className="w-[100vw] h-[1px] bg-black my-16 md:my-24 relative left-1/2 -translate-x-1/2"></div>
 
         <div id="done" className="w-full min-h-screen pb-10">
           <h2 className="text-7xl font-bold tracking-tight text-black mb-4">
-            Stuff we've done
+            {caseStudiesHeading}
           </h2>
           <p className="text-lg text-black mb-10 font-bold mt-10">
-            Just some of the brands we've worked with
+            {caseStudiesSubheading}
           </p>
 
           <div className="w-full my-20 border-t-[0px] border-t-black">
@@ -441,14 +469,14 @@ export default function ContentAndDone() {
 
           <div className="flex justify-center md:mt-10">
             <a
-              href="/case-studies"
+              href={viewAllButtonLink}
               className="inline-flex items-center justify-center gap-2 bg-transparent border-[1px] border-brand h-[55px] px-6 py-3 text-xs font-bold tracking-wide text-brand relative overflow-hidden group"
             >
               <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 svg-wrapper group-hover:animate-bounce-custom">
                 <FaChevronRight className="text-brand w-4 h-4 opacity-0 transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:translate-x-0 group-hover:scale-[140%]" />
               </div>
               <span className="block transition-all duration-300 ease-in-out text-base group-hover:translate-x-28">
-                View all
+                {viewAllButtonText}
               </span>
             </a>
           </div>
@@ -458,86 +486,21 @@ export default function ContentAndDone() {
       {/* Mobile-only view (hidden on desktop) */}
       <div className="block md:hidden mt-[-1rem] px-[4vw]">
         <h2 className="text-4xl font-bold tracking-tight text-black mb-[3rem]">
-          This is simply what we do
+          {servicesHeading}
         </h2>
 
         {/* Stacked mobile cards */}
         <div className="flex flex-col gap-0">
-          {/* Card 1: Social Strategy & Management */}
-          <LazyElement className="border border-black border-b-0 border-x-0 p-0 py-5" animation="fadeUp" delay={0}>
-            <div className="w-full h-[250px] bg-gray-100 mb-4">
-              <LazyImage
-                src="https://images.prismic.io/silosite/aVUgQXNYClf9otrH_v1765879825_2_jegbj9.png?auto=format,compress"
-                alt="Social Strategy & Management"
-                className="w-full h-full object-cover"
-                containerClassName="w-full h-full"
-              />
-            </div>
-            <h3 className="font-epilogue font-bold text-2xl mb-3">
-              Social Strategy & Management
-            </h3>
-            <p className="text-sm text-black leading-relaxed">
-              We don't just post, we plan, manage, and grow your brand's
-              presence.
-            </p>
-          </LazyElement>
-
-          {/* Card 2: Web Design & Development */}
-          <LazyElement className="border border-black border-x-0 py-5 border-b-0" animation="fadeUp" delay={100}>
-            <div className="w-full h-[250px] bg-gray-100 mb-4">
-              <LazyImage
-                src="https://images.prismic.io/silosite/aVUgQ3NYClf9otrJ_v1765879826_3_r08wlm.png?auto=format,compress"
-                alt="Web Design & Development"
-                className="w-full h-full object-cover"
-                containerClassName="w-full h-full"
-              />
-            </div>
-            <h3 className="font-epilogue font-bold text-2xl mb-3">
-              Web Design & Development
-            </h3>
-            <p className="text-sm text-black leading-relaxed">
-              We shape digital spaces. Real craft, real performance that's
-              designed to grow.
-            </p>
-          </LazyElement>
-
-          {/* Card 3: Brand Design */}
-          <LazyElement className="border border-black border-x-0 py-5 border-b-0" animation="fadeUp" delay={200}>
-            <div className="w-full h-[250px] bg-gray-100 mb-4">
-              <LazyImage
-                src="https://images.prismic.io/silosite/aVUgQnNYClf9otrI_v1765879825_Placeholder_Image_zxnykm.png?auto=format,compress"
-                alt="Brand Design"
-                className="w-full h-full object-cover"
-                containerClassName="w-full h-full"
-              />
-            </div>
-            <h3 className="font-epilogue font-bold text-2xl mb-3">
-              Brand Design
-            </h3>
-            <p className="text-sm text-black leading-relaxed">
-              We design bold branding and expressive motion to shape your visual
-              presence.
-            </p>
-          </LazyElement>
-
-          {/* Card 4: Content Strategy */}
-          <LazyElement className="border border-black border-x-0 py-5 border-b-0" animation="fadeUp" delay={300}>
-            <div className="w-full h-[250px] bg-gray-100 mb-4">
-              <LazyImage
-                src="https://images.prismic.io/silosite/aVUgRHNYClf9otrK_v1765879826_Placeholder_Image1_me1r2y.png?auto=format,compress"
-                alt="Content Strategy"
-                className="w-full h-full object-cover"
-                containerClassName="w-full h-full"
-              />
-            </div>
-            <h3 className="font-epilogue font-bold text-2xl mb-3">
-              Content Strategy
-            </h3>
-            <p className="text-sm text-black leading-relaxed">
-              We build thoughtful strategies that give content focus, intent and
-              results.
-            </p>
-          </LazyElement>
+          {displayServiceCards.slice(0, 4).map((card, index) => (
+            <LazyElement
+              key={index}
+              className={`border border-black border-x-0 border-b-0 p-0 py-5`}
+              animation="fadeUp"
+              delay={index * 100}
+            >
+              <ServiceCard card={card} isDesktop={false} />
+            </LazyElement>
+          ))}
         </div>
 
         {/* Internal Section Divider - mobile */}
@@ -546,10 +509,10 @@ export default function ContentAndDone() {
         {/* Mobile Done Section */}
         <div id="done-mobile" className="w-full">
           <h2 className="text-4xl font-bold tracking-tight text-black mb-4">
-            Stuff we've done
+            {caseStudiesHeading}
           </h2>
           <p className="text-base text-black mb-16 font-bold">
-            Just some of the brands we've worked with
+            {caseStudiesSubheading}
           </p>
 
           <div className="space-y-12 border-t-[1px] border-t-black pb-8">
@@ -566,10 +529,10 @@ export default function ContentAndDone() {
 
           <div className="flex justify-center mt-12">
             <a
-              href="/case-studies"
+              href={viewAllButtonLink}
               className="inline-flex items-center justify-center gap-2 bg-transparent border-[1px] border-brand h-[55px] px-6 py-3 text-base font-extrabold tracking-wide text-brand"
             >
-              <span>View all</span>
+              <span>{viewAllButtonText}</span>
             </a>
           </div>
         </div>

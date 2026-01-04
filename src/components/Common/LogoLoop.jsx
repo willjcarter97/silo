@@ -9,7 +9,7 @@ const LogoLoopComponent = ({
   speed = 120,
   direction = 'right',
   width = '100%',
-  logoHeight = 68,
+  logoHeight = 28,
   gap = 32,
   // how many viewports the concatenated strip should cover before repeating
   stripCoverage = 2,

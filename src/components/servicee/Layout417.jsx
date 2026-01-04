@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useMemo } from "react";
 import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -7,14 +7,29 @@ import { servicesData } from "../../data/servicesData.jsx";
 // Register ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
 
-// Map servicesData to the format needed for this component
-const featureSectionsData = servicesData.map((service) => ({
+// Map servicesData to the format needed for this component (default fallback)
+const defaultFeatureSections = servicesData.map((service) => ({
   icon: service.icon,
   title: service.title,
   description: service.desc,
 }));
 
-const Layout417 = ({ heading = "CORE SERVICES", featureSections = featureSectionsData }) => {
+const Layout417 = ({ heading, featureSections, serviceCards }) => {
+  // Use provided heading or default to "CORE SERVICES"
+  const displayHeading = heading || "CORE SERVICES";
+  // Use serviceCards from Prismic if provided, otherwise fallback to featureSections or defaults
+  const sections = useMemo(() => {
+    if (serviceCards && serviceCards.length > 0) {
+      return serviceCards.map((card, index) => ({
+        icon: card.icon ? (
+          <img src={card.icon} alt={card.title || `Service ${index + 1}`} className="w-20 h-20 object-contain" />
+        ) : defaultFeatureSections[index]?.icon,
+        title: card.title || defaultFeatureSections[index]?.title,
+        description: card.description || defaultFeatureSections[index]?.description,
+      }));
+    }
+    return featureSections || defaultFeatureSections;
+  }, [serviceCards, featureSections]);
   const containerRef = useRef(null);
   const scrollProgress = useMotionValue(0);
 
@@ -56,7 +71,7 @@ const Layout417 = ({ heading = "CORE SERVICES", featureSections = featureSection
   }, [scrollProgress]);
 
   // Split heading into two lines
-  const headingParts = heading.split(" ");
+  const headingParts = displayHeading.split(" ");
   const firstLine = headingParts[0] || "CORE";
   const secondLine = headingParts.slice(1).join(" ") || "SERVICES";
 
@@ -72,18 +87,18 @@ const Layout417 = ({ heading = "CORE SERVICES", featureSections = featureSection
             firstLine={firstLine} 
             secondLine={secondLine} 
             scrollProgress={scrollProgress}
-            totalSections={featureSections.length}
+            totalSections={sections.length}
           />
         </div>
         
         {/* Card stack container */}
         <div className="relative flex min-h-[20rem] w-full max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl flex-col items-center justify-center px-4">
-          {featureSections.map((section, index) => (
+          {sections.map((section, index) => (
             <FeatureSection
               key={index}
               section={section}
               index={index}
-              totalSections={featureSections.length}
+              totalSections={sections.length}
               scrollProgress={scrollProgress}
             />
           ))}

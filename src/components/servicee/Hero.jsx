@@ -4,7 +4,6 @@ import { FaPlay } from "react-icons/fa";
 import { FaChevronRight } from "react-icons/fa";
 import Cards from "./Cards";
 import Interested from "./Interested";
-// import OptionalAddOns from "./OptionalAddOns";
 import "../../styles/scaling-overrides.css";
 import ReadyWhenYouAre from "../Common/ReadyWhenYouAre";
 import LazySection from "../Common/LazySection";
@@ -365,7 +364,6 @@ const Hero = () => {
         <LazySection rootMargin="200px">
           <Interested />
         </LazySection>
-        {/* <OptionalAddOns /> */}
         <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black my-16" />
         <LazySection rootMargin="200px">
           <ReadyWhenYouAre />
@@ -425,7 +423,6 @@ const Hero = () => {
         <LazySection rootMargin="200px">
           <Interested />
         </LazySection>
-        {/* <OptionalAddOns /> */}
         <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black my-16" />
         <LazySection rootMargin="200px">
           <ReadyWhenYouAre />

@@ -2,6 +2,336 @@
 
 ## January 4, 2026
 
+### Fixed: Home Page Services Section Mobile Bottom Border
+
+Fixed a visual issue where the 4th service card (Content Strategy) on the Home page was displaying a bottom border on mobile when it shouldn't.
+
+**Root Cause:**
+The border logic `${index < displayServiceCards.length - 1 ? 'border-b-0' : ''}` was checking against the full array length, but since we slice to 4 cards, the last visible card (index 3) was sometimes getting a border when the full array had more than 4 cards.
+
+**Fix:**
+Simplified the border logic by always applying `border-b-0` to all mobile service cards, since the section divider below provides the visual separation.
+
+**File Updated:**
+- `src/components/Home/ContentAndDone.jsx`
+
+---
+
+### Fixed: Minds at Silo Carousel Drag on Mobile
+
+Fixed an issue where dragging the team member carousel on mobile wasn't working properly.
+
+**Root Cause:**
+The `touchAction: "pan-y pinch-zoom"` CSS was applied to the wrong element (the container div) and prevented horizontal drag gestures from being recognized by Framer Motion.
+
+**Fix:**
+Moved the `touchAction` style to the actual draggable `motion.div` element and changed it to `"pan-y"` which allows vertical scrolling while enabling horizontal drag gestures for the carousel.
+
+**File Updated:**
+- `src/components/About/MindsInTheSilo.jsx`
+
+---
+
+### Fixed: Home Page Hover Logo Not Working on First Load (SPA Navigation)
+
+Fixed an issue where the Pixi.js liquid hover effect on the home page hero wouldn't initialize on soft page load or SPA navigation, but worked correctly after a hard refresh (Ctrl+F5).
+
+**Root Cause:**
+
+The browser was caching a failed fetch response for the SVG image. When using Pixi's `Assets.load()` or even a standard `Image` object to load the SVG, the browser would return the cached failed response on SPA navigation instead of making a fresh network request. This only affected soft navigation because hard refresh bypasses the browser cache.
+
+**Key Finding:**
+
+Through runtime debugging, we discovered that image load requests were failing immediately (~50ms) with "Failed to fetch" errors on SPA navigation - too fast for a network timeout, indicating the browser was rejecting the request based on cached state.
+
+**Fixes Applied:**
+
+**useSiloHoverPixi.js:**
+- Replaced Pixi's `Assets.load()` with a custom `loadImageDirectly()` function using a standard `Image` object
+- Added cache-busting parameter (`?t=timestamp`) to force fresh image load on every navigation
+- This ensures the browser always makes a new network request for the SVG
+- Added `isInitializingRef` to prevent concurrent initialization attempts
+- Maintained the local `cancelled` flag pattern for proper cleanup
+
+**SiloHoverBanner.jsx:**
+- State-based client detection with `isClient` and `isMobile` states
+- Shows static image during SSR/initial render to prevent layout shift
+- Resize event listener for responsive behavior
+- Passes `isMobile: !isClient || isMobile` to prevent premature Pixi initialization
+
+**Files Updated:**
+- `src/hooks/useSiloHoverPixi.js` - Cache-busting image loader, concurrent init prevention
+- `src/components/Home/SiloHoverBanner.jsx` - State-based client detection
+
+---
+
+### Production Codebase Cleanup
+
+Performed comprehensive cleanup to prepare the codebase for final production deployment. Removed ~70 files including backup files, migration scripts, unused pages, and development artifacts.
+
+**Files Removed:**
+
+| Category | Count | Description |
+|----------|-------|-------------|
+| Backup files (.bak) | 35 | All backup files across components, pages, and data |
+| Scripts folder | 22 | Migration scripts and Prismic type definitions |
+| Migration guide | 1 | PRISMIC_MIGRATION_GUIDE.txt |
+| Ramblings pages | 5 | Individual blog pages (now using Prismic via BlogDetail.jsx) |
+| Case study pages | 6 | Individual case study pages (now using Prismic via PostCaseStudy.jsx) |
+| Unused components | 6 | working-home-hero/, Section2.jsx, Section.jsx, OptionalAddOns.jsx |
+| Unused data files | 4 | blogDetailsData.js, blogPostsData.js, jobDetailData.js, jobsData.js |
+| DemoVideo folder | 1 | Local video file (code uses Cloudinary URLs) |
+
+**Folders Removed:**
+- `scripts/` - Migration tools and Prismic type JSON definitions
+- `src/pages/Ramblings/` - Individual blog post pages
+- `src/pages/case-studies/` - Individual case study pages
+- `src/components/About/working-home-hero/` - Test/development components
+- `src/DemoVideo/` - Local demo video
+
+**Files Kept:**
+- `src/data/servicesData.jsx` - Still used by Layout417.jsx and Cards.jsx
+- All active pages, components, and configuration files
+- README.md and UPDATES.md
+
+---
+
+### Implemented: Full Prismic CMS Integration for All Pages
+
+Completed comprehensive Prismic integration across the entire site, making all page content editable through the CMS.
+
+**Pages Updated to Fetch from Prismic:**
+
+| Page | Prismic Type | Content Managed |
+|------|--------------|-----------------|
+| Header | `navigation` | Logo, nav links, CTA button |
+| Footer | `footer` | Links, social media, newsletter CTA |
+| About | `about_page` | Hero, What Silo Is, Things We Believe In, Who We Love Working With |
+| Case Studies | `portfolio_page` | Hero heading and description |
+| Services | `services_page` | Hero section, service cards |
+| Job Board | `job_board_page` | Hero section with CTAs |
+| Careers | `careers_page` | Hero section, empty state |
+| Ramblings (Blog) | `ramblings_page` | Hero section, newsletter, empty state |
+| Contact (Brand) | `contact_page` | Hero section, secondary CTA |
+| UGC Contact | `ugc_contact_page` | Hero section, secondary CTA |
+| Terms | `terms_page` | Heading, date, rich text content |
+| Privacy | `privacy_page` | Heading, date, rich text content |
+| Legal | `legal_page` | Heading, date, rich text content |
+
+**Key Implementation Details:**
+
+1. **Navigation (Header.jsx):**
+   - Fetches logo, nav links, and CTA from `navigation` singleton
+   - Supports internal page links and external URLs via Prismic Link resolver
+   - Falls back to hardcoded defaults if Prismic unavailable
+
+2. **Footer (Footer.jsx):**
+   - Fetches all footer columns from `footer` singleton
+   - Supports dynamic social media links with icons
+   - Newsletter CTA heading/description configurable
+
+3. **About Page Components:**
+   - `Hero.jsx` - Accepts props for heading, description, image
+   - `WhatSiloIs.jsx` - Accepts props for heading, description, image
+   - `ThingsWeBelieveIn.jsx` - Accepts beliefs array prop
+   - `WhoWeLoveWorkingWith.jsx` - Accepts industry rows prop
+
+4. **Services Page:**
+   - Removed `servicesData.jsx` dependency
+   - `Layout417.jsx` now accepts `featureSections` prop for service cards
+   - All service card content managed in Prismic
+
+5. **Legal Pages (Terms, Privacy, Legal):**
+   - Use `PrismicRichText` component for rich text rendering
+   - Support headings, paragraphs, lists, bold/italic, links
+   - Custom styled components for consistent typography
+
+**Files Updated:**
+- `src/components/Common/Header.jsx`
+- `src/components/Common/Footer.jsx`
+- `src/pages/About.jsx`
+- `src/components/About/Hero.jsx`
+- `src/components/About/WhatSiloIs.jsx`
+- `src/components/About/ThingsWeBelieveIn.jsx`
+- `src/components/About/WhoWeLoveWorkingWith.jsx`
+- `src/pages/CaseStudies.jsx`
+- `src/pages/Services.jsx`
+- `src/components/servicee/Layout417.jsx`
+- `src/pages/JobBoard.jsx`
+- `src/pages/CareerIndex.jsx`
+- `src/pages/Ramblings.jsx`
+- `src/pages/Contact.jsx` (UGC Contact)
+- `src/pages/Contact2.jsx` (Brand Contact)
+- `src/pages/Terms.jsx`
+- `src/pages/Privacy.jsx`
+- `src/pages/Legal.jsx`
+
+**Prismic Custom Type Definitions Created:**
+- `scripts/prismic-about-page-type.json`
+- `scripts/prismic-portfolio-page-type.json`
+- `scripts/prismic-services-page-type.json`
+- `scripts/prismic-job-board-page-type.json`
+- `scripts/prismic-careers-page-type.json`
+- `scripts/prismic-ramblings-page-type.json`
+- `scripts/prismic-contact-page-type.json`
+- `scripts/prismic-ugc-contact-page-type.json`
+- `scripts/prismic-terms-page-type.json`
+- `scripts/prismic-privacy-page-type.json`
+- `scripts/prismic-legal-page-type.json`
+
+---
+
+### Added: Job Board Newsletter CTA Prismic Integration
+
+Created a new Prismic singleton for the newsletter subscription CTA on Job Board detail pages.
+
+**New Prismic Custom Type:** `job_board_newsletter`
+- Heading and description text
+- Email placeholder text
+- Button text
+- Terms text and link
+- Success message
+
+**New Files:**
+- `src/components/Common/JobBoardNewsletterPrismic.jsx` - Prismic-powered newsletter CTA component
+
+**Files Updated:**
+- `src/pages/JobBoardDetail.jsx` - Now uses `JobBoardNewsletterPrismic` instead of inline form
+
+**Editable Fields:**
+| Field | Default |
+|-------|---------|
+| `heading` | "Get these straight to your inbox" |
+| `description` | "We add UGC jobs weekly, but our creator roster gets first dibs..." |
+| `email_placeholder` | "Enter your email" |
+| `button_text` | "Send me work" |
+| `terms_text` | "By clicking Sign Up you're confirming that you agree with our" |
+| `terms_link_text` | "Terms and Conditions" |
+| `terms_link` | Link to terms page |
+| `success_message` | "Successfully subscribed to newsletter!" |
+
+---
+
+### Fixed: Home Page Prismic Integration Issues
+
+Fixed several issues with the Prismic integration for the Home page:
+
+**Issues Fixed:**
+1. **VideoAndWelcome not using props** - Component was reverted to old version that ignored props from Hero.jsx
+2. **CTA sections not updating** - ReadyWhenYouArePrismic and WantResultsLikeThisPrismic were passing `undefined` values which override component defaults instead of falling back
+3. **Mobile text too small** - Restored original mobile text styling (text-[18px] heading, text-[12px] description) with separate mobile content props
+4. **Services section styling broken** - ServiceCard component was wrapping content in an extra div that broke the parent's flex layout
+
+**Files Updated:**
+- `src/components/Home/VideoAndWelcome.jsx` - Now accepts props, maintains separate mobile content with original styling
+- `src/components/Common/ReadyWhenYouArePrismic.jsx` - Only spreads values that exist in Prismic (no undefined)
+- `src/components/Common/WantResultsLikeThisPrismic.jsx` - Only spreads values that exist in Prismic (no undefined)
+- `src/components/Home/ContentAndDone.jsx` - ServiceCard returns fragment instead of wrapper div
+
+---
+
+### Implemented: Full Prismic CMS Integration for Home Page and CTA Sections
+
+Integrated the Home page and reusable CTA sections with Prismic CMS for full content management.
+
+**New Prismic-Powered Components:**
+
+| Component | Prismic Type | Description |
+|-----------|--------------|-------------|
+| `ReadyWhenYouArePrismic` | `ready_when_you_are` | Fetches CTA content from singleton |
+| `WantResultsLikeThisPrismic` | `want_results_like_this` | Fetches case study CTA content |
+| `Hero` (Home) | `home_page` | Fetches all home page content |
+
+**New Files Added:**
+- `src/components/Common/ReadyWhenYouArePrismic.jsx` - Prismic wrapper for Ready When You Are CTA
+- `src/components/Common/WantResultsLikeThisPrismic.jsx` - Prismic wrapper for Want Results Like This CTA
+
+**Files Updated:**
+- `src/components/Home/Hero.jsx` - Now fetches from `home_page` singleton and passes data to child components
+- `src/components/Home/ContentAndDone.jsx` - Now accepts props for services/case studies headings and service cards
+- `src/pages/Home.jsx` - Fetches SEO data from Prismic
+
+**Home Page Prismic Fields:**
+- **SEO**: Page title, meta description, OG image
+- **Hero Section**: SVG banner, tagline, client logos (repeatable)
+- **Video & Welcome**: Video toggle, Vimeo URL, hero image, welcome text, CTA buttons
+- **Services Section**: Heading, service cards (repeatable with image, title, description, link)
+- **Case Studies Section**: Heading, subheading, View All button text/link
+
+**CTA Section Prismic Fields:**
+- Heading, description, image
+- Primary button (text + link)
+- Secondary button (text + link)
+
+**Features:**
+- Falls back to default values if Prismic data unavailable
+- Supports Prismic Link field resolution (internal documents + external URLs)
+- No loading flash - components render immediately with defaults, then update with Prismic data
+
+---
+
+### Updated: VideoAndWelcome Component for Prismic Integration
+
+Refactored the `VideoAndWelcome` component to accept props for all editable content, preparing it for Prismic CMS integration.
+
+**Changes:**
+- Removed internal CMS fetch logic (was fetching from placeholder URL)
+- Converted to prop-based component with sensible defaults
+- Unified mobile/desktop content - now uses same heading and description for both breakpoints
+- All content is now configurable via props
+
+**Props Available:**
+| Prop | Type | Default |
+|------|------|---------|
+| `showVideo` | boolean | `false` |
+| `videoUrl` | string | Vimeo embed URL |
+| `imageUrl` | string | Prismic image URL |
+| `welcomeHeading` | string | "We are the creative agency..." |
+| `welcomeDescription` | string | "We create content first..." |
+| `aboutButtonText` | string | "About us" |
+| `aboutButtonLink` | string | "/about" |
+| `secondaryLinkText` | string | "Let's Talk" |
+| `secondaryLinkUrl` | string | "/contact" |
+
+**File Updated:**
+- `src/components/Home/VideoAndWelcome.jsx`
+
+---
+
+### Added: Prismic Navigation Custom Type
+
+Created a Prismic custom type for managing the site navigation bar through the CMS.
+
+**New File:**
+- `scripts/prismic-navigation-type.json` - Navigation custom type definition
+
+**Features:**
+- **Singleton type**: Only one navigation instance for the site
+- **Editable nav links**: Add, remove, reorder, and hide navigation links
+- **Flexible destinations**: Links can point to internal pages or external URLs
+- **CTA button control**: Customize the header's call-to-action button text and destination
+- **Logo management**: Upload/change the site logo through Prismic
+
+**Custom Type Fields:**
+| Field | Type | Description |
+|-------|------|-------------|
+| `logo` | Image | Site logo |
+| `nav_links` | Group | Repeatable navigation links |
+| `nav_links.label` | Text | Link display text |
+| `nav_links.link` | Link | Destination URL/page |
+| `nav_links.is_visible` | Boolean | Show/hide toggle |
+| `cta_text` | Text | Button text |
+| `cta_link` | Link | Button destination |
+| `cta_visible` | Boolean | Show/hide CTA button |
+
+**To Install:**
+1. Go to Prismic dashboard → Custom Types
+2. Create new "Single" type
+3. Copy JSON from `scripts/prismic-navigation-type.json` into the JSON editor
+4. Save and publish
+
+---
+
 ### Fixed: SiloHoverBanner Hero Effect Not Initializing (Comprehensive Fix)
 
 Fixed persistent issue where the hero hover effect (Pixi.js liquid animation) would intermittently fail to load, especially on soft navigation. Previously only worked reliably on hard refresh.

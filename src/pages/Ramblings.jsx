@@ -3,16 +3,22 @@ import { Link, useNavigate } from "react-router-dom";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { usePageMeta } from "../hooks/usePageMeta";
 import { client } from "../prismicio";
-import * as prismic from "@prismicio/client";
 import LazyImage from "../components/Common/LazyImage";
-import LazyText from "../components/Common/LazyText";
 import LazyElement from "../components/Common/LazyElement";
+import JobBoardNewsletterPrismic from "../components/Common/JobBoardNewsletterPrismic";
 
 // GSAP
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { FaChevronRight } from "react-icons/fa";
 gsap.registerPlugin(ScrollTrigger);
+
+// Default values
+const defaults = {
+  heading: "Our Ramblings",
+  description: "From UGC tips to the latest in social and design trends, Silo's Blog dives into what's shaping the digital marketing and content-first world right now.",
+  emptyStateHeading: "This page is as empty as your brand without UGC.",
+  emptyStateDescription: "Don't worry, we're going to be fixing both.",
+};
 
 // Helper to extract plain text from Prismic Rich Text
 const asText = (richTextField) => {
@@ -22,45 +28,8 @@ const asText = (richTextField) => {
 };
 
 export default function Ramblings() {
-  usePageMeta(
-    "Insights on Social, Branding & Web Design",
-    "Read expert insights on social media strategy, content strategy, branding, web design, UX UI design, digital content trends and creative direction for modern brands."
-  );
-
   const navigate = useNavigate();
-  const [newsletterEmail, setNewsletterEmail] = useState("");
-
-  // Newsletter form submission handler
-  const handleNewsletterSubmit = (e) => {
-    e.preventDefault();
-    
-    if (!newsletterEmail || !newsletterEmail.includes("@")) {
-      return;
-    }
-
-    // Get existing data from localStorage
-    const existingData = JSON.parse(
-      localStorage.getItem("newsletterSubscriptions") || "[]"
-    );
-
-    // Add new subscription with timestamp
-    const newSubscription = {
-      email: newsletterEmail,
-      submittedAt: new Date().toISOString(),
-    };
-
-    // Add to array and store in localStorage
-    const updatedData = [...existingData, newSubscription];
-    localStorage.setItem("newsletterSubscriptions", JSON.stringify(updatedData));
-
-    // Log all stored data
-    console.log("Newsletter subscription:", newsletterEmail);
-
-    // Save current path for return redirect
-    sessionStorage.setItem("thankYouReturnPath", window.location.pathname);
-    // Redirect to thank you page
-    navigate("/thank-you");
-  };
+  const [pageData, setPageData] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("View all");
   const [blogPosts, setBlogPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -70,6 +39,37 @@ export default function Ramblings() {
   const sidebarRef = useRef(null);
   const sidebarWrapperRef = useRef(null);
 
+  usePageMeta(
+    pageData?.pageTitle || "Insights on Social, Branding & Web Design",
+    pageData?.metaDescription || "Read expert insights on social media strategy, content strategy, branding, web design, UX UI design, digital content trends and creative direction for modern brands."
+  );
+
+  // Fetch page data from Prismic
+  useEffect(() => {
+    async function fetchPageData() {
+      try {
+        const response = await client.getSingle("ramblings_page");
+        
+        if (response?.data) {
+          const data = response.data;
+          
+          setPageData({
+            pageTitle: data.page_title || null,
+            metaDescription: data.meta_description || null,
+            heading: data.hero_heading || null,
+            description: data.hero_description || null,
+            emptyStateHeading: data.empty_state_heading || null,
+            emptyStateDescription: data.empty_state_description || null,
+          });
+        }
+      } catch (error) {
+        console.warn("Could not fetch ramblings page from Prismic:", error.message);
+      }
+    }
+
+    fetchPageData();
+  }, []);
+
   // Fetch blog posts from Prismic
   useEffect(() => {
     async function fetchPosts() {
@@ -78,8 +78,7 @@ export default function Ramblings() {
         const response = await client.getAllByType("blog_post", {
           orderings: [{ field: "my.blog_post.publish_date", direction: "asc" }],
         });
-        
-        // Transform Prismic data to match expected format
+
         const transformedPosts = response.map((post) => ({
           id: post.id,
           uid: post.uid,
@@ -92,7 +91,7 @@ export default function Ramblings() {
           publishDate: post.data.publish_date,
           link: `/blog/${post.uid}`,
         }));
-        
+
         setBlogPosts(transformedPosts);
         setError(null);
       } catch (err) {
@@ -106,10 +105,8 @@ export default function Ramblings() {
     fetchPosts();
   }, []);
 
-  // Determine if we should show content
   const showContent = !isLoading && blogPosts.length > 0;
 
-  // Generate category list
   const categories = useMemo(() => {
     const uniqueCategories = [
       ...new Set(blogPosts.map((post) => post.category)),
@@ -117,7 +114,6 @@ export default function Ramblings() {
     return ["View all", ...uniqueCategories];
   }, [blogPosts]);
 
-  // Filter posts based on selected category
   const filteredPosts = useMemo(() => {
     if (selectedCategory === "View all") return blogPosts;
     return blogPosts.filter((post) => post.category === selectedCategory);
@@ -133,7 +129,6 @@ export default function Ramblings() {
     )
       return;
 
-    // Only enable scroll animation for screens >= 768px (md and up)
     if (window.innerWidth < 768) {
       gsap.set(sidebarRef.current, { y: 0 });
       return;
@@ -142,7 +137,6 @@ export default function Ramblings() {
     const sidebar = sidebarRef.current;
     const container = containerRef.current;
 
-    // reset sidebar position
     gsap.set(sidebar, { y: 0 });
 
     const st = ScrollTrigger.create({
@@ -157,7 +151,6 @@ export default function Ramblings() {
         const progress = self.progress;
         const maxY = container.offsetHeight - sidebar.offsetHeight;
 
-        // Move sidebar according to scroll
         gsap.to(sidebar, {
           y: progress * maxY,
           ease: "none",
@@ -172,18 +165,22 @@ export default function Ramblings() {
     };
   }, [showContent]);
 
+  // Use props with fallback to defaults
+  const displayHeading = pageData?.heading || defaults.heading;
+  const displayDescription = pageData?.description || defaults.description;
+  const displayEmptyStateHeading = pageData?.emptyStateHeading || defaults.emptyStateHeading;
+  const displayEmptyStateDescription = pageData?.emptyStateDescription || defaults.emptyStateDescription;
+
   return (
     <div className="min-h-screen md:mt-20 lg:mt-28 mx-3 md:mx-0">
       <div className="mx-auto max-w-[1280px] px-4 md:px-0 md:py-12 mb-20">
         {/* Header Section */}
         <div className="mb-24 md:w-[50vw] mt-32 md:mt-0 ">
           <h1 className="text-4xl lg:text-5xl font-bold text-black mb-4 font-['Epilogue'] leading-tight">
-            Our Ramblings
+            {displayHeading}
           </h1>
           <p className="text-black text-lg font-normal">
-            From UGC tips to the latest in social and design trends, Silo's
-            Blog dives into what's shaping the digital marketing and
-            content-first world right now.
+            {displayDescription}
           </p>
         </div>
 
@@ -225,10 +222,9 @@ export default function Ramblings() {
           </div>
         )}
 
-        {/* Empty State - Show when no posts */}
+        {/* Empty State */}
         {!isLoading && !error && blogPosts.length === 0 && (
           <div className="flex flex-col lg:flex-row gap-12 relative mt-2">
-            {/* Sidebar */}
             <div className="lg:w-48 flex-shrink-0">
               <div className="relative pb-4 bg-white">
                 <h3 className="text-lg font-bold text-black mb-6">
@@ -242,14 +238,13 @@ export default function Ramblings() {
               </div>
             </div>
 
-            {/* Empty State Message */}
             <div className="flex-1">
               <div className="border-[1px] border-black p-6 md:p-24 flex flex-col items-center justify-center min-h-[250px] md:min-h-[400px]">
                 <h2 className="text-2xl md:text-3xl font-bold text-black text-center mb-4">
-                  This page is as empty as your brand without UGC.
+                  {displayEmptyStateHeading}
                 </h2>
                 <p className="text-black text-base md:text-lg text-center">
-                  Don't worry, we're going to be fixing both.
+                  {displayEmptyStateDescription}
                 </p>
               </div>
             </div>
@@ -259,7 +254,6 @@ export default function Ramblings() {
         {/* Full Blog Content */}
         {showContent && (
           <>
-            {/* Sidebar + Posts Wrapper */}
             <div
               ref={containerRef}
               className="flex flex-col lg:flex-row gap-12 relative mt-2"
@@ -421,7 +415,6 @@ export default function Ramblings() {
                   </>
                 )}
 
-                {/* No posts in category message */}
                 {filteredPosts.length === 0 && (
                   <div className="text-center py-12">
                     <p className="text-black text-lg">
@@ -434,55 +427,8 @@ export default function Ramblings() {
           </>
         )}
 
-        {/* Newsletter Section */}
-        <div className="md:mt-40 mt-10">
-          <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8 md:gap-12 lg:gap-16">
-            <div className="lg:flex-1 lg:max-w-lg">
-              <h2 className="text-black text-3xl font-bold mb-4 font-['Epilogue'] leading-tight">
-                Sign up to our newsletter
-              </h2>
-
-              <p className="text-black text-base leading-relaxed">
-                We don't spam. We send sharp insights, new briefs, and content
-                you'll actually want to open.
-              </p>
-            </div>
-
-            <div className="lg:flex-shrink-0 max-w-xl w-full">
-              <form id="ramblings-newsletter-form" name="Ramblings Page Newsletter Subscription" onSubmit={handleNewsletterSubmit} className="md:flex md:gap-3 flex flex-col md:flex-row gap-4">
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  value={newsletterEmail}
-                  onChange={(e) => setNewsletterEmail(e.target.value)}
-                  required
-                  className="px-4 py-3 border border-black focus:outline-none focus:ring-2 focus:ring-[#FF322E] focus:border-transparent text-base w-full"
-                />
-                <button
-                  type="submit"
-                  className="inline-flex items-center justify-center gap-2 bg-[#FF322E] h-[48px] px-8 py-4 text-xs font-medium tracking-wide text-white border-transparent relative overflow-hidden group"
-                >
-                  <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 svg-wrapper group-hover:animate-bounce-custom">
-                    <FaChevronRight className="text-white w-5 h-5 opacity-0 transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:translate-x-0 group-hover:scale-[140%]" />
-                  </div>
-                  <span className="block transition-all whitespace-nowrap duration-300 ease-in-out text-base group-hover:translate-x-40">
-                    Sign me up!
-                  </span>
-                </button>
-              </form>
-
-              <p className="text-black text-sm mt-3 leading-relaxed">
-                By clicking Sign Up you're agreeing to our{" "}
-                <a
-                  href="/terms"
-                  className="hover:text-brand hover:text-base text-sm ease-in-out duration-200 cursor-pointer"
-                >
-                  Terms and Conditions
-                </a>
-              </p>
-            </div>
-          </div>
-        </div>
+        {/* Newsletter Section - Uses same Prismic singleton as Job Board */}
+        <JobBoardNewsletterPrismic className="md:mt-40 mt-10" />
       </div>
 
       <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black my-5" />

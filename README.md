@@ -89,7 +89,20 @@ The home page hero section consists of the following components (in order):
 - **SiloHoverBanner** - Animated SVG logo with hover effects
 - **LogoLoop** - Scrolling partner logos carousel
 - **VideoAndWelcome** - Video showcase with animated welcome letters
-- **ContentAndDone** - Additional content section
+- **ContentAndDone** - Services cards and case studies section
+- **ReadyWhenYouArePrismic** - CTA section (fetched from Prismic)
+
+### Prismic Integration
+The Home page fetches all content from the `home_page` Prismic singleton:
+- **SEO data** (page title, meta description)
+- **Hero SVG image** and tagline
+- **Client logos** (repeatable group)
+- **Video settings** (show/hide, URL, hero image)
+- **Welcome section** (heading, description, CTA buttons)
+- **Services section** (heading, service cards)
+- **Case studies section** (headings, View All button)
+
+The page falls back to default values if Prismic data is unavailable.
 
 ### Responsive Layout
 The hero section uses flexible layout with minimum heights to ensure components never overlap on any screen size. Each component maintains its own space regardless of viewport dimensions.
@@ -196,6 +209,27 @@ import WantResultsLikeThis from '../components/Common/WantResultsLikeThis';
 ```
 
 **Props:** Same as `ReadyWhenYouAre`, with different defaults appropriate for case studies.
+
+### Prismic-Powered CTA Components
+
+For pages that should pull CTA content from Prismic, use the Prismic wrapper components:
+
+```jsx
+// Ready When You Are - pulls from 'ready_when_you_are' singleton
+import ReadyWhenYouArePrismic from '../components/Common/ReadyWhenYouArePrismic';
+
+<ReadyWhenYouArePrismic />
+
+// Want Results Like This - pulls from 'want_results_like_this' singleton
+import WantResultsLikeThisPrismic from '../components/Common/WantResultsLikeThisPrismic';
+
+<WantResultsLikeThisPrismic />
+```
+
+These components:
+- Fetch content from Prismic singletons automatically
+- Fall back to default values if Prismic data is unavailable
+- Support Prismic Link field resolution (internal pages + external URLs)
 
 ---
 
@@ -354,6 +388,168 @@ This project is connected to Prismic for headless content management.
 - **Reorderable**: Set `display_order` field (lower = appears first)
 - **Homepage feature**: Toggle `show_on_homepage` to display on homepage
 
+#### Navigation (`navigation`)
+- **Singleton type** (only one instance)
+- Managed in Prismic for global site navigation
+
+**Navigation Fields:**
+- `logo` - Site logo image
+- `nav_links` - Repeatable group of navigation links:
+  - `label` - Link text displayed in nav
+  - `link` - Destination (internal page or external URL)
+  - `is_visible` - Show/hide individual nav items
+- `cta_text` - CTA button text (e.g. "Let's Talk")
+- `cta_link` - CTA button destination
+- `cta_visible` - Show/hide CTA button
+
+#### Home Page (`home_page`)
+- **Singleton type** (only one instance)
+- Manages all editable content on the home page
+
+**Home Page Sections:**
+- **SEO**: Page title, meta description, OG image
+- **Hero Section**: SVG banner image, tagline, client logos (repeatable)
+- **Video & Welcome Section**: Video toggle, Vimeo URL, hero image, welcome heading/description, CTA buttons
+- **Services Section**: Section heading, service cards (repeatable with image, title, description, link)
+- **Case Studies Section**: Heading, subheading, view all button
+
+#### Ready When You Are CTA (`ready_when_you_are`)
+- **Singleton type** (only one instance)
+- Reusable CTA block used on home page and other pages
+
+**Fields:**
+- `heading` - CTA heading text
+- `description` - CTA description
+- `image` - Section image
+- `primary_button_text` / `primary_button_link` - Primary CTA button
+- `secondary_button_text` / `secondary_button_link` - Secondary CTA button
+
+#### Want Results Like This CTA (`want_results_like_this`)
+- **Singleton type** (only one instance)
+- CTA block used on case study pages
+
+**Fields:** Same structure as Ready When You Are CTA, with different default values
+
+#### Footer (`footer`)
+- **Singleton type** (only one instance)
+- Manages footer links, social media, and newsletter CTA
+
+**Fields:**
+- `logo` - Footer logo image
+- `tagline` - Footer tagline text
+- `services_links` - Repeatable group for Services column links
+- `company_links` - Repeatable group for Company column links
+- `social_links` - Repeatable group for social media icons/links
+- `newsletter_heading` - Newsletter section heading
+- `newsletter_description` - Newsletter section description
+- `newsletter_button_text` - Newsletter submit button text
+- `copyright_text` - Copyright text
+- `legal_links` - Repeatable group for legal page links
+
+#### About Page (`about_page`)
+- **Singleton type** (only one instance)
+- Manages all content on the About page
+
+**Fields:**
+- Hero section: `hero_heading`, `hero_description`, `hero_image`
+- What Silo Is: `what_silo_is_heading`, `what_silo_is_description`, `what_silo_is_image`
+- Things We Believe In: `beliefs` repeatable group with `belief_title`, `belief_description`
+- Who We Love Working With: `who_we_love_heading`, `industry_rows` repeatable group
+
+#### Portfolio Page (`portfolio_page`)
+- **Singleton type** (only one instance)
+- Manages hero section on the Case Studies page
+
+**Fields:**
+- `hero_heading` - Page heading (default: "Our Work")
+- `hero_description` - Page description
+
+#### Services Page (`services_page`)
+- **Singleton type** (only one instance)
+- Manages all content on the Services page
+
+**Fields:**
+- Hero: `hero_heading`, `hero_description`, `primary_button_text`, `primary_button_link`, `secondary_button_text`, `secondary_button_link`
+- Service Cards: `service_cards` repeatable group with `icon`, `title`, `description`
+
+#### Job Board Page (`job_board_page`)
+- **Singleton type** (only one instance)
+- Manages hero section on the Job Board page
+
+**Fields:**
+- `hero_heading`, `hero_description_1`, `hero_description_2`
+- `primary_button_text`, `primary_button_link`
+- `secondary_button_text`, `secondary_button_link`
+
+#### Careers Page (`careers_page`)
+- **Singleton type** (only one instance)
+- Manages hero section and empty state on the Careers page
+
+**Fields:**
+- `hero_heading`, `hero_description`
+- `empty_state_heading`, `empty_state_description`, `empty_state_email`
+
+#### Ramblings Page (`ramblings_page`)
+- **Singleton type** (only one instance)
+- Manages hero, newsletter, and empty state on the Blog page
+
+**Fields:**
+- `hero_heading`, `hero_description`
+- `newsletter_heading`, `newsletter_description`
+- `empty_state_heading`, `empty_state_description`
+
+#### Contact Page (`contact_page`)
+- **Singleton type** (only one instance)
+- Manages Brand Contact form page content
+
+**Fields:**
+- Hero: `hero_heading`, `hero_description`, `hero_image`
+- Secondary CTA: `secondary_cta_heading`, `secondary_cta_description`, `secondary_cta_button_text`, `secondary_cta_button_link`, `secondary_cta_image`
+
+#### UGC Contact Page (`ugc_contact_page`)
+- **Singleton type** (only one instance)
+- Manages UGC Creator Contact form page content
+
+**Fields:** Same structure as Contact Page
+
+#### Terms Page (`terms_page`)
+- **Singleton type** (only one instance)
+- Manages Terms & Conditions page content
+
+**Fields:**
+- `heading` - Page heading
+- `effective_date` - Date terms became effective
+- `body` - Rich text content
+
+#### Privacy Page (`privacy_page`)
+- **Singleton type** (only one instance)
+- Manages Privacy Policy page content
+
+**Fields:** Same structure as Terms Page
+
+#### Legal Page (`legal_page`)
+- **Singleton type** (only one instance)
+- Manages Legal Information page content
+
+**Fields:**
+- `heading` - Page heading
+- `effective_date` - Last updated date
+- `body` - Rich text content
+
+#### Job Board Newsletter CTA (`job_board_newsletter`)
+- **Singleton type** (only one instance)
+- Newsletter subscription CTA for job board detail pages
+
+**Fields:**
+- `heading` - CTA heading text
+- `description` - CTA description
+- `email_placeholder` - Placeholder text for email input
+- `button_text` - Submit button text
+- `terms_text` - Terms agreement prefix text
+- `terms_link_text` - Terms link text
+- `terms_link` - Link to terms page
+- `success_message` - Toast message on successful submission
+
 ### Usage
 ```javascript
 import { client } from './prismicio';
@@ -368,6 +564,9 @@ const caseStudies = await client.getAllByType('case_study', {
 
 // Fetch a single document by UID
 const page = await client.getByUID('case_study', 'basement-approved');
+
+// Fetch the navigation singleton
+const navigation = await client.getSingle('navigation');
 ```
 
 ## Minds in the Silo (Team Members)
@@ -383,7 +582,7 @@ The "Minds in the Silo" section on the About page displays team members in a car
   - **3+ team members**: "Think you're the right fit?" + "Current Vacancies" + secondary CTA
 
 ### Prismic Integration
-Team members can be managed via Prismic. See `scripts/prismic-team-member-type.json` for the custom type definition.
+Team members are managed via Prismic.
 
 ---
 
@@ -398,7 +597,7 @@ The Job Board (`/job-board`) displays brand briefs for UGC creators.
 - **Dynamic detail pages**: Each job has its own detail page at `/jobs/:uid`
 
 ### Prismic Integration
-Job listings are managed via Prismic. See `scripts/prismic-job-listing-type.json` for the custom type definition.
+Job listings are managed via Prismic.
 
 **Job Listing Fields:**
 - `uid` - URL slug
@@ -427,7 +626,7 @@ The Careers page (`/careers`) displays internal Silo job openings.
 - **Chronological order**: Jobs sorted by publish date (newest first)
 
 ### Prismic Integration
-Career openings are managed via Prismic. See `scripts/prismic-career-type.json` for the custom type definition.
+Career openings are managed via Prismic.
 
 **Career Opening Fields:**
 - `uid` - URL slug
@@ -464,51 +663,3 @@ Both contact forms redirect to this page:
 - `/contact` (Brand Contact Form) - Contact2.jsx
 - `/ugc-contact` (UGC Creator Contact Form) - Contact.jsx
 
----
-
-## Image Migration (Cloudinary → Prismic)
-
-Scripts are available to migrate images from the old developer's Cloudinary account to Prismic's Media Library.
-
-### Migration Scripts
-
-- `scripts/migrate-images-to-prismic.mjs` - Downloads all Cloudinary images and prepares for Prismic upload
-- `scripts/replace-image-urls.mjs` - Replaces old URLs with new Prismic URLs in source files
-- `scripts/restore-from-backup.mjs` - Restores original files from .bak backups (reverses the migration)
-
-### Usage
-
-1. **Download all images:**
-   ```bash
-   node scripts/migrate-images-to-prismic.mjs
-   ```
-   This will:
-   - Scan the codebase for all Cloudinary URLs
-   - Download images to the `migrated-images/` folder
-   - Generate a mapping file at `scripts/image-url-mapping.json`
-
-2. **Upload to Prismic:**
-   - Go to https://silosite.prismic.io/media
-   - Drag and drop all images from `migrated-images/` folder
-   - For each image, copy the new Prismic URL
-
-3. **Update the mapping file:**
-   - Edit `scripts/image-url-mapping.json`
-   - Replace placeholder values with actual Prismic URLs
-
-4. **Replace URLs in codebase:**
-   ```bash
-   # Preview changes (no modifications)
-   node scripts/replace-image-urls.mjs --dry-run
-   
-   # Apply changes
-   node scripts/replace-image-urls.mjs
-   
-   # Apply with backup files
-   node scripts/replace-image-urls.mjs --backup
-   ```
-
-5. **Revert to Cloudinary (if needed):**
-   ```bash
-   node scripts/restore-from-backup.mjs
-   ```

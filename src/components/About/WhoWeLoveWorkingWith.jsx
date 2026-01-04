@@ -2,47 +2,69 @@ import TextLoop from "../Common/TextLoop";
 import { LuTriangleRight } from "react-icons/lu";
 import "../../styles/scaling-overrides.css";
 
-// Marquee row data objects — edit these to add/remove/modify each row
-const row1 = {
-  id: "row1",
-  text: "Lifestyle , Culture , Fashion , Beauty , Wellness , Events , Experiences , Entertainment , Travel , Health and fitness , Food and drink , Music , Art and design , Home and interiors , Sports , Personal development , ",
-  speed: 40,
-  direction: "left",
-  className: "text-lg md:text-lg xl:text-2xl font-bold text-black",
-  separator: (
-    <LuTriangleRight
-      className="text-brand fill-brand mx-4 rotate-90"
-      size={16}
-    />
-  ),
+// Default values
+const defaults = {
+  heading: "Who we love working with",
+  description: "We partner with brands and businesses that value strong strategy, great design and a clear digital presence. If you care about building a brand that looks good, works well and communicates with purpose, we are your people.",
+  marqueeRow1: "Lifestyle , Culture , Fashion , Beauty , Wellness , Events , Experiences , Entertainment , Travel , Health and fitness , Food and drink , Music , Art and design , Home and interiors , Sports , Personal development , ",
+  marqueeRow2: "Consumer goods , DTC brands , Media , Hospitality , Property , Real estate , Retail , E-commerce brands , Luxury goods , Homeware , Furniture , Travel and leisure brands , ",
+  marqueeRow3: "Finance , Investment , Professional services , Technology , SaaS , Startups , Creative industries , Fintech , Consulting , Legal services , B2B services , Software companies , Venture capital , Business education and training , ",
 };
 
-const row2 = {
-  id: "row2",
-  text: "Consumer goods , DTC brands , Media , Hospitality , Property , Real estate , Retail , E-commerce brands , Luxury goods , Homeware , Furniture , Travel and leisure brands , ",
-  speed: 40,
-  direction: "right",
-  className: "text-lg md:text-lg xl:text-2xl font-bold text-black",
-  separator: (
-    <LuTriangleRight className="text-brand fill-brand mx-4" size={16} />
-  ),
-};
+const WhoWeLoveWorkingWith = ({
+  heading,
+  description,
+  marqueeRow1,
+  marqueeRow2,
+  marqueeRow3,
+}) => {
+  // Use props with fallback to defaults
+  const displayHeading = heading || defaults.heading;
+  const displayDescription = description || defaults.description;
+  const displayRow1 = marqueeRow1 || defaults.marqueeRow1;
+  const displayRow2 = marqueeRow2 || defaults.marqueeRow2;
+  const displayRow3 = marqueeRow3 || defaults.marqueeRow3;
 
-const row3 = {
-  id: "row3",
-  text: "Finance , Investment , Professional services , Technology , SaaS , Startups , Creative industries , Fintech , Consulting , Legal services , B2B services , Software companies , Venture capital , Business education and training , ",
-  speed: 40,
-  direction: "left",
-  className: "text-lg md:text-lg xl:text-2xl font-bold text-black",
-  separator: (
-    <LuTriangleRight
-      className="text-brand fill-brand mx-4 rotate-90"
-      size={16}
-    />
-  ),
-};
+  // Marquee row configurations
+  const row1Config = {
+    id: "row1",
+    text: displayRow1,
+    speed: 40,
+    direction: "left",
+    className: "text-lg md:text-lg xl:text-2xl font-bold text-black",
+    separator: (
+      <LuTriangleRight
+        className="text-brand fill-brand mx-4 rotate-90"
+        size={16}
+      />
+    ),
+  };
 
-const WhoWeLoveWorkingWith = () => {
+  const row2Config = {
+    id: "row2",
+    text: displayRow2,
+    speed: 40,
+    direction: "right",
+    className: "text-lg md:text-lg xl:text-2xl font-bold text-black",
+    separator: (
+      <LuTriangleRight className="text-brand fill-brand mx-4" size={16} />
+    ),
+  };
+
+  const row3Config = {
+    id: "row3",
+    text: displayRow3,
+    speed: 40,
+    direction: "left",
+    className: "text-lg md:text-lg xl:text-2xl font-bold text-black",
+    separator: (
+      <LuTriangleRight
+        className="text-brand fill-brand mx-4 rotate-90"
+        size={16}
+      />
+    ),
+  };
+
   return (
     <section className="w-screen relative left-1/2 -translate-x-1/2 py-12 md:py-16 lg:py-20 bg-white overflow-x-hidden">
       <div className="max-w-[1280px] mx-auto w-full px-4 md:px-6 lg:px-8">
@@ -56,7 +78,7 @@ const WhoWeLoveWorkingWith = () => {
               lineHeight: "120%",
             }}
           >
-            Who we love working with
+            {displayHeading}
           </h2>
 
           <p
@@ -67,16 +89,17 @@ const WhoWeLoveWorkingWith = () => {
               lineHeight: "150%",
             }}
           >
-            We partner with brands and businesses that value strong strategy, great design and a clear digital presence. If you care about building a brand that looks good, works well and communicates with purpose, we are your people.
+            {displayDescription}
           </p>
         </div>
       </div>
+
       {/* Marquee Rows - Full Width */}
       <div className="relative">
         <div className="space-y-6 md:space-y-10">
-          <TextLoop {...row1} key={row1.id} separator={row1.separator} />
-          <TextLoop {...row2} key={row2.id} separator={row2.separator} />
-          <TextLoop {...row3} key={row3.id} separator={row3.separator} />
+          <TextLoop {...row1Config} key={row1Config.id} separator={row1Config.separator} />
+          <TextLoop {...row2Config} key={row2Config.id} separator={row2Config.separator} />
+          <TextLoop {...row3Config} key={row3Config.id} separator={row3Config.separator} />
         </div>
 
         {/* Left fade overlay */}

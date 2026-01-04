@@ -5,17 +5,23 @@ import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { WelcomeLetters } from "./WelcomeLetters";
 import { FaPlay } from "react-icons/fa";
 
-export default function VideoAndWelcome() {
-  const [cmsData, setCmsData] = useState({
-    showVideo: false,
-    videoUrl: "https://player.vimeo.com/video/76979871",
-    imageUrl:
-      "https://images.prismic.io/silosite/aVUgonNYClf9otsZ_v1762717240_image_re2b0o.png?auto=format,compress",
-  });
-
+export default function VideoAndWelcome({
+  showVideo = false,
+  videoUrl = "https://player.vimeo.com/video/76979871",
+  imageUrl = "https://images.prismic.io/silosite/aVUgonNYClf9otsZ_v1762717240_image_re2b0o.png?auto=format,compress",
+  welcomeHeading = "We are the creative agency for brands that want stronger strategy, better design, smarter websites and content that truly connects",
+  welcomeDescription = "We create content first, personality driven work that delivers real results and elevates your brand. Our approach unites strategic management, bold design, brand development, seamless websites and authentic creator content into one cohesive, creative and engaging experience across every digital touchpoint.",
+  // Mobile has different default content - shorter, punchier version
+  mobileHeading = "We're the creative agency for brands that want more than filler posts or cookie–cutter campaigns.",
+  mobileDescription = "We create intentional, personality–driven content, from authentic creator videos to scroll–stopping social feeds – designed to connect. Every piece is gin strategy, fuelled by creativity, and built to spark genuine engagement that grows your brand's online community.",
+  aboutButtonText = "About us",
+  aboutButtonLink = "/about",
+  secondaryLinkText = "Let's Talk",
+  secondaryLinkUrl = "/contact",
+}) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
-    if (!cmsData.showVideo) return;
+    if (!showVideo) return;
     setOpen(true);
   };
   const handleClose = () => setOpen(false);
@@ -27,26 +33,6 @@ export default function VideoAndWelcome() {
     if (open) window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
-
-  // Fetch CMS-provided settings (showVideo, videoUrl, imageUrl)
-  useEffect(() => {
-    let mounted = true;
-    // TODO: replace this URL with your CMS endpoint
-    fetch("https://yourcms.com/api/video-data")
-      .then((res) => res.json())
-      .then((data) => {
-        if (!mounted) return;
-        if (data && typeof data === "object") {
-          setCmsData((prev) => ({ ...prev, ...data }));
-        }
-      })
-      .catch(() => {
-        /* ignore fetch errors and keep defaults */
-      });
-    return () => {
-      mounted = false;
-    };
-  }, []);
 
   const playerRef = useRef(null);
 
@@ -73,13 +59,13 @@ export default function VideoAndWelcome() {
       <div className="relative w-screen left-1/2 -translate-x-1/2 overflow-hidden mt-6 md:mt-10 lg:mt-14 z-20">
         <div className="h-80 lg:h-[80vh] md:h-[60vh] relative z-20">
           <img
-            src={cmsData.imageUrl}
+            src={imageUrl}
             alt="Showcase"
             className="block w-full h-full object-cover select-none"
             loading="lazy"
           />
 
-          {cmsData.showVideo ? (
+          {showVideo ? (
             <>
               {/* semi-transparent black cover */}
               <div className="absolute inset-0 bg-black/60" aria-hidden />
@@ -125,7 +111,7 @@ export default function VideoAndWelcome() {
               {/* Vimeo embed with no border and no border-radius */}
               <iframe
                 title="Vimeo player"
-                src={`${cmsData.videoUrl}?autoplay=1&muted=0`}
+                src={`${videoUrl}?autoplay=1&muted=0`}
                 allow="autoplay; fullscreen; picture-in-picture"
                 allowFullScreen
                 className="w-full h-full"
@@ -144,33 +130,28 @@ export default function VideoAndWelcome() {
           {/* Left text div - aligned at bottom left */}
           <div className="relative z-10 self-end pb-20 max-w-[38%] md:max-w-[35%] flex flex-col justify-end gap-6 md:gap-7">
             <p className="text-base md:text-base lg:text-xl font-semibold md:tracking-tighter tracking-tight text-black">
-              We are the creative agency for brands that want stronger strategy,
-              better design, smarter websites and content that truly connects
+              {welcomeHeading}
             </p>
             <p className="text-xs md:text-xs lg:text-base font-semibold leading-relaxed text-black/80">
-              We create content first, personality driven work that delivers
-              real results and elevates your brand. Our approach unites
-              strategic management, bold design, brand development, seamless
-              websites and authentic creator content into one cohesive, creative
-              and engaging experience across every digital touchpoint.
+              {welcomeDescription}
             </p>
             <div className="flex flex-wrap items-center gap-8">
               <a
-                href="/about"
+                href={aboutButtonLink}
                 className="inline-flex items-center justify-center gap-2 bg-[#FF322E] w-xl h-[48px] px-6 py-3 text-xs font-bold  tracking-wide text-white  border-transparent relative overflow-hidden group"
               >
                 <div className="absolute left-3 top-1/2 -translate-y-1/2 translate-x-5 svg-wrapper group-hover:animate-bounce-custom">
                   <FaChevronRight className="block text-white w-4 h-4 opacity-0 transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:translate-x-7 group-hover:scale-[140%]" />
                 </div>
                 <span className="block transition-all duration-300 ease-in-out text-base group-hover:translate-x-28">
-                  About us
+                  {aboutButtonText}
                 </span>
               </a>
               <a
-                href="/contact"
+                href={secondaryLinkUrl}
                 className="inline-flex items-center gap-2 font-dm font-bold text-xl leading-[150%] text-[#FF322E] tracking-normal group"
               >
-                <span>Let’s Talk</span>
+                <span>{secondaryLinkText}</span>
                 <span
                   aria-hidden
                   className="inline-block ml-1 transform transition-transform duration-300 ease-in-out group-hover:translate-x-2"
@@ -201,7 +182,7 @@ export default function VideoAndWelcome() {
 
           {/* Mobile play CTA - opens the same Vimeo popout as desktop */}
           <div className="flex justify-center -mt-8">
-            {cmsData.showVideo && (
+            {showVideo && (
               <button
                 type="button"
                 aria-label="Play showreel"
@@ -215,33 +196,28 @@ export default function VideoAndWelcome() {
 
           <div className="mx-[3vw] md:px-0 ">
             <p className="text-[18px] font-extrabold tracking-tight text-black">
-              We're the creative agency for brands that want more than filler
-              posts or cookie–cutter campaigns.
+              {mobileHeading}
             </p>
             <p className="text-[12px] leading-relaxed text-black/80 mt-2">
-              We create intentional, personality–driven content, from authentic
-              creator videos to scroll–stopping social feeds – designed to
-              connect. Every piece is gin strategy, fuelled by creativity, and
-              built to spark genuine engagement that grows your brand’s online
-              community.
+              {mobileDescription}
             </p>
             <div className="flex flex-wrap items-center gap-4 mt-4">
               <a
-                href="/about"
+                href={aboutButtonLink}
                 className="inline-flex items-center justify-center gap-2  bg-[#FF322E] h-[48px] px-6 py-3 text-xs font-bold  tracking-wide text-white border-transparent relative overflow-hidden group"
               >
                 <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 svg-wrapper group-hover:animate-bounce-custom">
                   <FaChevronRight className="text-white w-5 h-5 opacity-0 transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:translate-x-2 group-hover:scale-[140%]" />
                 </div>
                 <span className="block transition-all duration-300 ease-in-out text-base group-hover:translate-x-6">
-                  About us
+                  {aboutButtonText}
                 </span>
               </a>
               <a
-                href="/contact"
+                href={secondaryLinkUrl}
                 className="inline-flex items-center gap-2 font-dm font-bold text-lg leading-[150%] text-[#FF322E] tracking-normal group"
               >
-                <span>Let's Talk</span>
+                <span>{secondaryLinkText}</span>
                 <span
                   aria-hidden
                   className="inline-block ml-1 transform transition-transform duration-300 ease-in-out group-hover:translate-x-2"

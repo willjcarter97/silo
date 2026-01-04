@@ -6,20 +6,55 @@ import {
   MdOutlineLocationOn,
 } from "react-icons/md";
 import { usePageMeta } from "../hooks/usePageMeta";
-import ReadyWhenYouAre from "../components/Common/ReadyWhenYouAre";
+import ReadyWhenYouArePrismic from "../components/Common/ReadyWhenYouArePrismic";
 import { client } from "../prismicio";
 
+// Default values
+const defaults = {
+  heading: "Work at Silo",
+  description: "Want to make ideas happen? Join Silo - a team of creators strategists, and storytellers shaping brands that stand out online.",
+  emptyStateHeading: "No roles live right now.",
+  emptyStateDescription: "Drop your CV anyway, we like ambitious people.",
+  emptyStateEmail: "hello@thesilocreative.com",
+};
+
 const CareerIndex = () => {
-  usePageMeta(
-    'Careers at Our Creative & Digital Studio',
-    'Explore roles in social media management, content strategy, brand identity design, motion graphics, digital design and website development at Silo.'
-  )
-
   const navigate = useNavigate();
-
-  // State for careers fetched from Prismic
+  const [pageData, setPageData] = useState(null);
   const [careers, setCareers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  usePageMeta(
+    pageData?.pageTitle || 'Careers at Our Creative & Digital Studio',
+    pageData?.metaDescription || 'Explore roles in social media management, content strategy, brand identity design, motion graphics, digital design and website development at Silo.'
+  );
+
+  // Fetch page data from Prismic
+  useEffect(() => {
+    async function fetchPageData() {
+      try {
+        const response = await client.getSingle("careers_page");
+        
+        if (response?.data) {
+          const data = response.data;
+          
+          setPageData({
+            pageTitle: data.page_title || null,
+            metaDescription: data.meta_description || null,
+            heading: data.hero_heading || null,
+            description: data.hero_description || null,
+            emptyStateHeading: data.empty_state_heading || null,
+            emptyStateDescription: data.empty_state_description || null,
+            emptyStateEmail: data.empty_state_email || null,
+          });
+        }
+      } catch (error) {
+        console.warn("Could not fetch careers page from Prismic:", error.message);
+      }
+    }
+
+    fetchPageData();
+  }, []);
 
   // Fetch careers from Prismic
   useEffect(() => {
@@ -52,7 +87,13 @@ const CareerIndex = () => {
     fetchCareers();
   }, []);
 
-  // Show jobs if we have any from Prismic
+  // Use props with fallback to defaults
+  const displayHeading = pageData?.heading || defaults.heading;
+  const displayDescription = pageData?.description || defaults.description;
+  const displayEmptyStateHeading = pageData?.emptyStateHeading || defaults.emptyStateHeading;
+  const displayEmptyStateDescription = pageData?.emptyStateDescription || defaults.emptyStateDescription;
+  const displayEmptyStateEmail = pageData?.emptyStateEmail || defaults.emptyStateEmail;
+
   const showJobs = careers.length > 0;
 
   const handleJobClick = (jobUid) => {
@@ -60,7 +101,7 @@ const CareerIndex = () => {
   };
 
   const handleApplyClick = (e, jobUid) => {
-    e.stopPropagation(); // Prevent card click when Apply button is clicked
+    e.stopPropagation();
     navigate(`/job/${jobUid}#apply`);
   };
 
@@ -72,10 +113,10 @@ const CareerIndex = () => {
             {/* Left Content */}
             <div className="space-y-4 sm:space-y-6 order-1 lg:order-1">
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-black leading-tight">
-                Work at Silo
+                {displayHeading}
               </h1>
               <p className="text-sm sm:text-base md:text-lg font-normal text-black leading-relaxed">
-                Want to make ideas happen? Join Silo - a team of creators strategists, and storytellers shaping brands that stand out online.
+                {displayDescription}
               </p>
             </div>
 
@@ -91,29 +132,29 @@ const CareerIndex = () => {
               </div>
             )}
 
-            {/* Empty State - Show when no jobs and not loading */}
+            {/* Empty State */}
             {!isLoading && !showJobs && (
               <div className="space-y-6 sm:space-y-4 order-2 lg:order-2">
                 <div className="bg-white border border-black p-8 sm:p-10 md:p-12 lg:p-16">
                   <h2 className="text-2xl sm:text-3xl font-bold text-black mb-4 text-center">
-                    No roles live right now.
+                    {displayEmptyStateHeading}
                   </h2>
                   <p className="text-base sm:text-lg text-black text-center mb-6">
-                    Drop your CV anyway, we like ambitious people.
+                    {displayEmptyStateDescription}
                   </p>
                   <p className="text-center">
                     <a
-                      href="mailto:hello@thesilocreative.com"
+                      href={`mailto:${displayEmptyStateEmail}`}
                       className="text-brand font-bold text-base sm:text-lg hover:underline"
                     >
-                      hello@thesilocreative.com
+                      {displayEmptyStateEmail}
                     </a>
                   </p>
                 </div>
               </div>
             )}
 
-            {/* Job Listings - Shows when jobs exist in Prismic */}
+            {/* Job Listings */}
             {showJobs && (
               <div className="space-y-6 sm:space-y-4 order-2 lg:order-2">
                 {careers.map((career) => (
@@ -193,7 +234,7 @@ const CareerIndex = () => {
         </div>
       </div>
       <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black my-16" />
-      <ReadyWhenYouAre />
+      <ReadyWhenYouArePrismic />
       <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black mt-16" />
     </div>
   );
