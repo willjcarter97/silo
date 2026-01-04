@@ -1,5 +1,36 @@
 # Updates Log
 
+## January 4, 2026
+
+### Fixed: SiloHoverBanner Hero Effect Not Initializing (Comprehensive Fix)
+
+Fixed persistent issue where the hero hover effect (Pixi.js liquid animation) would intermittently fail to load, especially on soft navigation. Previously only worked reliably on hard refresh.
+
+**Root Causes Identified:**
+
+1. **React StrictMode double-mounting**: In development, StrictMode mounts, unmounts, and remounts components. The async Pixi initialization would start, get interrupted by cleanup, then fail on remount due to stale state.
+
+2. **Closure issues with setTimeout cleanup**: The cleanup function used `setTimeout` with a closure over the `app` variable, which could be null when setTimeout finally executed.
+
+3. **ResizeObserver memory leak**: A new ResizeObserver was created but never disconnected in cleanup, causing stale references.
+
+4. **Pixi Assets cache staleness**: `Assets.load()` caches textures. After app destruction and recreation, cached textures could reference destroyed WebGL contexts.
+
+**Comprehensive Fixes Applied:**
+
+1. **Added persistent refs** (`appRef`, `resizeObserverRef`, `isInitializingRef`, `mountedRef`) that survive across StrictMode cycles
+2. **Double-init prevention**: Checks `isInitializingRef.current` and `appRef.current` before starting initialization
+3. **Mounted checks after each async operation**: Verifies component is still mounted after `app.init()` and `Assets.load()`
+4. **Pixi cache clearing**: Removes cached assets before loading to prevent stale texture issues
+5. **Synchronous cleanup**: Removed `setTimeout` wrapper - destruction happens immediately in cleanup
+6. **ResizeObserver cleanup**: Properly disconnects the observer in cleanup function
+7. **Added console logging**: For debugging initialization flow
+
+**Files Updated:**
+- `src/hooks/useSiloHoverPixi.js` - Complete rewrite with ref-based state management
+
+---
+
 ## January 3, 2026
 
 ### Fixed: Services Card Section Mobile Height (Layout417)
