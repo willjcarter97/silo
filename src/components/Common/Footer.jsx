@@ -90,6 +90,8 @@ const Footer = () => {
   const navigate = useNavigate();
   const [footerData, setFooterData] = useState(defaultFooterData);
   const [caseStudies, setCaseStudies] = useState([]);
+  const [newsletterEmail, setNewsletterEmail] = useState("");
+  const [newsletterEmailMobile, setNewsletterEmailMobile] = useState("");
 
   // Fetch footer data from Prismic
   useEffect(() => {
@@ -203,6 +205,30 @@ const Footer = () => {
     }, 100);
   };
 
+  // Handle newsletter form submission
+  const handleNewsletterSubmit = (e, isMobile = false) => {
+    e.preventDefault();
+    const email = isMobile ? newsletterEmailMobile : newsletterEmail;
+    
+    // Basic email validation
+    if (!email || !email.includes("@")) {
+      return;
+    }
+
+    // Set return path for Thank You page
+    sessionStorage.setItem("thankYouReturnPath", window.location.pathname);
+    
+    // Small delay to allow HubSpot to capture form data, then redirect
+    setTimeout(() => {
+      if (isMobile) {
+        setNewsletterEmailMobile("");
+      } else {
+        setNewsletterEmail("");
+      }
+      navigate("/thank-you");
+    }, 300);
+  };
+
   // Render social icon based on platform
   const renderSocialIcon = (platform) => {
     switch (platform?.toLowerCase()) {
@@ -286,13 +312,16 @@ const Footer = () => {
                   id="footer-newsletter-form"
                   name="Footer Newsletter Subscription"
                   className="flex w-full max-w-md items-stretch gap-3"
-                  onSubmit={(e) => e.preventDefault()}
+                  onSubmit={(e) => handleNewsletterSubmit(e, false)}
                 >
                   <input
                     type="email"
+                    name="email"
                     aria-label="Email address"
                     placeholder={footerData.newsletterPlaceholder}
                     className="w-full border border-black px-4 py-2.5 text-sm font-bold placeholder-black/60 focus:outline-none focus:ring-2 focus:ring-black focus:border-black"
+                    value={newsletterEmail}
+                    onChange={(e) => setNewsletterEmail(e.target.value)}
                     required
                   />
                   <button
@@ -523,13 +552,16 @@ const Footer = () => {
               {footerData.newsletterHeading}
             </div>
 
-            <form id="footer-newsletter-form-mobile" name="Footer Newsletter Subscription Mobile" className="w-full" onSubmit={(e) => e.preventDefault()}>
+            <form id="footer-newsletter-form-mobile" name="Footer Newsletter Subscription Mobile" className="w-full" onSubmit={(e) => handleNewsletterSubmit(e, true)}>
               <div className="border border-black overflow-hidden">
                 <input
                   type="email"
+                  name="email"
                   aria-label="Email address"
                   placeholder={footerData.newsletterPlaceholder}
                   className="w-full px-3 py-3 text-sm placeholder-black/60 font-bold focus:outline-none bg-white"
+                  value={newsletterEmailMobile}
+                  onChange={(e) => setNewsletterEmailMobile(e.target.value)}
                   required
                 />
               </div>

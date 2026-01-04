@@ -2,6 +2,26 @@
 
 ## January 4, 2026
 
+### Fixed: Footer Newsletter Subscribe Redirecting to Thank You Page
+
+Fixed an issue where the newsletter subscribe form in the footer was submitting data to HubSpot but not redirecting to the Thank You page afterwards.
+
+**Root Cause:**
+The form had `onSubmit={(e) => e.preventDefault()}` which prevented any action after HubSpot captured the form data, including navigation to the Thank You page.
+
+**Fix:**
+- Added controlled state for the newsletter email inputs (both desktop and mobile forms)
+- Created a `handleNewsletterSubmit` function that:
+  - Validates the email
+  - Stores the current page path in sessionStorage for the Thank You page return navigation
+  - Redirects to `/thank-you` after a brief delay (to allow HubSpot to capture the form data)
+- Added `name="email"` attribute to the email inputs for proper HubSpot field mapping
+
+**File Updated:**
+- `src/components/Common/Footer.jsx`
+
+---
+
 ### Fixed: Home Page Services Section Mobile Bottom Border
 
 Fixed a visual issue where the 4th service card (Content Strategy) on the Home page was displaying a bottom border on mobile when it shouldn't.

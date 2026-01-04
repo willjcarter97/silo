@@ -357,6 +357,12 @@ The header component (`src/components/Common/Header.jsx`) features:
 
 The footer component (`src/components/Common/Footer.jsx`) is shared across all pages and includes:
 
+### Newsletter Subscription Form
+- Both desktop and mobile versions of the newsletter form
+- Submits to HubSpot via the embedded tracking script
+- Redirects to `/thank-you` page after successful submission
+- Stores current page path in sessionStorage for return navigation
+
 ### Social Media Links
 - **Instagram**: [@thesilocreative](https://www.instagram.com/thesilocreative/)
 - **TikTok**: [@the.silo.creative](https://www.tiktok.com/@the.silo.creative)
@@ -659,7 +665,8 @@ The Thank You page (`/thank-you`) is displayed after successful contact form sub
 - **Skip option**: "Go to homepage now" link for immediate redirect
 
 ### Form Integration
-Both contact forms redirect to this page:
+The following forms redirect to the Thank You page after submission:
 - `/contact` (Brand Contact Form) - Contact2.jsx
 - `/ugc-contact` (UGC Creator Contact Form) - Contact.jsx
+- Footer Newsletter Subscription (desktop & mobile) - Footer.jsx
 
