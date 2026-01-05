@@ -4,16 +4,6 @@ import { FaChevronRight } from "react-icons/fa";
 import { SiTiktok } from "react-icons/si";
 import { client } from "../../prismicio";
 
-// Default case studies to prevent CLS (used before Prismic loads)
-const defaultCaseStudies = [
-  { uid: "basement-approved", title: "Basement Approved" },
-  { uid: "tomoka-fine-and-rare", title: "Tomoka Fine & Rare" },
-  { uid: "electrolytes-with-joly", title: "Electrolytes with Joly" },
-  { uid: "acorn-property-group", title: "Acorn Property Group" },
-  { uid: "cluberly", title: "Cluberly" },
-  { uid: "knightsgate-partners", title: "Knightsgate" },
-];
-
 // Default footer data (fallback if Prismic fails)
 const defaultFooterData = {
   logo: "https://images.prismic.io/silosite/aVUgn3NYClf9otsW_v1762717230_footerlogo_tllimb.png?auto=format,compress",
@@ -99,8 +89,7 @@ const Footer = () => {
   const year = new Date().getFullYear();
   const navigate = useNavigate();
   const [footerData, setFooterData] = useState(defaultFooterData);
-  // Initialize with default case studies to prevent CLS during Prismic load
-  const [caseStudies, setCaseStudies] = useState(defaultCaseStudies);
+  const [caseStudies, setCaseStudies] = useState([]);
   const [newsletterEmail, setNewsletterEmail] = useState("");
   const [newsletterEmailMobile, setNewsletterEmailMobile] = useState("");
 
@@ -300,14 +289,7 @@ const Footer = () => {
   };
 
   return (
-    <footer 
-      className="w-full bg-white text-black max-w-[1280px] mx-auto" 
-      style={{ 
-        minHeight: '500px',
-        contentVisibility: 'auto',
-        containIntrinsicSize: '0 500px'
-      }}
-    >
+    <footer className="w-full bg-white text-black max-w-[1280px] mx-auto" style={{ minHeight: '500px' }}>
       <div className="mx-3 md:mx-auto">
         {/* Top grid: logo/newsletter + link columns */}
         <div className="hidden md:block w-full py-10 md:py-14 lg:px-0">
@@ -384,21 +366,45 @@ const Footer = () => {
                   </Link>
                 </h4>
                 <ul className="space-y-3">
-                  {caseStudies.map((study) => (
-                    <li key={study.uid}>
-                      <a
-                        href={`/case-studies/${study.uid}`}
-                        className="text-sm ease-in-out duration-200 cursor-pointer hover:text-brand"
-                        style={{
-                          fontFamily: "DM Sans",
-                          fontWeight: 700,
-                          lineHeight: "150%",
-                        }}
-                      >
-                        {study.title}
-                      </a>
-                    </li>
-                  ))}
+                  {caseStudies.length > 0 ? (
+                    caseStudies.map((study) => (
+                      <li key={study.uid}>
+                        <a
+                          href={`/case-studies/${study.uid}`}
+                          className="text-sm ease-in-out duration-200 cursor-pointer hover:text-brand"
+                          style={{
+                            fontFamily: "DM Sans",
+                            fontWeight: 700,
+                            lineHeight: "150%",
+                          }}
+                        >
+                          {study.title}
+                        </a>
+                      </li>
+                    ))
+                  ) : (
+                    // Fallback to hardcoded if no case studies loaded
+                    <>
+                      <li>
+                        <a href="/case-studies/basement-approved" className="text-sm ease-in-out duration-200 cursor-pointer hover:text-brand" style={{ fontFamily: "DM Sans", fontWeight: 700, lineHeight: "150%" }}>Basement Approved</a>
+                      </li>
+                      <li>
+                        <a href="/case-studies/tomoka-fine-and-rare" className="text-sm ease-in-out duration-200 cursor-pointer hover:text-brand" style={{ fontFamily: "DM Sans", fontWeight: 700, lineHeight: "150%" }}>Tomoka Fine & Rare</a>
+                      </li>
+                      <li>
+                        <a href="/case-studies/electrolytes-with-joly" className="text-sm ease-in-out duration-200 cursor-pointer hover:text-brand" style={{ fontFamily: "DM Sans", fontWeight: 700, lineHeight: "150%" }}>Electrolytes with Joly</a>
+                      </li>
+                      <li>
+                        <a href="/case-studies/acorn-property-group" className="text-sm ease-in-out duration-200 cursor-pointer hover:text-brand" style={{ fontFamily: "DM Sans", fontWeight: 700, lineHeight: "150%" }}>Acorn Property Group</a>
+                      </li>
+                      <li>
+                        <a href="/case-studies/cluberly" className="text-sm ease-in-out duration-200 cursor-pointer hover:text-brand" style={{ fontFamily: "DM Sans", fontWeight: 700, lineHeight: "150%" }}>Cluberly</a>
+                      </li>
+                      <li>
+                        <a href="/case-studies/knightsgate-partners" className="text-sm ease-in-out duration-200 cursor-pointer hover:text-brand" style={{ fontFamily: "DM Sans", fontWeight: 700, lineHeight: "150%" }}>Knightsgate</a>
+                      </li>
+                    </>
+                  )}
                 </ul>
               </div>
               {/* Socials */}
@@ -504,16 +510,27 @@ const Footer = () => {
                 Case Studies
               </Link>
               <ul className="space-y-1">
-                {caseStudies.map((study) => (
-                  <li key={study.uid}>
-                    <a
-                      href={`/case-studies/${study.uid}`}
-                      className="text-sm hover:text-brand"
-                    >
-                      {study.title}
-                    </a>
-                  </li>
-                ))}
+                {caseStudies.length > 0 ? (
+                  caseStudies.map((study) => (
+                    <li key={study.uid}>
+                      <a
+                        href={`/case-studies/${study.uid}`}
+                        className="text-sm hover:text-brand"
+                      >
+                        {study.title}
+                      </a>
+                    </li>
+                  ))
+                ) : (
+                  <>
+                    <li><a href="/case-studies/basement-approved" className="text-sm hover:text-brand">Basement Approved</a></li>
+                    <li><a href="/case-studies/tomoka-fine-and-rare" className="text-sm hover:text-brand">Tomoka Fine & Rare</a></li>
+                    <li><a href="/case-studies/electrolytes-with-joly" className="text-sm hover:text-brand">Electrolytes with Joly</a></li>
+                    <li><a href="/case-studies/acorn-property-group" className="text-sm hover:text-brand">Acorn Property Group</a></li>
+                    <li><a href="/case-studies/cluberly" className="text-sm hover:text-brand">Cluberly</a></li>
+                    <li><a href="/case-studies/knightsgate-partners" className="text-sm hover:text-brand">Knightsgate</a></li>
+                  </>
+                )}
               </ul>
             </div>
           </div>

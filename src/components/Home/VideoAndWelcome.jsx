@@ -58,31 +58,18 @@ export default function VideoAndWelcome({
 
       <div className="relative w-screen left-1/2 -translate-x-1/2 overflow-hidden mt-6 md:mt-10 lg:mt-14 z-20">
         <div className="h-80 lg:h-[80vh] md:h-[60vh] relative z-20">
-          <picture>
-            {/* AVIF format - best compression (30-50% smaller than WebP) */}
-            <source
-              type="image/avif"
-              srcSet={`${imageUrl}&w=320&q=20&fm=avif 320w, ${imageUrl}&w=480&q=20&fm=avif 480w, ${imageUrl}&w=768&q=25&fm=avif 768w, ${imageUrl}&w=1024&q=30&fm=avif 1024w, ${imageUrl}&w=1280&q=35&fm=avif 1280w`}
-              sizes="100vw"
-            />
-            {/* WebP fallback - good compression, wider browser support */}
-            <source
-              type="image/webp"
-              srcSet={`${imageUrl}&w=320&q=25&fm=webp 320w, ${imageUrl}&w=480&q=25&fm=webp 480w, ${imageUrl}&w=768&q=30&fm=webp 768w, ${imageUrl}&w=1024&q=35&fm=webp 1024w, ${imageUrl}&w=1280&q=40&fm=webp 1280w`}
-              sizes="100vw"
-            />
-            {/* Fallback for browsers that don't support picture element */}
-            <img
-              src={`${imageUrl}&w=768&q=30&fm=webp`}
-              alt="Showcase"
-              className="block w-full h-full object-cover select-none"
-              loading="eager"
-              fetchPriority="high"
-              decoding="async"
-              width="990"
-              height="560"
-            />
-          </picture>
+          <img
+            src={`${imageUrl}&w=800&q=30&fm=webp`}
+            srcSet={`${imageUrl}&w=400&q=30&fm=webp 400w, ${imageUrl}&w=800&q=30&fm=webp 800w, ${imageUrl}&w=1200&q=50&fm=webp 1200w`}
+            sizes="100vw"
+            alt="Showcase"
+            className="block w-full h-full object-cover select-none"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+            width="990"
+            height="560"
+          />
 
           {showVideo ? (
             <>
