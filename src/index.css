@@ -3,6 +3,25 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Font fallbacks with size-adjust to prevent CLS during font loading */
+@font-face {
+  font-family: 'DM Sans Fallback';
+  src: local('Arial');
+  size-adjust: 96%;
+  ascent-override: 92%;
+  descent-override: 22%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'Epilogue Fallback';
+  src: local('Arial');
+  size-adjust: 100%;
+  ascent-override: 95%;
+  descent-override: 25%;
+  line-gap-override: 0%;
+}
+
 
 
 /* Global tweaks to resemble the clean white layout */

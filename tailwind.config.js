@@ -39,8 +39,9 @@ export default {
           'Segoe UI Symbol',
           'Noto Color Emoji',
         ],
-        dm: ['DM Sans', 'ui-sans-serif', 'system-ui', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial'],
-        epilogue: ['Epilogue', 'ui-sans-serif', 'system-ui', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial'],
+        // Fallback fonts with size-adjust prevent CLS during web font loading
+        dm: ['DM Sans', 'DM Sans Fallback', 'Arial', 'sans-serif'],
+        epilogue: ['Epilogue', 'Epilogue Fallback', 'Arial', 'sans-serif'],
       },
     },
   },

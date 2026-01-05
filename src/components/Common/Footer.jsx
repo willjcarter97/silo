@@ -289,7 +289,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="w-full bg-white text-black max-w-[1280px] mx-auto">
+    <footer className="w-full bg-white text-black max-w-[1280px] mx-auto" style={{ minHeight: '500px' }}>
       <div className="mx-3 md:mx-auto">
         {/* Top grid: logo/newsletter + link columns */}
         <div className="hidden md:block w-full py-10 md:py-14 lg:px-0">

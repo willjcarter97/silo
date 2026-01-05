@@ -2,6 +2,26 @@
 
 ## January 5, 2026
 
+### Performance: CLS and Preconnect Fixes
+
+Fixed major layout shift issues and added missing preconnect hints to improve mobile PageSpeed scores.
+
+**Issues Fixed:**
+
+| Issue | Fix | Impact |
+|-------|-----|--------|
+| **CLS 0.493 from Footer** | Added `minHeight: 500px` to footer to reserve space during async Prismic load | High |
+| **Missing HubSpot preconnects** | Added preconnect hints for HubSpot tracking domains | Medium |
+| **Font CLS** | Added `@font-face` fallbacks with `size-adjust` to prevent text reflow when web fonts load | Medium |
+
+**Files Updated:**
+- `index.html` - Added 5 HubSpot preconnects (`track-ap1.hubspot.com`, `forms-ap1.hscollectedforms.net`, `js-ap1.hscollectedforms.net`, `js-ap1.hs-scripts.com`, `js-ap1.hs-analytics.net`)
+- `src/index.css` - Added `DM Sans Fallback` and `Epilogue Fallback` font-face declarations with size-adjust
+- `tailwind.config.js` - Updated font stacks to include fallback fonts
+- `src/components/Common/Footer.jsx` - Added `minHeight: 500px` to prevent CLS
+
+---
+
 ### Added: robots.txt and sitemap.xml for SEO
 
 Added standard SEO files to help search engines crawl and index the site.
