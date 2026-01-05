@@ -60,7 +60,7 @@ export default function VideoAndWelcome({
         <div className="h-80 lg:h-[80vh] md:h-[60vh] relative z-20">
           <img
             src={`${imageUrl}&w=800&q=50&fm=webp`}
-            srcSet={`${imageUrl}&w=400&q=50&fm=webp 400w, ${imageUrl}&w=800&q=50&fm=webp 800w, ${imageUrl}&w=1200&q=50&fm=webp 1200w`}
+            srcSet={`${imageUrl}&w=400&q=35&fm=webp 400w, ${imageUrl}&w=800&q=45&fm=webp 800w, ${imageUrl}&w=1200&q=55&fm=webp 1200w`}
             sizes="100vw"
             alt="Showcase"
             className="block w-full h-full object-cover select-none"

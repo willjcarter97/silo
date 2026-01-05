@@ -115,13 +115,14 @@ export default function Hero() {
           
           // Transform client logos from Prismic format
           // Add &w= parameter to resize images on Prismic CDN for better performance
+          // Use 1.5x multiplier (good balance between quality and size)
           const clientLogos = data.client_logos?.length > 0
             ? data.client_logos.map((logo, index) => {
                 let imgUrl = logo.logo_image?.url || DEFAULT_LOGOS[index]?.src || "";
                 // Add width resize parameter if it's a Prismic URL and doesn't already have &w=
                 if (imgUrl && imgUrl.includes('prismic.io') && !imgUrl.includes('&w=')) {
                   const displayWidth = logo.logo_width || 120;
-                  imgUrl = `${imgUrl}&w=${displayWidth * 2}`; // 2x for retina
+                  imgUrl = `${imgUrl}&w=${Math.round(displayWidth * 1.5)}`; // 1.5x for good quality without excess
                 }
                 return {
                   src: imgUrl,
