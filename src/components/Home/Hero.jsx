@@ -10,33 +10,34 @@ import LazyElement from "../Common/LazyElement";
 import "../../styles/scaling-overrides.css";
 
 // Default logos used if Prismic data is not available
+// Added &w= parameters to resize images on Prismic CDN for better performance
 const DEFAULT_LOGOS = [
   {
-    src: "https://images.prismic.io/silosite/aVUgP3NYClf9otrF_v1765878090_Vector_1_g3nkgs.png?auto=format,compress",
+    src: "https://images.prismic.io/silosite/aVUgP3NYClf9otrF_v1765878090_Vector_1_g3nkgs.png?auto=format,compress&w=100",
     alt: "logo1",
     style: { width: "50px", height: "auto" },
   },
   {
-    src: "https://images.prismic.io/silosite/aVUgPnNYClf9otrE_v1765878090_image_7_irnf5t.png?auto=format,compress",
+    src: "https://images.prismic.io/silosite/aVUgPnNYClf9otrE_v1765878090_image_7_irnf5t.png?auto=format,compress&w=320",
     alt: "logo2",
     style: { height: "30px" },
   },
   {
-    src: "https://images.prismic.io/silosite/aVUgQHNYClf9otrG_v1765878091_Layer_o43ajs.png?auto=format,compress",
+    src: "https://images.prismic.io/silosite/aVUgQHNYClf9otrG_v1765878091_Layer_o43ajs.png?auto=format,compress&w=200",
     alt: "logo3",
   },
   {
-    src: "https://images.prismic.io/silosite/aVUgRnNYClf9otrM_v1765882727_Untitled_Project_smo9qt.jpg?auto=format,compress",
+    src: "https://images.prismic.io/silosite/aVUgRnNYClf9otrM_v1765882727_Untitled_Project_smo9qt.jpg?auto=format,compress&w=160",
     alt: "logo4",
     style: { width: "80px", height: "auto" },
   },
   {
-    src: "https://images.prismic.io/silosite/aVUgSXNYClf9otrP_v1765884632_Tomoko-e10fd11f_2_jto3ax.png?auto=format,compress",
+    src: "https://images.prismic.io/silosite/aVUgSXNYClf9otrP_v1765884632_Tomoko-e10fd11f_2_jto3ax.png?auto=format,compress&w=240",
     alt: "logo5",
     style: { width: "90px", height: "auto" },
   },
   {
-    src: "https://images.prismic.io/silosite/aVUgSHNYClf9otrO_v1765884632_image_5_ibtcoo.png?auto=format,compress",
+    src: "https://images.prismic.io/silosite/aVUgSHNYClf9otrO_v1765884632_image_5_ibtcoo.png?auto=format,compress&w=320",
     alt: "logo6",
     style: { width: "100px", height: "auto" },
   },
