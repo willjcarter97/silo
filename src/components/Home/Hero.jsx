@@ -114,12 +114,21 @@ export default function Hero() {
           const data = response.data;
           
           // Transform client logos from Prismic format
+          // Add &w= parameter to resize images on Prismic CDN for better performance
           const clientLogos = data.client_logos?.length > 0
-            ? data.client_logos.map((logo, index) => ({
-                src: logo.logo_image?.url || DEFAULT_LOGOS[index]?.src || "",
-                alt: logo.logo_alt || `logo${index + 1}`,
-                style: logo.logo_width ? { width: `${logo.logo_width}px`, height: "auto" } : undefined,
-              }))
+            ? data.client_logos.map((logo, index) => {
+                let imgUrl = logo.logo_image?.url || DEFAULT_LOGOS[index]?.src || "";
+                // Add width resize parameter if it's a Prismic URL and doesn't already have &w=
+                if (imgUrl && imgUrl.includes('prismic.io') && !imgUrl.includes('&w=')) {
+                  const displayWidth = logo.logo_width || 120;
+                  imgUrl = `${imgUrl}&w=${displayWidth * 2}`; // 2x for retina
+                }
+                return {
+                  src: imgUrl,
+                  alt: logo.logo_alt || `logo${index + 1}`,
+                  style: logo.logo_width ? { width: `${logo.logo_width}px`, height: "auto" } : undefined,
+                };
+              })
             : DEFAULT_LOGOS;
 
           // Transform service cards from Prismic format
