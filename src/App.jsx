@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { Analytics } from "@vercel/analytics/react";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AppRoutes from './routes';
@@ -24,7 +23,6 @@ const App = () => {
         draggable
         pauseOnHover
       />
-      <Analytics />
     </BrowserRouter>
   );
 };
