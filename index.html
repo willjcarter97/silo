@@ -1,27 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Google tag (gtag.js) -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-77WXY85ZDY"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-
-      gtag("config", "G-77WXY85ZDY");
-    </script>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Preconnect FIRST - establish early connections to critical origins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://images.prismic.io" crossorigin />
+    <link rel="preconnect" href="https://silosite.cdn.prismic.io" crossorigin />
+    
+    <!-- Google Fonts - loaded early but with display=swap -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Epilogue:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    
     <link
       rel="icon"
       type="image/svg+xml"
       href="https://images.prismic.io/silosite/aVUrRnNYClf9otud_favicon-16x16_wmoo6x.png?auto=format,compress"
     />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <title>Silo | Modern Creative Agency for Social, Brand & Web.</title>
     <meta
       name="description"
       content="A modern creative studio specialising in social media strategy, content strategy, brand identity design, web design and custom website development for growing brands."
@@ -50,18 +51,20 @@
       content="A modern creative studio specialising in social media strategy, content strategy, brand identity design, web design and custom website development for growing brands."
     />
 
-    <!-- Preconnect to critical third-party origins -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://images.prismic.io" crossorigin />
-    <link rel="preconnect" href="https://silosite.cdn.prismic.io" crossorigin />
-    
-    <!-- Google Fonts with display=swap to prevent render blocking -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Epilogue:wght@300;400;500;700&display=swap"
-      rel="stylesheet"
-    />
-    <title>Silo | Modern Creative Agency for Social, Brand & Web.</title>
+    <!-- Google Analytics - deferred to not block render -->
+    <script
+      async
+      defer
+      src="https://www.googletagmanager.com/gtag/js?id=G-77WXY85ZDY"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-77WXY85ZDY");
+    </script>
   </head>
   <body>
     <div id="root"></div>

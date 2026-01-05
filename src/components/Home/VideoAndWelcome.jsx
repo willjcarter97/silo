@@ -59,12 +59,16 @@ export default function VideoAndWelcome({
       <div className="relative w-screen left-1/2 -translate-x-1/2 overflow-hidden mt-6 md:mt-10 lg:mt-14 z-20">
         <div className="h-80 lg:h-[80vh] md:h-[60vh] relative z-20">
           <img
-            src={`${imageUrl}&w=1200`}
+            src={`${imageUrl}&w=800&q=80`}
+            srcSet={`${imageUrl}&w=400&q=80 400w, ${imageUrl}&w=800&q=80 800w, ${imageUrl}&w=1200&q=80 1200w`}
+            sizes="100vw"
             alt="Showcase"
             className="block w-full h-full object-cover select-none"
             loading="eager"
             fetchpriority="high"
             decoding="async"
+            width="990"
+            height="560"
           />
 
           {showVideo ? (

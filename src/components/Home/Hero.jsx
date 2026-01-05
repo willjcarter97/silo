@@ -177,14 +177,14 @@ export default function Hero() {
 
           <div 
             className="relative left-1/2 -translate-x-1/2 w-screen bg-transparent flex-shrink-0 mt-auto"
-            style={{ minHeight: '120px' }}
+            style={{ minHeight: '140px' }}
           >
-            <div className="w-full home-hero-text-h">
+            <div className="w-full home-hero-text-h" style={{ minHeight: '50px' }}>
               <div className="text-black text-base font-medium text-center max-w-2xl mx-auto px-4 py-3 md:py-4">
                 {homeData.heroTagline}
               </div>
             </div>
-            <div className="pb-6 mt-3 home-hero-text-p" style={{ minHeight: '60px' }}>
+            <div className="pb-6 mt-3 home-hero-text-p" style={{ minHeight: '70px' }}>
               <LogoLoop
                 logos={homeData.clientLogos}
                 gap={80}

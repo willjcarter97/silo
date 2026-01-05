@@ -301,7 +301,7 @@ const Footer = () => {
                   <img
                     src={footerData.logo}
                     alt="Silo logo"
-                    className="w-auto max-h-12"
+                    style={{ width: '150px', height: '48px', objectFit: 'contain' }}
                     width="150"
                     height="48"
                     loading="lazy"
@@ -462,7 +462,7 @@ const Footer = () => {
               <img
                 src={footerData.logo}
                 alt="Silo logo"
-                className="w-auto max-h-12"
+                style={{ width: '150px', height: '48px', objectFit: 'contain' }}
                 width="150"
                 height="48"
                 loading="lazy"
