@@ -370,6 +370,37 @@ The footer component (`src/components/Common/Footer.jsx`) is shared across all p
 
 All social links open in new tabs with secure `rel="noopener noreferrer"` attributes.
 
+## Hosting & Deployment
+
+The site uses a dual-environment setup for staging and production.
+
+### Environment Configuration
+
+| Environment | Platform | Branch | URL | Prismic Content |
+|-------------|----------|--------|-----|-----------------|
+| **Production** | Netlify | `main` | Your domain | Published only |
+| **Staging** | Vercel | `main` | Vercel preview URL | Draft + Published |
+
+### How It Works
+
+1. **Push to `main` branch** → Deploys to both Netlify (production) and Vercel (staging)
+2. **Edit content in Prismic** → Create/edit as drafts
+3. **Preview on staging** → See draft content on Vercel deployment
+4. **Publish in Prismic** → Content goes live on production (Netlify)
+
+### Environment Variables
+
+| Variable | Production (Netlify) | Staging (Vercel) |
+|----------|---------------------|------------------|
+| `VITE_ENV` | `production` | `staging` |
+
+### Configuration Files
+
+- `netlify.toml` - Netlify build settings, SPA routing, security headers
+- `vercel.json` - Vercel SPA rewrites and staging environment
+
+---
+
 ## Prismic CMS Integration
 
 This project is connected to Prismic for headless content management.

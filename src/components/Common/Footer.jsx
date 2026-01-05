@@ -301,7 +301,9 @@ const Footer = () => {
                   <img
                     src={footerData.logo}
                     alt="Silo logo"
-                    className="h-8"
+                    className="w-auto max-h-12"
+                    width="150"
+                    height="48"
                     loading="lazy"
                   />
                 </Link>
@@ -460,7 +462,9 @@ const Footer = () => {
               <img
                 src={footerData.logo}
                 alt="Silo logo"
-                className="h-8"
+                className="w-auto max-h-12"
+                width="150"
+                height="48"
                 loading="lazy"
               />
             </Link>

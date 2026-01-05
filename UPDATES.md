@@ -1,5 +1,78 @@
 # Updates Log
 
+## January 5, 2026
+
+### Added: robots.txt and sitemap.xml for SEO
+
+Added standard SEO files to help search engines crawl and index the site.
+
+**New Files:**
+- `public/robots.txt` - Allows all crawlers, points to sitemap, blocks `/thank-you`
+- `public/sitemap.xml` - Lists all static pages with priorities and change frequencies
+
+**Note:** The sitemap includes static routes only. Dynamic content (blog posts, case studies) from Prismic would require a build-time sitemap generator for full coverage.
+
+**Domain:** Update `https://www.thesilocreative.com` in both files once the domain is confirmed.
+
+---
+
+### Performance Optimization: PageSpeed Improvements
+
+Implemented multiple performance optimizations to improve Core Web Vitals scores.
+
+**Fixes Applied:**
+
+| Issue | Fix | Impact |
+|-------|-----|--------|
+| **LCP (7.4s → faster)** | Removed `loading="lazy"` from hero image, added `fetchpriority="high"` | High |
+| **CLS (0.713 → lower)** | Added `minHeight` to LogoLoop container to reserve space | High |
+| **CLS** | Added explicit `width` and `height` to footer logos | Medium |
+| **CLS** | Added default dimensions to LogoLoop images | Medium |
+| **Render Blocking** | Removed duplicate Google Fonts @import (already loaded via link tag) | Medium |
+| **Resource Discovery** | Added preconnect hints for Prismic CDN | Medium |
+| **Image Size** | Added `&w=1200` to hero image URL for proper sizing | Medium |
+
+**Files Updated:**
+- `index.html` - Added preconnect hints for `images.prismic.io` and `silosite.cdn.prismic.io`
+- `src/index.css` - Removed redundant Google Fonts @import
+- `src/components/Home/VideoAndWelcome.jsx` - Hero image: `loading="eager"`, `fetchpriority="high"`, sized URL
+- `src/components/Home/Hero.jsx` - Added `minHeight` to LogoLoop container
+- `src/components/Common/LogoLoop.jsx` - Added default width/height to prevent CLS
+- `src/components/Common/Footer.jsx` - Added explicit dimensions to logo images
+
+---
+
+### Added: Dual Hosting Setup (Netlify Production + Vercel Staging)
+
+Configured the site for dual-environment hosting with Netlify as production and Vercel as staging.
+
+**New Files:**
+- `netlify.toml` - Netlify configuration with SPA routing, security headers, and asset caching
+
+**Configuration:**
+
+| Environment | Platform | Branch | VITE_ENV | Prismic Content |
+|-------------|----------|--------|----------|-----------------|
+| Production | Netlify | `main` | `production` | Published only |
+| Staging | Vercel | `main` | `staging` | Draft + Published |
+
+**netlify.toml Features:**
+- Build command: `npm run build`
+- Publish directory: `dist`
+- SPA routing: All routes redirect to `/index.html` with 200 status
+- Security headers: X-Frame-Options, X-Content-Type-Options, Referrer-Policy
+- Asset caching: 1-year cache for static assets and images
+
+**Files Updated:**
+- `vercel.json` - Added `VITE_ENV=staging` environment variable
+- `src/prismicio.js` - Added environment detection for production vs staging
+
+**Live URLs:**
+- Production: (pending domain connection)
+- Staging: https://super-liger-09b2af.netlify.app/
+
+---
+
 ## January 4, 2026
 
 ### Fixed: Footer Newsletter Subscribe Redirecting to Thank You Page

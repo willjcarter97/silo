@@ -59,10 +59,12 @@ export default function VideoAndWelcome({
       <div className="relative w-screen left-1/2 -translate-x-1/2 overflow-hidden mt-6 md:mt-10 lg:mt-14 z-20">
         <div className="h-80 lg:h-[80vh] md:h-[60vh] relative z-20">
           <img
-            src={imageUrl}
+            src={`${imageUrl}&w=1200`}
             alt="Showcase"
             className="block w-full h-full object-cover select-none"
-            loading="lazy"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
           />
 
           {showVideo ? (

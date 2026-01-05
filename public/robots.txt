@@ -1,0 +1,12 @@
+# Robots.txt for Silo Creative
+# https://www.thesilocreative.com
+
+User-agent: *
+Allow: /
+
+# Sitemap location (update domain when live)
+Sitemap: https://www.thesilocreative.com/sitemap.xml
+
+# Disallow admin/internal paths (if any)
+Disallow: /thank-you
+
