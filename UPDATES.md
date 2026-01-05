@@ -2,6 +2,31 @@
 
 ## January 5, 2026
 
+### Performance: Mobile Page Speed Optimizations
+
+Implemented multiple performance optimizations targeting mobile Core Web Vitals based on PageSpeed Insights analysis.
+
+**Issues Fixed:**
+
+| Issue | Fix | Impact |
+|-------|-----|--------|
+| **CLS 0.352 from Footer** | Initialize case studies with default data instead of empty array; added CSS containment with `content-visibility: auto` | High |
+| **Hero image 71KB (42KB savings)** | Added `<picture>` element with AVIF + WebP sources, smaller mobile breakpoints, and lower quality for mobile | High |
+| **HubSpot blocking initial render** | Deferred HubSpot script loading to 2 seconds after `window.onload` | Medium |
+| **Font swap CLS** | Added font preloading for DM Sans and Epilogue critical font files | Low |
+
+**Files Updated:**
+- `src/components/Common/Footer.jsx` - Added `defaultCaseStudies` array, CSS containment, simplified case studies rendering
+- `src/components/Home/VideoAndWelcome.jsx` - Replaced `<img>` with `<picture>` element using AVIF/WebP sources with mobile-optimized breakpoints
+- `index.html` - Added font preload hints, deferred HubSpot script to load after page interaction
+
+**Expected Impact:**
+- CLS: 0.380 → < 0.1
+- LCP: ~300ms improvement
+- FCP: ~200ms improvement
+
+---
+
 ### Performance: CLS and Preconnect Fixes
 
 Fixed major layout shift issues and added missing preconnect hints to improve mobile PageSpeed scores.

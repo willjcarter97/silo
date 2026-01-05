@@ -353,6 +353,33 @@ The header component (`src/components/Common/Header.jsx`) features:
 
 ---
 
+## Performance Optimizations
+
+The site implements several performance optimizations for Core Web Vitals:
+
+### Image Optimization
+- **Hero image**: Uses `<picture>` element with AVIF and WebP sources
+- **Responsive breakpoints**: 320w, 480w, 768w, 1024w, 1280w with quality scaling
+- **LazyImage component**: Intersection Observer-based loading with fade-in animations
+
+### Cumulative Layout Shift (CLS) Prevention
+- **Footer**: Pre-populated with default case studies data to prevent shifts during Prismic load
+- **CSS containment**: `content-visibility: auto` with `contain-intrinsic-size` for footer
+- **Font fallbacks**: `@font-face` declarations with `size-adjust` for DM Sans and Epilogue
+
+### Third-Party Script Optimization
+- **HubSpot**: Deferred loading 2 seconds after `window.onload` to prioritize core content
+- **Google Fonts**: Non-blocking load using `media="print" onload` pattern
+- **Font preloading**: Critical font files preloaded in `<head>`
+
+### Preconnect Hints
+Early connections established for:
+- `fonts.googleapis.com` / `fonts.gstatic.com`
+- `images.prismic.io` / `silosite.cdn.prismic.io`
+- HubSpot tracking domains (`track-ap1.hubspot.com`, etc.)
+
+---
+
 ## Footer
 
 The footer component (`src/components/Common/Footer.jsx`) is shared across all pages and includes:
