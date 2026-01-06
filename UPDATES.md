@@ -1,5 +1,26 @@
 # Updates Log
 
+## January 6, 2026
+
+### Fixed: Case Study Pages 404 on Netlify
+
+Fixed an issue where case study pages (e.g., `/case-studies/basement-approved`) were returning 404 errors on the Netlify deployment.
+
+**Root Cause:**
+The `netlify.toml` file was empty, missing the critical SPA redirect rule that tells Netlify to serve `index.html` for all routes (allowing React Router to handle client-side routing).
+
+**Fix:**
+Restored `netlify.toml` with:
+- SPA routing: `/* → /index.html` with 200 status
+- Security headers (X-Frame-Options, CSP, HSTS, etc.)
+- Environment variables for production/staging contexts
+- Static asset caching headers
+
+**File Updated:**
+- `netlify.toml` - Recreated with full configuration
+
+---
+
 ## January 5, 2026
 
 ### Performance: CLS and Preconnect Fixes
