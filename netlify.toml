@@ -17,7 +17,7 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://js-ap1.hs-scripts.com https://js-ap1.hs-analytics.net https://js-ap1.hscollectedforms.net https://js-ap1.hs-banner.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https://images.prismic.io https://silosite.cdn.prismic.io; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://silosite.cdn.prismic.io https://www.google-analytics.com https://region1.google-analytics.com https://stats.g.doubleclick.net https://forms-ap1.hscollectedforms.net https://api.hubspot.com https://track-ap1.hubspot.com; frame-src 'self' https://player.vimeo.com; object-src 'none';"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://js-ap1.hs-scripts.com https://js-ap1.hs-analytics.net https://js-ap1.hscollectedforms.net https://js-ap1.hs-banner.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob: https://images.prismic.io https://silosite.cdn.prismic.io https://res.cloudinary.com; font-src 'self' https://fonts.gstatic.com; media-src 'self' blob: https://images.prismic.io https://silosite.cdn.prismic.io https://res.cloudinary.com; connect-src 'self' https://silosite.cdn.prismic.io https://www.google-analytics.com https://region1.google-analytics.com https://stats.g.doubleclick.net https://forms-ap1.hscollectedforms.net https://api.hubspot.com https://track-ap1.hubspot.com; frame-src 'self' https://player.vimeo.com https://www.youtube.com; object-src 'none';"
 
 # Environment variables per context
 [context.production.environment]
@@ -34,4 +34,5 @@
   for = "/assets/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+
 

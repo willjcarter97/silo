@@ -1,5 +1,21 @@
 # Updates Log
 
+## January 7, 2026
+
+### Fixed: Videos Not Playing on Netlify
+
+Fixed Content Security Policy (CSP) blocking video playback on case study pages.
+
+**Root Cause:**
+The CSP was missing `media-src` directive, which defaults to `'self'` and blocked all external video sources (Prismic, Cloudinary).
+
+**Fix:**
+- Added `media-src 'self' blob: https://images.prismic.io https://silosite.cdn.prismic.io https://res.cloudinary.com`
+- Added `blob:` and `https://res.cloudinary.com` to `img-src`
+- Added `https://www.youtube.com` to `frame-src` for future YouTube embeds
+
+---
+
 ## January 6, 2026
 
 ### Fixed: Case Study Pages 404 on Netlify
