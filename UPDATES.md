@@ -1,5 +1,17 @@
 # Updates Log
 
+## January 30, 2026
+
+### Removed: Lines Between Portfolio Cards
+
+Removed the divider lines (borders) between portfolio/case study cards on both the homepage and portfolio page.
+
+**Files Updated:**
+- `src/pages/CaseStudies.jsx` - Removed `border-b border-black` from desktop and mobile card components
+- `src/components/Home/ContentAndDone.jsx` - Removed `border-b border-b-black` from desktop and tablet card components
+
+---
+
 ## January 7, 2026
 
 ### Fixed: Videos Not Playing on Netlify

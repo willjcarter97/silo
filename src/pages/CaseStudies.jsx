@@ -58,7 +58,7 @@ const CaseStudyCardDesktop = ({ caseStudy, isLast }) => {
   
   return (
     <LazyElement
-      className={`hidden lg:flex items-center justify-between gap-12 xl:gap-20 py-8 ${!isLast ? 'border-b border-black' : ''} group cursor-pointer`}
+      className={`hidden lg:flex items-center justify-between gap-12 xl:gap-20 py-8 group cursor-pointer`}
       animation="fadeUp"
       renderWhenHidden={true}
       onClick={() => (window.location.href = link)}
@@ -106,7 +106,7 @@ const CaseStudyCardMobile = ({ caseStudy, isLast }) => {
   
   return (
     <LazyElement
-      className={`flex flex-col lg:hidden py-6 ${!isLast ? 'border-b border-black' : ''} cursor-pointer`}
+      className={`flex flex-col lg:hidden py-6 cursor-pointer`}
       animation="fadeUp"
       renderWhenHidden={true}
       onClick={() => (window.location.href = link)}

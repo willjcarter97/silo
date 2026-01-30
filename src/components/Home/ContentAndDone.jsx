@@ -47,7 +47,7 @@ const HomepageCaseStudyDesktop = ({ caseStudy, isLast }) => {
   
   return (
     <div
-      className={`hidden lg:flex items-center justify-around space-x-40 py-6 ${!isLast ? 'border-b border-b-black' : ''} group relative cursor-pointer`}
+      className={`hidden lg:flex items-center justify-around space-x-40 py-6 group relative cursor-pointer`}
       onClick={() => (window.location.href = link)}
     >
       <div className="w-1/3 aspect-[4/3] flex items-center justify-center overflow-hidden transform transition-transform duration-600 ease-in-out lg:group-hover:-translate-x-0">
@@ -99,7 +99,7 @@ const HomepageCaseStudyTablet = ({ caseStudy, isLast }) => {
   
   return (
     <div
-      className={`block md:flex lg:hidden items-center w-full mx-auto justify-center md:space-x-10 space-y-3 md:space-y-0 ${!isLast ? 'border-b border-b-black' : ''} py-12 pt-5 group relative mt-0 cursor-pointer`}
+      className={`block md:flex lg:hidden items-center w-full mx-auto justify-center md:space-x-10 space-y-3 md:space-y-0 py-12 pt-5 group relative mt-0 cursor-pointer`}
       onClick={() => (window.location.href = link)}
     >
       <div className="w-full md:w-[80%] flex flex-col justify-center items-start gap-4 text-left">

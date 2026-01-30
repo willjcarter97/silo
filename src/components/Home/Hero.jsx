@@ -126,8 +126,8 @@ export default function Hero() {
                 }
                 return {
                   src: imgUrl,
-                  alt: logo.logo_alt || `logo${index + 1}`,
-                  style: logo.logo_width ? { width: `${logo.logo_width}px`, height: "auto" } : undefined,
+                alt: logo.logo_alt || `logo${index + 1}`,
+                style: logo.logo_width ? { width: `${logo.logo_width}px`, height: "auto" } : undefined,
                 };
               })
             : DEFAULT_LOGOS;
@@ -190,22 +190,22 @@ export default function Hero() {
             <div 
               className="relative left-1/2 -translate-x-1/2 w-screen bg-transparent flex-shrink-0 mt-auto"
             >
-              <div className="w-full home-hero-text-h">
-                <div className="text-black text-base font-medium text-center max-w-2xl mx-auto px-4 py-3 md:py-4">
-                  {homeData.heroTagline}
-                </div>
-              </div>
-              <div className="pb-6 mt-3 home-hero-text-p">
-                <LogoLoop
-                  logos={homeData.clientLogos}
-                  gap={80}
-                  speed={100}
-                  stripCoverage={4}
-                  shuffleCopies={false}
-                  logoHeight={48}
-                />
+            <div className="w-full home-hero-text-h">
+              <div className="text-black text-base font-medium text-center max-w-2xl mx-auto px-4 py-3 md:py-4">
+                {homeData.heroTagline}
               </div>
             </div>
+            <div className="pb-6 mt-3 home-hero-text-p">
+              <LogoLoop
+                logos={homeData.clientLogos}
+                gap={80}
+                speed={100}
+                stripCoverage={4}
+                shuffleCopies={false}
+                logoHeight={48}
+              />
+            </div>
+          </div>
           </LazySection>
         </div>
 
