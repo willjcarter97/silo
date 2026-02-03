@@ -110,7 +110,7 @@ const Interested = ({ interestedData }) => {
       <p className="text-base leading-[150%] tracking-normal text-black">
         {card.description}
       </p>
-      <ul className="space-y-3 text-sm text-black">
+      <ul className="space-y-3 text-base text-black">
         {card.bulletPoints?.map((point, idx) => (
           <BulletPoint key={idx} text={point} />
         ))}
@@ -143,7 +143,7 @@ const Interested = ({ interestedData }) => {
             <p className="text-base leading-[150%] tracking-normal text-black">
               {addOns.description}
             </p>
-            <ul className="space-y-3 text-sm text-black">
+            <ul className="space-y-3 text-base text-black">
               {addOns.bulletPoints.map((point, idx) => (
                 <BulletPoint key={idx} text={point} />
               ))}

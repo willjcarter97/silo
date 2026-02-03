@@ -1,5 +1,25 @@
 # Updates Log
 
+## February 3, 2026
+
+### Fixed: Blog Page Post Ordering (Newest First)
+
+Changed the blog page to display posts in descending chronological order (newest first) instead of ascending order (oldest first).
+
+**File Updated:**
+- `src/pages/Ramblings.jsx` - Changed `direction: "asc"` to `direction: "desc"` in the Prismic query orderings
+
+---
+
+### Fixed: Services Page List Font Size
+
+Fixed the bullet point lists on the Services page that were displaying at 14px (`text-sm`) instead of the correct 16px (`text-base`).
+
+**File Updated:**
+- `src/components/servicee/Interested.jsx` - Changed `text-sm` to `text-base` on all `<ul>` elements
+
+---
+
 ## January 30, 2026
 
 ### Removed: Lines Between Portfolio Cards
