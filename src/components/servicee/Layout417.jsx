@@ -78,7 +78,7 @@ const Layout417 = ({ heading, featureSections, serviceCards }) => {
   return (
     <section 
       ref={containerRef} 
-      className="relative h-[50vh] sm:h-screen flex items-center justify-center bg-white overflow-visible"
+      className="relative sm:h-screen hidden sm:flex items-center justify-center bg-white overflow-visible"
     >
       <div className="relative h-full w-full flex items-center justify-center">
         {/* Large heading behind cards - with liquid fill effect */}
