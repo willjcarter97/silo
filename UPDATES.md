@@ -1,5 +1,42 @@
 # Updates Log
 
+## September 22, 2026
+
+### Client copy update: "London to Perth" positioning (branch `feat/client-copy-update`)
+
+Implements the client's copy document. Live copy comes from Prismic, so every wording change is a
+pair: a Prismic field edit (see `PRISMIC-COPY-CHECKLIST.md`) plus the matching code fallback below.
+Structural/layout changes are code-only and take effect on deploy.
+
+**Removed (UGC era):**
+- Job Board (`/job-board`, `/jobs/:id`) and creator enquiry form (`/ugc-contact`); old URLs redirect to `/careers` / `/contact`
+- "Looking to join as a creator instead?" section on Contact; the brand form is now the only form on the site
+- "For Brands / For Creators" split on the repeating CTA: single "Let's Talk" button to `/contact`
+- "Job Board" nav item (Header default + Footer default; also unmapped in both `resolveLinkUrl`s so a stale Prismic nav item is filtered out)
+- Dead code: `WhyUGC`, `servicee/Hero`, `servicee/Cards`, `Layout417`, `Interested`, `JobBoard`, `JobBoardDetail`, UGC `Contact` (`Contact2` renamed to `Contact`)
+
+**Changed:**
+- Services page: pinned card stack + liquid "CORE SERVICES" heading + duplicate image grid replaced by `ServicesLedger` (numbered 01-04 rows with the site's 1px dividers, bullets on the right) and an "Other ways we can help" block. Reads the same Prismic fields (`interested_cards`, `add_ons_*`, `core_services_heading`) with fallbacks in `src/data/servicesData.jsx`
+- About: "Things we believe in" uses `01/ 02/ 03/` markers instead of image blocks (`showImages` prop restores them); "What Silo is" renders two paragraphs with an optional third; "Who we love working with" gains a tagline line (Prismic `who_we_work_tagline` if added, else code default)
+- Homepage: services teaser renders titles only (blurb shown only when present); welcome heading is now the page `<h1>`; desktop and mobile share the same heading/description
+- Case-study cards (portfolio + homepage): location pill, from Prismic `case_study.location` when the field exists, else `src/data/caseStudyLocations.js`
+- Code fallbacks updated to the new copy: homepage tagline/H1/sub-headline, About hero/what-silo/beliefs, Services hero, Careers hero + empty state (email `hi@silo-creative.com`), Ramblings intro
+- Careers job-detail: UGC-era placeholder bullets and lorem ipsum removed (content comes from the `career` doc only)
+
+**Fixed:**
+- Footer copyright rendered "All rights reserved.. All rights reserved." (Prismic value already contains it); now normalised
+- Header CTA default "Lets Talk" -> "Let's Talk"
+- `fetchpriority` -> `fetchPriority` (React 19 warning on every home load)
+- `sitemap.xml` / `robots.txt` pointed at `thesilocreative.com`; now `silo-creative.com`, retired URLs removed
+
+**Not done / waiting on client:**
+- Ramblings newsletter block still carries UGC copy (client to supply replacement)
+- SEO titles/meta descriptions still reference social/UGC (client to supply)
+- Flowery case study (new Prismic document + images)
+- Case-study body copy per the doc (Prismic slice editing; layouts intentionally unchanged)
+
+---
+
 ## February 3, 2026
 
 ### Fixed: Blog Page Post Ordering (Newest First)
