@@ -70,12 +70,3 @@ export const otherServices = {
   ctaText: "Interested in a chat?",
   ctaLink: "/contact",
 };
-
-// TEMPORARY compatibility export for Layout417.jsx (the pinned card stack). Removed with
-// Layout417 in the services-page redesign.
-export const servicesData = coreServices.map((s) => ({
-  icon: null,
-  number: s.number,
-  title: s.title,
-  desc: s.description,
-}));

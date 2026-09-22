@@ -9,11 +9,10 @@ export default function VideoAndWelcome({
   showVideo = false,
   videoUrl = "https://player.vimeo.com/video/76979871",
   imageUrl = "https://images.prismic.io/silosite/aVUgonNYClf9otsZ_v1762717240_image_re2b0o.png?auto=format,compress",
-  welcomeHeading = "We are the creative agency for brands that want stronger strategy, better design, smarter websites and content that truly connects",
-  welcomeDescription = "We create content first, personality driven work that delivers real results and elevates your brand. Our approach unites strategic management, bold design, brand development, seamless websites and authentic creator content into one cohesive, creative and engaging experience across every digital touchpoint.",
-  // Mobile has different default content - shorter, punchier version
-  mobileHeading = "We're the creative agency for brands that want more than filler posts or cookie–cutter campaigns.",
-  mobileDescription = "We create intentional, personality–driven content, from authentic creator videos to scroll–stopping social feeds – designed to connect. Every piece is gin strategy, fuelled by creativity, and built to spark genuine engagement that grows your brand's online community.",
+  // Homepage H1 + sub-headline (mirror of Prismic home_page.welcome_heading / welcome_description).
+  // Desktop and mobile now share the same copy.
+  welcomeHeading = "London to Perth. And we're just getting started.",
+  welcomeDescription = "A decade of agency experience in London, and now growing in Australia too. We work with everyone from London's oldest whisky investment company to fintech founders and independent housebuilders, bringing the same strategic rigour and design standard to every brand, wherever you're building from.",
   aboutButtonText = "About us",
   aboutButtonLink = "/about",
   secondaryLinkText = "Let's Talk",
@@ -65,7 +64,7 @@ export default function VideoAndWelcome({
             alt="Showcase"
             className="block w-full h-full object-cover select-none"
             loading="eager"
-            fetchpriority="high"
+            fetchPriority="high"
             decoding="async"
             width="990"
             height="560"
@@ -135,9 +134,10 @@ export default function VideoAndWelcome({
         >
           {/* Left text div - aligned at bottom left */}
           <div className="relative z-10 self-end pb-20 max-w-[38%] md:max-w-[35%] flex flex-col justify-end gap-6 md:gap-7">
-            <p className="text-base md:text-base lg:text-xl font-semibold md:tracking-tighter tracking-tight text-black">
+            {/* Page H1 - styled as before, only the element changed for semantics/SEO */}
+            <h1 className="text-base md:text-base lg:text-xl font-semibold md:tracking-tighter tracking-tight text-black">
               {welcomeHeading}
-            </p>
+            </h1>
             <p className="text-xs md:text-xs lg:text-base font-semibold leading-relaxed text-black/80">
               {welcomeDescription}
             </p>
@@ -201,11 +201,12 @@ export default function VideoAndWelcome({
           </div>
 
           <div className="mx-[3vw] md:px-0 ">
-            <p className="text-[18px] font-extrabold tracking-tight text-black">
-              {mobileHeading}
-            </p>
+            {/* Same H1 copy as desktop (the desktop block is display:none at this size) */}
+            <h1 className="text-[18px] font-extrabold tracking-tight text-black">
+              {welcomeHeading}
+            </h1>
             <p className="text-[12px] leading-relaxed text-black/80 mt-2">
-              {mobileDescription}
+              {welcomeDescription}
             </p>
             <div className="flex flex-wrap items-center gap-4 mt-4">
               <a

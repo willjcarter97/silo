@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { FaChevronRight } from "react-icons/fa";
-import { MdOutlineKeyboardArrowRight } from "react-icons/md";
+import { MdOutlineKeyboardArrowRight, MdOutlineLocationOn } from "react-icons/md";
 import { client } from "../../prismicio";
+import { getCaseStudyLocation } from "../../data/caseStudyLocations";
 import LazyImage from "../Common/LazyImage";
 import LazyText from "../Common/LazyText";
 import LazyElement from "../Common/LazyElement";
@@ -13,31 +14,37 @@ const asText = (richTextField) => {
   return richTextField.map((block) => block.text || "").join(" ");
 };
 
-// Default service cards (used when Prismic data is not available)
+// Default service cards (used when Prismic data is not available).
+// Titles only - the teaser intentionally carries no blurb. Images are placeholders
+// carried over from the previous set until the client supplies new imagery.
 const DEFAULT_SERVICE_CARDS = [
   {
-    image: "https://images.prismic.io/silosite/aVUgQXNYClf9otrH_v1765879825_2_jegbj9.png?auto=format,compress",
-    imageAlt: "Social Strategy & Management",
-    title: "Social Strategy & Management",
-    description: "We don't just post, we plan, manage, and grow your brand's presence.",
-  },
-  {
-    image: "https://images.prismic.io/silosite/aVUgQ3NYClf9otrJ_v1765879826_3_r08wlm.png?auto=format,compress",
-    imageAlt: "Web Design & Development",
-    title: "Web Design & Development",
-    description: "We shape digital spaces. Real craft, real performance that's designed to grow.",
-  },
-  {
     image: "https://images.prismic.io/silosite/aVUgQnNYClf9otrI_v1765879825_Placeholder_Image_zxnykm.png?auto=format,compress",
-    imageAlt: "Brand Design",
-    title: "Brand Design",
-    description: "We design bold branding and expressive motion to shape your visual presence.",
+    imageAlt: "Brand Strategy",
+    title: "Brand Strategy",
+    description: "",
+    link: "/services",
   },
   {
     image: "https://images.prismic.io/silosite/aVUgRHNYClf9otrK_v1765879826_Placeholder_Image1_me1r2y.png?auto=format,compress",
-    imageAlt: "Content Strategy",
-    title: "Content Strategy",
-    description: "We build thoughtful strategies that give content focus, intent and results.",
+    imageAlt: "Visual Identity",
+    title: "Visual Identity",
+    description: "",
+    link: "/services",
+  },
+  {
+    image: "https://images.prismic.io/silosite/aVUgQXNYClf9otrH_v1765879825_2_jegbj9.png?auto=format,compress",
+    imageAlt: "UI/UX Design",
+    title: "UI/UX Design",
+    description: "",
+    link: "/services",
+  },
+  {
+    image: "https://images.prismic.io/silosite/aVUgQ3NYClf9otrJ_v1765879826_3_r08wlm.png?auto=format,compress",
+    imageAlt: "Custom Web Development",
+    title: "Custom Web Development",
+    description: "",
+    link: "/services",
   },
 ];
 
@@ -70,6 +77,12 @@ const HomepageCaseStudyDesktop = ({ caseStudy, isLast }) => {
           {caseStudy.description}
         </LazyText>
         <div className="flex flex-wrap md:flex-nowrap gap-2 mt-2">
+          {caseStudy.location && (
+            <span className="inline-flex items-center gap-1 text-base font-semibold text-black p-2 border border-black">
+              <MdOutlineLocationOn className="text-lg" aria-hidden />
+              {caseStudy.location}
+            </span>
+          )}
           {caseStudy.tags.map((tag, index) => (
             <span key={index} className="text-base font-semibold text-black p-2 bg-brand/20">
               {tag}
@@ -113,6 +126,12 @@ const HomepageCaseStudyTablet = ({ caseStudy, isLast }) => {
           {caseStudy.description}
         </LazyText>
         <div className="flex flex-wrap gap-2 mt-2">
+          {caseStudy.location && (
+            <span className="inline-flex items-center gap-1 text-base font-semibold md:whitespace-nowrap text-black p-2 border border-black">
+              <MdOutlineLocationOn className="text-lg" aria-hidden />
+              {caseStudy.location}
+            </span>
+          )}
           {caseStudy.tags.map((tag, index) => (
             <span key={index} className="text-base font-semibold md:whitespace-nowrap text-black p-2 bg-brand/20">
               {tag}
@@ -184,6 +203,12 @@ const HomepageCaseStudyMobile = ({ caseStudy }) => {
           {caseStudy.description}
         </LazyText>
         <div className="flex flex-wrap md:flex-nowrap gap-2">
+          {caseStudy.location && (
+            <span className="inline-flex items-center gap-1 text-sm font-semibold text-black p-2 border border-black">
+              <MdOutlineLocationOn className="text-base" aria-hidden />
+              {caseStudy.location}
+            </span>
+          )}
           {caseStudy.tags.map((tag, index) => (
             <span key={index} className="text-sm font-semibold text-black p-2 bg-brand/20">
               {tag}
@@ -225,9 +250,11 @@ const ServiceCard = ({ card, isDesktop = true }) => {
         <h3 className={titleClass}>
           {card.link ? <a href={card.link}>{card.title}</a> : card.title}
         </h3>
-        <p className={descClass}>
-          {card.description}
-        </p>
+        {card.description && (
+          <p className={descClass}>
+            {card.description}
+          </p>
+        )}
       </>
     );
   }
@@ -245,9 +272,11 @@ const ServiceCard = ({ card, isDesktop = true }) => {
       <h3 className={titleClass}>
         {card.title}
       </h3>
-      <p className={descClass}>
-        {card.description}
-      </p>
+      {card.description && (
+        <p className={descClass}>
+          {card.description}
+        </p>
+      )}
     </>
   );
 };
@@ -289,6 +318,7 @@ export default function ContentAndDone({
             subtitle: study.data.subtitle || "",
             description: asText(study.data.description),
             featuredImage: study.data.featured_image?.url || "",
+            location: study.data.location || getCaseStudyLocation(study.uid),
             tags: study.data.tags?.map((t) => t.tag_name).filter(Boolean) || [],
           }));
 

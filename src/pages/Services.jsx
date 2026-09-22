@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import { FaChevronRight } from "react-icons/fa"
-import Layout417 from '../components/servicee/Layout417.jsx'
-import Interested from '../components/servicee/Interested.jsx'
+import ServicesLedger from '../components/servicee/ServicesLedger.jsx'
 import ReadyWhenYouArePrismic from '../components/Common/ReadyWhenYouArePrismic.jsx'
 import LazySection from '../components/Common/LazySection.jsx'
 import LazyText from '../components/Common/LazyText.jsx'
 import { usePageMeta } from '../hooks/usePageMeta'
 import { client } from '../prismicio'
+import { coreServices, otherServices } from '../data/servicesData.jsx'
 
-// Default values
+// Default values (mirror of the Prismic `services_page` singleton)
 const defaults = {
   heading: "What we do",
-  description: "Stronger socials. Smarter content. Confident branding. High performing websites.",
+  description: "Brands built with intent, not guesswork",
   primaryButtonText: "Let's chat",
   primaryButtonLink: "/contact",
   secondaryButtonText: "About us",
@@ -23,11 +23,11 @@ const defaults = {
  */
 const resolveLinkUrl = (linkField) => {
   if (!linkField) return null;
-  
+
   if (linkField.link_type === "Web" || linkField.url) {
     return linkField.url;
   }
-  
+
   if (linkField.link_type === "Document" && linkField.uid) {
     const typeRoutes = {
       home_page: "/",
@@ -36,9 +36,15 @@ const resolveLinkUrl = (linkField) => {
     };
     return typeRoutes[linkField.type] || `/${linkField.uid}`;
   }
-  
+
   return null;
 };
+
+// Bullet lists are stored in Prismic as newline-separated text
+const splitLines = (text) =>
+  typeof text === "string" && text.trim()
+    ? text.split('\n').map((line) => line.trim()).filter(Boolean)
+    : null;
 
 const Services = () => {
   const [pageData, setPageData] = useState(null);
@@ -53,10 +59,10 @@ const Services = () => {
     async function fetchPageData() {
       try {
         const response = await client.getSingle("services_page");
-        
+
         if (response?.data) {
           const data = response.data;
-          
+
           setPageData({
             pageTitle: data.page_title || null,
             metaDescription: data.meta_description || null,
@@ -66,28 +72,25 @@ const Services = () => {
             primaryButtonLink: resolveLinkUrl(data.hero_primary_button_link) || null,
             secondaryButtonText: data.hero_secondary_button_text || null,
             secondaryButtonLink: resolveLinkUrl(data.hero_secondary_button_link) || null,
-            serviceCards: data.service_cards?.map(card => ({
-              icon: card.card_icon?.url || null,
-              number: card.card_number || null,
-              title: card.card_title || null,
-              description: card.card_description || null,
-            })) || null,
-            // Core Services heading (behind cards)
+            // Core services section label (was the heading behind the old card stack)
             coreServicesHeading: data.core_services_heading || null,
-            // Interested section data
-            // Bullet points are stored as newline-separated text
-            interestedSection: {
-              cards: data.interested_cards?.map(card => ({
-                image: card.card_image?.url || null,
-                title: card.card_title || null,
-                description: card.card_description || null,
-                bulletPoints: card.card_bullets ? card.card_bullets.split('\n').filter(line => line.trim()) : null,
-              })) || null,
-              addOnsTitle: data.add_ons_title || null,
-              addOnsDescription: data.add_ons_description || null,
-              addOnsBullets: data.add_ons_bullets ? data.add_ons_bullets.split('\n').filter(line => line.trim()) : null,
-              ctaText: data.interested_cta_text || null,
-              ctaLink: resolveLinkUrl(data.interested_cta_link) || null,
+            // Tier 1 - core services (interested_cards), merged with code fallbacks per row
+            services: data.interested_cards?.length > 0
+              ? data.interested_cards.map((card, index) => ({
+                  number: String(index + 1).padStart(2, '0'),
+                  title: card.card_title || coreServices[index]?.title,
+                  description: card.card_description || coreServices[index]?.description,
+                  bullets: splitLines(card.card_bullets) || coreServices[index]?.bullets,
+                  image: card.card_image?.url || null,
+                }))
+              : null,
+            // Tier 2 - other ways we can help (add_ons_*)
+            other: {
+              title: data.add_ons_title || otherServices.title,
+              description: data.add_ons_description || otherServices.description,
+              bullets: splitLines(data.add_ons_bullets) || otherServices.bullets,
+              ctaText: data.interested_cta_text || otherServices.ctaText,
+              ctaLink: resolveLinkUrl(data.interested_cta_link) || otherServices.ctaLink,
             },
           });
         }
@@ -114,20 +117,20 @@ const Services = () => {
         <div className="w-full max-w-[1280px] mx-auto flex flex-col justify-center items-center px-4 md:px-10 lg:px-10 pb-16">
           {/* Heading */}
           <div className="flex flex-col items-center w-full mb-6">
-            <LazyText 
-              as="h1" 
-              className="font-bold text-[clamp(60px,17vw,200px)] leading-[0.9] mb-6 text-center font-epilogue" 
-              animation="fadeUp" 
+            <LazyText
+              as="h1"
+              className="font-bold text-[clamp(60px,17vw,200px)] leading-[0.9] mb-6 text-center font-epilogue"
+              animation="fadeUp"
               delay={0}
             >
               {displayHeading}
             </LazyText>
 
             {/* Description */}
-            <LazyText 
-              as="p" 
-              className="text-black text-base font-normal text-center max-w-2xl px-4 mb-8" 
-              animation="fadeUp" 
+            <LazyText
+              as="p"
+              className="text-black text-base font-normal text-center max-w-2xl px-4 mb-8"
+              animation="fadeUp"
               delay={100}
             >
               {displayDescription}
@@ -163,15 +166,13 @@ const Services = () => {
         </div>
       </div>
 
-      {/* Layout417 Scroll Cards Section */}
-      <Layout417 
-        serviceCards={pageData?.serviceCards}
-        heading={pageData?.coreServicesHeading}
-      />
-
-      {/* Interested / Services Grid */}
+      {/* Core services ledger + other ways we can help */}
       <LazySection rootMargin="200px">
-        <Interested interestedData={pageData?.interestedSection} />
+        <ServicesLedger
+          eyebrow={pageData?.coreServicesHeading || undefined}
+          services={pageData?.services || coreServices}
+          other={pageData?.other || otherServices}
+        />
       </LazySection>
 
       {/* Divider */}

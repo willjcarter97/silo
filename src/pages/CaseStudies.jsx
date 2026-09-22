@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FaChevronRight } from "react-icons/fa";
-import { MdOutlineKeyboardArrowRight } from "react-icons/md";
+import { MdOutlineKeyboardArrowRight, MdOutlineLocationOn } from "react-icons/md";
 import ReadyWhenYouArePrismic from "../components/Common/ReadyWhenYouArePrismic";
 import LazySection from "../components/Common/LazySection";
 import LazyImage from "../components/Common/LazyImage";
@@ -8,6 +8,7 @@ import LazyText from "../components/Common/LazyText";
 import LazyElement from "../components/Common/LazyElement";
 import { usePageMeta } from "../hooks/usePageMeta";
 import { client } from "../prismicio";
+import { getCaseStudyLocation } from "../data/caseStudyLocations";
 
 // Default values for hero section
 const defaults = {
@@ -82,6 +83,12 @@ const CaseStudyCardDesktop = ({ caseStudy, isLast }) => {
           {caseStudy.description}
         </LazyText>
         <div className="flex flex-wrap gap-2 mt-2">
+          {caseStudy.location && (
+            <span className="inline-flex items-center gap-1 text-sm font-semibold text-black px-3 py-1.5 border border-black">
+              <MdOutlineLocationOn className="text-base" aria-hidden />
+              {caseStudy.location}
+            </span>
+          )}
           {caseStudy.tags.map((tag, index) => (
             <span key={index} className="text-sm font-semibold text-black px-3 py-1.5 bg-brand/20">
               {tag}
@@ -130,6 +137,12 @@ const CaseStudyCardMobile = ({ caseStudy, isLast }) => {
           {caseStudy.description}
         </LazyText>
         <div className="flex flex-wrap gap-2 mt-2">
+          {caseStudy.location && (
+            <span className="inline-flex items-center gap-1 text-xs md:text-sm font-semibold text-black px-2.5 py-1 border border-black">
+              <MdOutlineLocationOn className="text-sm md:text-base" aria-hidden />
+              {caseStudy.location}
+            </span>
+          )}
           {caseStudy.tags.map((tag, index) => (
             <span key={index} className="text-xs md:text-sm font-semibold text-black px-2.5 py-1 bg-brand/20">
               {tag}
@@ -210,6 +223,7 @@ const CaseStudies = () => {
           featuredImage: study.data.featured_image?.url || "",
           displayOrder: study.data.display_order || 999,
           showOnHomepage: study.data.show_on_homepage || false,
+          location: study.data.location || getCaseStudyLocation(study.uid),
           tags: study.data.tags?.map((t) => t.tag_name).filter(Boolean) || [],
         }));
 

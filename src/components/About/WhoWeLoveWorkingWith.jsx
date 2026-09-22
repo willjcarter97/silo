@@ -6,6 +6,7 @@ import "../../styles/scaling-overrides.css";
 const defaults = {
   heading: "Who we love working with",
   description: "We partner with brands and businesses that value strong strategy, great design and a clear digital presence. If you care about building a brand that looks good, works well and communicates with purpose, we are your people.",
+  tagline: "Now actively taking on new brands across Australia.",
   marqueeRow1: "Lifestyle , Culture , Fashion , Beauty , Wellness , Events , Experiences , Entertainment , Travel , Health and fitness , Food and drink , Music , Art and design , Home and interiors , Sports , Personal development , ",
   marqueeRow2: "Consumer goods , DTC brands , Media , Hospitality , Property , Real estate , Retail , E-commerce brands , Luxury goods , Homeware , Furniture , Travel and leisure brands , ",
   marqueeRow3: "Finance , Investment , Professional services , Technology , SaaS , Startups , Creative industries , Fintech , Consulting , Legal services , B2B services , Software companies , Venture capital , Business education and training , ",
@@ -17,6 +18,7 @@ const WhoWeLoveWorkingWith = ({
   marqueeRow1,
   marqueeRow2,
   marqueeRow3,
+  tagline,
 }) => {
   // Use props with fallback to defaults
   const displayHeading = heading || defaults.heading;
@@ -24,6 +26,7 @@ const WhoWeLoveWorkingWith = ({
   const displayRow1 = marqueeRow1 || defaults.marqueeRow1;
   const displayRow2 = marqueeRow2 || defaults.marqueeRow2;
   const displayRow3 = marqueeRow3 || defaults.marqueeRow3;
+  const displayTagline = tagline || defaults.tagline;
 
   // Marquee row configurations
   const row1Config = {
@@ -91,6 +94,19 @@ const WhoWeLoveWorkingWith = ({
           >
             {displayDescription}
           </p>
+
+          {displayTagline && (
+            <p
+              className="text-brand text-sm sm:text-base md:text-lg leading-relaxed mt-4 md:mt-5"
+              style={{
+                fontFamily: "DM Sans, sans-serif",
+                fontWeight: 700,
+                lineHeight: "150%",
+              }}
+            >
+              {displayTagline}
+            </p>
+          )}
         </div>
       </div>
 
