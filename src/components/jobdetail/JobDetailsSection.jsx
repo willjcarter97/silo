@@ -2,38 +2,11 @@ import { LuTriangleRight } from "react-icons/lu"
 import { TiTick } from "react-icons/ti"
 
 const JobDetailsSection = ({ jobData }) => {
-  // Default fallback data if no Prismic data provided
-  const whatYoullDo = jobData?.whatYoullDo?.length > 0 ? jobData.whatYoullDo : [
-    "Build and maintain strong relationships with creators across the UK, South Africa and US.",
-    "Work directly with clients to understand their goals and translate them into creative briefs.",
-    "Match brands with the right creators based on style, reach, and audience.",
-    "Oversee campaigns from ideation through delivery, ensuring quality and timeliness.",
-    "Manage content rights, usage, and ready-to-post delivery formats.",
-    "Provide insight on performance, pulling insights that shape future campaigns."
-  ]
-
-  const benefits = jobData?.benefits?.length > 0 ? jobData.benefits : [
-    "Competitive salary with performance-based bonuses.",
-    "Hybrid working setup with flexibility built in.",
-    "Access to a growing international creator network.",
-    "Opportunity to work on campaigns with Revolut, Ignition, food, and tech brands.",
-    "A team that values creativity, clarity, and bold ideas."
-  ]
-
-  const whoYouAre = jobData?.whoYouAre?.length > 0 ? jobData.whoYouAre : [
-    "A strong communicator who can manage both client expectations and creator needs.",
-    "Organised, detail-oriented, and comfortable running multiple projects at once.",
-    "Confident in social platforms, trends, and content formats.",
-    "Experienced in influencer/UGC management, brand partnerships, or campaign delivery.",
-    "Comfortable in a fast-paced, no-fluff environment."
-  ]
-
-  const whoYoullBe = jobData?.whoYoullBe?.length > 0 ? jobData.whoYoullBe : [
-    "The go-to person for making brand—creator partnerships run smoothly.",
-    "A trusted voice with both clients and creators.",
-    "A driver of campaigns that feel fresh, intentional, and effective.",
-    "Part of a team that pushes brands to stop playing safe and start getting noticed."
-  ]
+  // Content comes from the Prismic `career` document; nothing is invented if a list is empty.
+  const whatYoullDo = jobData?.whatYoullDo || []
+  const benefits = jobData?.benefits || []
+  const whoYouAre = jobData?.whoYouAre || []
+  const whoYoullBe = jobData?.whoYoullBe || []
 
   return (
     <div className="max-w-[1280px] mx-auto px-4 md:px-10 lg:px-10 py-12 lg:py-20">

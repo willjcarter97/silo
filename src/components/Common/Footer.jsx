@@ -20,7 +20,6 @@ const defaultFooterData = {
     { label: "Mission and Values", link: "/about", anchor: "things-we-believe-in", isAnchor: true },
     { label: "Meet the Team", link: "/about", anchor: "minds-in-the-silo", isAnchor: true },
     { label: "Careers", link: "/careers", isAnchor: false },
-    { label: "Job Board", link: "/job-board", isAnchor: false },
     { label: "Ramblings", link: "/blog", isAnchor: false },
   ],
   socialLinks: [
@@ -64,10 +63,8 @@ const resolveLinkUrl = (linkField) => {
       case_study: `/case-studies/${linkField.uid}`,
       blog_post: `/blog/${linkField.uid}`,
       services_page: "/services",
-      job_board_page: "/job-board",
       careers_page: "/careers",
       contact_page: "/contact",
-      ugc_contact_page: "/ugc-contact",
       terms_page: "/terms",
       privacy_page: "/privacy",
       legal_page: "/legal",
@@ -84,6 +81,13 @@ const resolveLinkUrl = (linkField) => {
   
   return null;
 };
+
+/**
+ * Prismic's copyright_text already ends in "All rights reserved."; the markup appends it
+ * again, so strip any trailing instance to avoid "All rights reserved.. All rights reserved."
+ */
+const normaliseCopyright = (text) =>
+  typeof text === "string" ? text.replace(/\.?\s*All rights reserved\.?\s*$/i, "").trim() : text;
 
 const Footer = () => {
   const year = new Date().getFullYear();
@@ -111,7 +115,7 @@ const Footer = () => {
             newsletterTermsText: data.newsletter_terms_text || defaultFooterData.newsletterTermsText,
             newsletterTermsLinkText: data.newsletter_terms_link_text || defaultFooterData.newsletterTermsLinkText,
             newsletterTermsLink: resolveLinkUrl(data.newsletter_terms_link) || defaultFooterData.newsletterTermsLink,
-            copyrightText: data.copyright_text || defaultFooterData.copyrightText,
+            copyrightText: normaliseCopyright(data.copyright_text) || defaultFooterData.copyrightText,
           };
 
           // Handle about links if they exist in Prismic (with proper fallback)
@@ -175,7 +179,7 @@ const Footer = () => {
       try {
         const response = await client.getAllByType("case_study", {
           orderings: { field: "my.case_study.display_order", direction: "asc" },
-          pageSize: 6,
+          pageSize: 7,
         });
 
         const studies = response.map((study) => ({

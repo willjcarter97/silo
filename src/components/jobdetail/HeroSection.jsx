@@ -137,31 +137,35 @@ const HeroSection = ({ jobData }) => {
 
             {/* Right Content */}
             <div className="space-y-6 order-1 lg:order-2">
-              <h2 
-                style={{
-                  fontFamily: 'Epilogue', 
-                  fontWeight: 700, 
-                  fontSize: window.innerWidth < 640 ? '20px' : '24px', 
-                  lineHeight: '140%', 
-                  letterSpacing: '0%'
-                }} 
-                className="text-black"
-              >
-                {jobData.introHeading || "We're The Silo, and we don't do content for the sake of content."}
-              </h2>
+              {jobData.introHeading && (
+                <h2
+                  style={{
+                    fontFamily: 'Epilogue',
+                    fontWeight: 700,
+                    fontSize: window.innerWidth < 640 ? '20px' : '24px',
+                    lineHeight: '140%',
+                    letterSpacing: '0%'
+                  }}
+                  className="text-black"
+                >
+                  {jobData.introHeading}
+                </h2>
+              )}
 
-              <p 
-                style={{
-                  fontFamily: 'DM Sans', 
-                  fontWeight: 400, 
-                  fontSize: '16px', 
-                  lineHeight: '150%', 
-                  letterSpacing: '0%'
-                }} 
-                className="text-black"
-              >
-                {jobData.introDescription || "We work with brands who want to cut through the noise, and creators who know how to make that happen."}
-              </p>
+              {jobData.introDescription && (
+                <p
+                  style={{
+                    fontFamily: 'DM Sans',
+                    fontWeight: 400,
+                    fontSize: '16px',
+                    lineHeight: '150%',
+                    letterSpacing: '0%'
+                  }}
+                  className="text-black"
+                >
+                  {jobData.introDescription}
+                </p>
+              )}
             </div>
           </div>
         </div>

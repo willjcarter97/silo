@@ -46,13 +46,13 @@ const DEFAULT_LOGOS = [
 // Default values for home page content
 const DEFAULT_HOME_DATA = {
   heroSvgImage: "https://silosite.cdn.prismic.io/silosite/aVUgoXNYClf9otsY_v1762717235_hero_hyl0xu.svg",
-  heroTagline: "Used by companies who know what works.",
+  heroTagline: "In good company.",
   clientLogos: DEFAULT_LOGOS,
   showVideo: false,
   videoUrl: "https://player.vimeo.com/video/76979871",
   heroImage: "https://images.prismic.io/silosite/aVUgonNYClf9otsZ_v1762717240_image_re2b0o.png?auto=format,compress",
-  welcomeHeading: "We are the creative agency for brands that want stronger strategy, better design, smarter websites and content that truly connects",
-  welcomeDescription: "We create content first, personality driven work that delivers real results and elevates your brand. Our approach unites strategic management, bold design, brand development, seamless websites and authentic creator content into one cohesive, creative and engaging experience across every digital touchpoint.",
+  welcomeHeading: "London to Perth. And we're just getting started.",
+  welcomeDescription: "A decade of agency experience in London, and now growing in Australia too. We work with everyone from London's oldest whisky investment company to fintech founders and independent housebuilders, bringing the same strategic rigour and design standard to every brand, wherever you're building from.",
   aboutButtonText: "About us",
   aboutButtonLink: "/about",
   secondaryLinkText: "Let's Talk",

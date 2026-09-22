@@ -12,10 +12,9 @@ const defaultNavData = {
     { label: "About Us", link: "/about", isVisible: true },
     { label: "Portfolio", link: "/case-studies", isVisible: true },
     { label: "Services", link: "/services", isVisible: true },
-    { label: "Job Board", link: "/job-board", isVisible: true },
     { label: "Ramblings", link: "/blog", isVisible: true },
   ],
-  ctaText: "Lets Talk",
+  ctaText: "Let's Talk",
   ctaLink: "/contact",
   ctaVisible: true,
 };
@@ -50,10 +49,8 @@ const resolveLinkUrl = (linkField) => {
       case_study: `/case-studies/${linkField.uid}`,
       blog_post: `/blog/${linkField.uid}`,
       services_page: "/services",
-      job_board_page: "/job-board",
       careers_page: "/careers",
       contact_page: "/contact",
-      ugc_contact_page: "/ugc-contact",
       ramblings_page: "/blog",
       portfolio_page: "/case-studies",
     };

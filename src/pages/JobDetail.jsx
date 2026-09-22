@@ -30,7 +30,7 @@ const JobDetail = () => {
           location: doc.data.location || '',
           heroImage1: doc.data.hero_image_1?.url || '',
           heroImage2: doc.data.hero_image_2?.url || '',
-          introHeading: doc.data.intro_heading || "We're The Silo, and we don't do content for the sake of content.",
+          introHeading: doc.data.intro_heading || '',
           introDescription: prismic.asText(doc.data.intro_description) || '',
           whatYoullDo: (doc.data.what_youll_do || []).map(item => item.item),
           benefits: (doc.data.benefits || []).map(item => item.item),

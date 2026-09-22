@@ -3,16 +3,14 @@ import { FaChevronRight } from "react-icons/fa";
 import LazyImage from "./LazyImage";
 
 /**
- * ReadyWhenYouAre - Reusable CTA section component
- * 
+ * ReadyWhenYouAre - Reusable CTA section component (single call to action)
+ *
  * @param {string} heading - Main heading text (default: "Ready when you are.")
  * @param {string} description - Description text below heading
  * @param {string} imageSrc - URL for the image
  * @param {string} imageAlt - Alt text for the image
- * @param {string} primaryButtonText - Text for primary button (default: "For Brands")
- * @param {string} primaryButtonLink - Link for primary button (default: "/contact")
- * @param {string} secondaryButtonText - Text for secondary button (default: "For Creators")
- * @param {string} secondaryButtonLink - Link for secondary button (default: "/ugc-contact")
+ * @param {string} primaryButtonText - Button text (default: "Let's Talk")
+ * @param {string} primaryButtonLink - Button link (default: "/contact")
  * @param {string} className - Additional classes for the section wrapper
  */
 const ReadyWhenYouAre = ({
@@ -20,10 +18,8 @@ const ReadyWhenYouAre = ({
   description = "Whether you're ready to refine your brand, design or digital world, everything starts right here.",
   imageSrc = "https://images.prismic.io/silosite/aVUgRXNYClf9otrL_v1765880016_Placeholder_Image_crecm6.png?auto=format,compress",
   imageAlt = "Ready when you are section image",
-  primaryButtonText = "For Brands",
+  primaryButtonText = "Let's Talk",
   primaryButtonLink = "/contact",
-  secondaryButtonText = "For Creators",
-  secondaryButtonLink = "/ugc-contact",
   className = "",
 }) => {
   return (
@@ -51,18 +47,6 @@ const ReadyWhenYouAre = ({
                   </div>
                   <span className="block transition-all duration-300 ease-in-out text-base group-hover:translate-x-40">
                     {primaryButtonText}
-                  </span>
-                </a>
-
-                <a
-                  href={secondaryButtonLink}
-                  className="inline-flex items-center justify-center gap-2 bg-transparent border border-brand h-[55px] px-6 py-3 text-xs font-bold tracking-wide text-brand relative overflow-hidden group"
-                >
-                  <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 svg-wrapper group-hover:animate-bounce-custom">
-                    <FaChevronRight className="text-brand w-5 h-5 opacity-0 transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:translate-x-0 group-hover:scale-[140%]" />
-                  </div>
-                  <span className="block transition-all duration-300 ease-in-out text-base group-hover:translate-x-40">
-                    {secondaryButtonText}
                   </span>
                 </a>
               </div>
@@ -111,12 +95,6 @@ const ReadyWhenYouAre = ({
                 >
                   {primaryButtonText}
                 </a>
-                <a
-                  href={secondaryButtonLink}
-                  className="inline-flex items-center font-bold justify-center border border-[#FF322E] text-[#FF322E] px-4 py-2"
-                >
-                  {secondaryButtonText}
-                </a>
               </div>
             </div>
           </div>
@@ -143,12 +121,6 @@ const ReadyWhenYouAre = ({
                 >
                   {primaryButtonText}
                 </a>
-                <a
-                  href={secondaryButtonLink}
-                  className="inline-flex items-center font-bold justify-center border border-[#FF322E] text-[#FF322E] px-4 py-2"
-                >
-                  {secondaryButtonText}
-                </a>
               </div>
             </div>
 
@@ -169,12 +141,3 @@ const ReadyWhenYouAre = ({
 };
 
 export default ReadyWhenYouAre;
-
-
-
-
-
-
-
-
-

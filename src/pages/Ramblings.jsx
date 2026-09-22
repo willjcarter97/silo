@@ -15,7 +15,7 @@ gsap.registerPlugin(ScrollTrigger);
 // Default values
 const defaults = {
   heading: "Our Ramblings",
-  description: "From UGC tips to the latest in social and design trends, Silo's Blog dives into what's shaping the digital marketing and content-first world right now.",
+  description: "Thoughts on branding, design and digital, and what's shaping the industry right now.",
   emptyStateHeading: "This page is as empty as your brand without UGC.",
   emptyStateDescription: "Don't worry, we're going to be fixing both.",
 };

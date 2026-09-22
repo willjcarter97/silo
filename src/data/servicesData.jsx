@@ -1,27 +1,81 @@
-// Services card data for Services page
-export const servicesData = [
+// Services page content (code fallbacks).
+// Live copy comes from the Prismic `services_page` singleton (interested_cards / add_ons_*);
+// these values render when Prismic is unavailable and must be kept in sync with it.
+
+// Tier 1 - core services, in sequence: strategy -> identity -> design -> build
+export const coreServices = [
   {
-    icon: <img src="https://images.prismic.io/silosite/aVUgVXNYClf9otrb_v1765914444_phone_android_vnvwby.png?auto=format,compress" alt="Social Strategy & Management" className="w-20 h-20 object-contain" />,
     number: "01",
-    title: "Social Strategy & Management",
-    desc: "We don't just post, we'll plan, manage, and grow your brand's presence.",
+    title: "Brand Strategy",
+    description:
+      "We start with clarity, not guesswork. Positioning, messaging and brand architecture that gives every decision after it somewhere solid to stand on.",
+    bullets: [
+      "Brand positioning and messaging",
+      "Market and audience insight",
+      "Brand architecture and naming",
+      "Go-to-market strategy support",
+    ],
   },
   {
-    icon: <img src="https://images.prismic.io/silosite/aVUgUnNYClf9otrY_v1765914438_image_3_cixn1z.png?auto=format,compress" alt="Web Design & Development" className="w-20 h-20 object-contain" />,
     number: "02",
-    title: "Web Design & Development",
-    desc: "Thoughtful design and smart web development made to move your brand forward.",
+    title: "Visual Identity",
+    description:
+      "We design bold branding and expressive detail to shape how your brand looks, feels and gets remembered. From a single mark to a full identity system, logo, colour, typography, templates, every element is built to work together, not just sit next to each other.",
+    bullets: [
+      "Brand identity and visual systems",
+      "Logo design and typographic styling",
+      "Colour palettes and design guidelines",
+      "Branded templates and presentation materials",
+    ],
   },
   {
-    icon: <img src="https://images.prismic.io/silosite/aVUgVHNYClf9otra_v1765914441_image_4_jbbrop.png?auto=format,compress" alt="Brand Design" className="w-20 h-20 object-contain" />,
     number: "03",
-    title: "Brand Design",
-    desc: "Elevated brand identities built for clarity, consistency and expression.",
+    title: "UI/UX Design",
+    description:
+      "We design structure and flow to shape how a site works, moves and feels to use. From the first wireframe to full interface, layout, flow, interaction, every screen is built to work together, not just look finished.",
+    bullets: [
+      "Strategic UX and site architecture",
+      "Wireframing and user flows",
+      "Custom interface design for modern brands",
+      "Design systems built to scale",
+    ],
   },
   {
-    icon: <img src="https://images.prismic.io/silosite/aVUgU3NYClf9otrZ_v1765914438_image_4_1_jbaodd.png?auto=format,compress" alt="Content Strategy" className="w-20 h-20 object-contain" />,
     number: "04",
-    title: "Content Strategy",
-    desc: "We create content frameworks that bring structure, purpose and impact to your social presence.",
+    title: "Custom Web Development",
+    description:
+      "We build the sites that bring a design to life, built to perform, load fast and hold up under real use. From the first line of code to launch day, front end, back end, integrations, every piece is built to last, not just launch.",
+    bullets: [
+      "Platform-agnostic, hand-built development",
+      "Clean, reliable code",
+      "Launch support",
+      "Ongoing improvements and maintenance",
+    ],
   },
 ];
+
+// Tier 2 - kept low-key rather than headline marketed
+export const otherServices = {
+  title: "Other ways we can help",
+  description: "A few other things we can do when a project calls for it.",
+  bullets: [
+    "Marketing Consultancy",
+    "Graphic Design",
+    "Email Marketing",
+    "Video production and editing",
+    "Paid Advertising (Meta, Google, TikTok, Bing)",
+    "CRM Support",
+    "PR Services",
+  ],
+  ctaText: "Interested in a chat?",
+  ctaLink: "/contact",
+};
+
+// TEMPORARY compatibility export for Layout417.jsx (the pinned card stack). Removed with
+// Layout417 in the services-page redesign.
+export const servicesData = coreServices.map((s) => ({
+  icon: null,
+  number: s.number,
+  title: s.title,
+  desc: s.description,
+}));

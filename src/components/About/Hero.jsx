@@ -7,7 +7,7 @@ import LazyText from "../Common/LazyText";
 // Default values
 const defaults = {
   heading: 'This is <br /> <span class="text-[#FF322E]">Silo, </span>we\'re<br /> glad you\'re <br /> here.',
-  description: "Silo was built on the belief that great brand presence is more than output - it is intentional, strategic and shaped by design, content and digital experiences that serve a clear purpose.",
+  description: "Still a London agency, and now a Perth one too. Silo was built on the belief that great brand presence is more than output. It is intentional, strategic and shaped by design, content and digital experiences that serve a clear purpose.",
   primaryButtonText: "Let's chat",
   primaryButtonLink: "/contact",
   secondaryButtonText: "Our services",

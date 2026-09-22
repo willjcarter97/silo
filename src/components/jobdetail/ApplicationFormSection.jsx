@@ -209,19 +209,6 @@ const ApplicationFormSection = () => {
           Hit us up.
         </h3>
 
-        <p
-          style={{
-            fontFamily: "DM Sans",
-            fontWeight: 300,
-            fontSize: "16px",
-            lineHeight: "150%",
-            letterSpacing: "0%",
-          }}
-          className="text-black mb-8"
-        >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        </p>
-
         {/* Application Form */}
         <form id="job-application-form" name="Job Application Form" onSubmit={formik.handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

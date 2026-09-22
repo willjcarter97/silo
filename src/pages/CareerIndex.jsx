@@ -11,11 +11,11 @@ import { client } from "../prismicio";
 
 // Default values
 const defaults = {
-  heading: "Work at Silo",
-  description: "Want to make ideas happen? Join Silo - a team of creators strategists, and storytellers shaping brands that stand out online.",
-  emptyStateHeading: "No roles live right now.",
-  emptyStateDescription: "Drop your CV anyway, we like ambitious people.",
-  emptyStateEmail: "hello@thesilocreative.com",
+  heading: "Careers at Silo",
+  description: "We're always on the lookout for talented designers, developers and marketers.",
+  emptyStateHeading: "Nothing open right now.",
+  emptyStateDescription: "Check back soon or send a speculative application.",
+  emptyStateEmail: "hi@silo-creative.com",
 };
 
 const CareerIndex = () => {

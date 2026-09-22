@@ -1,7 +1,6 @@
 ﻿import { useEffect, useState } from "react";
 import Hero from "../components/About/Hero";
 import WhatSiloIs from "../components/About/WhatSiloIs";
-import WhyUGC from "../components/About/WhyUGC";
 import WhoWeLoveWorkingWith from "../components/About/WhoWeLoveWorkingWith";
 import ThingsWeBelieveIn from "../components/About/ThingsWeBelieveIn";
 import MindsInTheSilo from "../components/About/MindsInTheSilo";
@@ -92,6 +91,7 @@ const About = () => {
             whoWeWork: {
               heading: data.who_we_work_heading || null,
               description: data.who_we_work_description || null,
+              tagline: data.who_we_work_tagline || null,
               marqueeRow1: data.marquee_row_1 || null,
               marqueeRow2: data.marquee_row_2 || null,
               marqueeRow3: data.marquee_row_3 || null,
@@ -146,11 +146,6 @@ const About = () => {
       <div className="mx-auto w-full max-w-[1280px]">
         <LazySection>
           <WhatSiloIs {...(pageData?.whatSilo || {})} />
-        </LazySection>
-        <LazySection>
-          <div id="why-ugc" className="hidden">
-            <WhyUGC />
-          </div>
         </LazySection>
         <LazySection>
           <WhoWeLoveWorkingWith {...(pageData?.whoWeWork || {})} />
