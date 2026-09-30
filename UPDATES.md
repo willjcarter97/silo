@@ -9,6 +9,7 @@
 - Homepage services teaser: on desktop the service name appears over the image on hover/keyboard focus instead of sitting underneath (kept as a visually hidden heading for screen readers; touch-only devices with no hover still show the title under the image)
 - About: "Minds at Silo" intro now reads "Silo is a small team of strategists, designers and developers, working across brand, design and digital." (it was hardcoded in `MindsInTheSilo.jsx`, which is why it wasn't in Prismic)
 - About spacing: the gap between "Things we believe in" and "Minds at Silo" was 321px on desktop / 193px on mobile (section padding stacked with divider margins); now 161px / 97px. Also less air above the "In a noisy digital world" and "Things we believe in" headings on mobile
+- Footer fallback links include the Flowery case study (Prismic copy of the case study + logo: see the Flowery migration, run separately)
 - Code fallbacks synced to Ruby's published Prismic edits (tagline without full stop, Web Development blurb, Portfolio intro, beliefs intro) so the old wording cannot flash back if Prismic is slow
 
 **Fixed:**

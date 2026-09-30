@@ -399,6 +399,9 @@ const Footer = () => {
                         <a href="/case-studies/electrolytes-with-joly" className="text-sm ease-in-out duration-200 cursor-pointer hover:text-brand" style={{ fontFamily: "DM Sans", fontWeight: 700, lineHeight: "150%" }}>Electrolytes with Joly</a>
                       </li>
                       <li>
+                        <a href="/case-studies/flowery" className="text-sm ease-in-out duration-200 cursor-pointer hover:text-brand" style={{ fontFamily: "DM Sans", fontWeight: 700, lineHeight: "150%" }}>Flowery</a>
+                      </li>
+                      <li>
                         <a href="/case-studies/acorn-property-group" className="text-sm ease-in-out duration-200 cursor-pointer hover:text-brand" style={{ fontFamily: "DM Sans", fontWeight: 700, lineHeight: "150%" }}>Acorn Property Group</a>
                       </li>
                       <li>
@@ -530,6 +533,7 @@ const Footer = () => {
                     <li><a href="/case-studies/basement-approved" className="text-sm hover:text-brand">Basement Approved</a></li>
                     <li><a href="/case-studies/tomoka-fine-and-rare" className="text-sm hover:text-brand">Tomoka Fine & Rare</a></li>
                     <li><a href="/case-studies/electrolytes-with-joly" className="text-sm hover:text-brand">Electrolytes with Joly</a></li>
+                    <li><a href="/case-studies/flowery" className="text-sm hover:text-brand">Flowery</a></li>
                     <li><a href="/case-studies/acorn-property-group" className="text-sm hover:text-brand">Acorn Property Group</a></li>
                     <li><a href="/case-studies/cluberly" className="text-sm hover:text-brand">Cluberly</a></li>
                     <li><a href="/case-studies/knightsgate-partners" className="text-sm hover:text-brand">Knightsgate</a></li>
