@@ -229,48 +229,50 @@ const HomepageCaseStudyMobile = ({ caseStudy }) => {
   );
 };
 
-// Service Card Component - returns fragment so parent flex layout applies
+// Service Card Component - returns fragment so parent flex layout applies.
+// Desktop: the title appears over the image on hover/focus (and stays as a visually hidden
+// heading for screen readers). Mobile, and touch-only tablets with no hover, keep the title under the image.
 const ServiceCard = ({ card, isDesktop = true }) => {
-  const imageClass = `w-full ${isDesktop ? 'h-[250px] md:h-[300px]' : 'h-[250px]'} bg-gray-100 ${isDesktop ? '' : 'mb-4'} overflow-hidden`;
+  const imageClass = `relative group block w-full ${isDesktop ? 'h-[250px] md:h-[300px]' : 'h-[250px] mb-4'} bg-gray-100 overflow-hidden`;
   const titleClass = `font-epilogue font-bold ${isDesktop ? 'text-[32px] md:text-[28px] lg:text-[32px] leading-[130%] tracking-normal' : 'text-2xl mb-3'} text-black`;
   const descClass = `${isDesktop ? 'text-[16px] leading-[150%] tracking-normal' : 'text-sm leading-relaxed'} text-black`;
 
-  // If card has a link, wrap the image in a link
-  if (card.link) {
-    return (
-      <>
-        <a href={card.link} className={imageClass}>
-          <LazyImage
-            src={card.image}
-            alt={card.imageAlt || card.title}
-            className="w-full h-full object-cover"
-            containerClassName="w-full h-full"
-          />
-        </a>
-        <h3 className={titleClass}>
-          {card.link ? <a href={card.link}>{card.title}</a> : card.title}
-        </h3>
-        {card.description && (
-          <p className={descClass}>
-            {card.description}
-          </p>
-        )}
-      </>
-    );
-  }
+  const image = (
+    <LazyImage
+      src={card.image}
+      alt={card.imageAlt || card.title}
+      className="w-full h-full object-cover"
+      containerClassName="w-full h-full"
+    />
+  );
+
+  const overlay = isDesktop ? (
+    <span
+      aria-hidden
+      className="absolute inset-0 flex items-center justify-center bg-black/60 px-6 text-center font-epilogue font-bold text-white text-[28px] lg:text-[32px] leading-[130%] opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100 group-focus-visible:opacity-100 [@media(hover:none)]:hidden"
+    >
+      {card.title}
+    </span>
+  ) : null;
+
+  // Desktop title: hidden visually (kept for accessibility) unless the device can't hover
+  const desktopTitleClass = `${titleClass} sr-only [@media(hover:none)]:not-sr-only`;
 
   return (
     <>
-      <div className={imageClass}>
-        <LazyImage
-          src={card.image}
-          alt={card.imageAlt || card.title}
-          className="w-full h-full object-cover"
-          containerClassName="w-full h-full"
-        />
-      </div>
-      <h3 className={titleClass}>
-        {card.title}
+      {card.link ? (
+        <a href={card.link} className={imageClass} aria-label={card.title}>
+          {image}
+          {overlay}
+        </a>
+      ) : (
+        <div className={imageClass}>
+          {image}
+          {overlay}
+        </div>
+      )}
+      <h3 className={isDesktop ? desktopTitleClass : titleClass}>
+        {card.link && !isDesktop ? <a href={card.link}>{card.title}</a> : card.title}
       </h3>
       {card.description && (
         <p className={descClass}>

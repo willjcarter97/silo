@@ -35,10 +35,10 @@ const ServicesLedger = ({
   showImages = false,
 }) => {
   return (
-    <section className="w-full bg-white text-black pt-16 md:pt-20">
+    <section className="w-full bg-white text-black pt-6 md:pt-8">
       <div className="max-w-[1280px] mx-auto px-4 md:px-0">
         {/* Section label */}
-        <h2 className="font-dm text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-black mb-6 md:mb-8">
+        <h2 className="font-dm text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-black text-center mb-4 md:mb-6">
           {eyebrow}
         </h2>
 
@@ -50,7 +50,7 @@ const ServicesLedger = ({
               <LazyElement
                 key={service.title || index}
                 as="li"
-                className="group border-t border-black py-8 md:py-10 grid grid-cols-1 md:grid-cols-12 gap-x-8 gap-y-4"
+                className="group border-t border-black first:border-t-0 py-6 md:py-8 grid grid-cols-1 md:grid-cols-12 gap-x-8 gap-y-4"
                 animation="fadeUp"
                 delay={index * 100}
                 renderWhenHidden={true}
@@ -97,7 +97,7 @@ const ServicesLedger = ({
         {other && (
           <LazyElement
             as="div"
-            className="pt-10 md:pt-14 flex flex-col gap-4"
+            className="pt-8 md:pt-10 flex flex-col gap-4 md:items-center md:text-center"
             animation="fadeUp"
             delay={100}
             renderWhenHidden={true}
@@ -108,7 +108,7 @@ const ServicesLedger = ({
             <p className="text-base leading-[150%] tracking-normal text-black">
               {other.description}
             </p>
-            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3 text-base text-black md:max-w-3xl">
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3 text-base text-black text-left md:max-w-3xl">
               {other.bullets?.map((point, idx) => (
                 <BulletPoint key={idx} text={point} />
               ))}
@@ -116,7 +116,7 @@ const ServicesLedger = ({
 
             {/* CTA */}
             {other.ctaText && (
-              <div className="mt-4">
+              <div className="mt-4 md:mt-2">
                 <a
                   href={other.ctaLink || "/contact"}
                   className="inline-flex items-center justify-center gap-2 rounded-sm bg-transparent border-[1px] border-brand h-[55px] px-8 py-3 text-xs font-semibold tracking-wide text-brand relative overflow-hidden group w-fit"

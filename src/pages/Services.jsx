@@ -114,7 +114,7 @@ const Services = () => {
     <div className='w-full h-auto'>
       {/* Hero Section */}
       <div className="pt-24 md:pt-32 mt-20">
-        <div className="w-full max-w-[1280px] mx-auto flex flex-col justify-center items-center px-4 md:px-10 lg:px-10 pb-16">
+        <div className="w-full max-w-[1280px] mx-auto flex flex-col justify-center items-center px-4 md:px-10 lg:px-10 pb-8">
           {/* Heading */}
           <div className="flex flex-col items-center w-full mb-6">
             <LazyText

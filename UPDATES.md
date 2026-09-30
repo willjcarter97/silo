@@ -1,5 +1,22 @@
 # Updates Log
 
+## September 30, 2026
+
+### Ruby's feedback round 2 (branch `feat/ruby-feedback-2`)
+
+**Changed:**
+- Services: "CORE SERVICES" label centred with the rule beneath it removed; tighter spacing between the hero, label and rows; "Other ways we can help" is centred on desktop (mobile unchanged)
+- Homepage services teaser: on desktop the service name appears over the image on hover/keyboard focus instead of sitting underneath (kept as a visually hidden heading for screen readers; touch-only devices with no hover still show the title under the image)
+- About: "Minds at Silo" intro now reads "Silo is a small team of strategists, designers and developers, working across brand, design and digital." (it was hardcoded in `MindsInTheSilo.jsx`, which is why it wasn't in Prismic)
+- Code fallbacks synced to Ruby's published Prismic edits (tagline without full stop, Web Development blurb, Portfolio intro, beliefs intro) so the old wording cannot flash back if Prismic is slow
+
+**Fixed:**
+- Homepage service cards: the Prismic link to the Services page never resolved (singleton documents have no uid), so the cards were not clickable. The link resolver now maps singleton pages by type
+
+**Open (needs Ruby/Will):** Ramblings category list (Branding / UI/UX / Web Development / Visual Identity & Design) needs each blog post re-categorised; Flowery case study and logo need the image files; Tomoka and Knightsgate subtitles are still the old text in Prismic (likely unpublished drafts); stray bold on "create." in the beliefs intro in Prismic; spacing items that need Ruby's screenshots
+
+---
+
 ## September 22, 2026
 
 ### Client copy update: "London to Perth" positioning (branch `feat/client-copy-update`)

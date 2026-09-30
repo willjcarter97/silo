@@ -44,7 +44,7 @@ export const coreServices = [
     number: "04",
     title: "Custom Web Development",
     description:
-      "We build the sites that bring a design to life, built to perform, load fast and hold up under real use. From the first line of code to launch day, front end, back end, integrations, every piece is built to last, not just launch.",
+      "We build the sites that bring a design to life, built to perform and hold up under real use. From the first line of code to launch day, front end, back end, integrations, every piece is built to last, not just launch.",
     bullets: [
       "Platform-agnostic, hand-built development",
       "Clean, reliable code",

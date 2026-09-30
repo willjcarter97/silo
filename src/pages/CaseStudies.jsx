@@ -13,7 +13,7 @@ import { getCaseStudyLocation } from "../data/caseStudyLocations";
 // Default values for hero section
 const defaults = {
   heading: "You're going to want to see these.",
-  description: "Every project tells a story of strategy shaped, content crafted, identities defined and digital experiences built. These case studies capture the thinking and creativity that turn ideas into work that truly moves brands forward.",
+  description: "Some of our recent case studies that showcase the thinking and creativity that move brands forward.",
   primaryButtonText: "Let's chat",
   primaryButtonLink: "/contact",
   secondaryButtonText: "Our services",

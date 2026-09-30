@@ -40,7 +40,7 @@ const ThingsWeBelieveIn = ({
   // Default description JSX (with bold spans)
   const defaultDescriptionJSX = (
     <>
-      These are the principles that guide everything we create - grounding our work in <span className="font-black">authenticity</span>, driving it with <span className="font-black">creativity</span>, and strengthening it through <span className="font-black">strategy</span>.
+      These are the principles that guide everything we create.
     </>
   );
 

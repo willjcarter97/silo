@@ -304,7 +304,7 @@ const MindsInTheSilo = () => {
               letterSpacing: "0%",
             }}
           >
-            Behind Silo is a team of storytellers, designers and digital creators building brands with ideas, identity and experiences that move people.
+            Silo is a small team of strategists, designers and developers, working across brand, design and digital.
           </p>
         </div>
 

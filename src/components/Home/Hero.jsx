@@ -46,7 +46,7 @@ const DEFAULT_LOGOS = [
 // Default values for home page content
 const DEFAULT_HOME_DATA = {
   heroSvgImage: "https://silosite.cdn.prismic.io/silosite/aVUgoXNYClf9otsY_v1762717235_hero_hyl0xu.svg",
-  heroTagline: "In good company.",
+  heroTagline: "In good company",
   clientLogos: DEFAULT_LOGOS,
   showVideo: false,
   videoUrl: "https://player.vimeo.com/video/76979871",
@@ -76,14 +76,21 @@ const resolveLinkUrl = (linkField, fallback = null) => {
     return linkField.url;
   }
   
-  // Document links (internal)
-  if (linkField.link_type === "Document" && linkField.uid) {
+  // Document links (internal). Singleton pages (services, about, contact...) have no uid,
+  // so they are resolved by document type.
+  if (linkField.link_type === "Document") {
     const typeRoutes = {
       home_page: "/",
+      about_page: "/about",
+      services_page: "/services",
+      contact_page: "/contact",
+      portfolio_page: "/case-studies",
+      ramblings_page: "/blog",
+      careers_page: "/careers",
       case_study: `/case-studies/${linkField.uid}`,
       blog_post: `/blog/${linkField.uid}`,
     };
-    return typeRoutes[linkField.type] || `/${linkField.uid}`;
+    return typeRoutes[linkField.type] || (linkField.uid ? `/${linkField.uid}` : fallback);
   }
   
   return fallback;
