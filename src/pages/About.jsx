@@ -153,13 +153,13 @@ const About = () => {
         <LazySection>
           <ThingsWeBelieveIn {...(pageData?.beliefs || {})} />
         </LazySection>
-        <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black my-12 md:my-16 lg:my-20" />
+        <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black my-0" />
         <LazySection>
           <div id="minds-in-the-silo">
             <MindsInTheSilo />
           </div>
         </LazySection>
-        <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black my-12 md:my-16 lg:my-20" />
+        <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black mt-0 mb-8 md:mb-10 lg:mb-12" />
         <ReadyWhenYouArePrismic />
         <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black mt-12 md:mt-16 lg:mt-20" />
       </div>

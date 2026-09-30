@@ -36,7 +36,7 @@ const WhatSiloIs = ({
       <div className="max-w-full mx-auto w-full flex flex-col gap-0">
         <div className="flex flex-col md:grid md:grid-cols-2 mb-10 items-start gap-6 sm:gap-8 md:gap-10 lg:gap-12 xl:gap-16 sm:mb-8 mx-auto">
           {/* Left Side - Heading */}
-          <div className="w-full px-2 sm:px-0 mt-10 md:mt-0">
+          <div className="w-full px-2 sm:px-0 mt-2 md:mt-0">
             <h2
               className="font-bold max-w-[36rem] text-black text-2xl md:text-2xl lg:text-3xl xl:text-5xl 2xl:text-[48px] leading-tight text-left"
               style={{
