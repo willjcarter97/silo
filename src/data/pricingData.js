@@ -1,9 +1,7 @@
 // Pricing page content. Wording is the client's, verbatim (see "Silo Website: Pricing Page Brief").
 // Prices are deliberately NOT shown on the site: they live in the brochure to encourage downloads.
 
-// The brochure PDF lives in /public/brochure. The path is intentionally unlisted: it is not in the
-// sitemap or navigation, and the file is served with "X-Robots-Tag: noindex" (see netlify.toml / vercel.json).
-export const BROCHURE_URL = "/brochure/silo-refresh-rebrand-packages.pdf";
+// The brochure is not hosted on the site: ticking "Send me the brochure" flags the enquiry so it can be sent by hand.
 
 export const pricingMeta = {
   title: "Pricing | Brand and Website Packages Perth | Silo",

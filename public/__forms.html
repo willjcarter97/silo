@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Form definitions (not a real page)</title>
+  </head>
+  <body>
+    <!--
+      Netlify only detects forms that exist in the HTML it is given at deploy time. The pricing form is rendered
+      by React, so this hidden copy declares it. Field names must match src/lib/enquiry.js exactly.
+      Nobody sees this page; it is not in the sitemap.
+    -->
+    <form name="pricing-enquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="text" name="bot-field" />
+      <input type="text" name="subject" />
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="tel" name="phone" />
+      <input type="text" name="business" />
+      <input type="text" name="interest" />
+      <textarea name="message"></textarea>
+      <input type="text" name="brochure" />
+      <input type="text" name="consent" />
+      <input type="text" name="page" />
+    </form>
+  </body>
+</html>

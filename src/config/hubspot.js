@@ -1,3 +1,7 @@
+// PARKED - not currently used. The pricing form emails enquiries via Netlify Forms (src/lib/enquiry.js).
+// Kept for when enquiries should go to HubSpot as contacts: import submitPricingEnquiry from src/lib/hubspot.js
+// in EnquiryForm.jsx, add https://api.hsforms.com to connect-src in netlify.toml, and fill in the GUID below.
+//
 // HubSpot connection for the pricing enquiry form.
 //
 // The site already loads the HubSpot tracking script for this account (portal 442547962, see index.html),

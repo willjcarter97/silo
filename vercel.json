@@ -5,17 +5,6 @@
       "destination": "/"
     }
   ],
-  "headers": [
-    {
-      "source": "/brochure/(.*)",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "noindex, nofollow"
-        }
-      ]
-    }
-  ],
   "build": {
     "env": {
       "VITE_ENV": "staging"

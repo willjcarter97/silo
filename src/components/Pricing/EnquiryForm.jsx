@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { FaChevronRight } from "react-icons/fa";
 import { interestOptions, formCopy } from "../../data/pricingData";
-import { submitPricingEnquiry } from "../../lib/hubspot";
+import { submitPricingEnquiry } from "../../lib/enquiry";
 
 const schema = Yup.object({
   name: Yup.string().trim().min(2, "Please enter your name").max(80, "Please keep this under 80 characters").required("Please enter your name"),
@@ -31,12 +31,12 @@ const EnquiryForm = ({ wantBrochure }) => {
   const [submitError, setSubmitError] = useState("");
 
   const formik = useFormik({
-    initialValues: { name: "", email: "", phone: "", business: "", interest: "", message: "", brochure: false, consent: false, website: "" },
+    initialValues: { name: "", email: "", phone: "", business: "", interest: "", message: "", brochure: false, consent: false, "bot-field": "" },
     validationSchema: schema,
     onSubmit: async (values, { setSubmitting }) => {
       setSubmitError("");
       // Hidden "website" field is a bot trap: real visitors never see or fill it
-      if (values.website) {
+      if (values["bot-field"]) {
         navigate("/pricing/thank-you");
         return;
       }
@@ -126,9 +126,9 @@ const EnquiryForm = ({ wantBrochure }) => {
         <span className="text-sm text-black/80 leading-relaxed">{formCopy.consentLabel}</span>
       </label>
 
-      {/* Bot trap */}
-      <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden"
-        value={formik.values.website} onChange={formik.handleChange} />
+      {/* Bot trap (Netlify's honeypot field) */}
+      <input type="text" name="bot-field" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden"
+        value={formik.values["bot-field"]} onChange={formik.handleChange} />
 
       {submitError && <p role="alert" className="text-sm text-red-600 font-bold">{submitError}</p>}
 
