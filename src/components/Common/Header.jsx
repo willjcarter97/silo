@@ -12,12 +12,26 @@ const defaultNavData = {
     { label: "About Us", link: "/about", isVisible: true },
     { label: "Portfolio", link: "/case-studies", isVisible: true },
     { label: "Services", link: "/services", isVisible: true },
+    { label: "Pricing", link: "/pricing", isVisible: true },
     { label: "Ramblings", link: "/blog", isVisible: true },
   ],
   ctaText: "Let's Talk",
   ctaLink: "/contact",
   ctaVisible: true,
 };
+
+/**
+ * The Prismic navigation singleton replaces the defaults above, so make sure "Pricing" is always present
+ * (inserted before Ramblings). If Pricing is later added in Prismic itself, this does nothing.
+ */
+const withPricing = (links) =>
+  links.some((l) => l.link === "/pricing")
+    ? links
+    : (() => {
+        const i = links.findIndex((l) => l.link === "/blog");
+        const pricing = { label: "Pricing", link: "/pricing", isVisible: true };
+        return i === -1 ? [...links, pricing] : [...links.slice(0, i), pricing, ...links.slice(i)];
+      })();
 
 /**
  * Helper to resolve Prismic Link fields to URLs
@@ -112,7 +126,7 @@ export default function Header() {
           const transformedData = {
             logo: data.logo?.url || defaultNavData.logo,
             // Use Prismic nav links only if we got valid ones, otherwise keep defaults
-            navLinks: transformedNavLinks.length > 0 ? transformedNavLinks : defaultNavData.navLinks,
+            navLinks: withPricing(transformedNavLinks.length > 0 ? transformedNavLinks : defaultNavData.navLinks),
             ctaText: data.cta_text || defaultNavData.ctaText,
             ctaLink: resolveLinkUrl(data.cta_link) || defaultNavData.ctaLink,
             ctaVisible: data.cta_visible !== false,

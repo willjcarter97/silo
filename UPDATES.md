@@ -1,5 +1,22 @@
 # Updates Log
 
+## October 5, 2026
+
+### Pricing page and brochure (branch `feat/pricing-page`, not yet deployed)
+
+**Added:**
+- `/pricing`: hero, Refresh / Rebrand comparison (no prices; the price row is a "Get the brochure for pricing" button), and a black "Not every project fits a package." section with the enquiry form. Table is a grid on desktop and stacked cards on mobile (no sideways scroll at any width from 320px)
+- Both "Get the brochure" buttons jump to the form with "Send me the brochure" pre-ticked; "Get a quote" jumps to it unticked. Deep links `/pricing#brochure` and `/pricing#quote` also work
+- Enquiry form (name, email, phone, business, interest dropdown, project, brochure tick, consent tick) submits to HubSpot (portal 442547962) via the Forms API, carrying `silo_interest` and `brochure_requested` so submissions are tagged
+- `/pricing/thank-you`: separate page for conversion tracking (noindex, not in the sitemap). Brochure variant offers an instant PDF download
+- Brochure PDF served from `/brochure/silo-refresh-rebrand-packages.pdf`: unlisted (no links, not in sitemap, `X-Robots-Tag: noindex` in netlify.toml and vercel.json)
+- "Pricing" in the top nav (added in code so it survives the Prismic navigation singleton), `/pricing` in the sitemap, `/pricing/thank-you` disallowed in robots.txt
+- CSP: `connect-src` now allows `https://api.hsforms.com` (netlify.toml; vercel.json has no CSP)
+
+**Needs before deploying:** create the HubSpot form and paste its GUID into `src/config/hubspot.js` (field list in that file). Until then the form shows an error on submit.
+
+---
+
 ## September 30, 2026
 
 ### Ruby's feedback round 2 (branch `feat/ruby-feedback-2`)

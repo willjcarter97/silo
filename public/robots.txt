@@ -9,6 +9,7 @@ Sitemap: https://silo-creative.com/sitemap.xml
 
 # Disallow admin/internal paths (if any)
 Disallow: /thank-you
+Disallow: /pricing/thank-you
 
 
 

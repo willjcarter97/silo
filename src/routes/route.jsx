@@ -17,6 +17,8 @@ import BlogDetail from "../pages/BlogDetail.jsx";
 import CaseStudies from "../pages/CaseStudies.jsx";
 import PostCaseStudy from "../pages/PostCaseStudy.jsx";
 import ThankYou from "../pages/ThankYou.jsx";
+import Pricing from "../pages/Pricing.jsx";
+import PricingThankYou from "../pages/PricingThankYou.jsx";
 
 function RoutesTree() {
   return (
@@ -25,6 +27,8 @@ function RoutesTree() {
         <Route index element={<Home />} />
         <Route path="about" element={<About />} />
         <Route path="services" element={<Services />} />
+        <Route path="pricing" element={<Pricing />} />
+        <Route path="pricing/thank-you" element={<PricingThankYou />} />
         <Route path="blog" element={<Ramblings />} />
         <Route path="blog/:uid" element={<BlogDetail />} />
         <Route path="case-studies" element={<CaseStudies />} />
