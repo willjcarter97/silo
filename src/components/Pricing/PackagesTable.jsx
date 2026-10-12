@@ -81,9 +81,9 @@ const PackagesTable = ({ onGetBrochure }) => (
       ))}
     </div>
 
-    <p className="mt-6 text-sm text-black/60">{smallPrint}</p>
+    <p className="mt-6 text-center text-sm text-black/60">{smallPrint}</p>
 
-    <div className="mt-8 flex flex-col sm:flex-row sm:items-center gap-4">
+    <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 text-center">
       <p className="font-epilogue font-bold text-xl md:text-2xl">{tableCta.text}</p>
       <a
         href="#brochure"

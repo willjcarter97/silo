@@ -10,7 +10,6 @@ export const pricingMeta = {
 };
 
 export const hero = {
-  label: "pricing",
   heading: "Two packages. Or something built just for you.",
   intro:
     "Fixed-price brand and website packages for practices / sole-traders as well as small businesses, plus bespoke projects quoted on an hourly rate.",
@@ -19,7 +18,6 @@ export const hero = {
 };
 
 export const packagesIntro = {
-  label: "silo packages",
   heading: "Two ways in.",
   line: "Both take you from brand to live website, at a fixed price.",
 };

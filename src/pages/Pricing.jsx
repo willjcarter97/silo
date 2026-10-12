@@ -56,13 +56,12 @@ const Pricing = () => {
     <div className="w-full">
       {/* 1. Hero */}
       <section className="pt-24 md:pt-32 mt-20">
-        <div className="max-w-[1280px] mx-auto px-4 md:px-10 pb-14 md:pb-20">
-          <Label>{hero.label}</Label>
-          <h1 className="mt-6 max-w-5xl font-epilogue font-bold text-[clamp(40px,7.4vw,108px)] leading-[1.04] tracking-tight">
+        <div className="max-w-[1280px] mx-auto px-4 md:px-10 pb-14 md:pb-20 text-center">
+          <h1 className="mx-auto max-w-5xl font-epilogue font-bold text-[clamp(40px,7.4vw,108px)] leading-[1.04] tracking-tight">
             {hero.heading}
           </h1>
-          <p className="mt-6 md:mt-8 max-w-2xl text-base md:text-xl leading-relaxed">{hero.intro}</p>
-          <div className="mt-8 md:mt-10 flex flex-col sm:flex-row gap-4">
+          <p className="mt-6 md:mt-8 mx-auto max-w-2xl text-base md:text-xl leading-relaxed">{hero.intro}</p>
+          <div className="mt-8 md:mt-10 flex flex-col sm:flex-row justify-center gap-4">
             <HeroButton href="#brochure" onClick={link(true)} variant="filled">{hero.primaryButton}</HeroButton>
             <HeroButton href="#quote" onClick={link(false)} variant="outline">{hero.secondaryButton}</HeroButton>
           </div>
@@ -74,9 +73,8 @@ const Pricing = () => {
       {/* 2. Our packages */}
       <section aria-labelledby="packages-heading">
         <div className="max-w-[1280px] mx-auto px-4 md:px-10 py-14 md:py-20">
-          <Label>{packagesIntro.label}</Label>
-          <h2 id="packages-heading" className="mt-6 font-epilogue font-bold text-4xl md:text-6xl leading-[1.05]">{packagesIntro.heading}</h2>
-          <p className="mt-4 mb-10 md:mb-14 max-w-2xl text-base md:text-lg">{packagesIntro.line}</p>
+          <h2 id="packages-heading" className="text-center font-epilogue font-bold text-4xl md:text-6xl leading-[1.05]">{packagesIntro.heading}</h2>
+          <p className="mt-4 mb-10 md:mb-14 mx-auto max-w-2xl text-center text-base md:text-lg">{packagesIntro.line}</p>
           <PackagesTable onGetBrochure={() => goToForm({ brochure: true })} />
         </div>
       </section>
