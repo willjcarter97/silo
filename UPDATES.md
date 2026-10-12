@@ -1,5 +1,14 @@
 # Updates Log
 
+## October 12, 2026
+
+### Blog post spacing (branch `fix/blog-spacing`)
+
+- Blog posts now space themselves: 24px between paragraphs, more room above headings and lists, so posts never need blank lines or "spacer" blocks. Blank paragraphs (how older posts were spaced) are ignored, so old and new posts share one rhythm
+- Quote blocks no longer double the quotation marks when the writer has typed their own
+
+---
+
 ## September 30, 2026
 
 ### Ruby's feedback round 2 (branch `feat/ruby-feedback-2`)

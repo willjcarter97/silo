@@ -24,19 +24,26 @@ const formatDate = (dateString) => {
   });
 };
 
+// Quote text without any quotation marks the writer typed, so the block's own marks aren't doubled
+const quoteText = (field) =>
+  (Array.isArray(field) ? field.map((b) => b.text || "").join(" ") : field || "")
+    .trim()
+    .replace(/^["“”'‘’]+|["“”'‘’]+$/g, "")
+    .trim();
+
 // Custom components for PrismicRichText to match original styling
 const richTextComponents = {
   heading1: ({ children }) => (
     <h1 className="text-4xl md:text-5xl font-bold text-black mb-6">{children}</h1>
   ),
   heading2: ({ children }) => (
-    <h2 className="text-3xl md:text-4xl font-bold text-black mb-6 mt-12 first:mt-0">{children}</h2>
+    <h2 className="text-3xl md:text-4xl font-bold text-black mb-5 mt-14 first:mt-0">{children}</h2>
   ),
   heading3: ({ children }) => (
-    <h3 className="text-2xl md:text-3xl font-bold text-black mb-4 mt-8">{children}</h3>
+    <h3 className="text-2xl md:text-3xl font-bold text-black mb-4 mt-12 first:mt-0">{children}</h3>
   ),
   heading4: ({ children }) => (
-    <h4 className="text-xl md:text-2xl font-bold text-black mb-4 mt-6">{children}</h4>
+    <h4 className="text-xl md:text-2xl font-bold text-black mb-3 mt-8">{children}</h4>
   ),
   heading5: ({ children }) => (
     <h5 className="text-lg md:text-xl font-bold text-black mb-3 mt-4">{children}</h5>
@@ -44,9 +51,9 @@ const richTextComponents = {
   heading6: ({ children }) => (
     <h6 className="text-base md:text-lg font-bold text-black mb-3 mt-4">{children}</h6>
   ),
-  paragraph: ({ children }) => (
-    <p className="text-black leading-relaxed mb-4">{children}</p>
-  ),
+  // Empty paragraphs (pressing Enter twice) are skipped: spacing comes from the styles below, not blank lines
+  paragraph: ({ children, node }) =>
+    node?.text?.trim() ? <p className="text-black leading-relaxed mb-6">{children}</p> : <></>, // (null would make Prismic fall back to a default <p>)
   preformatted: ({ children }) => (
     <pre className="bg-gray-100 p-4 rounded overflow-x-auto text-sm mb-4">{children}</pre>
   ),
@@ -63,10 +70,10 @@ const richTextComponents = {
     <li className="text-black leading-relaxed ml-6 mb-2 list-decimal">{children}</li>
   ),
   list: ({ children }) => (
-    <ul className="mb-4 space-y-1">{children}</ul>
+    <ul className="mb-6 space-y-1">{children}</ul>
   ),
   oList: ({ children }) => (
-    <ol className="mb-4 space-y-1">{children}</ol>
+    <ol className="mb-6 space-y-1">{children}</ol>
   ),
   hyperlink: ({ children, node }) => (
     <a 
@@ -274,12 +281,10 @@ export default function BlogDetail() {
       
       case 'quote':
         return (
-          <div key={index} className="mt-12 border border-black p-8">
-            {slice.primary?.quote_text && (
+          <div key={index} className="my-12 border border-black p-8">
+            {quoteText(slice.primary?.quote_text) && (
               <blockquote className="text-lg md:text-xl text-black leading-relaxed mb-4">
-                "<PrismicRichText field={slice.primary.quote_text} components={{
-                  paragraph: ({ children }) => <span>{children}</span>,
-                }} />"
+                “{quoteText(slice.primary.quote_text)}”
               </blockquote>
             )}
             {slice.primary?.quote_author && (
