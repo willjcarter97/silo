@@ -21,6 +21,11 @@ Started 30 Oct 2026. Earlier history lives in `UPDATES.md` and git log.
 | 30 Oct 2026 | "Remove the images from the site (working from Nic's designs)." | approved | Home, Portfolio, Contact, About per Nic's "Revised - October No Images" PDFs. Branch `feat/no-images-seo`, not pushed |
 | 30 Oct 2026 | "Connect HubSpot. You should already have Super Admin access. (Give me step by step)" | approved | Code side done (see technical decisions); Will's HubSpot steps given in the 30 Oct reply |
 | 30 Oct 2026 | "Align the icons with nics designs a bit closer." | **unresolved** | Icons enlarged to Nic's proportion; exact shapes need the Home PDF as a file or Nic's SVG exports |
+| 30 Oct 2026 | "Push it" (the `feat/no-images-seo` branch) | approved | Merged to `main` and pushed 30 Oct |
+| 30 Oct 2026 | "nonhubspot forms are fine" | approved | HubSpot stays on Non-HubSpot forms capture; no Forms API GUIDs. The per-form GUID slots in `src/config/forms.js` stay empty (off) |
+| 30 Oct 2026 | "just include in the structured data what she asked to add" | approved | Ruby asked for the Perth location only: no phone or street address in the structured data (as built) |
+| 30 Oct 2026 | "delete if unused" | approved | Deleted `src/config/hubspot.js`, `src/lib/hubspot.js`, `src/components/Pricing/Label.jsx`, `public/sitemap.xml` after checking nothing imports them |
+| 30 Oct 2026 | "push" (the 12 Oct `fix/blog-spacing` fix) | approved | Merged and pushed with the branch above |
 
 ## Claude's technical decisions
 
@@ -42,10 +47,9 @@ Started 30 Oct 2026. Earlier history lives in `UPDATES.md` and git log.
 
 ## Open questions (waiting on Will)
 
-1. Push `feat/no-images-seo` (images, About, SEO, forms) to production?
-2. Publish phone `+61 497 497 195` and a street address in the structured data?
-3. Delete now-unused files: `public/sitemap.xml` (replaced by the generated one), `src/config/hubspot.js` and `src/lib/hubspot.js` (replaced by `src/config/forms.js` / `src/lib/forms.js`), `src/components/Pricing/Label.jsx` (eyebrow tag, unused)?
-4. Push `fix/blog-spacing` (12 Oct, Ruby's blog spacing fix, never deployed)?
-5. Approve the proposed Prismic SEO copy (PRISMIC-COPY-CHECKLIST.md section 12)?
-6. HubSpot: create Forms API forms (reliable, needs setup) or stay on Non-HubSpot forms capture (works now, can miss submissions)?
-7. 6 spam submissions on `#pricing-enquiry-form` in HubSpot (seen 30 Oct, the day pricing went live; none came from Claude's tests, which intercepted all requests): worth a look
+1. Icons: exact shapes need the Home PDF as a file or Nic's SVG exports (icons are approximations until then).
+2. Approve the proposed Prismic SEO copy (PRISMIC-COPY-CHECKLIST.md section 12), then redeploy.
+3. 6 spam submissions on `#pricing-enquiry-form` in HubSpot (seen 30 Oct; none from Claude's tests): worth a look.
+
+Resolved 30 Oct: push the branch (yes), structured data (Perth location only), unused files (deleted),
+blog-spacing (pushed), HubSpot route (stay on Non-HubSpot forms).

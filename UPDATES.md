@@ -7,7 +7,7 @@
 - `feat/pricing-page` merged to `main` and deployed (it had been sitting unmerged since 12 October)
 - Removed the red "something else in mind?" tag above "Not every project fits a package.": Silo designs carry no eyebrow labels (Will, 27 October). The heading now opens the black section
 
-### No images, SEO and forms (branch `feat/no-images-seo`, not yet deployed)
+### No images, SEO and forms (branch `feat/no-images-seo`, deployed 30 October)
 
 **Images (Nic's "Revised - October No Images" designs: Home, Portfolio, Contact, About):**
 - Home: photo band gone (only returns as the showreel cover if Prismic `show_video` is switched on); service teaser is four bordered cards with a red/black icon, title and one-line blurb, plus an "Our Services" button
@@ -28,6 +28,15 @@
 - Keep "Non-HubSpot forms" on until the Forms API GUIDs are in, then turn it off to avoid duplicate contacts
 - HubSpot's page-view pixel was blocked by the site's security policy; now allowed
 - **Needs after deploying (JB):** Netlify > Forms: add email notifications for the new `contact` and `newsletter` forms (as for `pricing-enquiry`)
+
+---
+
+## October 12, 2026
+
+### Blog post spacing (branch `fix/blog-spacing`, deployed 30 October)
+
+- Blog posts now space themselves: 24px between paragraphs, more room above headings and lists, so posts never need blank lines or "spacer" blocks. Blank paragraphs (how older posts were spaced) are ignored, so old and new posts share one rhythm
+- Quote blocks no longer double the quotation marks when the writer has typed their own
 
 ---
 
