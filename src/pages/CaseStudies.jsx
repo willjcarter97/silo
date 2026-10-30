@@ -9,6 +9,10 @@ import SiloTriangle from "../components/Common/SiloTriangle";
 import LazyText from "../components/Common/LazyText";
 import LazyElement from "../components/Common/LazyElement";
 import { usePageMeta } from "../hooks/usePageMeta";
+import { pageSeo } from "../data/seo";
+
+// Fallback head copy (used until/unless Prismic has values); single source in src/data/seo.js
+const SEO_FALLBACK = pageSeo("/case-studies");
 import { client } from "../prismicio";
 import { getCaseStudyLocation } from "../data/caseStudyLocations";
 
@@ -168,8 +172,8 @@ const CaseStudies = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   usePageMeta(
-    pageData?.pageTitle || "Creative Agency Case Studies & Client Work",
-    pageData?.metaDescription || "See how Silo Creative has helped brands achieve incredible results with UGC and content creation. Explore our portfolio of successful campaigns."
+    pageData?.pageTitle || SEO_FALLBACK.title,
+    pageData?.metaDescription || SEO_FALLBACK.description
   );
 
   // Fetch page data from Prismic

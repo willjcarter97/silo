@@ -2,10 +2,12 @@
   command = "npm run build"
   publish = "dist"
 
-# SPA routing - redirect all routes to index.html
+# SPA routing. Pages pre-rendered by scripts/build-seo.mjs (dist/<path>.html) are served as files
+# first; any other route falls back to spa.html, the generic shell without a canonical tag. (index.html
+# is now the home page's own HTML, so it must not be the fallback.)
 [[redirects]]
   from = "/*"
-  to = "/index.html"
+  to = "/spa.html"
   status = 200
 
 # Security headers

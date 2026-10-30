@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from 'react';
 import Hero from '../components/BlogDetail/Hero';
 import NewsletterSubscription from '../components/BlogDetail/NewsletterSubscription';
 import { usePageMeta } from '../hooks/usePageMeta';
+import { BLOG_FALLBACK_DESCRIPTION } from '../data/seo';
 import { client } from '../prismicio';
 import { PrismicRichText } from '@prismicio/react';
 
@@ -147,8 +148,8 @@ export default function BlogDetail() {
 
   // Set page meta
   usePageMeta(
-    blogPost ? (blogPost.metaTitle || `${blogPost.title} | Silo Creative Ramblings`) : 'Blog Post | Silo Creative',
-    blogPost ? (blogPost.metaDescription || blogPost.description || 'Read the latest insights and ideas from Silo Creative on UGC, content strategy, and digital marketing.') : 'Read the latest insights and ideas from Silo Creative.'
+    blogPost ? (blogPost.metaTitle || `${blogPost.title} | Silo`) : 'Ramblings | Silo',
+    blogPost ? (blogPost.metaDescription || blogPost.description || BLOG_FALLBACK_DESCRIPTION) : BLOG_FALLBACK_DESCRIPTION
   );
 
   // Newsletter subscription handler

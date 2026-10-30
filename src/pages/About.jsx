@@ -7,6 +7,10 @@ import MindsInTheSilo from "../components/About/MindsInTheSilo";
 import ReadyWhenYouArePrismic from "../components/Common/ReadyWhenYouArePrismic";
 import LazySection from "../components/Common/LazySection";
 import { usePageMeta } from "../hooks/usePageMeta";
+import { pageSeo } from "../data/seo";
+
+// Fallback head copy (used until/unless Prismic has values); single source in src/data/seo.js
+const SEO_FALLBACK = pageSeo("/about");
 import { client } from "../prismicio";
 
 /**
@@ -48,8 +52,8 @@ const About = () => {
 
   // Default page meta
   usePageMeta(
-    pageData?.pageTitle || "Boutique Creative Studio for Modern Brands",
-    pageData?.metaDescription || "A boutique creative agency blending social media strategy, content strategy, branding, digital design and website development to build meaningful brand experiences."
+    pageData?.pageTitle || SEO_FALLBACK.title,
+    pageData?.metaDescription || SEO_FALLBACK.description
   );
 
   // Fetch about page data from Prismic

@@ -3,7 +3,8 @@ import { FaChevronRight } from "react-icons/fa";
 import { usePageMeta } from "../hooks/usePageMeta";
 import PackagesTable from "../components/Pricing/PackagesTable";
 import EnquiryForm from "../components/Pricing/EnquiryForm";
-import { pricingMeta, hero, packagesIntro, bespoke } from "../data/pricingData";
+import { hero, packagesIntro, bespoke } from "../data/pricingData";
+import { pageSeo } from "../data/seo";
 
 // Same filled / outlined button pair used across the site, with the sliding-chevron hover
 const HeroButton = ({ href, onClick, children, variant }) => {
@@ -25,7 +26,8 @@ const HeroButton = ({ href, onClick, children, variant }) => {
 };
 
 const Pricing = () => {
-  usePageMeta(pricingMeta.title, pricingMeta.description);
+  const seo = pageSeo("/pricing");
+  usePageMeta(seo.title, seo.description);
 
   const [wantBrochure, setWantBrochure] = useState(false);
   const formSectionRef = useRef(null);

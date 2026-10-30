@@ -1,11 +1,15 @@
 import React from 'react'
 import ReadyWhenYouAre from '../components/Common/ReadyWhenYouAre'
 import { usePageMeta } from '../hooks/usePageMeta'
+import { pageSeo } from "../data/seo";
+
+// Fallback head copy (used until/unless Prismic has values); single source in src/data/seo.js
+const SEO_FALLBACK = pageSeo("/cookies");
 
 const Cookies = () => {
   usePageMeta(
-    'Cookies Policy | Silo Creative',
-    'Understand how Silo Creative uses cookies and similar technologies on our website. View our detailed cookies policy.'
+    SEO_FALLBACK.title,
+    SEO_FALLBACK.description
   )
 
   return (

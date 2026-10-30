@@ -2,6 +2,10 @@ import { useState, useMemo, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { usePageMeta } from "../hooks/usePageMeta";
+import { pageSeo } from "../data/seo";
+
+// Fallback head copy (used until/unless Prismic has values); single source in src/data/seo.js
+const SEO_FALLBACK = pageSeo("/blog");
 import { client } from "../prismicio";
 import LazyImage from "../components/Common/LazyImage";
 import LazyElement from "../components/Common/LazyElement";
@@ -40,8 +44,8 @@ export default function Ramblings() {
   const sidebarWrapperRef = useRef(null);
 
   usePageMeta(
-    pageData?.pageTitle || "Insights on Social, Branding & Web Design",
-    pageData?.metaDescription || "Read expert insights on social media strategy, content strategy, branding, web design, UX UI design, digital content trends and creative direction for modern brands."
+    pageData?.pageTitle || SEO_FALLBACK.title,
+    pageData?.metaDescription || SEO_FALLBACK.description
   );
 
   // Fetch page data from Prismic

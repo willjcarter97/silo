@@ -53,8 +53,8 @@ const JobDetail = () => {
   }, [id])
 
   usePageMeta(
-    `${job?.title || 'Job Opening'} | Silo Creative Careers`,
-    `Join Silo Creative as a ${job?.title || 'team member'}. Apply now to work on exciting UGC projects with leading brands.`
+    `${job?.title || 'Job opening'} | Careers at Silo`,
+    `Join Silo as ${job?.title ? `our ${job.title}` : 'part of the team'}: brand strategy, identity, UI/UX and web development across Perth and London.`
   )
 
   // Loading state

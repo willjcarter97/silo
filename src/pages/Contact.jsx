@@ -5,6 +5,10 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import "../styles/scaling-overrides.css";
 import { usePageMeta } from "../hooks/usePageMeta";
+import { pageSeo } from "../data/seo";
+
+// Fallback head copy (used until/unless Prismic has values); single source in src/data/seo.js
+const SEO_FALLBACK = pageSeo("/contact");
 import AccentHeadline from "../components/Common/AccentHeadline";
 import SiloTriangle from "../components/Common/SiloTriangle";
 import { client } from "../prismicio";
@@ -20,8 +24,8 @@ const Contact = () => {
   const [pageData, setPageData] = useState(null);
 
   usePageMeta(
-    pageData?.pageTitle || "Contact Us | Social, Branding & Web Agency",
-    pageData?.metaDescription || "Get in touch to discuss social media strategy, content strategy, brand design or website design and development. Let's build your digital presence."
+    pageData?.pageTitle || SEO_FALLBACK.title,
+    pageData?.metaDescription || SEO_FALLBACK.description
   );
 
   // Scroll to top when component mounts

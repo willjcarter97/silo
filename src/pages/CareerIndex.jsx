@@ -6,6 +6,10 @@ import {
   MdOutlineLocationOn,
 } from "react-icons/md";
 import { usePageMeta } from "../hooks/usePageMeta";
+import { pageSeo } from "../data/seo";
+
+// Fallback head copy (used until/unless Prismic has values); single source in src/data/seo.js
+const SEO_FALLBACK = pageSeo("/careers");
 import ReadyWhenYouArePrismic from "../components/Common/ReadyWhenYouArePrismic";
 import { client } from "../prismicio";
 
@@ -25,8 +29,8 @@ const CareerIndex = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   usePageMeta(
-    pageData?.pageTitle || 'Careers at Our Creative & Digital Studio',
-    pageData?.metaDescription || 'Explore roles in social media management, content strategy, brand identity design, motion graphics, digital design and website development at Silo.'
+    pageData?.pageTitle || SEO_FALLBACK.title,
+    pageData?.metaDescription || SEO_FALLBACK.description
   );
 
   // Fetch page data from Prismic

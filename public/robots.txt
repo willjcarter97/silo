@@ -4,12 +4,10 @@
 User-agent: *
 Allow: /
 
-# Sitemap location (update domain when live)
+# Generated at build time by scripts/build-seo.mjs (includes every case study and blog post)
 Sitemap: https://silo-creative.com/sitemap.xml
 
-# Disallow admin/internal paths (if any)
+# Thank-you pages (also noindex) and the bare app shell used as the fallback for unlisted routes
 Disallow: /thank-you
 Disallow: /pricing/thank-you
-
-
-
+Disallow: /spa.html

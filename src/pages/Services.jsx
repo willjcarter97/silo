@@ -5,6 +5,10 @@ import ReadyWhenYouArePrismic from '../components/Common/ReadyWhenYouArePrismic.
 import LazySection from '../components/Common/LazySection.jsx'
 import LazyText from '../components/Common/LazyText.jsx'
 import { usePageMeta } from '../hooks/usePageMeta'
+import { pageSeo } from "../data/seo";
+
+// Fallback head copy (used until/unless Prismic has values); single source in src/data/seo.js
+const SEO_FALLBACK = pageSeo("/services");
 import { client } from '../prismicio'
 import { coreServices, otherServices } from '../data/servicesData.jsx'
 
@@ -50,8 +54,8 @@ const Services = () => {
   const [pageData, setPageData] = useState(null);
 
   usePageMeta(
-    pageData?.pageTitle || 'Services | Social, Branding, Web & Content Strategy Agency',
-    pageData?.metaDescription || 'Explore services in social media management, content strategy, brand design, UX UI design, website development and motion design for modern brands.'
+    pageData?.pageTitle || SEO_FALLBACK.title,
+    pageData?.metaDescription || SEO_FALLBACK.description
   )
 
   // Fetch page data from Prismic

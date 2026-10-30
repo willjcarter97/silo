@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 import { PrismicRichText } from "@prismicio/react";
 import ReadyWhenYouArePrismic from "../components/Common/ReadyWhenYouArePrismic";
 import { usePageMeta } from "../hooks/usePageMeta";
+import { pageSeo } from "../data/seo";
+
+// Fallback head copy (used until/unless Prismic has values); single source in src/data/seo.js
+const SEO_FALLBACK = pageSeo("/legal");
 import { client } from "../prismicio";
 
 // Default values
@@ -19,8 +23,8 @@ const Legal = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   usePageMeta(
-    pageData?.pageTitle || "Legal Information | Silo Creative Agency",
-    pageData?.metaDescription || "Access legal information relating to our work in social media strategy, content strategy, branding, digital design, UX UI design and website development services."
+    pageData?.pageTitle || SEO_FALLBACK.title,
+    pageData?.metaDescription || SEO_FALLBACK.description
   );
 
   // Fetch page data from Prismic

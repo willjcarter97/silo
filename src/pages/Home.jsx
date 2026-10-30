@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import Hero from '../components/Home/Hero'
 import { usePageMeta } from '../hooks/usePageMeta'
+import { pageSeo } from '../data/seo'
 import { client } from '../prismicio'
 
 const Home = () => {
   const [seoData, setSeoData] = useState({
-    title: 'Modern Creative Agency for Social, Brand & Web.',
-    description: 'A modern creative studio specialising in social media strategy, content strategy, brand identity design, web design and custom website development for growing brands.'
+    title: pageSeo('/').title,
+    description: pageSeo('/').description
   })
 
   useEffect(() => {

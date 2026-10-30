@@ -2,11 +2,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { FaChevronRight } from "react-icons/fa";
 import { usePageMeta } from "../hooks/usePageMeta";
+import { pageSeo } from "../data/seo";
+
+// Fallback head copy (used until/unless Prismic has values); single source in src/data/seo.js
+const SEO_FALLBACK = pageSeo("/404");
 
 const NotFound = () => {
   usePageMeta(
-    "Page Not Found | Silo Creative Agency",
-    "This page does not exist. Continue exploring our work in social media strategy, content strategy, branding, UX UI design and website development."
+    SEO_FALLBACK.title,
+    SEO_FALLBACK.description
   );
 
   return (

@@ -3,11 +3,7 @@
 
 // The brochure is not hosted on the site: ticking "Send me the brochure" flags the enquiry so it can be sent by hand.
 
-export const pricingMeta = {
-  title: "Pricing | Brand and Website Packages Perth | Silo",
-  description:
-    "Fixed-price brand and website packages for Perth practices and small businesses. Download the brochure or get a quote for bespoke work.",
-};
+// Page title and meta description live in src/data/seo.js (PAGES, "/pricing").
 
 export const hero = {
   heading: "Two packages. Or something built just for you.",

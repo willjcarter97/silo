@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { usePageMeta } from "../hooks/usePageMeta";
+import { pageSeo } from "../data/seo";
+
+// Fallback head copy (used until/unless Prismic has values); single source in src/data/seo.js
+const SEO_FALLBACK = pageSeo("/thank-you");
 
 const ThankYou = () => {
   usePageMeta(
-    "Thank You | Silo Creative",
-    "Thank you for getting in touch. We'll be in contact soon."
+    SEO_FALLBACK.title,
+    SEO_FALLBACK.description
   );
 
   const navigate = useNavigate();
