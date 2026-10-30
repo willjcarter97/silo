@@ -159,9 +159,7 @@ const About = () => {
             <MindsInTheSilo />
           </div>
         </LazySection>
-        <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black mt-0 mb-8 md:mb-10 lg:mb-12" />
         <ReadyWhenYouArePrismic />
-        <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black mt-12 md:mt-16 lg:mt-20" />
       </div>
     </div>
   );

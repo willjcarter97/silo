@@ -332,10 +332,7 @@ const PostCaseStudy = () => {
       {/* Render all slices using the proper styled components */}
       {slices.map((slice, index) => renderSlice(slice, index))}
 
-      {/* Want Results Like This CTA Section */}
-      <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black my-16" />
       <WantResultsLikeThis />
-      <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black mt-16" />
     </div>
   );
 };

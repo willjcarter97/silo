@@ -6,6 +6,8 @@ import { getCaseStudyLocation } from "../../data/caseStudyLocations";
 import LazyImage from "../Common/LazyImage";
 import LazyText from "../Common/LazyText";
 import LazyElement from "../Common/LazyElement";
+import ServiceIcon from "./ServiceIcon";
+import { SERVICE_TEASERS, findServiceTeaser } from "../../data/serviceTeasers";
 
 // Helper to extract plain text from Prismic Rich Text
 const asText = (richTextField) => {
@@ -14,39 +16,10 @@ const asText = (richTextField) => {
   return richTextField.map((block) => block.text || "").join(" ");
 };
 
-// Default service cards (used when Prismic data is not available).
-// Titles only - the teaser intentionally carries no blurb. Images are placeholders
-// carried over from the previous set until the client supplies new imagery.
-const DEFAULT_SERVICE_CARDS = [
-  {
-    image: "https://images.prismic.io/silosite/aVUgQnNYClf9otrI_v1765879825_Placeholder_Image_zxnykm.png?auto=format,compress",
-    imageAlt: "Brand Strategy",
-    title: "Brand Strategy",
-    description: "",
-    link: "/services",
-  },
-  {
-    image: "https://images.prismic.io/silosite/aVUgRHNYClf9otrK_v1765879826_Placeholder_Image1_me1r2y.png?auto=format,compress",
-    imageAlt: "Visual Identity",
-    title: "Visual Identity",
-    description: "",
-    link: "/services",
-  },
-  {
-    image: "https://images.prismic.io/silosite/aVUgQXNYClf9otrH_v1765879825_2_jegbj9.png?auto=format,compress",
-    imageAlt: "UI/UX Design",
-    title: "UI/UX Design",
-    description: "",
-    link: "/services",
-  },
-  {
-    image: "https://images.prismic.io/silosite/aVUgQ3NYClf9otrJ_v1765879826_3_r08wlm.png?auto=format,compress",
-    imageAlt: "Custom Web Development",
-    title: "Custom Web Development",
-    description: "",
-    link: "/services",
-  },
-];
+// Default service cards (used when Prismic data is not available). Copy and icons live in
+// src/data/serviceTeasers.js. The October designs show no photography here, so Prismic's
+// service_image is no longer rendered.
+const DEFAULT_SERVICE_CARDS = SERVICE_TEASERS.map((t) => ({ title: t.title, description: "", link: "/services" }));
 
 // Desktop Case Study Card for Homepage
 const HomepageCaseStudyDesktop = ({ caseStudy, isLast }) => {
@@ -229,57 +202,33 @@ const HomepageCaseStudyMobile = ({ caseStudy }) => {
   );
 };
 
-// Service Card Component - returns fragment so parent flex layout applies.
-// Desktop: the title appears over the image on hover/focus (and stays as a visually hidden
-// heading for screen readers). Mobile, and touch-only tablets with no hover, keep the title under the image.
-const ServiceCard = ({ card, isDesktop = true }) => {
-  const imageClass = `relative group block w-full ${isDesktop ? 'h-[250px] md:h-[300px]' : 'h-[250px] mb-4'} bg-gray-100 overflow-hidden`;
-  const titleClass = `font-epilogue font-bold ${isDesktop ? 'text-[32px] md:text-[28px] lg:text-[32px] leading-[130%] tracking-normal' : 'text-2xl mb-3'} text-black`;
-  const descClass = `${isDesktop ? 'text-[16px] leading-[150%] tracking-normal' : 'text-sm leading-relaxed'} text-black`;
-
-  const image = (
-    <LazyImage
-      src={card.image}
-      alt={card.imageAlt || card.title}
-      className="w-full h-full object-cover"
-      containerClassName="w-full h-full"
-    />
-  );
-
-  const overlay = isDesktop ? (
-    <span
-      aria-hidden
-      className="absolute inset-0 flex items-center justify-center bg-black/60 px-6 text-center font-epilogue font-bold text-white text-[28px] lg:text-[32px] leading-[130%] opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100 group-focus-visible:opacity-100 [@media(hover:none)]:hidden"
-    >
-      {card.title}
-    </span>
-  ) : null;
-
-  // Desktop title: hidden visually (kept for accessibility) unless the device can't hover
-  const desktopTitleClass = `${titleClass} sr-only [@media(hover:none)]:not-sr-only`;
+// Service card (Nic's October design): bordered box with a small geometric icon, the title with its last
+// word on its own line from tablet up ("Custom Web / Development"), and a one-line blurb at the foot.
+const ServiceCard = ({ card }) => {
+  const teaser = findServiceTeaser(card.title);
+  const blurb = card.description || teaser?.blurb || "";
+  const words = (card.title || "").trim().split(/\s+/);
+  const last = words.length > 1 ? words.pop() : null;
+  const Tag = card.link ? "a" : "div";
 
   return (
-    <>
-      {card.link ? (
-        <a href={card.link} className={imageClass} aria-label={card.title}>
-          {image}
-          {overlay}
-        </a>
-      ) : (
-        <div className={imageClass}>
-          {image}
-          {overlay}
-        </div>
-      )}
-      <h3 className={isDesktop ? desktopTitleClass : titleClass}>
-        {card.link && !isDesktop ? <a href={card.link}>{card.title}</a> : card.title}
+    <Tag
+      {...(card.link ? { href: card.link } : {})}
+      className="group h-full flex flex-col border border-black p-6 lg:p-7 md:min-h-[19rem] transition-colors duration-300 hover:border-brand focus-visible:border-brand"
+    >
+      <ServiceIcon name={teaser?.icon} className="w-12 h-12 lg:w-14 lg:h-14 shrink-0" />
+      <h3 className="mt-6 font-epilogue font-bold text-2xl lg:text-[26px] leading-[1.2] text-black transition-colors duration-300 group-hover:text-brand">
+        {words.join(" ")}
+        {last && (
+          <>
+            {" "}
+            <br className="hidden md:block" />
+            {last}
+          </>
+        )}
       </h3>
-      {card.description && (
-        <p className={descClass}>
-          {card.description}
-        </p>
-      )}
-    </>
+      {blurb && <p className="mt-4 md:mt-auto md:pt-8 text-sm leading-relaxed text-black">{blurb}</p>}
+    </Tag>
   );
 };
 
@@ -439,31 +388,28 @@ export default function ContentAndDone({
     };
   }, []);
 
-  // Split heading for desktop display
-  const headingParts = servicesHeading.split(" ");
-  const midPoint = Math.ceil(headingParts.length / 2);
-  const headingLine1 = headingParts.slice(0, midPoint).join(" ");
-  const headingLine2 = headingParts.slice(midPoint).join(" ");
-
   return (
     <div className="mx-auto px-0 max-w-[1280px]">
       {/* Desktop view (hidden on mobile) */}
       <div className="hidden md:block overflow-visible max-w-[1280px]">
-        <div className="flex justify-center relative items-start w-full mx-auto">
-          <h2 className="mr-auto text-2xl md:text-5xl xl:w-[30rem] md:mb-10 lg:mb-0 font-bold tracking-tight text-black w-[28rem] 2xl:w-[28rem] lg:w-[22rem]">
-            {headingLine1} <br /> {headingLine2}
+        <div className="flex items-center justify-between gap-8 w-full mx-auto">
+          <h2 className="text-4xl lg:text-5xl font-bold tracking-tight text-black">
+            {servicesHeading}
           </h2>
+          <a
+            href="/services"
+            className="shrink-0 inline-flex items-center justify-center bg-brand h-[48px] px-6 text-base font-bold text-white relative overflow-hidden group"
+          >
+            <span aria-hidden className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 svg-wrapper group-hover:animate-bounce-custom">
+              <FaChevronRight className="text-white w-4 h-4 opacity-0 transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:scale-[140%]" />
+            </span>
+            <span className="block transition-all duration-300 ease-in-out group-hover:translate-x-40">Our Services</span>
+          </a>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-0 mx-auto md:my-20">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mx-auto mt-16 mb-4">
           {displayServiceCards.slice(0, 4).map((card, index) => (
-            <LazyElement
-              key={index}
-              as="article"
-              className={`border border-black ${index % 2 === 0 ? 'border-x-0 p-8 pl-0' : 'p-8 pr-0 border-r-0'} border-b-0 flex flex-col gap-4 ${index === 0 ? 'mb-5' : ''}`}
-              animation="fadeUp"
-              delay={index * 100}
-            >
-              <ServiceCard card={card} isDesktop={true} />
+            <LazyElement key={index} as="article" className="h-full" animation="fadeUp" delay={index * 100}>
+              <ServiceCard card={card} />
             </LazyElement>
           ))}
         </div>
@@ -517,20 +463,21 @@ export default function ContentAndDone({
 
       {/* Mobile-only view (hidden on desktop) */}
       <div className="block md:hidden mt-[-1rem] px-[4vw]">
-        <h2 className="text-4xl font-bold tracking-tight text-black mb-[3rem]">
+        <h2 className="text-4xl font-bold tracking-tight text-black">
           {servicesHeading}
         </h2>
+        <a
+          href="/services"
+          className="mt-6 inline-flex items-center justify-center bg-brand h-[48px] px-6 text-base font-bold text-white"
+        >
+          Our Services
+        </a>
 
         {/* Stacked mobile cards */}
-        <div className="flex flex-col gap-0">
+        <div className="flex flex-col gap-4 mt-10">
           {displayServiceCards.slice(0, 4).map((card, index) => (
-            <LazyElement
-              key={index}
-              className={`border border-black border-x-0 border-b-0 p-0 py-5`}
-              animation="fadeUp"
-              delay={index * 100}
-            >
-              <ServiceCard card={card} isDesktop={false} />
+            <LazyElement key={index} as="article" animation="fadeUp" delay={index * 100}>
+              <ServiceCard card={card} />
             </LazyElement>
           ))}
         </div>

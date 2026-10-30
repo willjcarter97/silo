@@ -244,15 +244,11 @@ export default function Hero() {
           />
         </LazySection>
       </div>
-      {/* Section Divider */}
-      <div className="w-[100vw] h-[1px] bg-black my-16 md:my-24 relative left-1/2 -translate-x-1/2" />
       <div className="w-full max-w-[1280px] mx-auto">
         <LazySection rootMargin="200px">
           <ReadyWhenYouArePrismic />
         </LazySection>
       </div>
-      {/* Section Divider */}
-      <div className="w-[100vw] h-[1px] bg-black my-16 md:my-24 relative left-1/2 -translate-x-1/2" />
     </>
   );
 }

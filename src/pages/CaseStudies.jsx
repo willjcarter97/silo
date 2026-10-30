@@ -4,6 +4,8 @@ import { MdOutlineKeyboardArrowRight, MdOutlineLocationOn } from "react-icons/md
 import ReadyWhenYouArePrismic from "../components/Common/ReadyWhenYouArePrismic";
 import LazySection from "../components/Common/LazySection";
 import LazyImage from "../components/Common/LazyImage";
+import AccentHeadline from "../components/Common/AccentHeadline";
+import SiloTriangle from "../components/Common/SiloTriangle";
 import LazyText from "../components/Common/LazyText";
 import LazyElement from "../components/Common/LazyElement";
 import { usePageMeta } from "../hooks/usePageMeta";
@@ -18,8 +20,6 @@ const defaults = {
   primaryButtonLink: "/contact",
   secondaryButtonText: "Our services",
   secondaryButtonLink: "/services",
-  mainImage: "https://images.prismic.io/silosite/aVUgXnNYClf9otrc_v1765923582_Placeholder_Image_rr5dup.png?auto=format,compress",
-  secondaryImage: "https://images.prismic.io/silosite/aVUgHHNYClf9otrA_v1762717296_studies2_a4olwb.png?auto=format,compress",
 };
 
 /**
@@ -245,140 +245,53 @@ const CaseStudies = () => {
   const displayPrimaryButtonLink = pageData?.primaryButtonLink || defaults.primaryButtonLink;
   const displaySecondaryButtonText = pageData?.secondaryButtonText || defaults.secondaryButtonText;
   const displaySecondaryButtonLink = pageData?.secondaryButtonLink || defaults.secondaryButtonLink;
-  const displayMainImage = pageData?.mainImage || defaults.mainImage;
-  const displaySecondaryImage = pageData?.secondaryImage || defaults.secondaryImage;
 
   return (
     <div className="max-w-[1280px] mx-auto h-auto flex flex-col justify-start items-center mt-16 xl:mt-12 lg:mt-40 md:mt-40">
-      {/* Hero Section */}
+      {/* Hero Section (Nic's October design: type-led, no photography; red triangle accent) */}
       <section
-        className="mt-10 mb-4 md:mb-10 flex items-start w-full justify-start pb-4 md:pb-12 lg:pb-16 overflow-hidden"
-        aria-label="About Silo - Company introduction"
+        className="mt-10 mb-4 md:mb-10 w-full px-4 md:px-0 pt-6 md:pt-10 xl:pt-24 pb-12 md:pb-16 lg:pb-24"
+        aria-label="Portfolio introduction"
       >
-        <div className="flex flex-col justify-between xl:grid xl:grid-cols-[1fr_1.5fr] gap-6 sm:gap-8 md:gap-10 lg:gap-12 xl:gap-16 max-w-full mx-auto w-full items-start md:items-center mt-0 xl:mt-16 lg:mt-0 md:mt-0">
-          {/* Text Content Area */}
-          <div
-            className="flex flex-col h-full justify-start xl:justify-between space-y-4 sm:space-y-6 md:space-y-8 order-2 xl:order-1 xl:pr-6 items-start w-full md:w-[90%] md:-ml-16 xl:ml-0 px-3 md:px-0"
-            role="main"
-          >
-            <h1
-              className="font-bold text-black text-4xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl 2xl:text-[56px] leading-3 text-left mt-6 sm:mt-0"
-              style={{
-                opacity: 1,
-                fontFamily: "Epilogue, sans-serif",
-                fontWeight: 700,
-                lineHeight: "100%",
-                letterSpacing: "0%",
-              }}
-            >
-              {displayHeading}
-            </h1>
-            <div className="flex flex-col gap-5 sm:gap-6 items-start w-full">
-              <p
-                className="text-black text-sm sm:text-base md:text-lg lg:text-xl xl:text-[18px] leading-relaxed text-left max-w-full xl:max-w-lg font-epilogue"
-                style={{
-                  opacity: 1,
-                  fontWeight: 400,
-                  fontFamily: "Epilogue, sans-serif",
-                  lineHeight: "150%",
-                  letterSpacing: "0%",
-                }}
-              >
-                {displayDescription}
-              </p>
-              <div className="flex flex-row gap-3 sm:gap-4 items-start w-full sm:w-auto xl:mx-0">
-                <a
-                  href={displayPrimaryButtonLink}
-                  className="inline-flex items-center justify-center gap-2 bg-[#FF322E] h-[55px] px-6 py-3 text-xs font-bold tracking-wide text-white border-transparent relative overflow-hidden group"
-                >
-                  <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 svg-wrapper group-hover:animate-bounce-custom">
-                    <FaChevronRight className="text-white w-5 h-5 opacity-0 transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:translate-x-3 group-hover:scale-[140%]" />
-                  </div>
-                  <span className="block transition-all whitespace-nowrap duration-300 ease-in-out text-base group-hover:translate-x-40">
-                    {displayPrimaryButtonText}
-                  </span>
-                </a>
-
-                <a
-                  href={displaySecondaryButtonLink}
-                  className="inline-flex items-center justify-center gap-2 bg-transparent border-[1px] border-brand h-[55px] px-6 py-3 text-xs font-bold tracking-wide text-brand relative overflow-hidden group"
-                >
-                  <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 svg-wrapper group-hover:animate-bounce-custom">
-                    <FaChevronRight className="text-brand w-5 h-5 opacity-0 transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:translate-x-3 group-hover:scale-[140%]" />
-                  </div>
-                  <span className="block transition-all whitespace-nowrap duration-300 ease-in-out text-base group-hover:translate-x-40">
-                    {displaySecondaryButtonText}
-                  </span>
-                </a>
-              </div>
-            </div>
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_minmax(0,400px)] gap-10 md:gap-16 items-end">
+          <div className="flex flex-col gap-10 md:gap-20">
+            <AccentHeadline
+              as="h1"
+              accentKey="portfolio"
+              text={displayHeading}
+              className="font-epilogue font-bold text-black text-5xl md:text-6xl lg:text-7xl xl:text-[80px] leading-[1.08] tracking-tight max-w-[11ch]"
+            />
+            <SiloTriangle className="hidden md:block w-[88px] h-[72px]" />
           </div>
-
-          {/* Visual Content Area */}
-          <LazyElement className="order-1 xl:order-2 w-full mb-6 md:mb-0 md:mt-0" animation="fadeLeft" delay={100} renderWhenHidden={true}>
-            <div className="flex flex-col md:hidden gap-4">
-              <div className="w-full">
-                <LazyImage
-                  src={displayMainImage}
-                  alt="Silo team member showcasing brand identity"
-                  className="w-full h-auto object-cover max-h-[350px]"
-                  containerClassName="w-full"
-                />
-              </div>
-              <div className="flex flex-row items-center justify-center gap-3 w-full">
-                <div className="hidden sm:flex justify-center">
-                  <LazyImage
-                    src={displaySecondaryImage}
-                    alt="The Silo brand representation"
-                    className="w-32 h-auto object-cover max-h-[120px]"
-                    containerClassName="w-32"
-                  />
+          <div className="flex flex-col gap-6 md:pb-1">
+            <p className="font-epilogue text-black text-base md:text-lg leading-[150%]">{displayDescription}</p>
+            <div className="flex flex-row gap-3 sm:gap-4 items-start">
+              <a
+                href={displayPrimaryButtonLink}
+                className="inline-flex items-center justify-center gap-2 bg-[#FF322E] h-[55px] px-6 py-3 text-xs font-bold tracking-wide text-white border-transparent relative overflow-hidden group"
+              >
+                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 svg-wrapper group-hover:animate-bounce-custom">
+                  <FaChevronRight className="text-white w-5 h-5 opacity-0 transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:translate-x-3 group-hover:scale-[140%]" />
                 </div>
-              </div>
-            </div>
+                <span className="block transition-all whitespace-nowrap duration-300 ease-in-out text-base group-hover:translate-x-40">
+                  {displayPrimaryButtonText}
+                </span>
+              </a>
 
-            <div className="hidden md:flex xl:hidden gap-6">
-              <div className="flex-1">
-                <LazyImage
-                  src={displayMainImage}
-                  alt="Silo team member showcasing brand identity"
-                  className="w-full h-auto object-cover max-h-[500px] lg:max-h-[550px]"
-                  containerClassName="w-full"
-                />
-              </div>
-              <div className="flex flex-col gap-4 justify-between items-end">
-                <div>
-                  <LazyImage
-                    src={displaySecondaryImage}
-                    alt="The Silo brand representation"
-                    className="w-48 lg:w-56 h-auto object-cover max-h-[300px] lg:max-h-[350px]"
-                    containerClassName="w-48 lg:w-56"
-                  />
+              <a
+                href={displaySecondaryButtonLink}
+                className="inline-flex items-center justify-center gap-2 bg-transparent border-[1px] border-brand h-[55px] px-6 py-3 text-xs font-bold tracking-wide text-brand relative overflow-hidden group"
+              >
+                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 svg-wrapper group-hover:animate-bounce-custom">
+                  <FaChevronRight className="text-brand w-5 h-5 opacity-0 transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:translate-x-3 group-hover:scale-[140%]" />
                 </div>
-              </div>
+                <span className="block transition-all whitespace-nowrap duration-300 ease-in-out text-base group-hover:translate-x-40">
+                  {displaySecondaryButtonText}
+                </span>
+              </a>
             </div>
-
-            <div className="hidden xl:flex gap-6">
-              <div className="flex-1 max-w-[460px]">
-                <LazyImage
-                  src={displayMainImage}
-                  alt="Silo team member showcasing brand identity"
-                  className="w-full h-auto object-cover max-h-[550px] 2xl:max-h-none"
-                  containerClassName="w-full"
-                />
-              </div>
-              <div className="flex flex-col justify-between items-end">
-                <div className="mb-4">
-                  <LazyImage
-                    src={displaySecondaryImage}
-                    alt="The Silo brand representation"
-                    className="w-64 2xl:w-[328px] h-auto object-cover xl:min-h-[200px] 2xl:max-h-none"
-                    containerClassName="w-64 2xl:w-[328px]"
-                  />
-                </div>
-              </div>
-            </div>
-          </LazyElement>
+            <SiloTriangle className="md:hidden mt-6 w-[56px] h-[46px]" />
+          </div>
         </div>
       </section>
 
@@ -417,13 +330,11 @@ const CaseStudies = () => {
         </div>
       </LazySection>
 
-      <div className="w-screen mx-auto h-[1px] bg-black my-16 relative left-1/2 -translate-x-1/2" />
       
       <LazySection>
         <ReadyWhenYouArePrismic />
       </LazySection>
       
-      <div className="relative left-1/2 -translate-x-1/2 w-screen mx-auto h-[1px] bg-black mt-16" />
     </div>
   );
 };

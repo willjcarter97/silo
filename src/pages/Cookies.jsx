@@ -125,10 +125,7 @@ const Cookies = () => {
         </div>
       </div>
       
-      {/* Ready When You Are Section */}
-      <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black my-16" />
       <ReadyWhenYouAre />
-      <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black mt-16" />
     </div>
   )
 }

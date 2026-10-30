@@ -55,6 +55,9 @@ export default function VideoAndWelcome({
       {/* Mobile-only simplified block: visible on small screens only
           Animated letters placed BEFORE the content on mobile as requested. */}
 
+      {/* Full-width image band: only shown as the showreel cover. Without a showreel (Prismic
+          home_page.show_video off) the page goes straight from the logos to Welcome, per the October designs. */}
+      {showVideo && (
       <div className="relative w-screen left-1/2 -translate-x-1/2 overflow-hidden mt-6 md:mt-10 lg:mt-14 z-20">
         <div className="h-80 lg:h-[80vh] md:h-[60vh] relative z-20">
           <img
@@ -96,6 +99,7 @@ export default function VideoAndWelcome({
           ) : null}
         </div>
       </div>
+      )}
 
       {open &&
         createPortal(

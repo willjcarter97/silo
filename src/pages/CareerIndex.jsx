@@ -233,9 +233,7 @@ const CareerIndex = () => {
           </div>
         </div>
       </div>
-      <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black my-16" />
       <ReadyWhenYouArePrismic />
-      <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black mt-16" />
     </div>
   );
 };
