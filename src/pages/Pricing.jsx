@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { FaChevronRight } from "react-icons/fa";
 import { usePageMeta } from "../hooks/usePageMeta";
-import Label from "../components/Pricing/Label";
 import PackagesTable from "../components/Pricing/PackagesTable";
 import EnquiryForm from "../components/Pricing/EnquiryForm";
 import { pricingMeta, hero, packagesIntro, bespoke } from "../data/pricingData";
@@ -83,8 +82,8 @@ const Pricing = () => {
       <section id="enquire" ref={formSectionRef} className="bg-black text-white scroll-mt-20">
         <div className="max-w-[1280px] mx-auto px-4 md:px-10 py-16 md:py-28 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
           <div className="lg:col-span-5">
-            <Label>{bespoke.label}</Label>
-            <h2 className="mt-6 font-epilogue font-bold text-4xl md:text-6xl leading-[1.05]">{bespoke.heading}</h2>
+            {/* No tag above the heading: no eyebrow labels in Silo designs (Will, 27 Oct 2026) */}
+            <h2 className="font-epilogue font-bold text-4xl md:text-6xl leading-[1.05]">{bespoke.heading}</h2>
             <div className="mt-8 space-y-5 text-base md:text-lg leading-relaxed text-white/90">
               {bespoke.body.map((p) => <p key={p}>{p}</p>)}
             </div>

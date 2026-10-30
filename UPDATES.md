@@ -1,8 +1,17 @@
 # Updates Log
 
+## October 30, 2026
+
+### Pricing page goes live
+
+- `feat/pricing-page` merged to `main` and deployed (it had been sitting unmerged since 12 October)
+- Removed the red "something else in mind?" tag above "Not every project fits a package.": Silo designs carry no eyebrow labels (Will, 27 October). The heading now opens the black section
+
+---
+
 ## October 5, 2026
 
-### Pricing page and brochure (branch `feat/pricing-page`, not yet deployed)
+### Pricing page and brochure (branch `feat/pricing-page`, deployed 30 October)
 
 **Added:**
 - `/pricing`: hero, Refresh / Rebrand comparison (no prices; the price row is a "Get the brochure for pricing" button), and a black "Not every project fits a package." section with the enquiry form. Table is a grid on desktop and stacked cards on mobile (no sideways scroll at any width from 320px)

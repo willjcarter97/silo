@@ -65,7 +65,6 @@ export const smallPrint = "*Copywriting, photography, e-commerce and hosting are
 export const tableCta = { text: "Want the full details and pricing?", button: "Get the brochure" };
 
 export const bespoke = {
-  label: "something else in mind?",
   heading: "Not every project fits a package.",
   body: [
     "Everything we do is also available on an hourly rate, from a single landing page to a full brand and website project. That includes brand strategy, visual identity, UI/UX and web development, plus marketing consultancy, graphic design, email marketing, video, paid advertising, CRM support and PR.",
