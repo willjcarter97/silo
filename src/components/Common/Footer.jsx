@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { deliver } from "../../lib/forms";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { FaChevronRight } from "react-icons/fa";
 import { SiTiktok } from "react-icons/si";
@@ -96,6 +97,7 @@ const Footer = () => {
   const [caseStudies, setCaseStudies] = useState([]);
   const [newsletterEmail, setNewsletterEmail] = useState("");
   const [newsletterEmailMobile, setNewsletterEmailMobile] = useState("");
+  const [newsletterError, setNewsletterError] = useState("");
 
   // Fetch footer data from Prismic
   useEffect(() => {
@@ -210,7 +212,7 @@ const Footer = () => {
   };
 
   // Handle newsletter form submission
-  const handleNewsletterSubmit = (e, isMobile = false) => {
+  const handleNewsletterSubmit = async (e, isMobile = false) => {
     e.preventDefault();
     const email = isMobile ? newsletterEmailMobile : newsletterEmail;
     
@@ -219,18 +221,24 @@ const Footer = () => {
       return;
     }
 
+    // Delivered via src/lib/forms.js (Netlify email + HubSpot when configured), not HubSpot collected forms
+    setNewsletterError("");
+    try {
+      await deliver("newsletter", { email, source: "Footer" });
+    } catch (error) {
+      console.error("Newsletter sign-up not delivered:", error);
+      setNewsletterError("Sorry, that didn't go through. Please try again.");
+      return;
+    }
+
     // Set return path for Thank You page
     sessionStorage.setItem("thankYouReturnPath", window.location.pathname);
-    
-    // Small delay to allow HubSpot to capture form data, then redirect
-    setTimeout(() => {
-      if (isMobile) {
-        setNewsletterEmailMobile("");
-      } else {
-        setNewsletterEmail("");
-      }
-      navigate("/thank-you");
-    }, 300);
+    if (isMobile) {
+      setNewsletterEmailMobile("");
+    } else {
+      setNewsletterEmail("");
+    }
+    navigate("/thank-you");
   };
 
   // Render social icon based on platform
@@ -342,6 +350,7 @@ const Footer = () => {
                     </span>
                   </button>
                 </form>
+                {newsletterError && <p role="alert" className="mt-2 text-sm text-red-600">{newsletterError}</p>}
                 <p className="mt-3 text-sm text-black font-bold max-w-md">
                   {footerData.newsletterTermsText}{" "}
                   <Link
@@ -585,6 +594,7 @@ const Footer = () => {
                 {footerData.newsletterButtonText}
               </button>
             </form>
+            {newsletterError && <p role="alert" className="mt-2 text-sm text-red-600">{newsletterError}</p>}
             <p className="text-xs font-bold text-black mt-3">
               {footerData.newsletterTermsText} {footerData.newsletterTermsLinkText} and
               provide consent to receive updates from our company.

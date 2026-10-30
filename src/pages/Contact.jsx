@@ -10,6 +10,7 @@ import { pageSeo } from "../data/seo";
 // Fallback head copy (used until/unless Prismic has values); single source in src/data/seo.js
 const SEO_FALLBACK = pageSeo("/contact");
 import AccentHeadline from "../components/Common/AccentHeadline";
+import { deliver } from "../lib/forms";
 import SiloTriangle from "../components/Common/SiloTriangle";
 import { client } from "../prismicio";
 
@@ -22,6 +23,8 @@ const defaults = {
 const Contact = () => {
   const navigate = useNavigate();
   const [pageData, setPageData] = useState(null);
+  const [submitError, setSubmitError] = useState("");
+  const [botField, setBotField] = useState(""); // honeypot: real visitors never fill this
 
   usePageMeta(
     pageData?.pageTitle || SEO_FALLBACK.title,
@@ -90,29 +93,22 @@ const Contact = () => {
       terms: false,
     },
     validationSchema: validationSchema,
-    onSubmit: (values, { setSubmitting, resetForm }) => {
-      console.log("Form submitted:", values);
-
-      const existingData = JSON.parse(
-        localStorage.getItem("contact2FormData") || "[]"
-      );
-
-      const newSubmission = {
-        ...values,
-        submittedAt: new Date().toISOString(),
-      };
-
-      const updatedData = [...existingData, newSubmission];
-      localStorage.setItem("contact2FormData", JSON.stringify(updatedData));
-
-      console.log("All contact2 form submissions:", updatedData);
-
-      setTimeout(() => {
+    // Previously this only saved to the visitor's own localStorage and relied on HubSpot "collected forms",
+    // which HubSpot does not support for single-page apps or JS-handled forms. Now delivered for real:
+    // Netlify Forms email + HubSpot Forms API (src/config/forms.js, row "contact").
+    onSubmit: async (values, { setSubmitting, resetForm }) => {
+      setSubmitError("");
+      try {
+        await deliver("contact", { ...values, "bot-field": botField });
         resetForm();
-        setSubmitting(false);
         sessionStorage.setItem("thankYouReturnPath", "/");
         navigate("/thank-you");
-      }, 500);
+      } catch (error) {
+        console.error("Contact form not delivered:", error);
+        setSubmitError("Sorry, your message didn't send. Please try again, or email us at hi@silo-creative.com.");
+      } finally {
+        setSubmitting(false);
+      }
     },
   });
 
@@ -308,6 +304,20 @@ const Contact = () => {
                       {formik.isSubmitting ? "Submitting..." : "Submit"}
                     </span>
                   </button>
+                  {submitError && (
+                    <p role="alert" className="mt-10 text-sm text-red-600">{submitError}</p>
+                  )}
+                  {/* Honeypot for Netlify spam filtering: hidden from people and screen readers */}
+                  <input
+                    type="text"
+                    name="bot-field"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    className="hidden"
+                    value={botField}
+                    onChange={(e) => setBotField(e.target.value)}
+                  />
                 </form>
             </div>
           </div>

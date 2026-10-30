@@ -4,6 +4,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { deliver } from "../../lib/forms";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function NewsletterSubscription({
@@ -30,30 +31,16 @@ export default function NewsletterSubscription({
       email: "",
     },
     validationSchema: validationSchema,
-    onSubmit: (values, { setSubmitting, resetForm }) => {
-      // Handle form submission here
-      console.log("Newsletter subscription:", values.email);
-
-      // Get existing data from localStorage
-      const existingData = JSON.parse(
-        localStorage.getItem("newsletterSubscriptions") || "[]"
-      );
-
-      // Add new subscription with timestamp
-      const newSubscription = {
-        email: values.email,
-        submittedAt: new Date().toISOString(),
-      };
-
-      // Add to array and store in localStorage
-      const updatedData = [...existingData, newSubscription];
-      localStorage.setItem(
-        "newsletterSubscriptions",
-        JSON.stringify(updatedData)
-      );
-
-      // Log all stored data
-      console.log("All newsletter subscriptions:", updatedData);
+    onSubmit: async (values, { setSubmitting, resetForm, setFieldError }) => {
+      // Delivered via src/lib/forms.js (Netlify email + HubSpot when configured)
+      try {
+        await deliver("newsletter", { email: values.email, source: "Blog post" });
+      } catch (error) {
+        console.error("Newsletter sign-up not delivered:", error);
+        setFieldError("email", "Sorry, that didn't go through. Please try again.");
+        setSubmitting(false);
+        return;
+      }
 
       // Reset form
       resetForm();

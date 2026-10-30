@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { deliver } from "../../lib/forms";
 import { client } from "../../prismicio";
 
 /**
@@ -87,17 +88,10 @@ const JobBoardNewsletterPrismic = ({ className = "" }) => {
             validationSchema={Yup.object({
               email: Yup.string().email("Invalid email address").required("Email is required"),
             })}
-            onSubmit={async (values, { setSubmitting, resetForm }) => {
+            onSubmit={async (values, { setSubmitting, resetForm, setFieldError }) => {
               try {
-                console.log("Newsletter form submitted:", [values]);
-                
-                // Store in localStorage
-                const existingEmails = JSON.parse(localStorage.getItem("newsletterEmails") || "[]");
-                existingEmails.push({
-                  ...values,
-                  submittedAt: new Date().toISOString(),
-                });
-                localStorage.setItem("newsletterEmails", JSON.stringify(existingEmails));
+                // Delivered via src/lib/forms.js (Netlify email + HubSpot when configured)
+                await deliver("newsletter", { email: values.email, source: "Ramblings" });
                 
                 // Save current path for return redirect
                 sessionStorage.setItem("thankYouReturnPath", window.location.pathname);
@@ -107,7 +101,8 @@ const JobBoardNewsletterPrismic = ({ className = "" }) => {
                 setSubmitting(false);
                 navigate("/thank-you");
               } catch (error) {
-                console.error("Error:", error);
+                console.error("Newsletter sign-up not delivered:", error);
+                setFieldError("email", "Sorry, that didn't go through. Please try again.");
                 setSubmitting(false);
               }
             }}
