@@ -24,7 +24,8 @@
 - Contact, Legal, Privacy and Terms still have old "social" titles/descriptions in Prismic: proposed replacements in the checklist
 
 **Forms and HubSpot:**
-- Contact form and the three newsletter forms now actually deliver (they only saved to the visitor's browser before). Netlify Forms emails them; HubSpot receives them once each form's GUID is set (`src/config/forms.js`)
+- Contact form and the three newsletter forms now send directly: Netlify Forms emails them, and HubSpot receives them through its Forms API once each form's GUID is set (`src/config/forms.js`). Before, the code only saved to the visitor's browser and HubSpot's "Non-HubSpot forms" tool picked them up from the page. That tool is switched on and has been capturing (as of 30 Oct: 9 contact, 13 newsletter submissions), but HubSpot does not support it on single-page apps, so it can miss some
+- Keep "Non-HubSpot forms" on until the Forms API GUIDs are in, then turn it off to avoid duplicate contacts
 - HubSpot's page-view pixel was blocked by the site's security policy; now allowed
 - **Needs after deploying (JB):** Netlify > Forms: add email notifications for the new `contact` and `newsletter` forms (as for `pricing-enquiry`)
 

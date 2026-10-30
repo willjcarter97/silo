@@ -32,7 +32,8 @@ Started 30 Oct 2026. Earlier history lives in `UPDATES.md` and git log.
 | 30 Oct | `spa.html` (no canonical) is the fallback for non-pre-rendered routes | proposed | `index.html` is now the home page; using it as fallback would canonicalise every unknown URL to the home page |
 | 30 Oct | Structured data: ProfessionalService, Perth WA AU, no street address or phone | proposed | Phone/address not yet confirmed for public listing (see open questions) |
 | 30 Oct | Share image: typographic 1200x630 card (`public/og-image.png`), case studies use their hero image | proposed | Prismic's existing `og_image` is a UGC-era studio photo that contradicts the no-images direction |
-| 30 Oct | Forms deliver to Netlify email and HubSpot in parallel (`src/config/forms.js`), success if either accepts | proposed | Contact + newsletters were only saving to the visitor's localStorage; HubSpot "collected forms" doesn't support SPAs / JS-handled forms (HubSpot KB, read 30 Oct) |
+| 30 Oct | Forms deliver to Netlify email and HubSpot in parallel (`src/config/forms.js`), success if either accepts | proposed | The code only saved to the visitor's localStorage; HubSpot's "Non-HubSpot forms" tool captured them from the page. HubSpot's KB (read 30 Oct) says that tool doesn't support SPAs or JS-handled forms, so it can miss submissions; the Forms API is the supported route |
+| 30 Oct | Claimed contact enquiries were "probably going nowhere" | **rejected** (wrong) | Will's HubSpot screenshot (30 Oct) shows the Non-HubSpot forms tool on and capturing: 9 contact, 13 newsletter submissions. Claude inferred from the docs instead of checking the account |
 | 30 Oct | CSP opened for `track-ap1.hubspot.com` (img) and `api.hsforms.com` (connect) | proposed | HubSpot's page-view pixel was blocked, so no visits were recorded |
 | 30 Oct | "Ready when you are" / "Want results like this?" become one black `CtaBand` site-wide | proposed | Nic's design shows it on all four pages; it is one shared component. Could be limited to Nic's pages if Will prefers |
 | 30 Oct | Keep Prismic's published copy where Nic's PDFs differ (About heading "This is Silo," vs Nic's "This is the Silo,"; Portfolio intro) | proposed | Prismic copy is Ruby's published wording; the PDFs are layout references |
@@ -46,3 +47,5 @@ Started 30 Oct 2026. Earlier history lives in `UPDATES.md` and git log.
 3. Delete now-unused files: `public/sitemap.xml` (replaced by the generated one), `src/config/hubspot.js` and `src/lib/hubspot.js` (replaced by `src/config/forms.js` / `src/lib/forms.js`), `src/components/Pricing/Label.jsx` (eyebrow tag, unused)?
 4. Push `fix/blog-spacing` (12 Oct, Ruby's blog spacing fix, never deployed)?
 5. Approve the proposed Prismic SEO copy (PRISMIC-COPY-CHECKLIST.md section 12)?
+6. HubSpot: create Forms API forms (reliable, needs setup) or stay on Non-HubSpot forms capture (works now, can miss submissions)?
+7. 6 spam submissions on `#pricing-enquiry-form` in HubSpot (seen 30 Oct, the day pricing went live; none came from Claude's tests, which intercepted all requests): worth a look
