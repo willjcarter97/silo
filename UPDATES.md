@@ -7,6 +7,27 @@
 - `feat/pricing-page` merged to `main` and deployed (it had been sitting unmerged since 12 October)
 - Removed the red "something else in mind?" tag above "Not every project fits a package.": Silo designs carry no eyebrow labels (Will, 27 October). The heading now opens the black section
 
+### No images, SEO and forms (branch `feat/no-images-seo`, not yet deployed)
+
+**Images (Nic's "Revised - October No Images" designs: Home, Portfolio, Contact, About):**
+- Home: photo band gone (only returns as the showreel cover if Prismic `show_video` is switched on); service teaser is four bordered cards with a red/black icon, title and one-line blurb, plus an "Our Services" button
+- Portfolio, About: type-led heroes with the red accent word ("these", "Silo,") and the red triangle; About's process image removed and the two "London to Perth" paragraphs split by a rule. Team headshots stay (they are in the design)
+- Contact: photo replaced by the triangle; form moves to the right column; "next move" in red
+- "Ready when you are." and "Want results like this?" are now a full-width black band on every page that uses them
+- Not applied from the designs: the small "London to Perth" label over About's copy (no eyebrow labels), old nav items (Job Board) and the "Lets Talk" spelling
+- Icons are close approximations; exact artwork needs the Home PDF as a file or Nic's SVGs
+
+**SEO:**
+- Every page, case study and blog post now has its own HTML at build time (`scripts/build-seo.mjs`): title, description, canonical, Open Graph/Twitter tags with a 1200x630 image, and structured data (ProfessionalService in Perth, WA). Link previews no longer show "Social, Brand & Web"
+- Sitemap generated at build: 23 URLs including all 7 case studies and 4 blog posts
+- Copy and business facts live in `src/data/seo.js`; Prismic fields override them. Prismic SEO edits need a redeploy to reach link previews (see PRISMIC-COPY-CHECKLIST.md section 12)
+- Contact, Legal, Privacy and Terms still have old "social" titles/descriptions in Prismic: proposed replacements in the checklist
+
+**Forms and HubSpot:**
+- Contact form and the three newsletter forms now actually deliver (they only saved to the visitor's browser before). Netlify Forms emails them; HubSpot receives them once each form's GUID is set (`src/config/forms.js`)
+- HubSpot's page-view pixel was blocked by the site's security policy; now allowed
+- **Needs after deploying (JB):** Netlify > Forms: add email notifications for the new `contact` and `newsletter` forms (as for `pricing-enquiry`)
+
 ---
 
 ## October 5, 2026

@@ -137,3 +137,38 @@ Copy below is verbatim from the client document. Tick as you go.
 - Replacement copy for the newsletter block on Ramblings (currently UGC wording) — or confirm removal.
 - SEO page titles / meta descriptions for Home, About, Services, Portfolio, Careers, Ramblings, Contact (all still mention social media / UGC).
 - Edited industry list for the About page marquee rows.
+
+---
+
+## 12. October 30 update: SEO titles and descriptions still carrying old copy
+
+Since 30 October the page titles and descriptions are written into each page's HTML **when the site is
+built**, so link previews (LinkedIn, Facebook) and Google see them. Two consequences:
+
+- After editing any field below, the change reaches the browser tab straight away, but link previews and
+  the HTML only update on the **next deploy**. Trigger one in Netlify (Deploys > Trigger deploy), or set up
+  a Prismic webhook that calls a Netlify build hook so every Prismic publish rebuilds the site.
+- Leaving a field empty is fine: the site then uses the matching copy in `src/data/seo.js`.
+
+Copy below is proposed by Claude (30 Oct 2026, not yet approved by Will or Ruby). Titles stay under 60
+characters and descriptions under 155 so Google shows them in full.
+
+- [ ] `contact_page.page_title` → `Contact Silo | Brand & Web Design Studio, Perth` (currently `Contact Us | Social, Branding & Web Agency`)
+- [ ] `contact_page.meta_description` → `Tell us about your brand, website or rebrand. Brand strategy, visual identity, UI/UX design and web development from Perth and London.`
+- [ ] `legal_page.page_title` → `Legal Information | Silo`
+- [ ] `legal_page.meta_description` → `Legal information for Silo, a brand strategy, identity and web design studio working across Perth and London.` (currently mentions social media and content strategy)
+- [ ] `privacy_page.page_title` → `Privacy Policy | Silo`
+- [ ] `privacy_page.meta_description` → `How Silo collects, uses and protects personal data when you visit our website or work with us.` (currently mentions social media services)
+- [ ] `terms_page.page_title` → `Terms of Service | Silo`
+- [ ] `terms_page.meta_description` → `The terms that apply to Silo's brand strategy, visual identity, UI/UX design and web development services.` (currently mentions social media and content strategy)
+- [ ] `ramblings_page.page_title` → `Insights on Branding, Design & Web | Silo` (currently `Insights on Branding, Design & Web Insights`, "Insights" twice)
+- [ ] `home_page.service_cards[].service_description` (optional) → the homepage cards now show a one-line blurb under each title (Nic's October design). Empty fields use these, from `src/data/serviceTeasers.js`:
+  - Brand Strategy: `Positioning, messaging and brand architecture that gives every decision after it somewhere solid to stand on.`
+  - Visual Identity: `Design bold branding and expressive detail to shape how your brand looks, feels and gets remembered.`
+  - UI/UX Design: `From structure to flow, we design how your site works, how it moves and how it feels.`
+  - Custom Web Development: `A strong design deserves a strong build. We create sites that perform and stand the test of time.`
+
+No longer shown on the site (safe to leave or clear): `home_page.service_cards[].service_image`, `home_page.hero_image`
+(only used as the showreel cover when `show_video` is on), `about_page.hero_main_image`, `about_page.hero_secondary_image`,
+`about_page.what_silo_image`, `portfolio_page.hero_main_image`, `portfolio_page.hero_secondary_image`,
+`contact_page.main_image`, `ready_when_you_are_cta.image`, `want_results_like_this_cta.image`, `home_page.og_image`.
