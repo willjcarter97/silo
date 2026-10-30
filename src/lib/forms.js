@@ -1,8 +1,11 @@
 import { SITE_FORMS, HUBSPOT_PORTAL_ID, HUBSPOT_SUBMIT_BASE } from "../config/forms";
 
 // Sends a form submission to every channel configured for it in src/config/forms.js.
-// Resolves when at least one channel delivered it; throws when none did, so the form can show an
-// error and keep the visitor's answers. Channels that are not set up (no HubSpot GUID yet) are skipped.
+// Channels that are not set up are skipped: HubSpot without a form GUID, Netlify Forms when the site
+// has form detection off. HubSpot's "Non-HubSpot forms" tool also captures each form from the page
+// (Will, 30 Oct 2026: "nonhubspot forms are fine"), so all-skipped still counts as success.
+// Throws only when a channel actually failed and none delivered, so the form can show an error and
+// keep the visitor's answers.
 
 const trimAll = (obj) =>
   Object.fromEntries(Object.entries(obj).map(([k, v]) => [k, typeof v === "string" ? v.trim() : v]));
@@ -21,10 +24,11 @@ async function toNetlify(form, values) {
     body: new URLSearchParams(payload).toString(),
   });
   if (res.ok) return "sent";
-  // Local dev server has no Netlify (answers 404/405): log instead of failing
-  if (import.meta.env.DEV && (res.status === 404 || res.status === 405)) {
-    console.info(`[dev] "${form.netlifyName}" not sent to Netlify (not available locally). Payload:`, payload);
-    return "sent";
+  // 404/405 = no form handler here: Netlify form detection is off for the site (the case on 30 Oct 2026),
+  // or this is a local server. Treat the channel as switched off, not as a failure.
+  if (res.status === 404 || res.status === 405) {
+    console.info(`"${form.netlifyName}" not sent to Netlify Forms (not enabled here).`);
+    return "skipped";
   }
   throw new Error(`Netlify Forms rejected "${form.netlifyName}" (${res.status})`);
 }
@@ -57,5 +61,6 @@ export async function deliver(formKey, values) {
   const results = await Promise.allSettled([toNetlify(form, values), toHubSpot(form, values)]);
   results.filter((r) => r.status === "rejected").forEach((r) => console.error(r.reason));
   if (results.some((r) => r.status === "fulfilled" && r.value === "sent")) return;
+  if (results.every((r) => r.status === "fulfilled")) return; // all skipped: HubSpot page capture delivers
   throw new Error(`"${formKey}" was not delivered by any channel`);
 }
