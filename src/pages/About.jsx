@@ -138,7 +138,7 @@ const About = () => {
 
   return (
     <div className="bg-white overflow-x-hidden flex flex-col mx-auto">
-      <div id="hero" className="mx-auto max-w-[1280px]">
+      <div id="hero" className="mx-auto w-full max-w-[1280px]">
         <Hero {...(pageData?.hero || {})} />
       </div>
 

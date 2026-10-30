@@ -3,6 +3,7 @@
 // from Prismic); if an editor rewrites the heading and the phrase is no longer in it, the heading simply
 // renders in black. To accent another headline: add a row and render it with <AccentHeadline accentKey=...>.
 export const HEADLINE_ACCENTS = {
+  about: "Silo,",
   portfolio: "these",
   contact: "next move",
 };
