@@ -251,10 +251,10 @@ const CaseStudies = () => {
   const displaySecondaryButtonLink = pageData?.secondaryButtonLink || defaults.secondaryButtonLink;
 
   return (
-    <div className="max-w-[1280px] mx-auto h-auto flex flex-col justify-start items-center mt-16 xl:mt-12 lg:mt-40 md:mt-40">
+    <div className="max-w-[1280px] mx-auto h-auto flex flex-col justify-start items-center mt-20">
       {/* Hero Section (Nic's October design: type-led, no photography; red triangle accent) */}
       <section
-        className="mt-10 mb-4 md:mb-10 w-full px-4 md:px-0 pt-6 md:pt-10 xl:pt-24 pb-12 md:pb-16 lg:pb-24"
+        className="w-full px-4 md:px-0 pt-12 sm:pt-16 md:pt-20 lg:pt-28 pb-16 md:pb-20 lg:pb-24"
         aria-label="Portfolio introduction"
       >
         <div className="grid grid-cols-1 md:grid-cols-[1fr_minmax(0,400px)] gap-10 md:gap-16 items-end">

@@ -35,10 +35,10 @@ const ServicesLedger = ({
   showImages = false,
 }) => {
   return (
-    <section className="w-full bg-white text-black pt-6 md:pt-8">
+    <section className="w-full bg-white text-black pt-12 md:pt-16 lg:pt-20">
       <div className="max-w-[1280px] mx-auto px-4 md:px-0">
         {/* Section label */}
-        <h2 className="font-dm text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-black text-center mb-4 md:mb-6">
+        <h2 className="font-dm text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-black text-center mb-8 md:mb-12">
           {eyebrow}
         </h2>
 
@@ -50,7 +50,7 @@ const ServicesLedger = ({
               <LazyElement
                 key={service.title || index}
                 as="li"
-                className="group border-t border-black first:border-t-0 py-6 md:py-8 grid grid-cols-1 md:grid-cols-12 gap-x-8 gap-y-4"
+                className="group border-t border-black first:border-t-0 first:pt-0 py-10 md:py-14 lg:py-16 grid grid-cols-1 md:grid-cols-12 gap-x-8 gap-y-4"
                 animation="fadeUp"
                 delay={index * 100}
                 renderWhenHidden={true}
@@ -97,7 +97,7 @@ const ServicesLedger = ({
         {other && (
           <LazyElement
             as="div"
-            className="pt-8 md:pt-10 flex flex-col gap-4 md:items-center md:text-center"
+            className="pt-12 md:pt-16 lg:pt-20 flex flex-col gap-4 md:items-center md:text-center"
             animation="fadeUp"
             delay={100}
             renderWhenHidden={true}

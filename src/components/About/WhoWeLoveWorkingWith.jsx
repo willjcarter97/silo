@@ -69,8 +69,8 @@ const WhoWeLoveWorkingWith = ({
   };
 
   return (
-    <section className="w-screen relative left-1/2 -translate-x-1/2 py-12 md:py-16 lg:py-20 bg-white overflow-x-hidden">
-      <div className="max-w-[1280px] mx-auto w-full px-4 md:px-6 lg:px-8">
+    <section className="w-screen relative left-1/2 -translate-x-1/2 pb-12 md:pb-16 lg:pb-20 bg-white overflow-x-hidden">
+      <div className="max-w-[1280px] mx-auto w-full px-4 md:px-6 lg:px-0">
         {/* Text Section */}
         <div className="text-left mb-8 md:mb-12 lg:mb-16">
           <h2
