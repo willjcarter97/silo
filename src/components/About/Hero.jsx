@@ -42,7 +42,7 @@ const Hero = ({
 
   return (
     <section
-      className="mt-20 md:mt-24 w-full px-4 md:px-6 lg:px-0 pt-6 md:pt-10 xl:pt-24 pb-16 md:pb-20 lg:pb-24"
+      className="mt-20 w-full px-4 md:px-6 lg:px-0 pt-12 sm:pt-16 md:pt-20 lg:pt-28 pb-16 md:pb-20 lg:pb-24"
       aria-label="About Silo - Company introduction"
     >
       <div className="grid grid-cols-1 md:grid-cols-[1fr_minmax(0,400px)] gap-10 md:gap-16 items-end">

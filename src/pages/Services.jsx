@@ -117,10 +117,10 @@ const Services = () => {
   return (
     <div className='w-full h-auto'>
       {/* Hero Section */}
-      <div className="pt-24 md:pt-32 mt-20">
-        <div className="w-full max-w-[1280px] mx-auto flex flex-col justify-center items-center px-4 md:px-10 lg:px-10 pb-8">
+      <div className="mt-20 pt-12 sm:pt-16 md:pt-20 lg:pt-28 pb-16 md:pb-20 lg:pb-24">
+        <div className="w-full max-w-[1280px] mx-auto flex flex-col justify-center items-center px-4 md:px-10 lg:px-10">
           {/* Heading */}
-          <div className="flex flex-col items-center w-full mb-6">
+          <div className="flex flex-col items-center w-full">
             <LazyText
               as="h1"
               className="font-bold text-[clamp(60px,17vw,200px)] leading-[0.9] mb-6 text-center font-epilogue"
@@ -141,7 +141,7 @@ const Services = () => {
             </LazyText>
 
             {/* Buttons */}
-            <div className="flex gap-4 justify-center -mb-10">
+            <div className="flex gap-4 justify-center">
               <a
                 href={displayPrimaryButtonLink}
                 className="inline-flex items-center justify-center gap-2 bg-brand h-12 hero-btn px-8 py-3 text-sm font-bold tracking-wide text-white border-transparent relative overflow-hidden group"
@@ -169,6 +169,8 @@ const Services = () => {
           </div>
         </div>
       </div>
+
+      <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black" />
 
       {/* Core services ledger + other ways we can help */}
       <LazySection rootMargin="200px">
