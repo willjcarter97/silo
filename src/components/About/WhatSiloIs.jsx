@@ -32,7 +32,7 @@ const WhatSiloIs = ({
   const paragraphs = [displayParagraph1, displayParagraph2, displayParagraph3].filter(Boolean);
 
   return (
-    <section className="flex items-center justify-center py-12 md:py-16 lg:py-20 px-3 sm:px-4 md:px-6 lg:px-0 bg-white overflow-x-hidden w-full">
+    <section className="flex items-center justify-center py-12 md:py-16 lg:py-20 px-3 sm:px-4 md:px-10 min-[1360px]:px-0 bg-white overflow-x-hidden w-full">
       <div className="max-w-full mx-auto w-full flex flex-col gap-0">
         <div className="flex flex-col md:grid md:grid-cols-2 items-start gap-6 sm:gap-8 md:gap-10 lg:gap-12 xl:gap-16 mx-auto">
           {/* Left Side - Heading */}

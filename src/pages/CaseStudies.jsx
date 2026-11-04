@@ -254,20 +254,20 @@ const CaseStudies = () => {
     <div className="max-w-[1280px] mx-auto h-auto flex flex-col justify-start items-center mt-20">
       {/* Hero Section (Nic's October design: type-led, no photography; red triangle accent) */}
       <section
-        className="w-full px-4 md:px-0 pt-12 sm:pt-16 md:pt-20 lg:pt-28 pb-16 md:pb-20 lg:pb-24"
+        className="w-full px-4 md:px-10 min-[1360px]:px-0 pt-12 sm:pt-16 md:pt-20 lg:pt-28 pb-16 md:pb-20 lg:pb-24"
         aria-label="Portfolio introduction"
       >
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_minmax(0,400px)] gap-10 md:gap-16 items-end">
-          <div className="flex flex-col gap-10 md:gap-20">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_minmax(0,400px)] gap-10 lg:gap-16 items-end">
+          <div className="flex flex-col gap-10 lg:gap-20">
             <AccentHeadline
               as="h1"
               accentKey="portfolio"
               text={displayHeading}
               className="font-epilogue font-bold text-black text-5xl md:text-6xl lg:text-7xl xl:text-[80px] leading-[1.08] tracking-tight max-w-[11ch]"
             />
-            <SiloTriangle className="hidden md:block w-[88px] h-[72px]" />
+            <SiloTriangle className="hidden lg:block w-[88px] h-[72px]" />
           </div>
-          <div className="flex flex-col gap-6 md:pb-1">
+          <div className="flex flex-col gap-6 lg:pb-1">
             <p className="font-epilogue text-black text-base md:text-lg leading-[150%]">{displayDescription}</p>
             <div className="flex flex-row gap-3 sm:gap-4 items-start">
               <a
@@ -294,7 +294,7 @@ const CaseStudies = () => {
                 </span>
               </a>
             </div>
-            <SiloTriangle className="md:hidden mt-6 w-[56px] h-[46px]" />
+            <SiloTriangle className="lg:hidden mt-6 w-[56px] h-[46px]" />
           </div>
         </div>
       </section>
@@ -305,7 +305,7 @@ const CaseStudies = () => {
       <LazySection>
         <div
           id="done"
-          className="max-w-[1280px] pb-0 px-4 md:px-6 lg:px-0 mx-auto"
+          className="max-w-[1280px] pb-0 px-4 md:px-10 min-[1360px]:px-0 mx-auto"
         >
           <div className="mx-auto pt-10 md:pt-16 lg:pt-20">
             {isLoading ? (

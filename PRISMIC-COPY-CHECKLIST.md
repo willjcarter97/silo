@@ -45,6 +45,7 @@ Copy below is verbatim from the client document. Tick as you go.
 
 ## 4. `services_page` (singleton)
 
+- [ ] `hero_heading` → `How we help brands stand out online` (November 2026; replaces `What we do`. The site's code fallback already uses the new text)
 - [ ] `hero_description` → `Brands built with intent, not guesswork`
 - [ ] `core_services_heading` → optional; currently `CORE SERVICES`, shown as the small section label. `Core services` reads better in the new layout but either works.
 - [ ] `interested_cards` — four rows, in this order. `card_bullets` is one bullet per line.

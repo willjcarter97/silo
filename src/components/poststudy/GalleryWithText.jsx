@@ -115,7 +115,7 @@ const GalleryWithText = ({ heading, text, content, richText, images, itemSpacing
   return (
     <div
       ref={containerRef}
-      className="w-full bg-white py-8 md:py-20 px-5 md:px-6 lg:px-0 relative"
+      className="w-full bg-white py-8 md:py-20 px-5 md:px-10 min-[1360px]:px-0 relative"
     >
       <div className="max-w-[1280px] mx-auto flex flex-col lg:flex-row gap-8 lg:gap-16 items-stretch">
         {/* Left Images */}

@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { FaChevronRight } from "react-icons/fa"
 import ServicesLedger from '../components/servicee/ServicesLedger.jsx'
 import ReadyWhenYouArePrismic from '../components/Common/ReadyWhenYouArePrismic.jsx'
 import LazySection from '../components/Common/LazySection.jsx'
-import LazyText from '../components/Common/LazyText.jsx'
+import SplitHero from '../components/Common/SplitHero.jsx'
 import { usePageMeta } from '../hooks/usePageMeta'
 import { pageSeo } from "../data/seo";
 
@@ -14,7 +13,7 @@ import { coreServices, otherServices } from '../data/servicesData.jsx'
 
 // Default values (mirror of the Prismic `services_page` singleton)
 const defaults = {
-  heading: "What we do",
+  heading: "How we help brands stand out online",
   description: "Brands built with intent, not guesswork",
   primaryButtonText: "Let's chat",
   primaryButtonLink: "/contact",
@@ -117,58 +116,14 @@ const Services = () => {
   return (
     <div className='w-full h-auto'>
       {/* Hero Section */}
-      <div className="mt-20 pt-12 sm:pt-16 md:pt-20 lg:pt-28 pb-16 md:pb-20 lg:pb-24">
-        <div className="w-full max-w-[1280px] mx-auto flex flex-col justify-center items-center px-4 md:px-10 lg:px-10">
-          {/* Heading */}
-          <div className="flex flex-col items-center w-full">
-            <LazyText
-              as="h1"
-              className="font-bold text-[clamp(60px,17vw,200px)] leading-[0.9] mb-6 text-center font-epilogue"
-              animation="fadeUp"
-              delay={0}
-            >
-              {displayHeading}
-            </LazyText>
-
-            {/* Description */}
-            <LazyText
-              as="p"
-              className="text-black text-base font-normal text-center max-w-2xl px-4 mb-8"
-              animation="fadeUp"
-              delay={100}
-            >
-              {displayDescription}
-            </LazyText>
-
-            {/* Buttons */}
-            <div className="flex gap-4 justify-center">
-              <a
-                href={displayPrimaryButtonLink}
-                className="inline-flex items-center justify-center gap-2 bg-brand h-12 hero-btn px-8 py-3 text-sm font-bold tracking-wide text-white border-transparent relative overflow-hidden group"
-              >
-                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 svg-wrapper group-hover:animate-bounce-custom">
-                  <FaChevronRight className="text-white w-5 h-5 opacity-0 transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:translate-x-0 group-hover:scale-[140%]" />
-                </div>
-                <span className="block transition-all duration-300 ease-in-out text-base group-hover:translate-x-40">
-                  {displayPrimaryButtonText}
-                </span>
-              </a>
-
-              <a
-                href={displaySecondaryButtonLink}
-                className="inline-flex items-center justify-center gap-2 bg-transparent border-[1px] border-brand h-12 hero-btn px-8 py-3 text-sm font-bold tracking-wide text-brand relative overflow-hidden group"
-              >
-                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 svg-wrapper group-hover:animate-bounce-custom">
-                  <FaChevronRight className="text-brand w-5 h-5 opacity-0 transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:translate-x-0 group-hover:scale-[140%]" />
-                </div>
-                <span className="block transition-all duration-300 ease-in-out text-base group-hover:translate-x-28">
-                  {displaySecondaryButtonText}
-                </span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
+      <SplitHero
+        ariaLabel="Services introduction"
+        headingWidth="max-w-[12ch] text-balance"
+        heading={displayHeading}
+        description={displayDescription}
+        primary={{ text: displayPrimaryButtonText, href: displayPrimaryButtonLink }}
+        secondary={{ text: displaySecondaryButtonText, href: displaySecondaryButtonLink }}
+      />
 
       <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black" />
 
