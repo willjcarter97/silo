@@ -90,7 +90,7 @@ const richTextComponents = {
 // Two Column Text Slice Component (keeping this inline as it's just a layout)
 const TwoColumnTextSlice = ({ slice }) => {
   return (
-    <div className="flex flex-col md:flex-row justify-between items-start gap-6 md:gap-16 lg:gap-20 w-full max-w-[1280px] mx-auto px-5 md:px-6 lg:px-0 py-8 md:py-20">
+    <div className="flex flex-col md:flex-row justify-between items-start gap-6 md:gap-16 lg:gap-20 w-full max-w-[1280px] mx-auto px-5 md:px-10 min-[1360px]:px-0 py-8 md:py-20">
       <h2 className="text-black text-2xl md:text-3xl lg:text-4xl font-bold text-left font-epilogue w-full md:w-1/2">
         {slice.primary?.heading}
       </h2>
@@ -274,7 +274,7 @@ const PostCaseStudy = () => {
   if (error || !caseStudy) {
     return (
       <div className="bg-white min-h-screen">
-        <div className="mx-auto max-w-[1280px] px-6 md:px-0 py-12">
+        <div className="mx-auto max-w-[1280px] px-6 md:px-10 min-[1360px]:px-0 py-12">
           <div className="text-center">
             <h1 className="text-4xl font-bold text-black mb-4">
               Case Study Not Found

@@ -117,7 +117,7 @@ const Contact = () => {
   const displayMainDescription = pageData?.mainDescription || defaults.mainDescription;
 
   return (
-    <div className="min-h-screen max-w-[1280px] mt-20 mx-auto px-4 md:px-0 bg-white">
+    <div className="min-h-screen max-w-[1280px] mt-20 mx-auto px-4 md:px-10 min-[1360px]:px-0 bg-white">
       {/* Main Form - the only enquiry form on the site */}
       <section className="pt-8 sm:pt-12 md:pt-16 lg:pt-20 px-0 sm:px-6 md:px-0">
         <div className="w-full mx-auto pb-16 md:pb-24">

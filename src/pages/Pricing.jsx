@@ -56,9 +56,9 @@ const Pricing = () => {
   return (
     <div className="w-full">
       {/* 1. Hero */}
-      <section className="pt-24 md:pt-32 mt-20">
-        <div className="max-w-[1280px] mx-auto px-4 md:px-10 pb-14 md:pb-20 text-center">
-          <h1 className="mx-auto max-w-5xl font-epilogue font-bold text-[clamp(40px,7.4vw,108px)] leading-[1.04] tracking-tight">
+      <section className="mt-20 pt-12 sm:pt-16 md:pt-20 lg:pt-28">
+        <div className="max-w-[1280px] mx-auto px-4 md:px-10 pb-16 md:pb-20 lg:pb-24 text-center">
+          <h1 className="mx-auto max-w-5xl font-epilogue font-bold text-5xl md:text-6xl lg:text-7xl xl:text-[80px] leading-[1.08] tracking-tight text-balance">
             {hero.heading}
           </h1>
           <p className="mt-6 md:mt-8 mx-auto max-w-2xl text-base md:text-xl leading-relaxed">{hero.intro}</p>

@@ -42,11 +42,11 @@ const Hero = ({
 
   return (
     <section
-      className="mt-20 w-full px-4 md:px-6 lg:px-0 pt-12 sm:pt-16 md:pt-20 lg:pt-28 pb-16 md:pb-20 lg:pb-24"
+      className="mt-20 w-full px-4 md:px-10 min-[1360px]:px-0 pt-12 sm:pt-16 md:pt-20 lg:pt-28 pb-16 md:pb-20 lg:pb-24"
       aria-label="About Silo - Company introduction"
     >
-      <div className="grid grid-cols-1 md:grid-cols-[1fr_minmax(0,400px)] gap-10 md:gap-16 items-end">
-        <div className="flex flex-col gap-10 md:gap-20">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_minmax(0,400px)] gap-10 lg:gap-16 items-end">
+        <div className="flex flex-col gap-10 lg:gap-20">
           <LazyText animation="fadeUp" delay={0}>
             <AccentHeadline
               as="h1"
@@ -55,10 +55,10 @@ const Hero = ({
               className="font-epilogue font-bold text-black text-5xl md:text-6xl lg:text-7xl xl:text-[80px] leading-[1.08] tracking-tight max-w-[12ch]"
             />
           </LazyText>
-          <SiloTriangle className="hidden md:block w-[88px] h-[72px]" />
+          <SiloTriangle className="hidden lg:block w-[88px] h-[72px]" />
         </div>
 
-        <div className="flex flex-col gap-6 md:pb-1">
+        <div className="flex flex-col gap-6 lg:pb-1">
           <p className="font-epilogue text-black text-base md:text-lg leading-[150%]">
             {description || defaults.description}
           </p>
@@ -76,7 +76,7 @@ const Hero = ({
               {buttonInner(secondaryButtonText || defaults.secondaryButtonText, "text-brand")}
             </Link>
           </div>
-          <SiloTriangle className="md:hidden mt-6 w-[56px] h-[46px]" />
+          <SiloTriangle className="lg:hidden mt-6 w-[56px] h-[46px]" />
         </div>
       </div>
     </section>

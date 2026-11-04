@@ -36,7 +36,7 @@ const ServicesLedger = ({
 }) => {
   return (
     <section className="w-full bg-white text-black pt-12 md:pt-16 lg:pt-20">
-      <div className="max-w-[1280px] mx-auto px-4 md:px-0">
+      <div className="max-w-[1280px] mx-auto px-4 md:px-10 min-[1360px]:px-0">
         {/* Section label */}
         <h2 className="font-dm text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-black text-center mb-8 md:mb-12">
           {eyebrow}
