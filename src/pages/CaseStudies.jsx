@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { FaChevronRight } from "react-icons/fa";
 import { MdOutlineKeyboardArrowRight, MdOutlineLocationOn } from "react-icons/md";
 import ReadyWhenYouArePrismic from "../components/Common/ReadyWhenYouArePrismic";
 import LazySection from "../components/Common/LazySection";
 import LazyImage from "../components/Common/LazyImage";
-import AccentHeadline from "../components/Common/AccentHeadline";
-import SiloTriangle from "../components/Common/SiloTriangle";
+import SplitHero from "../components/Common/SplitHero";
 import LazyText from "../components/Common/LazyText";
 import LazyElement from "../components/Common/LazyElement";
 import { usePageMeta } from "../hooks/usePageMeta";
@@ -251,53 +249,17 @@ const CaseStudies = () => {
   const displaySecondaryButtonLink = pageData?.secondaryButtonLink || defaults.secondaryButtonLink;
 
   return (
-    <div className="max-w-[1280px] mx-auto h-auto flex flex-col justify-start items-center mt-20">
+    <div className="max-w-[1280px] mx-auto h-auto flex flex-col justify-start items-center">
       {/* Hero Section (Nic's October design: type-led, no photography; red triangle accent) */}
-      <section
-        className="w-full px-4 md:px-10 min-[1360px]:px-0 pt-12 sm:pt-16 md:pt-20 lg:pt-28 pb-16 md:pb-20 lg:pb-24"
-        aria-label="Portfolio introduction"
-      >
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_minmax(0,400px)] gap-10 lg:gap-16 items-end">
-          <div className="flex flex-col gap-10 lg:gap-20">
-            <AccentHeadline
-              as="h1"
-              accentKey="portfolio"
-              text={displayHeading}
-              className="font-epilogue font-bold text-black text-5xl md:text-6xl lg:text-7xl xl:text-[80px] leading-[1.08] tracking-tight max-w-[11ch]"
-            />
-            <SiloTriangle className="hidden lg:block w-[88px] h-[72px]" />
-          </div>
-          <div className="flex flex-col gap-6 lg:pb-1">
-            <p className="font-epilogue text-black text-base md:text-lg leading-[150%]">{displayDescription}</p>
-            <div className="flex flex-row gap-3 sm:gap-4 items-start">
-              <a
-                href={displayPrimaryButtonLink}
-                className="inline-flex items-center justify-center gap-2 bg-[#FF322E] h-[55px] px-6 py-3 text-xs font-bold tracking-wide text-white border-transparent relative overflow-hidden group"
-              >
-                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 svg-wrapper group-hover:animate-bounce-custom">
-                  <FaChevronRight className="text-white w-5 h-5 opacity-0 transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:translate-x-3 group-hover:scale-[140%]" />
-                </div>
-                <span className="block transition-all whitespace-nowrap duration-300 ease-in-out text-base group-hover:translate-x-40">
-                  {displayPrimaryButtonText}
-                </span>
-              </a>
-
-              <a
-                href={displaySecondaryButtonLink}
-                className="inline-flex items-center justify-center gap-2 bg-transparent border-[1px] border-brand h-[55px] px-6 py-3 text-xs font-bold tracking-wide text-brand relative overflow-hidden group"
-              >
-                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 svg-wrapper group-hover:animate-bounce-custom">
-                  <FaChevronRight className="text-brand w-5 h-5 opacity-0 transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:translate-x-3 group-hover:scale-[140%]" />
-                </div>
-                <span className="block transition-all whitespace-nowrap duration-300 ease-in-out text-base group-hover:translate-x-40">
-                  {displaySecondaryButtonText}
-                </span>
-              </a>
-            </div>
-            <SiloTriangle className="lg:hidden mt-6 w-[56px] h-[46px]" />
-          </div>
-        </div>
-      </section>
+      <SplitHero
+        ariaLabel="Portfolio introduction"
+        accentKey="portfolio"
+        headingWidth="max-w-[11ch]"
+        heading={displayHeading}
+        description={displayDescription}
+        primary={{ text: displayPrimaryButtonText, href: displayPrimaryButtonLink }}
+        secondary={{ text: displaySecondaryButtonText, href: displaySecondaryButtonLink }}
+      />
 
       <div className="relative left-1/2 -translate-x-1/2 w-screen mx-auto h-[1px] bg-black" />
 

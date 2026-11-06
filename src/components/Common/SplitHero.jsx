@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { FaChevronRight } from "react-icons/fa";
 import LazyText from "./LazyText";
 import AccentHeadline from "./AccentHeadline";
@@ -5,13 +6,17 @@ import SiloTriangle from "./SiloTriangle";
 
 // Page hero in the About page layout: big headline + red triangle on the left,
 // description and the two buttons on the right (stacked below laptop width so long headlines
-// keep their line breaks). Spacing matches About and Case Studies.
+// keep their line breaks). Used by About, Case Studies and Services.
+// Below laptop width every hero gets the same minimum height (spare space is split above and below the
+// description + buttons), so the triangle and the divider under it are at the same height on every page.
 
-const HeroButton = ({ text, href, onClick, filled }) => {
+const HeroButton = ({ text, href, to, onClick, filled }) => {
   const colour = filled ? "text-white" : "text-brand";
+  // `to` = in-app link (no page reload); `href` = plain link or #anchor
+  const Tag = to ? Link : "a";
   return (
-    <a
-      href={href}
+    <Tag
+      {...(to ? { to } : { href })}
       onClick={onClick}
       className={`inline-flex items-center justify-center gap-2 h-[55px] px-6 py-3 text-xs font-bold tracking-wide relative overflow-hidden group ${
         filled ? "bg-[#FF322E] text-white border-transparent" : "bg-transparent border-[1px] border-brand text-brand"
@@ -23,7 +28,7 @@ const HeroButton = ({ text, href, onClick, filled }) => {
       <span className="block transition-all whitespace-nowrap duration-300 ease-in-out text-base group-hover:translate-x-40">
         {text}
       </span>
-    </a>
+    </Tag>
   );
 };
 
@@ -40,7 +45,7 @@ const SplitHero = ({
     className="mt-20 w-full max-w-[1280px] mx-auto px-4 md:px-10 min-[1360px]:px-0 pt-12 sm:pt-16 md:pt-20 lg:pt-28 pb-16 md:pb-20 lg:pb-24"
     aria-label={ariaLabel}
   >
-    <div className="grid grid-cols-1 lg:grid-cols-[1fr_minmax(0,400px)] gap-10 lg:gap-16 items-end">
+    <div className="flex flex-col min-h-[536px] min-[350px]:min-h-[512px] lg:min-h-0 lg:grid lg:grid-cols-[1fr_minmax(0,400px)] gap-10 lg:gap-16 lg:items-end">
       <div className="flex flex-col gap-10 lg:gap-20">
         <LazyText animation="fadeUp" delay={0}>
           <AccentHeadline
@@ -53,11 +58,14 @@ const SplitHero = ({
         <SiloTriangle className="hidden lg:block w-[88px] h-[72px]" />
       </div>
 
-      <div className="flex flex-col gap-6 lg:pb-1">
-        <p className="font-epilogue text-black text-base md:text-lg leading-[150%]">{description}</p>
-        <div className="flex flex-row gap-3 sm:gap-4 items-start">
-          {primary && <HeroButton {...primary} filled />}
-          {secondary && <HeroButton {...secondary} />}
+      <div className="flex flex-col flex-1 gap-6 lg:flex-none lg:pb-1">
+        {/* my-auto: on phones/tablets any spare height is split evenly above and below this block */}
+        <div className="flex flex-col gap-6 my-auto">
+          <p className="font-epilogue text-black text-base md:text-lg leading-[150%]">{description}</p>
+          <div className="flex flex-row gap-3 sm:gap-4 items-start">
+            {primary && <HeroButton {...primary} filled />}
+            {secondary && <HeroButton {...secondary} />}
+          </div>
         </div>
         <SiloTriangle className="lg:hidden mt-6 w-[56px] h-[46px]" />
       </div>
