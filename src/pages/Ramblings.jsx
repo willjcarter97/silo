@@ -10,6 +10,7 @@ import { client } from "../prismicio";
 import LazyImage from "../components/Common/LazyImage";
 import LazyElement from "../components/Common/LazyElement";
 import JobBoardNewsletterPrismic from "../components/Common/JobBoardNewsletterPrismic";
+import SplitHero from "../components/Common/SplitHero";
 
 // GSAP
 import gsap from "gsap";
@@ -176,17 +177,19 @@ export default function Ramblings() {
   const displayEmptyStateDescription = pageData?.emptyStateDescription || defaults.emptyStateDescription;
 
   return (
-    <div className="min-h-screen md:mt-20 lg:mt-28 mx-3 md:mx-0">
-      <div className="mx-auto max-w-[1280px] px-4 md:px-10 min-[1360px]:px-0 md:py-12 mb-20">
-        {/* Header Section */}
-        <div className="mb-24 md:w-[50vw] mt-32 md:mt-0 ">
-          <h1 className="text-4xl lg:text-5xl font-bold text-black mb-4 font-['Epilogue'] leading-tight">
-            {displayHeading}
-          </h1>
-          <p className="text-black text-lg font-normal">
-            {displayDescription}
-          </p>
-        </div>
+    <div className="min-h-screen">
+      {/* Header Section: same hero as About / Case Studies / Services (no buttons) */}
+      <SplitHero
+        ariaLabel="Blog introduction"
+        headingWidth="max-w-[14ch]"
+        heading={displayHeading}
+        description={displayDescription}
+        matchMobileHeight={false}
+      />
+
+      <div className="relative left-1/2 -translate-x-1/2 w-screen h-[1px] bg-black" />
+
+      <div className="mx-auto max-w-[1280px] px-4 md:px-10 min-[1360px]:px-0 pt-12 md:pt-16 lg:pt-20 mb-20">
 
         {/* Loading State */}
         {isLoading && (
