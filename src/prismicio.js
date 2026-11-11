@@ -1,7 +1,7 @@
 import * as prismic from "@prismicio/client";
 
 // Your Prismic repository name
-const repositoryName = "silosite";
+export const repositoryName = "silosite";
 
 /**
  * Environment Detection

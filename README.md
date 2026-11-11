@@ -378,14 +378,14 @@ The site uses a dual-environment setup for staging and production.
 
 | Environment | Platform | Branch | URL | Prismic Content |
 |-------------|----------|--------|-----|-----------------|
-| **Production** | Netlify | `main` | Your domain | Published only |
-| **Staging** | Vercel | `main` | Vercel preview URL | Draft + Published |
+| **Production** | Netlify | `main` | Your domain | Published (drafts via Prismic Preview) |
+| **Staging** | Vercel | `main` | Vercel preview URL | Published (drafts via Prismic Preview) |
 
 ### How It Works
 
 1. **Push to `main` branch** → Deploys to both Netlify (production) and Vercel (staging)
 2. **Edit content in Prismic** → Create/edit as drafts
-3. **Preview on staging** → See draft content on Vercel deployment
+3. **Click Preview in Prismic** → Opens the draft on the site (only you see it; see Previewing drafts below)
 4. **Publish in Prismic** → Content goes live on production (Netlify)
 
 ### Environment Variables
@@ -408,6 +408,19 @@ This project is connected to Prismic for headless content management.
 ### Configuration
 - **Repository**: `silosite` (https://silosite.prismic.io/)
 - **Client file**: `src/prismicio.js`
+
+### Previewing drafts
+Save a draft in Prismic and click the eye icon (Preview) to see it on the site before publishing. Only your
+browser sees the draft; a Prismic toolbar at the bottom of the page has the button to exit the preview.
+
+How it works: Prismic opens `/preview?token=...`, `src/pages/Preview.jsx` sends you to the right page using
+`linkResolver` in `src/lib/prismicPreview.js`, and the Prismic client reads the `io.prismic.preview` cookie on
+every query. The CSP in `netlify.toml` allows the toolbar (static.cdn.prismic.io, prismic.io, silosite.prismic.io).
+
+One-time setup in Prismic: **Settings → Previews → Create a preview**, with
+- Site name: `Production` (add another for the Vercel staging URL, or `http://localhost:5173` for dev)
+- Domain: `https://silo-creative.com`
+- Preview route: `/preview`
 
 ### Packages
 - `@prismicio/client` - API client for fetching content
