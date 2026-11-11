@@ -19,10 +19,13 @@ import PostCaseStudy from "../pages/PostCaseStudy.jsx";
 import ThankYou from "../pages/ThankYou.jsx";
 import Pricing from "../pages/Pricing.jsx";
 import PricingThankYou from "../pages/PricingThankYou.jsx";
+import Preview from "../pages/Preview.jsx";
 
 function RoutesTree() {
   return (
     <Routes>
+      {/* Prismic draft previews (see src/lib/prismicPreview.js) */}
+      <Route path="preview" element={<Preview />} />
       <Route element={<Layout />}>
         <Route index element={<Home />} />
         <Route path="about" element={<About />} />
