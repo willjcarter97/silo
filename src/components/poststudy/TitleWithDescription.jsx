@@ -105,9 +105,16 @@ const TitleWithDescription = ({
 
   const handleVimeoClick = () => {
     if (!playerRef.current) return;
-    playerRef.current.getPaused().then((paused) => {
+    const player = playerRef.current;
+    player.getPaused().then((paused) => {
       if (paused) {
-        playerRef.current.play();
+        // The player starts muted; a click is the visitor asking to watch, so play with sound.
+        // If the browser still refuses sound, play muted rather than not at all.
+        player
+          .setMuted(false)
+          .then(() => player.play())
+          .catch(() => player.setMuted(true).then(() => player.play()))
+          .catch(() => {});
         // animate button on resume
         setAnimating(true);
         if (animTimeoutRef.current) clearTimeout(animTimeoutRef.current);
