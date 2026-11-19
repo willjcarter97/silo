@@ -325,7 +325,6 @@ const MindsInTheSilo = () => {
               className={`flex items-stretch gap-3 sm:gap-4 md:gap-6 select-none ${
                 totalSlides > 1 ? 'cursor-grab active:cursor-grabbing' : ''
               }`}
-              style={{ touchAction: totalSlides > 1 ? "pan-y" : "auto" }}
               drag={totalSlides > 1 ? "x" : false}
               dragConstraints={{
                 // Right constraint: cannot scroll past first card (x cannot be positive)
@@ -380,6 +379,7 @@ const MindsInTheSilo = () => {
                 mass: 0.5,
               }}
               style={{
+                touchAction: totalSlides > 1 ? "pan-y" : "auto",
                 width: `${
                   cardWidth * carouselData.length +
                   gap * (carouselData.length - 1)

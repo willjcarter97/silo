@@ -8,6 +8,7 @@ import { usePageMeta } from "../hooks/usePageMeta";
 import TitleWithDescription from "../components/poststudy/TitleWithDescription";
 import StatsSection from "../components/poststudy/StatsSection";
 import GalleryWithText from "../components/poststudy/GalleryWithText";
+import GalleryWithTextRight from "../components/poststudy/GalleryWithTextRight";
 import FullScreenImage from "../components/poststudy/FullScreenImage";
 import SimpleHeadingText from "../components/poststudy/SimpleHeadingText";
 import FourGallery from "../components/poststudy/FourGallery";
@@ -143,6 +144,21 @@ const renderSlice = (slice, index) => {
             })) || []
           }
           itemSpacing="mb-12 md:mb-8"
+        />
+      );
+
+    case "gallery_with_text_right":
+      return (
+        <GalleryWithTextRight
+          key={index}
+          heading={slice.primary?.heading}
+          richText={slice.primary?.text_content}
+          images={
+            slice.items?.map((item) => ({
+              src: item.gallery_image?.url,
+              alt: item.gallery_image?.alt,
+            })) || []
+          }
         />
       );
 
