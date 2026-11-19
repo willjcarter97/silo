@@ -20,6 +20,7 @@ import ThankYou from "../pages/ThankYou.jsx";
 import Pricing from "../pages/Pricing.jsx";
 import PricingThankYou from "../pages/PricingThankYou.jsx";
 import Preview from "../pages/Preview.jsx";
+import { CASE_STUDIES, CONCEPTS } from "../data/collections.js";
 
 function RoutesTree() {
   return (
@@ -34,7 +35,8 @@ function RoutesTree() {
         <Route path="pricing/thank-you" element={<PricingThankYou />} />
         <Route path="blog" element={<Ramblings />} />
         <Route path="blog/:uid" element={<BlogDetail />} />
-        <Route path="case-studies" element={<CaseStudies />} />
+        <Route path="case-studies" element={<CaseStudies key="case-studies" collection={CASE_STUDIES} />} />
+        <Route path="concepts" element={<CaseStudies key="concepts" collection={CONCEPTS} />} />
         <Route path="case-studies/:id" element={<PostCaseStudy />} />
         <Route path="contact" element={<Contact />} />
         <Route path="terms" element={<Terms />} />

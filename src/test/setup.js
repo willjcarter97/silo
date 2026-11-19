@@ -11,3 +11,7 @@ if (typeof window !== "undefined" && !window.matchMedia) {
     removeEventListener() {},
   });
 }
+
+// jsdom has no IntersectionObserver: treat lazy sections as already in view
+import { defaultFallbackInView } from "react-intersection-observer";
+defaultFallbackInView(true);
