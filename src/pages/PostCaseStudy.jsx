@@ -117,6 +117,7 @@ const renderSlice = (slice, index) => {
           title={slice.primary?.section_title}
           richDescription={slice.primary?.section_description}
           description={richTextToArray(slice.primary?.section_description)}
+          note={slice.primary?.note}
           mediaType={slice.primary?.media_type || "none"}
           mediaSrc={
             slice.primary?.media_type === "image"

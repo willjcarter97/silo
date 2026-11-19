@@ -49,3 +49,18 @@ test("if the browser blocks sound, the video still plays muted", async () => {
   await waitFor(() => expect(player.calls.at(-1)).toBe("play(muted:true)"));
   Player.prototype.play = origPlay;
 });
+
+test("note renders small and grey under the description", () => {
+  render(<TitleWithDescription title="T" description="Main text" note="This is a concept project." mediaType="none" />);
+  const note = screen.getByText("This is a concept project.");
+  expect(note).toHaveClass("text-sm", "text-black/60");
+  const description = screen.getByText("Main text");
+  expect(description.compareDocumentPosition(note) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+});
+
+test("empty note renders nothing", () => {
+  const { container, rerender } = render(<TitleWithDescription title="T" description="Main text" note="" mediaType="none" />);
+  expect(container.querySelector(".text-black\\/60")).toBeNull();
+  rerender(<TitleWithDescription title="T" description="Main text" note={null} mediaType="none" />);
+  expect(container.querySelector(".text-black\\/60")).toBeNull();
+});
