@@ -14,7 +14,7 @@ export default function Layout() {
   }, [location.pathname]);
 
   return (
-    <div className="min-h-screen flex flex-col overflow-x-hidden">
+    <div className="min-h-screen flex flex-col overflow-x-clip">
       <Header />
       {/* reserve space for fixed header so page content isn't hidden */}
       <main className={`flex-1 w-full service-top'}`}>

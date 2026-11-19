@@ -27,7 +27,8 @@
 /* Global tweaks to resemble the clean white layout */
 @layer base {
   html, body {
-    overflow-x: hidden;
+    /* clip, not hidden: hidden turns the page into its own scroll box, which stops sticky elements working */
+    overflow-x: clip;
     scrollbar-width: none;
     -ms-overflow-style: none;
   }
