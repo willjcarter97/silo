@@ -1,0 +1,7 @@
+"note": {
+  "type": "Text",
+  "config": {
+    "label": "Note",
+    "placeholder": "Small grey line under the text, e.g. This is a concept project."
+  }
+}

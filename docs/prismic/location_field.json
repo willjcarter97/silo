@@ -1,0 +1,7 @@
+"location": {
+  "type": "Text",
+  "config": {
+    "label": "Location",
+    "placeholder": "e.g. Mount Hawthorn, Perth"
+  }
+}
