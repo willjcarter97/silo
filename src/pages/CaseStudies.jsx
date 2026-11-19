@@ -9,20 +9,9 @@ import LazyElement from "../components/Common/LazyElement";
 import { usePageMeta } from "../hooks/usePageMeta";
 import { pageSeo } from "../data/seo";
 
-// Fallback head copy (used until/unless Prismic has values); single source in src/data/seo.js
-const SEO_FALLBACK = pageSeo("/case-studies");
 import { client } from "../prismicio";
-import { getCaseStudyLocation } from "../data/caseStudyLocations";
+import { CASE_STUDIES } from "../data/collections";
 
-// Default values for hero section
-const defaults = {
-  heading: "You're going to want to see these.",
-  description: "Some of our recent case studies that showcase the thinking and creativity that move brands forward.",
-  primaryButtonText: "Let's chat",
-  primaryButtonLink: "/contact",
-  secondaryButtonText: "Our services",
-  secondaryButtonLink: "/services",
-};
 
 /**
  * Helper to resolve Prismic Link fields to URLs
@@ -38,6 +27,8 @@ const resolveLinkUrl = (linkField) => {
     const typeRoutes = {
       home_page: "/",
       case_study: `/case-studies/${linkField.uid}`,
+      concept: `/concepts/${linkField.uid}`,
+      concepts_page: "/concepts",
       blog_post: `/blog/${linkField.uid}`,
       services_page: "/services",
       contact_page: "/contact",
@@ -56,8 +47,8 @@ const asText = (richTextField) => {
 };
 
 // Case Study Card Component - Desktop
-const CaseStudyCardDesktop = ({ caseStudy, isLast }) => {
-  const link = `/case-studies/${caseStudy.uid}`;
+const CaseStudyCardDesktop = ({ caseStudy, isLast, basePath }) => {
+  const link = `${basePath}/${caseStudy.uid}`;
   
   return (
     <LazyElement
@@ -110,8 +101,8 @@ const CaseStudyCardDesktop = ({ caseStudy, isLast }) => {
 };
 
 // Case Study Card Component - Mobile/Tablet
-const CaseStudyCardMobile = ({ caseStudy, isLast }) => {
-  const link = `/case-studies/${caseStudy.uid}`;
+const CaseStudyCardMobile = ({ caseStudy, isLast, basePath }) => {
+  const link = `${basePath}/${caseStudy.uid}`;
   
   return (
     <LazyElement
@@ -164,7 +155,14 @@ const CaseStudyCardMobile = ({ caseStudy, isLast }) => {
   );
 };
 
-const CaseStudies = () => {
+/**
+ * Portfolio listing page. Shared by Case Studies (/case-studies) and Concepts (/concepts): `collection`
+ * (src/data/collections.js) says which Prismic type, intro document and wording to use.
+ */
+const CaseStudies = ({ collection = CASE_STUDIES }) => {
+  // Fallback head copy (used until/unless Prismic has values); single source in src/data/seo.js
+  const SEO_FALLBACK = pageSeo(collection.seoPath);
+  const defaults = collection.heroDefaults;
   const [pageData, setPageData] = useState(null);
   const [caseStudies, setCaseStudies] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -178,7 +176,7 @@ const CaseStudies = () => {
   useEffect(() => {
     async function fetchPageData() {
       try {
-        const response = await client.getSingle("portfolio_page");
+        const response = await client.getSingle(collection.pageSingleton);
         
         if (response?.data) {
           const data = response.data;
@@ -197,21 +195,21 @@ const CaseStudies = () => {
           });
         }
       } catch (error) {
-        console.warn("Could not fetch portfolio page from Prismic:", error.message);
+        console.warn(`Could not fetch ${collection.pageSingleton} from Prismic:`, error.message);
       }
     }
 
     fetchPageData();
-  }, []);
+  }, [collection]);
 
   // Fetch case studies from Prismic
   useEffect(() => {
     async function fetchCaseStudies() {
       try {
         setIsLoading(true);
-        const response = await client.getAllByType("case_study", {
+        const response = await client.getAllByType(collection.type, {
           orderings: {
-            field: "my.case_study.display_order",
+            field: `my.${collection.type}.display_order`,
             direction: "asc",
           },
         });
@@ -225,20 +223,20 @@ const CaseStudies = () => {
           featuredImage: study.data.featured_image?.url || "",
           displayOrder: study.data.display_order || 999,
           showOnHomepage: study.data.show_on_homepage || false,
-          location: study.data.location || getCaseStudyLocation(study.uid),
+          location: study.data.location || collection.locationFallback(study.uid),
           tags: study.data.tags?.map((t) => t.tag_name).filter(Boolean) || [],
         }));
 
         setCaseStudies(transformedStudies);
       } catch (error) {
-        console.error("Error fetching case studies:", error);
+        console.error(`Error fetching ${collection.type} documents:`, error);
       } finally {
         setIsLoading(false);
       }
     }
 
     fetchCaseStudies();
-  }, []);
+  }, [collection]);
 
   // Use props with fallback to defaults
   const displayHeading = pageData?.heading || defaults.heading;
@@ -252,7 +250,7 @@ const CaseStudies = () => {
     <div className="max-w-[1280px] mx-auto h-auto flex flex-col justify-start items-center">
       {/* Hero Section (Nic's October design: type-led, no photography; red triangle accent) */}
       <SplitHero
-        ariaLabel="Portfolio introduction"
+        ariaLabel={collection.heroAriaLabel}
         accentKey="portfolio"
         headingWidth="max-w-[11ch]"
         heading={displayHeading}
@@ -276,17 +274,19 @@ const CaseStudies = () => {
               </div>
             ) : caseStudies.length === 0 ? (
               <div className="text-center py-20">
-                <p className="text-black text-lg">No case studies found.</p>
+                <p className="text-black text-lg">{collection.emptyText}</p>
               </div>
             ) : (
               caseStudies.map((study, index) => (
                 <React.Fragment key={study.id}>
                   <CaseStudyCardDesktop 
                     caseStudy={study} 
+                    basePath={collection.basePath}
                     isLast={index === caseStudies.length - 1} 
                   />
                   <CaseStudyCardMobile 
                     caseStudy={study} 
+                    basePath={collection.basePath}
                     isLast={index === caseStudies.length - 1} 
                   />
                 </React.Fragment>

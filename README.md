@@ -443,6 +443,14 @@ One-time setup in Prismic: **Settings → Previews → Create a preview**, with
   JSON editor → paste the block from `docs/prismic/gallery_with_text_right.json` inside
   `"choices"` of the slice zone (next to `"gallery_with_text"`) → Save.
 
+#### Concepts (`concept`)
+- Self-initiated projects, kept separate from case studies but using the same page layouts
+- Fetched on `/concepts` (listing) and `/concepts/:uid` (detail); same fields and slices as Case Study, plus `location`
+- Listing intro text comes from the **Concepts Page** (`concepts_page`) single type
+- Reached from the Portfolio dropdown in the main menu (Case Studies / Concepts), set in `src/components/Common/navPortfolio.js`
+- Section settings (type, address, labels, CTA wording) live in `src/data/collections.js`
+- Prismic setup steps: `docs/prismic/concepts-setup.md`
+
 #### Navigation (`navigation`)
 - **Singleton type** (only one instance)
 - Managed in Prismic for global site navigation

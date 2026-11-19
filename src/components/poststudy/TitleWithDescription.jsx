@@ -35,6 +35,7 @@ const TitleWithDescription = ({
   title,
   description,
   richDescription, // Prismic rich text field for formatted description
+  note, // optional small grey line under the description (Prismic "Note")
   mediaType = "video", // "video" or "image" or "iframe"
   mediaSrc = "https://player.vimeo.com/video/76979871?autoplay=1&muted=1&background=0&controls=0",
   mediaCover = null,
@@ -169,6 +170,7 @@ const TitleWithDescription = ({
                   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique."}
               </p>
             )}
+            {note?.trim() && <p className="text-sm font-dm text-black/60 leading-[1.5]">{note}</p>}
           </div>
         </div>
 
