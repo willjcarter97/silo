@@ -1,0 +1,28 @@
+{
+  "gallery_with_text_right": {
+    "type": "Slice",
+    "fieldset": "Gallery with text (images right)",
+    "description": "Heading and text on the left, images on the right",
+    "icon": "view_quilt",
+    "display": "list",
+    "non-repeat": {
+      "heading": {
+        "type": "Text",
+        "config": { "label": "Heading" }
+      },
+      "text_content": {
+        "type": "StructuredText",
+        "config": {
+          "multi": "paragraph,strong,em,hyperlink,heading3,list-item,o-list-item",
+          "label": "Text content"
+        }
+      }
+    },
+    "repeat": {
+      "gallery_image": {
+        "type": "Image",
+        "config": { "label": "Gallery image", "constraint": {}, "thumbnails": [] }
+      }
+    }
+  }
+}

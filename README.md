@@ -437,6 +437,11 @@ One-time setup in Prismic: **Settings → Previews → Create a preview**, with
 - Fetched on `/case-studies` (listing) and `/case-studies/:uid` (detail)
 - **Reorderable**: Set `display_order` field (lower = appears first)
 - **Homepage feature**: Toggle `show_on_homepage` to display on homepage
+- **Gallery slices**: `gallery_with_text` puts images on the left; `gallery_with_text_right` puts text on the
+  left and images on the right, at their own shape (`src/components/poststudy/GalleryWithTextRight.jsx`).
+  Slices are set up in the Prismic dashboard, not in code. To add this one: Custom Types → Case Study →
+  JSON editor → paste the block from `docs/prismic/gallery_with_text_right.json` inside
+  `"choices"` of the slice zone (next to `"gallery_with_text"`) → Save.
 
 #### Navigation (`navigation`)
 - **Singleton type** (only one instance)
