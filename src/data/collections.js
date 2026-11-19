@@ -39,8 +39,8 @@ export const CONCEPTS = {
     description: "Self-initiated projects that show how we'd approach a brand or website before a client asks.",
     primaryButtonText: "Let's chat",
     primaryButtonLink: "/contact",
-    secondaryButtonText: "Case studies",
-    secondaryButtonLink: "/case-studies",
+    secondaryButtonText: "Our services",
+    secondaryButtonLink: "/services",
   },
   cta: { secondaryButtonText: "See more concepts", secondaryButtonLink: "/concepts" },
   // Concepts have a Location field in Prismic; there is no fallback list for them

@@ -13,4 +13,6 @@ test("collections are separate", () => {
   expect(CONCEPTS.locationFallback("basement-approved")).toBeNull();
   expect(CASE_STUDIES.locationFallback("basement-approved")).toBe("London, UK");
   expect(CONCEPTS.heroDefaults.heading).toBe("Concepts");
+  expect(CONCEPTS.heroDefaults.secondaryButtonText).toBe(CASE_STUDIES.heroDefaults.secondaryButtonText);
+  expect(CONCEPTS.heroDefaults.secondaryButtonLink).toBe("/services");
 });
