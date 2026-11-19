@@ -88,6 +88,8 @@ const resolveLinkUrl = (linkField, fallback = null) => {
       ramblings_page: "/blog",
       careers_page: "/careers",
       case_study: `/case-studies/${linkField.uid}`,
+      concept: `/concepts/${linkField.uid}`,
+      concepts_page: "/concepts",
       blog_post: `/blog/${linkField.uid}`,
     };
     return typeRoutes[linkField.type] || (linkField.uid ? `/${linkField.uid}` : fallback);

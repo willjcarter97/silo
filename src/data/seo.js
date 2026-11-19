@@ -83,6 +83,13 @@ export const PAGES = [
     sitemap: { priority: "0.9", changefreq: "weekly" },
   },
   {
+    path: "/concepts",
+    prismic: "concepts_page", titleField: "page_title", descField: "meta_description",
+    title: "Concepts | Brand and Website Concepts | Silo",
+    description: "Self-initiated brand and website concepts from Silo: how we'd approach a project before a client asks.",
+    sitemap: { priority: "0.7", changefreq: "monthly" },
+  },
+  {
     path: "/blog",
     prismic: "ramblings_page", titleField: "page_title", descField: "meta_description",
     title: "Insights on Branding, Design & Web | Silo",
@@ -145,6 +152,15 @@ export const COLLECTIONS = [
     imageField: "hero_image",
     schemaType: null,
     sitemap: { priority: "0.7", changefreq: "monthly" },
+  },
+  {
+    type: "concept",
+    path: (uid) => `/concepts/${uid}`,
+    titleField: "meta_title", titleFallbackField: "title",
+    descField: "meta_description", descFallbackField: "subtitle",
+    imageField: "hero_image",
+    schemaType: null,
+    sitemap: { priority: "0.6", changefreq: "monthly" },
   },
   {
     type: "blog_post",

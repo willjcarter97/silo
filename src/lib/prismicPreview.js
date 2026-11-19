@@ -13,6 +13,12 @@ export function linkResolver(doc) {
       return `/blog/${doc.uid}`;
     case "case_study":
       return `/case-studies/${doc.uid}`;
+    case "portfolio_page":
+      return "/case-studies";
+    case "concept":
+      return `/concepts/${doc.uid}`;
+    case "concepts_page":
+      return "/concepts";
     case "career":
       return `/job/${doc.uid}`;
     default:

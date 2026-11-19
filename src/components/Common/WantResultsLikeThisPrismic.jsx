@@ -19,6 +19,8 @@ const resolveLinkUrl = (linkField) => {
     const typeRoutes = {
       home_page: "/",
       case_study: `/case-studies/${linkField.uid}`,
+      concept: `/concepts/${linkField.uid}`,
+      concepts_page: "/concepts",
       blog_post: `/blog/${linkField.uid}`,
     };
     return typeRoutes[linkField.type] || `/${linkField.uid}`;

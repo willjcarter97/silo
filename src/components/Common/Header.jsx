@@ -140,6 +140,8 @@ const resolveLinkUrl = (linkField) => {
       home_page: "/",
       about_page: "/about",
       case_study: `/case-studies/${linkField.uid}`,
+      concept: `/concepts/${linkField.uid}`,
+      concepts_page: "/concepts",
       blog_post: `/blog/${linkField.uid}`,
       services_page: "/services",
       careers_page: "/careers",
