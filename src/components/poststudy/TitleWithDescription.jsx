@@ -134,21 +134,22 @@ const TitleWithDescription = ({
   return (
     <>
       <div className="w-full max-w-[1280px] mx-auto pt-11 md:pt-24 px-5 md:px-10 min-[1360px]:px-0">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 md:gap-10 lg:gap-16">
+        {/* Figma (Harbourlight): heading top-left, text bottom-right, columns 595/605 of 1280 with an 80px gap */}
+        <div className="flex flex-col md:flex-row md:items-stretch gap-6 md:gap-10 lg:gap-20">
           <div
             className={`${
-              leftWidthClass || "md:w-[55%] lg:w-[58%] xl:w-[60%]"
+              leftWidthClass || "md:flex-1 md:min-w-0"
             }`}
           >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-epilogue font-bold text-black">
+            <h1 className="text-3xl/[1.2] md:text-4xl/[1.2] lg:text-[40px]/[1.2] font-epilogue font-bold text-black">
               {title || "This job was pretty bloody cool."}
             </h1>
           </div>
 
           <div
             className={`${
-              rightWidthClass || "md:w-[42%] lg:w-[38%] xl:w-[36%]"
-            } flex flex-col gap-4`}
+              rightWidthClass || "md:w-[47%] md:shrink-0"
+            } flex flex-col justify-end gap-4 md:gap-8 lg:pt-48`}
           >
             {/* Priority 1: Use PrismicRichText for proper formatting */}
             {richDescription && Array.isArray(richDescription) && richDescription.length > 0 ? (
