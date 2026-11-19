@@ -13,6 +13,7 @@ import FullScreenImage from "../components/poststudy/FullScreenImage";
 import SimpleHeadingText from "../components/poststudy/SimpleHeadingText";
 import FourGallery from "../components/poststudy/FourGallery";
 import WantResultsLikeThis from "../components/Common/WantResultsLikeThis";
+import { CASE_STUDIES } from "../data/collections";
 
 // Helper to extract plain text from Prismic Rich Text
 const asText = (richTextField) => {
@@ -236,7 +237,12 @@ const renderSlice = (slice, index) => {
   }
 };
 
-const PostCaseStudy = () => {
+/**
+ * Single portfolio page. Shared by case studies (/case-studies/:id) and concepts (/concepts/:id):
+ * `collection` (src/data/collections.js) decides which Prismic type is loaded, so a concept's UID under
+ * /case-studies (or the reverse) is "not found".
+ */
+const PostCaseStudy = ({ collection = CASE_STUDIES }) => {
   const { id } = useParams();
   const [caseStudy, setCaseStudy] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -248,7 +254,7 @@ const PostCaseStudy = () => {
     async function fetchCaseStudy() {
       try {
         setIsLoading(true);
-        const study = await client.getByUID("case_study", id);
+        const study = await client.getByUID(collection.type, id);
         setCaseStudy(study);
         setError(null);
       } catch (err) {
@@ -262,7 +268,7 @@ const PostCaseStudy = () => {
     if (id) {
       fetchCaseStudy();
     }
-  }, [id]);
+  }, [id, collection]);
 
   // Auto-play video if present
   useEffect(() => {
@@ -275,7 +281,7 @@ const PostCaseStudy = () => {
 
   // Set page meta
   usePageMeta(
-    caseStudy?.data?.meta_title || caseStudy?.data?.title || "Case Study",
+    caseStudy?.data?.meta_title || caseStudy?.data?.title || collection.singular,
     caseStudy?.data?.meta_description || asText(caseStudy?.data?.description) || "View our case study"
   );
 
@@ -293,16 +299,16 @@ const PostCaseStudy = () => {
         <div className="mx-auto max-w-[1280px] px-6 md:px-10 min-[1360px]:px-0 py-12">
           <div className="text-center">
             <h1 className="text-4xl font-bold text-black mb-4">
-              Case Study Not Found
+              {collection.singular} Not Found
             </h1>
             <p className="text-black mb-8">
-              The case study you're looking for doesn't exist.
+              The {collection.singular.toLowerCase()} you're looking for doesn't exist.
             </p>
             <Link
-              to="/case-studies"
+              to={collection.basePath}
               className="inline-flex items-center text-red-500 hover:text-red-600 font-medium transition-colors"
             >
-              ← Back to Case Studies
+              ← Back to {collection.label}
             </Link>
           </div>
         </div>
@@ -348,7 +354,10 @@ const PostCaseStudy = () => {
       {/* Render all slices using the proper styled components */}
       {slices.map((slice, index) => renderSlice(slice, index))}
 
-      <WantResultsLikeThis />
+      <WantResultsLikeThis
+        secondaryButtonText={collection.cta.secondaryButtonText}
+        secondaryButtonLink={collection.cta.secondaryButtonLink}
+      />
     </div>
   );
 };

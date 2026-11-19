@@ -37,7 +37,8 @@ function RoutesTree() {
         <Route path="blog/:uid" element={<BlogDetail />} />
         <Route path="case-studies" element={<CaseStudies key="case-studies" collection={CASE_STUDIES} />} />
         <Route path="concepts" element={<CaseStudies key="concepts" collection={CONCEPTS} />} />
-        <Route path="case-studies/:id" element={<PostCaseStudy />} />
+        <Route path="case-studies/:id" element={<PostCaseStudy key="case-study" collection={CASE_STUDIES} />} />
+        <Route path="concepts/:id" element={<PostCaseStudy key="concept" collection={CONCEPTS} />} />
         <Route path="contact" element={<Contact />} />
         <Route path="terms" element={<Terms />} />
         <Route path="privacy" element={<Privacy />} />
