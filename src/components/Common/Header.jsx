@@ -4,6 +4,7 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import { FaChevronRight } from "react-icons/fa";
 import { client } from "../../prismicio";
 import "../../styles/scaling-overrides.css";
+import { withPortfolioDropdown, isPortfolioPath } from "./navPortfolio";
 
 // Default navigation data (fallback if Prismic fails)
 const defaultNavData = {
@@ -19,6 +20,84 @@ const defaultNavData = {
   ctaLink: "/contact",
   ctaVisible: true,
 };
+defaultNavData.navLinks = withPortfolioDropdown(defaultNavData.navLinks);
+
+const desktopLinkClass = (isActive) =>
+  `px-2 xl:px-2.5 2xl:px-1 py-2 xl:py-2.5 2xl:py-3 font-medium whitespace-nowrap transition-colors ${
+    isActive ? "text-brand" : "text-black"
+  }`;
+
+/**
+ * Desktop Portfolio menu item: a button that opens Case Studies / Concepts on hover, click or keyboard.
+ * Closes on mouse leave, outside click, Escape and navigation.
+ */
+function PortfolioDropdown({ item }) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef(null);
+  const pointerType = useRef(null);
+  const location = useLocation();
+
+  useEffect(() => setOpen(false), [location.pathname]);
+
+  // A mouse has already opened the menu on hover, so its click must not close it again.
+  // Touch taps and the keyboard toggle it.
+  const handleClick = () => {
+    if (pointerType.current === "mouse") setOpen(true);
+    else setOpen((v) => !v);
+    pointerType.current = null;
+  };
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e) => e.key === "Escape" && setOpen(false);
+    const onClick = (e) => ref.current && !ref.current.contains(e.target) && setOpen(false);
+    document.addEventListener("keydown", onKey);
+    document.addEventListener("mousedown", onClick);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.removeEventListener("mousedown", onClick);
+    };
+  }, [open]);
+
+  return (
+    <div ref={ref} className="relative" onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
+      <button
+        type="button"
+        aria-haspopup="true"
+        aria-expanded={open}
+        onPointerDown={(e) => (pointerType.current = e.pointerType)}
+        onClick={handleClick}
+        className={`${desktopLinkClass(isPortfolioPath(location.pathname))} inline-flex items-center gap-1 cursor-pointer`}
+      >
+        {item.label}
+        <svg aria-hidden="true" width="10" height="10" viewBox="0 0 10 10" className={`transition-transform ${open ? "rotate-180" : ""}`}>
+          <path d="M1 3l4 4 4-4" stroke="currentColor" strokeWidth="1.5" fill="none" />
+        </svg>
+      </button>
+      {open && (
+        // pt-2 bridges the gap so the menu stays open while the pointer moves down to it
+        <div className="absolute left-0 top-full pt-2 z-50">
+          <ul className="min-w-[180px] bg-white border border-black py-2 shadow-lg">
+            {item.children.map((child) => (
+              <li key={child.link}>
+                <NavLink
+                  to={child.link}
+                  className={({ isActive }) =>
+                    `block px-4 py-2 text-base font-medium whitespace-nowrap transition-colors hover:text-brand ${
+                      isActive ? "text-brand" : "text-black"
+                    }`
+                  }
+                >
+                  {child.label}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+}
 
 /**
  * The Prismic navigation singleton replaces the defaults above, so make sure "Pricing" is always present
@@ -126,7 +205,7 @@ export default function Header() {
           const transformedData = {
             logo: data.logo?.url || defaultNavData.logo,
             // Use Prismic nav links only if we got valid ones, otherwise keep defaults
-            navLinks: withPricing(transformedNavLinks.length > 0 ? transformedNavLinks : defaultNavData.navLinks),
+            navLinks: withPortfolioDropdown(withPricing(transformedNavLinks.length > 0 ? transformedNavLinks : defaultNavData.navLinks)),
             ctaText: data.cta_text || defaultNavData.ctaText,
             ctaLink: resolveLinkUrl(data.cta_link) || defaultNavData.ctaLink,
             ctaVisible: data.cta_visible !== false,
@@ -203,19 +282,15 @@ export default function Header() {
           <div className="flex items-center justify-center gap-6">
             {/* Center: Nav */}
             <nav className="hidden lg:flex items-center justify-center gap-3 xl:gap-4 2xl:gap-6 text-base xl:text-lg font-medium text-black relative">
-              {navData.navLinks.map((navItem, index) => (
-                <NavLink
-                  key={index}
-                  to={navItem.link}
-                  className={({ isActive }) =>
-                    `px-2 xl:px-2.5 2xl:px-1 py-2 xl:py-2.5 2xl:py-3 font-medium whitespace-nowrap transition-colors ${
-                      isActive ? "text-brand" : "text-black"
-                    }`
-                  }
-                >
-                  {navItem.label}
-                </NavLink>
-              ))}
+              {navData.navLinks.map((navItem, index) =>
+                navItem.children ? (
+                  <PortfolioDropdown key={index} item={navItem} />
+                ) : (
+                  <NavLink key={index} to={navItem.link} className={({ isActive }) => desktopLinkClass(isActive)}>
+                    {navItem.label}
+                  </NavLink>
+                )
+              )}
             </nav>
 
             {/* Mobile menu button */}
@@ -283,7 +358,7 @@ export default function Header() {
           {/* curtain panel: extends from header with smooth curtain animation */}
           <aside
             className={`absolute left-0 right-0 top-16 md:top-20 overflow-hidden transition-all duration-200 ease-out z-40 ${
-              open ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
+              open ? "max-h-[85vh] overflow-y-auto opacity-100" : "max-h-0 opacity-0"
             }`}
             style={{ transformOrigin: "top" }}
             aria-hidden={!open}
@@ -291,7 +366,36 @@ export default function Header() {
             <div className="mx-3 lg:mx-auto">
               <div className="max-w-[1280px] border-[1px] border-black border-t-0 mx-auto bg-white shadow-lg">
                 <nav className="px-6 py-8 flex-1 flex flex-col gap-6 text-center">
-                  {navData.navLinks.map((navItem, index) => (
+                  {navData.navLinks.map((navItem, index) =>
+                    navItem.children ? (
+                      <div
+                        key={index}
+                        className={`flex flex-col items-center gap-3 transition-all duration-150 ${
+                          open ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
+                        }`}
+                        style={{ transitionDelay: open ? `${80 + index * 80}ms` : "0ms" }}
+                      >
+                        <span
+                          className={`text-xl font-medium tracking-tight ${
+                            isPortfolioPath(location.pathname) ? "text-brand" : "text-black"
+                          }`}
+                        >
+                          {navItem.label}
+                        </span>
+                        {navItem.children.map((child) => (
+                          <NavLink
+                            key={child.link}
+                            to={child.link}
+                            onClick={close}
+                            className={({ isActive }) =>
+                              `text-base font-medium ${isActive ? "text-brand" : "text-black/70"}`
+                            }
+                          >
+                            {child.label}
+                          </NavLink>
+                        ))}
+                      </div>
+                    ) : (
                     <NavLink
                       key={index}
                       to={navItem.link}
@@ -311,7 +415,8 @@ export default function Header() {
                     >
                       {navItem.label}
                     </NavLink>
-                  ))}
+                    )
+                  )}
                 </nav>
 
                 {navData.ctaVisible && (
