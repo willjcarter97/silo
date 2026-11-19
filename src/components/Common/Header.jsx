@@ -34,6 +34,7 @@ const desktopLinkClass = (isActive) =>
 function PortfolioDropdown({ item }) {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
+  const buttonRef = useRef(null);
   const pointerType = useRef(null);
   const location = useLocation();
 
@@ -49,7 +50,12 @@ function PortfolioDropdown({ item }) {
 
   useEffect(() => {
     if (!open) return;
-    const onKey = (e) => e.key === "Escape" && setOpen(false);
+    const onKey = (e) => {
+      if (e.key !== "Escape") return;
+      // If focus was inside the menu, hand it back to Portfolio rather than losing it
+      if (ref.current?.contains(document.activeElement)) buttonRef.current?.focus();
+      setOpen(false);
+    };
     const onClick = (e) => ref.current && !ref.current.contains(e.target) && setOpen(false);
     document.addEventListener("keydown", onKey);
     document.addEventListener("mousedown", onClick);
@@ -60,10 +66,18 @@ function PortfolioDropdown({ item }) {
   }, [open]);
 
   return (
-    <div ref={ref} className="relative" onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
+    <div
+      ref={ref}
+      className="relative"
+      // Hover only for a real mouse: touch taps also fire enter events, which would fight the tap
+      onPointerEnter={(e) => e.pointerType === "mouse" && setOpen(true)}
+      onPointerLeave={(e) => e.pointerType === "mouse" && setOpen(false)}
+      // Close when keyboard focus leaves the menu
+      onBlur={(e) => !ref.current?.contains(e.relatedTarget) && setOpen(false)}
+    >
       <button
+        ref={buttonRef}
         type="button"
-        aria-haspopup="true"
         aria-expanded={open}
         onPointerDown={(e) => (pointerType.current = e.pointerType)}
         onClick={handleClick}

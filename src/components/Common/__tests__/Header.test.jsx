@@ -53,7 +53,7 @@ test("mobile menu lists Case Studies and Concepts under Portfolio", () => {
 test("with a mouse, clicking after hovering keeps the menu open", () => {
   renderAt();
   const button = within(desktopNav()).getByRole("button", { name: "Portfolio" });
-  fireEvent.mouseEnter(button.parentElement);
+  fireEvent.pointerEnter(button.parentElement, { pointerType: "mouse" });
   fireEvent.pointerDown(button, { pointerType: "mouse" });
   fireEvent.click(button);
   expect(button).toHaveAttribute("aria-expanded", "true");
@@ -68,4 +68,41 @@ test("on touch, tapping again closes the menu", () => {
   fireEvent.pointerDown(button, { pointerType: "touch" });
   fireEvent.click(button);
   expect(button).toHaveAttribute("aria-expanded", "false");
+});
+
+test("a touch tap at desktop width opens the menu (browsers also fire mouseenter on tap)", () => {
+  renderAt();
+  const button = within(desktopNav()).getByRole("button", { name: "Portfolio" });
+  fireEvent.pointerDown(button, { pointerType: "touch" });
+  fireEvent.pointerEnter(button.parentElement, { pointerType: "touch" });
+  fireEvent.mouseEnter(button.parentElement);
+  fireEvent.click(button);
+  expect(button).toHaveAttribute("aria-expanded", "true");
+});
+
+test("Escape from inside the menu returns focus to Portfolio", () => {
+  renderAt();
+  const nav = desktopNav();
+  const button = within(nav).getByRole("button", { name: "Portfolio" });
+  fireEvent.click(button);
+  const concepts = within(nav).getByRole("link", { name: "Concepts" });
+  concepts.focus();
+  fireEvent.keyDown(concepts, { key: "Escape" });
+  expect(button).toHaveAttribute("aria-expanded", "false");
+  expect(document.activeElement).toBe(button);
+});
+
+test("tabbing out of the menu closes it", () => {
+  renderAt();
+  const nav = desktopNav();
+  const button = within(nav).getByRole("button", { name: "Portfolio" });
+  fireEvent.click(button);
+  const concepts = within(nav).getByRole("link", { name: "Concepts" });
+  fireEvent.blur(concepts, { relatedTarget: document.body });
+  expect(button).toHaveAttribute("aria-expanded", "false");
+});
+
+test("Portfolio is announced as a disclosure, not a popup menu", () => {
+  renderAt();
+  expect(within(desktopNav()).getByRole("button", { name: "Portfolio" })).not.toHaveAttribute("aria-haspopup");
 });
