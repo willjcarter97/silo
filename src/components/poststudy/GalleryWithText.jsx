@@ -123,13 +123,15 @@ const GalleryWithText = ({ heading, text, content, richText, images, itemSpacing
           {displayImages.map((image, index) => (
             <div
               key={index}
-              className="w-full aspect-square bg-white overflow-hidden"
+              // Images keep their own shape (a square box left white bands around wide screenshots);
+              // only the empty placeholder stays square
+              className={image.src ? "w-full" : "w-full aspect-square bg-white overflow-hidden"}
             >
               {image.src ? (
                 <img
                   src={image.src}
                   alt={image.alt || `Gallery image ${index + 1}`}
-                  className={image.className || "w-full h-full object-contain"}
+                  className={image.className || "w-full h-auto"}
                   loading="lazy"
                 />
               ) : (
